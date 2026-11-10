@@ -20,10 +20,11 @@ jobs:
       MKL_NUM_THREADS: "1"
       UV_NO_CACHE: "true"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: astral-sh/setup-uv@v7
         with:
           python-version: "3.12"
+          enable-cache: false
       - name: Install system libraries
         run: sudo apt-get update && sudo apt-get install -y libegl1 libgl1 libglib2.0-0
       - name: Install locked dependencies
