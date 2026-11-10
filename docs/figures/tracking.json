@@ -1,0 +1,9 @@
+{
+  "checkpoint_sha256": "3842a75c651b25acabfbd19afe2280ab76a68889adf8ac8aa37fcf282420a617",
+  "trajectory_sha256": "de684d48e1b91700eae6fbd459b6ca3b251b9ff66e4711249b1d9e76e4dc424e",
+  "motion_sha256": "4598698aa035c52ba160986e05796cb525df557d1879266e933c40a65994c041",
+  "simulated_seconds": 261.3,
+  "actual_xy_distance_m": 129.15699229089324,
+  "reference_xy_distance_full_clip_m": 131.75955200195312,
+  "source": "saved physical trajectory; no new simulation"
+}

@@ -1,0 +1,86 @@
+"""Admission and worker-stop behavior without allocating a CUDA context."""
+
+import json
+import sys
+
+import pytest
+
+from supermimic.resources import GIB, ResourceLimits, admit, clean_environment
+from supermimic.supervisor import supervise
+
+
+@pytest.fixture
+def available_host(monkeypatch):
+    # These tests exercise child exit/signals, independently of concurrent jobs.
+    def snapshot(path):
+        return {"ram_available_bytes": 100 * GIB, "disk_free_bytes": 100 * GIB}
+
+    monkeypatch.setattr("supermimic.resources.host_snapshot", snapshot)
+    monkeypatch.setattr("supermimic.supervisor.host_snapshot", snapshot)
+    monkeypatch.setattr("supermimic.resources.gpu_snapshot", lambda: [])
+
+
+def test_admission_preserves_shared_gpu_headroom(monkeypatch):
+    monkeypatch.setattr(
+        "supermimic.resources.host_snapshot",
+        lambda p: {"ram_available_bytes": 20 * GIB, "disk_free_bytes": 100 * GIB},
+    )
+    monkeypatch.setattr(
+        "supermimic.resources.gpu_snapshot",
+        lambda: [{"index": 0, "free_mib": 6000, "total_mib": 24000, "used_mib": 18000}],
+    )
+    with pytest.raises(RuntimeError, match="reserve"):
+        admit(ResourceLimits())
+    assert admit(ResourceLimits(max_gpu_mib=1500))["gpu"]["free_mib"] == 6000
+
+
+@pytest.mark.parametrize(
+    "field,value",
+    [
+        ("max_rss_gib", -1),
+        ("reserve_gpu_mib", 0),
+        ("poll_seconds", float("nan")),
+        ("gpu_index", -1),
+    ],
+)
+def test_invalid_limits(field, value):
+    with pytest.raises(ValueError):
+        ResourceLimits(**{field: value}).validate()
+
+
+def test_worker_exit_status_and_log_are_preserved(tmp_path, available_host):
+    output = tmp_path / "run"
+    code = supervise(
+        [sys.executable, "-I", "-c", "print('worker failed'); raise SystemExit(7)"],
+        output,
+        ResourceLimits(poll_seconds=0.02),
+        max_seconds=5,
+        cuda=False,
+    )
+    record = json.loads((output / "run.json").read_text())
+    assert code == 7 and record["exit_code"] == 7 and record["status"] == "failed"
+    assert "worker failed" in (output / "worker.log").read_text()
+
+
+def test_time_limit_stops_only_own_worker(tmp_path, available_host):
+    output = tmp_path / "limited"
+    code = supervise(
+        [sys.executable, "-I", "-c", "import time; time.sleep(5)"],
+        output,
+        ResourceLimits(poll_seconds=0.02, stop_grace_seconds=0.1),
+        max_seconds=0.1,
+        cuda=False,
+    )
+    record = json.loads((output / "run.json").read_text())
+    assert code == 2 and record["stop_reason"] == "time_limit"
+    assert record["exit_code"] != 0
+
+
+def test_python_ros_path_pollution_is_removed(monkeypatch):
+    monkeypatch.setenv("PYTHONPATH", "/opt/ros/humble/lib/python3.10/site-packages")
+    monkeypatch.setenv("OMP_NUM_THREADS", "64")
+    monkeypatch.setenv("WORLD_SIZE", "4")
+    monkeypatch.setenv("MASTER_ADDR", "external-cluster-host")
+    env = clean_environment()
+    assert "PYTHONPATH" not in env and env["OMP_NUM_THREADS"] == "1"
+    assert env["WORLD_SIZE"] == "1" and "MASTER_ADDR" not in env
