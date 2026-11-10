@@ -1,0 +1,30 @@
+{
+  "motion_sha256": "4598698aa035c52ba160986e05796cb525df557d1879266e933c40a65994c041",
+  "source": "recorded actual physical states",
+  "runs": [
+    {
+      "label": "Original",
+      "run": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/final/mujoco",
+      "trajectory_sha256": "de684d48e1b91700eae6fbd459b6ca3b251b9ff66e4711249b1d9e76e4dc424e",
+      "checkpoint_sha256": "3842a75c651b25acabfbd19afe2280ab76a68889adf8ac8aa37fcf282420a617",
+      "completed_motion": true,
+      "simulated_seconds": 261.3,
+      "root_xy_rmse_m": 5.4084532694619,
+      "root_yaw_rmse_rad": 1.418606819977721,
+      "joint_rmse_rad": 0.2932570738333962,
+      "full_clip_return": 0.6503826048791158
+    },
+    {
+      "label": "Relative-anchor",
+      "run": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/anchor-final-20261106/mujoco",
+      "trajectory_sha256": "a4755a03b3b47c2990649480c02f113e569fbf2ca7eca3a70db405c55b929ac5",
+      "checkpoint_sha256": "bc95a21eb9b55ba56aafd6b5bd4dc9ba663f19f7f087d674348318243ec633c4",
+      "completed_motion": true,
+      "simulated_seconds": 261.3,
+      "root_xy_rmse_m": 0.49539102135848867,
+      "root_yaw_rmse_rad": 0.10374099472812524,
+      "joint_rmse_rad": 0.29632877691223003,
+      "full_clip_return": 0.8215163963944164
+    }
+  ]
+}

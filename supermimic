@@ -1,0 +1,14 @@
+#!/usr/bin/env python3
+"""Use this repository's independent SDK without inheriting ROS/Python paths."""
+import os
+import sys
+from pathlib import Path
+
+root = Path(__file__).resolve().parent
+python = root / ".venv/bin/python"
+if not python.is_file():
+    raise SystemExit("Create the SDK first: uv sync --locked --group dev")
+environment = {k: v for k, v in os.environ.items() if k not in {"PYTHONPATH", "PYTHONHOME"}}
+environment.update(OMP_NUM_THREADS="1", OPENBLAS_NUM_THREADS="1", MKL_NUM_THREADS="1")
+os.chdir(root)
+os.execve(str(python), [str(python), "-I", "-m", "supermimic", *sys.argv[1:]], environment)

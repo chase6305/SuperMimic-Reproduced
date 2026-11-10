@@ -1,0 +1,132 @@
+{
+  "root": "runs/seven-hour-20261106-main",
+  "runs": [
+    {
+      "run": "runs/seven-hour-20261106-main/batch48/seed42-attempt000",
+      "seed": 42,
+      "last_logged_iteration": 16900,
+      "last_logged_episode_return": 0.35746063562956726,
+      "cpu_evaluation": {}
+    },
+    {
+      "run": "runs/seven-hour-20261106-main/batch48/seed42-attempt002",
+      "seed": 42,
+      "last_logged_iteration": 20200,
+      "last_logged_episode_return": 0.26223058501879376,
+      "cpu_evaluation": {}
+    },
+    {
+      "run": "runs/seven-hour-20261106-main/batch48/seed43-attempt001",
+      "seed": 43,
+      "last_logged_iteration": 8780,
+      "last_logged_episode_return": 0.3060658048424456,
+      "cpu_evaluation": {}
+    },
+    {
+      "run": "runs/seven-hour-20261106-main/fit512/seed42-attempt000",
+      "seed": 42,
+      "last_logged_iteration": 23700,
+      "last_logged_episode_return": 0.5071674853563308,
+      "cpu_evaluation": {}
+    },
+    {
+      "run": "runs/seven-hour-20261106-main/fit512/seed42-attempt002",
+      "seed": 42,
+      "last_logged_iteration": 26840,
+      "last_logged_episode_return": 0.5396090745925903,
+      "cpu_evaluation": {}
+    },
+    {
+      "run": "runs/seven-hour-20261106-main/fit512/seed42-attempt004",
+      "seed": 42,
+      "last_logged_iteration": 27780,
+      "last_logged_episode_return": null,
+      "cpu_evaluation": {}
+    },
+    {
+      "run": "runs/seven-hour-20261106-main/fit512/seed42-attempt006",
+      "seed": 42,
+      "last_logged_iteration": 31920,
+      "last_logged_episode_return": 0.5270082368737176,
+      "cpu_evaluation": {}
+    },
+    {
+      "run": "runs/seven-hour-20261106-main/fit512/seed42-attempt008",
+      "seed": 42,
+      "last_logged_iteration": 37060,
+      "last_logged_episode_return": 0.6065248471239338,
+      "cpu_evaluation": {}
+    },
+    {
+      "run": "runs/seven-hour-20261106-main/fit512/seed42-attempt010",
+      "seed": 42,
+      "last_logged_iteration": 37860,
+      "last_logged_episode_return": 0.7974163889884949,
+      "cpu_evaluation": {}
+    },
+    {
+      "run": "runs/seven-hour-20261106-main/fit512/seed43-attempt001",
+      "seed": 43,
+      "last_logged_iteration": 12340,
+      "last_logged_episode_return": 0.36217904686927793,
+      "cpu_evaluation": {}
+    },
+    {
+      "run": "runs/seven-hour-20261106-main/fit512/seed43-attempt003",
+      "seed": 43,
+      "last_logged_iteration": 15260,
+      "last_logged_episode_return": 0.32053837180137634,
+      "cpu_evaluation": {}
+    },
+    {
+      "run": "runs/seven-hour-20261106-main/fit512/seed43-attempt005",
+      "seed": 43,
+      "last_logged_iteration": 18360,
+      "last_logged_episode_return": 0.534714322665642,
+      "cpu_evaluation": {}
+    },
+    {
+      "run": "runs/seven-hour-20261106-main/fit512/seed43-attempt007",
+      "seed": 43,
+      "last_logged_iteration": 23120,
+      "last_logged_episode_return": 0.6386846452951431,
+      "cpu_evaluation": {}
+    },
+    {
+      "run": "runs/seven-hour-20261106-main/fit512/seed43-attempt009",
+      "seed": 43,
+      "last_logged_iteration": 28380,
+      "last_logged_episode_return": 0.5254254205660387,
+      "cpu_evaluation": {}
+    },
+    {
+      "run": "runs/seven-hour-20261106-main/model-fit-probe",
+      "seed": 43,
+      "last_logged_iteration": 9280,
+      "last_logged_episode_return": 0.01837114430963993,
+      "cpu_evaluation": {}
+    },
+    {
+      "run": "runs/seven-hour-20261106-main/probe-b48",
+      "seed": 43,
+      "last_logged_iteration": 5840,
+      "last_logged_episode_return": 0.4064822692063547,
+      "cpu_evaluation": {}
+    },
+    {
+      "run": "runs/seven-hour-20261106-main/seed42-attempt000",
+      "seed": 42,
+      "last_logged_iteration": 13540,
+      "last_logged_episode_return": 0.19625455575684705,
+      "cpu_evaluation": {}
+    },
+    {
+      "run": "runs/seven-hour-20261106-main/seed43-attempt001",
+      "seed": 43,
+      "last_logged_iteration": 5240,
+      "last_logged_episode_return": 0.38739406787432157,
+      "cpu_evaluation": {}
+    }
+  ],
+  "evaluations": "runs/seven-hour-20261106-evaluations/session.json"
+}
