@@ -155,3 +155,7 @@ CPU 测试覆盖 G1 FK、状态表示、训练／部署历史和目标特征一�
 ```bash
 .venv/bin/python -I scripts/summarize_runs.py --output runs/summary.json
 ```
+
+## 后续技能优化（独立审阅）
+
+未通过技能验收的候选、资源记录和后续方案见 [专项记录](docs/SKILLS.md)、[能力探测](docs/CAPABILITIES.md)、[实验进展](docs/EXPERIMENT_PROGRESS.md) 和 [历史工作记录](docs/WORKLOG.md)。`scripts/optimize_g1.py` 为待单独验收的分段优化编排入口；本 PR 不采用新模型或修改默认训练配置。
