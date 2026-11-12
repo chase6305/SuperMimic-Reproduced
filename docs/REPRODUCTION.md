@@ -76,7 +76,22 @@ CSV 转换前检查时间和数组大小，单片段限制 250,000 个输出帧�
 
 ## 模块与资源所有权
 
-`config.py` 保存配置 dataclass，`interfaces.py` 保存 G1 关节顺序、跟踪刚体、观测项与目标项的维数。这两个模块只依赖标准库；无 checkpoint 的 profile 解析、内存估算和 `data.discovery` 文件选择也不加载 Torch 或仿真 SDK。旧实现模块仍重导出原配置类与常量，检查点继续存储相同的 `asdict` 字段树。环境观测项也按共享规范生成顺序，项名集合不匹配时在创建环境前拒绝。
+资源准入和运行监测由公开 CLI／脚本建立。直接集成库 API 时，调用方负责在导入重 SDK 前安排资源保护，并管理自己创建的进程和对象。下表区分模块导入的依赖与实际执行边界；CPU 表示计算设备，并不等于只依赖标准库。
+
+| 模块／入口 | 主要导入依赖 | 执行边界 |
+| --- | --- | --- |
+| `config`、`interfaces`、`memory`、`data.discovery` | 标准库 | 配置、G1 规范、内存估算与文件选择无需数值 SDK |
+| `profiles` | 标准库 | 新运行配置解析保持轻量；读取恢复配置时引入 Torch |
+| `world_model.reference` | 标准库 | Tensor 类型仅用于静态分析；参考数据由调用方提供的 library 查询 |
+| `data.motion_library` | NumPy、Torch，以及数学工具带入的 mjlab／Warp | 紧凑模式还需 MuJoCo 模型与 FK；移到数据层不代表 SDK 隔离 |
+| `policy.nets`、`checkpoints`、`eval.benchmark` | Torch | actor 先在 CPU 恢复；实际执行 benchmark 时再导入仿真接口 |
+| `deployment.reference` | NumPy、SciPy | 动作目标与旋转计算无需 actor 或仿真 SDK |
+| `deployment.metrics` | NumPy | 可独立统计接触；获取 `tracking_metrics` 时加载下一个模块 |
+| `deployment.tracking_metrics` | Torch、NumPy／SciPy、MuJoCo、mjlab／Warp | 用 CPU FK 与解析奖励完成跟踪评分 |
+| `deployment.validation` | 标准库 | 校验元数据；模型地址检查接收调用方已加载的 model |
+| `artifacts`、`runtime` | 标准库 | 管理文件、摘要、源码副本与启动参数；资源保护由入口负责 |
+
+旧实现模块仍重导出原配置类、参考工具与常量，检查点继续存储相同的 `asdict` 字段树。环境观测项按共享规范生成顺序，项名集合不匹配时在创建环境前拒绝。
 
 共享动作库实现属于 `data.motion_library`，环境的 `envs.mdp.motion_library` 保留兼容导出。世界模型与想象轨迹通过 `world_model.reference` 共享参考帧，想象过程不再为了读取参考帧而导入拟合训练器。世界模型拟合仍只查询其损失需要的根位姿，紧凑动作库不会因此增加身体 FK 查询。
 
@@ -88,6 +103,8 @@ CSV 转换前检查时间和数组大小，单片段限制 250,000 个输出帧�
 
 部署契约在反序列化 actor 前检查观测项、历史布局、目标维数、坐标系及 50 Hz 控制时钟；加载 MJB 后再核对实际物理周期、状态维数和关节／执行器地址。早期 schema-v1 缺省的初始帧与首目标帧沿用 0／1，额外来源字段仍允许保留。数值上的 Torch 与 NumPy 观测、目标和旋转实现保持独立，便于继续做对齐验证。
 
-`deployment.reference` 保存 NumPy／SciPy 的动作参考与旋转工具；轨迹对比绘图可直接导入它，无需导入策略运行器或 Torch。完整 `tracking_metrics` 仍通过 Torch、FK 和解析奖励评分，这部分依赖保持不变。`deployment.core` 继续重导出原参考工具，已有调用方无需迁移。
+`deployment.reference` 保存 NumPy／SciPy 的动作参考与旋转工具；轨迹对比绘图可直接导入它，无需导入策略运行器或 Torch。`deployment.metrics` 的完整评分入口通过延迟导出返回 `deployment.tracking_metrics` 中的同一个函数；获取该函数时加载 Torch、FK 和解析奖励依赖，评分执行体与推理上下文保留。`deployment.core` 继续重导出原参考工具，已有调用方无需迁移。
 
 评测模块仅在实际创建评测环境时导入仿真接口；单独恢复 actor 不需要环境配置。想象目标函数对 rollout 类型的引用仅用于静态分析，不会为了计算损失而导入想象运行时。
+
+导入隔离测试在独立子进程中阻断数值或仿真 SDK，另有旧路径对象身份、契约拒绝、导出重载及短步 CPU 物理执行测试。真实 CUDA 环境中的历史／目标对照、训练和显式编译集成按各自条件运行，CPU 检查不代替这些验证。

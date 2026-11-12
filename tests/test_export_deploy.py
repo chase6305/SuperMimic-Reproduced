@@ -48,7 +48,12 @@ def test_export_reload_and_physical_rollout(tmp_path):
     assert set(result["implementation_sha256"]) == {"mujoco.py", "core.py", "metrics.py"}
     package = Path(supermimic.__file__).parent
     package_sources = result["implementation_package_sha256"]
-    for name in ("deployment/reference.py", "deployment/validation.py", "interfaces.py"):
+    for name in (
+        "deployment/reference.py",
+        "deployment/tracking_metrics.py",
+        "deployment/validation.py",
+        "interfaces.py",
+    ):
         assert package_sources[name] == sha256(package / name)
     with np.load(tmp_path / "rollout/trajectory.npz") as data:
         assert data["states"].shape == (5, 71)
