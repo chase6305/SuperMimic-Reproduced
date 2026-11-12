@@ -29,21 +29,9 @@ import numpy as np
 import torch
 
 from supermimic.data.discovery import discover_npz as discover_npz
+from supermimic.data.reference import REF_DIM, REF_SLICES, ClipInfo, reference_array
 from supermimic.interfaces import GOAL_FEAT_DIM
 from supermimic.kinematics.rotations import projected_gravity, quat_apply_inverse, yaw_quat
-
-REF_DIM = 71
-
-
-@dataclass
-class ClipInfo:
-    name: str
-    start: int
-    length: int
-
-    @property
-    def end(self) -> int:  # exclusive
-        return self.start + self.length
 
 
 @dataclass
@@ -94,6 +82,15 @@ class MotionLibrary:
         self.compact = compact
         if len(npz_files) == 0:
             raise ValueError("MotionLibrary needs at least one clip")
+        packed = None
+        if len(npz_files) == 1 and str(npz_files[0]).endswith(".pt"):
+            from supermimic.data.packed import read_packed_motion
+
+            if not compact:
+                raise ValueError("packed .pt libraries are compact-only")
+            # Reject invalid layouts and clip tables on CPU, before even q0 is
+            # transferred to the requested device.
+            packed = read_packed_motion(npz_files[0])
         if isinstance(default_joint_pos, torch.Tensor):
             q0 = default_joint_pos.detach().to(device=self.device, dtype=dtype).reshape(-1)
         else:
@@ -107,14 +104,9 @@ class MotionLibrary:
         ref_chunks: list[np.ndarray] = []
         body_chunks = {"pos": [], "quat": [], "lin": [], "ang": []}
         # A single packed cache (build_library.py) can stand in for the npz list (compact mode only).
-        if len(npz_files) == 1 and str(npz_files[0]).endswith(".pt"):
-            assert compact, "packed .pt libraries are compact-only"
-            pack = torch.load(npz_files[0], map_location="cpu", weights_only=False)
-            self._ref = pack["ref"].to(device=self.device, dtype=store_dtype)
-            clips = [
-                ClipInfo(n, int(st), int(ln))
-                for n, st, ln in zip(pack["names"], pack["starts"], pack["lengths"], strict=False)
-            ]
+        if packed is not None:
+            self._ref = packed.ref.to(device=self.device, dtype=store_dtype)
+            clips = list(packed.clips)
             start = int(self._ref.shape[0])
             ref_chunks = None
         for f in npz_files if ref_chunks is not None else []:
@@ -125,24 +117,23 @@ class MotionLibrary:
                 # re-ordered while retaining the same valid G1 body name set.
                 names = info["body_names"]
                 body_idx = np.array([names.index(n) for n in self.body_names])
-                root_idx = names.index("pelvis")
-                n = int(d["joint_pos"].shape[0])
+                n = info["frames"]
                 bp, bq, blv, bav = (
                     d["body_pos_w"],
                     d["body_quat_w"],
                     d["body_lin_vel_w"],
                     d["body_ang_vel_w"],
                 )
-                ref = np.concatenate(
-                    [
-                        bp[:, root_idx],
-                        bq[:, root_idx],
-                        d["joint_pos"],
-                        blv[:, root_idx],
-                        bav[:, root_idx],
-                        d["joint_vel"],
-                    ],
-                    axis=1,
+                ref = reference_array(
+                    {
+                        "body_pos_w": bp,
+                        "body_quat_w": bq,
+                        "joint_pos": d["joint_pos"],
+                        "body_lin_vel_w": blv,
+                        "body_ang_vel_w": bav,
+                        "joint_vel": d["joint_vel"],
+                    },
+                    names,
                 ).astype(np.float32)
                 ref_chunks.append(ref)
                 if not compact:
@@ -210,7 +201,12 @@ class MotionLibrary:
     @staticmethod
     def _split(r: torch.Tensor) -> RefState:
         return RefState(
-            r[..., 0:3], r[..., 3:7], r[..., 7:36], r[..., 36:39], r[..., 39:42], r[..., 42:71]
+            r[..., REF_SLICES["root_pos_w"]],
+            r[..., REF_SLICES["root_quat_w"]],
+            r[..., REF_SLICES["joint_pos"]],
+            r[..., REF_SLICES["root_lin_vel_w"]],
+            r[..., REF_SLICES["root_ang_vel_w"]],
+            r[..., REF_SLICES["joint_vel"]],
         )
 
     def ref(self, frame: torch.Tensor) -> RefState:

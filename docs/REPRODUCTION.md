@@ -29,6 +29,10 @@ flowchart LR
 
 CSV 转换前检查时间和数组大小，单片段限制 250,000 个输出帧。NPZ 读取前限制解压大小，检查数据形状、有限性、名称和四元数。每条片段分别解析刚体顺序。训练使用独立只读输入副本，准备清单存在时还核对机器人、四元数顺序和文件摘要；旧清单缺省的顺序沿用 `wxyz`，显式不支持的顺序在加载数值 SDK 前拒绝。运行结束再次校验副本。
 
+紧凑动作包使用 71 维参考记录：根位置 3、根 `wxyz` 四元数 4、关节位置 29、根世界线速度 3、根世界角速度 3、关节速度 29。它与同为 71 维的物理状态不同，后者的根角速度在本体系。`data.reference` 提供统一布局、片段元数据与 NumPy 拼接；调用方保留原来的存储转换，完整库先转 float32，打包工具直接转 float16。
+
+紧凑包仍包含 `ref`、`names`、`starts`、`lengths` 四项，新写入还带 `motion_format` 约定。读取兼容没有该项的旧包，在 CPU 检查浮点张量形状、有限性、单位根四元数及片段表；四元数容差计入存储量化误差，保留原值。起点必须从零连续覆盖全部记录，名称／起点／长度不能静默截断，重复名称和单帧片段仍可表示。显式声明了其他机器人、四元数或速度坐标系的包会被拒绝。校验在设备迁移前进行，有限性与四元数检查按块执行，限制临时校验数组的大小；这不代表整个数据集的存储开销固定。
+
 ## 策略接口
 
 单帧观测依次为相对默认关节角 29、关节速度 29、本体角速度 3、投影重力 3、上一条干净动作 29，共 93 维。10 帧历史从旧到新，按观测项分别展平，得到 930 维；重置时重复第一帧。动作尺度和观测固定分量尺度均保留。
@@ -83,10 +87,13 @@ CSV 转换前检查时间和数组大小，单片段限制 250,000 个输出帧�
 | `config`、`interfaces`、`memory`、`data.discovery` | 标准库 | 配置、G1 规范、内存估算与文件选择无需数值 SDK |
 | `profiles` | 标准库 | 新运行配置解析保持轻量；读取恢复配置时引入 Torch |
 | `data.schema` | NumPy | `open_motion` 将 ZIP 预算、数组校验与数据消费绑定同一已打开文件 |
+| `data.reference` | 标准库 | 布局和片段元数据保持轻量；拼接数组时再加载 NumPy |
+| `data.packed` | Torch | 在 CPU 校验紧凑包，调用方随后分配设备存储；写入独占发布 |
 | `data.preparation` | 标准库 | 准备时加载 NumPy 校验；全源预检后创建输出，从最终可写副本生成清单 |
 | `world_model.reference` | 标准库 | Tensor 类型仅用于静态分析；参考数据由调用方提供的 library 查询 |
 | `data.motion_library` | NumPy、Torch，以及数学工具带入的 mjlab／Warp | 紧凑模式还需 MuJoCo 模型与 FK；移到数据层不代表 SDK 隔离 |
 | `policy.nets`、`checkpoints`、`eval.benchmark` | Torch | actor 先在 CPU 恢复；实际执行 benchmark 时再导入仿真接口 |
+| `torch_io` | Torch | 绑定输入 inode 的通用序列化与原子发布；领域格式由调用方校验 |
 | `deployment.reference` | NumPy、SciPy | 动作目标与旋转计算无需 actor 或仿真 SDK |
 | `deployment.metrics` | NumPy | 可独立统计接触；获取 `tracking_metrics` 时加载下一个模块 |
 | `deployment.tracking_metrics` | Torch、NumPy／SciPy、MuJoCo、mjlab／Warp | 用 CPU FK 与解析奖励完成跟踪评分 |
@@ -100,6 +107,8 @@ CSV 转换前检查时间和数组大小，单片段限制 250,000 个输出帧�
 动作库、CPU 动作参考和打包脚本通过 `data.schema.open_motion` 消费已校验的 NPZ，解压预算、元数据与数组读取使用同一文件描述符。源路径原子替换时，本次读取继续使用已打开的版本；调用方仍需保证文件内容不被原地改写。旧 `validate_motion` 接口继续只返回元数据，并在返回前关闭归档与描述符。
 
 `checkpoints.read_checkpoint` 始终先在 CPU 读取。训练恢复显式使用 Linux `/proc/self/fd` 上的 mmap，映射绑定同一个已打开 inode，并要求输入在使用期间不被原地改写；原子轮转 `ckpt_latest` 不会改变已打开的输入。导出、迁移和权重 transfer 的来源摘要也绑定该 inode。评测使用兼容旧序列化格式的 CPU 读取，再仅将 actor 移至目标设备。
+
+检查点和紧凑动作包共用 `torch_io` 的底层读写，保留各自的格式检查。紧凑包默认自动选择读取方式：Linux 描述符路径可用时映射现代 Torch ZIP，否则按原来的 eager CPU 路径读取，兼容旧 Torch 序列化格式。格式探测和加载使用同一文件描述符。检查点显式要求 mmap 的路径仍不自动回退；映射输入在使用期间必须保持不可原地改写。
 
 `checkpoints.write_checkpoint` 先写临时文件，再原子发布，失败清理部分写入。训练显式允许替换自己的 checkpoint，接口迁移保持独占发布，不覆盖已有输出。运行输入快照由 `artifacts.snapshot_file` 分块复制、复核摘要、只读发布；动作文件在复制前预检，复制后再次验证，使记录的帧数与实际副本一致。源码冻结及隔离 CLI 启动统一由 `runtime` 构造。CPU 部署保留历史三个文件的摘要，另以 `implementation_package_sha256` 记录整个包的 Python 源码清单，覆盖拆出的参考、接口与校验模块；该清单表示包源码身份，并非精确的运行时导入集合。
 

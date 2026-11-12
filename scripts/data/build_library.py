@@ -11,7 +11,6 @@ import tyro
 
 
 def _pack(npz_dir: Path, out: Path, manifest: Path | None = None, workers: int = 2) -> None:
-    import os
     import zipfile
 
     import numpy as np
@@ -19,6 +18,8 @@ def _pack(npz_dir: Path, out: Path, manifest: Path | None = None, workers: int =
     from tqdm import tqdm
 
     from supermimic.data.discovery import discover_npz
+    from supermimic.data.packed import write_packed_motion
+    from supermimic.data.reference import ClipInfo, reference_array
     from supermimic.data.schema import open_motion
     from supermimic.resources import GIB, host_snapshot
 
@@ -41,18 +42,7 @@ def _pack(npz_dir: Path, out: Path, manifest: Path | None = None, workers: int =
     def load(f):
         with open_motion(f) as (d, _):
             names = [str(n) for n in d["body_names"]]
-            r = names.index("pelvis")
-            ref = np.concatenate(
-                [
-                    d["body_pos_w"][:, r],
-                    d["body_quat_w"][:, r],
-                    d["joint_pos"],
-                    d["body_lin_vel_w"][:, r],
-                    d["body_ang_vel_w"][:, r],
-                    d["joint_vel"],
-                ],
-                axis=1,
-            )
+            ref = reference_array(d, names)
         return f.stem, ref.astype(np.float16)
 
     with ThreadPoolExecutor(workers) as ex:
@@ -61,13 +51,14 @@ def _pack(npz_dir: Path, out: Path, manifest: Path | None = None, workers: int =
     lengths = [int(r.shape[0]) for _, r in items]
     starts = np.cumsum([0] + lengths[:-1]).tolist()
     ref = torch.from_numpy(np.concatenate([r for _, r in items], 0))
-    out.parent.mkdir(parents=True, exist_ok=True)
-    temporary = out.with_name("." + out.name + ".tmp")
-    try:
-        torch.save({"ref": ref, "names": names, "starts": starts, "lengths": lengths}, temporary)
-        os.replace(temporary, out)
-    finally:
-        temporary.unlink(missing_ok=True)
+    write_packed_motion(
+        out,
+        ref,
+        [
+            ClipInfo(name, start, length)
+            for name, start, length in zip(names, starts, lengths, strict=True)
+        ],
+    )
     print(
         f"saved {out}: {ref.shape[0]} frames ({ref.shape[0] / 50 / 3600:.2f} h), {ref.numel() * 2 / 1e9:.2f} GB fp16"
     )
