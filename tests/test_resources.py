@@ -5,6 +5,7 @@ import signal
 import sys
 from types import SimpleNamespace
 
+import psutil
 import pytest
 
 from supermimic.resources import GIB, ResourceLimits, admit, clean_environment
@@ -46,7 +47,8 @@ def vanished_worker(monkeypatch):
     def group_disappeared(pid, signum):
         assert pid == child.pid
         delivered.append(signum)
-        child.returncode = 0
+        if child.returncode is None:
+            child.returncode = 0
         raise ProcessLookupError("worker group exited before signal delivery")
 
     monkeypatch.setattr("supermimic.supervisor.subprocess.Popen", lambda *a, **kw: child)
@@ -95,6 +97,51 @@ def test_worker_exit_status_and_log_are_preserved(tmp_path, available_host):
     record = json.loads((output / "run.json").read_text())
     assert code == 7 and record["exit_code"] == 7 and record["status"] == "failed"
     assert "worker failed" in (output / "worker.log").read_text()
+
+
+@pytest.mark.parametrize(("exit_code", "status"), [(0, "complete"), (7, "failed")])
+def test_worker_exiting_before_monitor_attach_preserves_terminal_status(
+    tmp_path, available_host, vanished_worker, monkeypatch, exit_code, status
+):
+    child, delivered = vanished_worker
+    child.returncode = exit_code
+
+    def missing_process(pid):
+        assert pid == child.pid
+        raise psutil.NoSuchProcess(pid)
+
+    monkeypatch.setattr("supermimic.supervisor.psutil.Process", missing_process)
+    output = tmp_path / "fast-worker"
+
+    code = supervise(["fake-worker"], output, ResourceLimits(), max_seconds=5, cuda=False)
+
+    record = json.loads((output / "run.json").read_text())
+    assert code == record["exit_code"] == child.returncode == exit_code
+    assert record["status"] == status and record["stop_reason"] is None
+    assert "error" not in record
+    assert not (output / "STOP").exists()
+    assert (output / "resources.jsonl").read_text() == ""
+    assert delivered == [signal.SIGTERM]
+
+
+def test_monitor_attach_failure_is_not_ignored_for_a_running_worker(
+    tmp_path, available_host, vanished_worker, monkeypatch
+):
+    child, delivered = vanished_worker
+
+    def missing_process(pid):
+        raise psutil.NoSuchProcess(pid)
+
+    monkeypatch.setattr("supermimic.supervisor.psutil.Process", missing_process)
+    output = tmp_path / "monitor-unavailable"
+
+    code = supervise(["fake-worker"], output, ResourceLimits(), max_seconds=5, cuda=False)
+
+    record = json.loads((output / "run.json").read_text())
+    assert code == 2 and record["status"] == "failed"
+    assert "NoSuchProcess" in record["error"]
+    assert not (output / "STOP").exists()
+    assert delivered == [signal.SIGINT, signal.SIGTERM]
 
 
 def test_time_limit_stops_only_own_worker(tmp_path, available_host):

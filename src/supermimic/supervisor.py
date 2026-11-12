@@ -78,11 +78,16 @@ def supervise(
             child = subprocess.Popen(
                 command, env=env, stdout=log, stderr=subprocess.STDOUT, start_new_session=True
             )
-            process = psutil.Process(child.pid)
+            try:
+                process = psutil.Process(child.pid)
+            except psutil.NoSuchProcess:
+                if child.poll() is None:
+                    raise
+                process = None  # A completed worker needs no resource monitor.
             record.update(status="running", pid=child.pid)
             write_json(output / "run.json", record)
             with (output / "resources.jsonl").open("w", buffering=1) as metrics:
-                while child.poll() is None:
+                while process is not None and child.poll() is None:
                     try:
                         family = [process, *process.children(recursive=True)]
                     except (psutil.NoSuchProcess, psutil.AccessDenied):
