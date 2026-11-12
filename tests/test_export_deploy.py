@@ -8,6 +8,7 @@ import pytest
 import torch
 from test_deployment import make_motion
 
+import supermimic
 from supermimic.artifacts import sha256
 from supermimic.deployment.core import PolicyRunner
 from supermimic.deployment.export import export_policy
@@ -44,6 +45,11 @@ def test_export_reload_and_physical_rollout(tmp_path):
     result = deploy(bundle, motion, tmp_path / "rollout", steps=4)
     assert result["status"] == "complete" and result["hardware_deployed"] is False
     assert result["steps"] == 4 and result["contacts"]["physics_substeps"] == 16
+    assert set(result["implementation_sha256"]) == {"mujoco.py", "core.py", "metrics.py"}
+    package = Path(supermimic.__file__).parent
+    package_sources = result["implementation_package_sha256"]
+    for name in ("deployment/reference.py", "deployment/validation.py", "interfaces.py"):
+        assert package_sources[name] == sha256(package / name)
     with np.load(tmp_path / "rollout/trajectory.npz") as data:
         assert data["states"].shape == (5, 71)
         assert data["physical_contacts"].shape == (16, 13)

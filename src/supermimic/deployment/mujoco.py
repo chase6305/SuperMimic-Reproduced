@@ -12,6 +12,7 @@ import numpy as np
 from supermimic.artifacts import sha256, write_json
 from supermimic.deployment.core import MotionReference, PolicyRunner, gravity, rotation
 from supermimic.deployment.validation import validate_model_contract
+from supermimic.runtime import source_manifest
 
 
 def deploy(
@@ -62,6 +63,8 @@ def deploy(
             name: sha256(Path(__file__).with_name(name))
             for name in ("mujoco.py", "core.py", "metrics.py")
         },
+        # Whole-package Python source inventory, not an exact imported-module trace.
+        "implementation_package_sha256": source_manifest(),
     }
     write_json(output / "result.json", record)
     states = np.empty((requested + 1, model.nq + model.nv), dtype=np.float64)

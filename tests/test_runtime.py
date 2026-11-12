@@ -6,7 +6,29 @@ import os
 import subprocess
 from pathlib import Path
 
-from supermimic.runtime import freeze_implementation, isolated_cli_command
+from supermimic.runtime import freeze_implementation, isolated_cli_command, source_manifest
+
+
+def test_source_manifest_tracks_relative_python_paths_and_content_changes(tmp_path):
+    package = tmp_path / "package"
+    (package / "deployment").mkdir(parents=True)
+    root_source = package / "__init__.py"
+    nested_source = package / "deployment/reference.py"
+    root_source.write_text('"""Package."""\n')
+    nested_source.write_text("REFERENCE = 1\n")
+    (package / "deployment/asset.txt").write_text("non-Python package asset")
+
+    initial = source_manifest(package)
+
+    assert initial == {
+        "__init__.py": hashlib.sha256(root_source.read_bytes()).hexdigest(),
+        "deployment/reference.py": hashlib.sha256(nested_source.read_bytes()).hexdigest(),
+    }
+    nested_source.write_text("REFERENCE = 2\n")
+    changed = source_manifest(package)
+    assert changed["__init__.py"] == initial["__init__.py"]
+    assert changed["deployment/reference.py"] != initial["deployment/reference.py"]
+    assert changed["deployment/reference.py"] == hashlib.sha256(nested_source.read_bytes()).hexdigest()
 
 
 def test_freeze_retains_package_assets_and_omits_bytecode_from_copy_and_manifest(tmp_path):
