@@ -19,7 +19,7 @@ def _pack(npz_dir: Path, out: Path, manifest: Path | None = None, workers: int =
     from tqdm import tqdm
 
     from supermimic.data.discovery import discover_npz
-    from supermimic.data.schema import validate_motion
+    from supermimic.data.schema import open_motion
     from supermimic.resources import GIB, host_snapshot
 
     if not 1 <= workers <= 4:
@@ -39,8 +39,7 @@ def _pack(npz_dir: Path, out: Path, manifest: Path | None = None, workers: int =
     from concurrent.futures import ThreadPoolExecutor
 
     def load(f):
-        validate_motion(f)
-        with np.load(f) as d:
+        with open_motion(f) as (d, _):
             names = [str(n) for n in d["body_names"]]
             r = names.index("pelvis")
             ref = np.concatenate(

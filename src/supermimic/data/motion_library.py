@@ -118,10 +118,9 @@ class MotionLibrary:
             start = int(self._ref.shape[0])
             ref_chunks = None
         for f in npz_files if ref_chunks is not None else []:
-            from supermimic.data.schema import validate_motion
+            from supermimic.data.schema import open_motion
 
-            info = validate_motion(f)
-            with np.load(f) as d:
+            with open_motion(f) as (d, info):
                 # Each clip carries its own body order. A second clip may be
                 # re-ordered while retaining the same valid G1 body name set.
                 names = info["body_names"]

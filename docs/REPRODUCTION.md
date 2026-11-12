@@ -82,6 +82,7 @@ CSV 转换前检查时间和数组大小，单片段限制 250,000 个输出帧�
 | --- | --- | --- |
 | `config`、`interfaces`、`memory`、`data.discovery` | 标准库 | 配置、G1 规范、内存估算与文件选择无需数值 SDK |
 | `profiles` | 标准库 | 新运行配置解析保持轻量；读取恢复配置时引入 Torch |
+| `data.schema` | NumPy | `open_motion` 将 ZIP 预算、数组校验与数据消费绑定同一已打开文件 |
 | `data.preparation` | 标准库 | 准备时加载 NumPy 校验；全源预检后创建输出，从最终可写副本生成清单 |
 | `world_model.reference` | 标准库 | Tensor 类型仅用于静态分析；参考数据由调用方提供的 library 查询 |
 | `data.motion_library` | NumPy、Torch，以及数学工具带入的 mjlab／Warp | 紧凑模式还需 MuJoCo 模型与 FK；移到数据层不代表 SDK 隔离 |
@@ -95,6 +96,8 @@ CSV 转换前检查时间和数组大小，单片段限制 250,000 个输出帧�
 旧实现模块仍重导出原配置类、参考工具与常量，检查点继续存储相同的 `asdict` 字段树。环境观测项按共享规范生成顺序，项名集合不匹配时在创建环境前拒绝。
 
 共享动作库实现属于 `data.motion_library`，环境的 `envs.mdp.motion_library` 保留兼容导出。世界模型与想象轨迹通过 `world_model.reference` 共享参考帧，想象过程不再为了读取参考帧而导入拟合训练器。世界模型拟合仍只查询其损失需要的根位姿，紧凑动作库不会因此增加身体 FK 查询。
+
+动作库、CPU 动作参考和打包脚本通过 `data.schema.open_motion` 消费已校验的 NPZ，解压预算、元数据与数组读取使用同一文件描述符。源路径原子替换时，本次读取继续使用已打开的版本；调用方仍需保证文件内容不被原地改写。旧 `validate_motion` 接口继续只返回元数据，并在返回前关闭归档与描述符。
 
 `checkpoints.read_checkpoint` 始终先在 CPU 读取。训练恢复显式使用 Linux `/proc/self/fd` 上的 mmap，映射绑定同一个已打开 inode，并要求输入在使用期间不被原地改写；原子轮转 `ckpt_latest` 不会改变已打开的输入。导出、迁移和权重 transfer 的来源摘要也绑定该 inode。评测使用兼容旧序列化格式的 CPU 读取，再仅将 actor 移至目标设备。
 

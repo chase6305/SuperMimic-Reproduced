@@ -7,7 +7,7 @@ from pathlib import Path
 import numpy as np
 from scipy.spatial.transform import Rotation
 
-from supermimic.data.schema import validate_motion
+from supermimic.data.schema import open_motion
 
 
 def rotation(q_wxyz: np.ndarray) -> Rotation:
@@ -32,8 +32,8 @@ def heading_error(actual_wxyz: np.ndarray, reference_wxyz: np.ndarray) -> np.nda
 
 class MotionReference:
     def __init__(self, path: Path, default_q: np.ndarray):
-        self.info = validate_motion(path)
-        with np.load(path, allow_pickle=False) as data:
+        with open_motion(path) as (data, info):
+            self.info = info
             self.body_names = data["body_names"].tolist()
             root = self.body_names.index("pelvis")
             self.q = data["joint_pos"].copy()
