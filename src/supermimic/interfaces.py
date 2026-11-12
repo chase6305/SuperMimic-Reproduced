@@ -1,13 +1,16 @@
 """G1 policy input layout shared by configuration, training and CPU deployment.
 
-This module describes dimensions and ordering only. Tensor and NumPy numerical
-implementations stay separate so that parity tests can compare them independently.
+This module describes fixed robot conventions, dimensions and ordering. Tensor
+and NumPy numerical implementations stay separate for independent parity tests.
 Importing this module must not initialize a simulator or a tensor runtime.
 """
 
 from __future__ import annotations
 
 from itertools import accumulate
+
+ROBOT_ID = "unitree-g1-29dof"
+QUATERNION_ORDER = "wxyz"
 
 G1_JOINT_NAMES: tuple[str, ...] = (
     "left_hip_pitch_joint",

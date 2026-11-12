@@ -10,6 +10,8 @@ from supermimic.interfaces import (
     CONTROL_DT,
     G1_JOINT_NAMES,
     OBS_TERMS,
+    QUATERNION_ORDER,
+    ROBOT_ID,
     goal_dim,
     observation_dim,
 )
@@ -23,9 +25,9 @@ def validate_contract(contract: Mapping) -> None:
     """
     fixed = {
         "schema_version": 1,
-        "robot": "unitree-g1-29dof",
+        "robot": ROBOT_ID,
         "joint_names": list(G1_JOINT_NAMES),
-        "quaternion_order": "wxyz",
+        "quaternion_order": QUATERNION_ORDER,
         "root_linear_velocity_frame": "world",
         "root_angular_velocity_frame": "body",
         "observation_terms": [list(term) for term in OBS_TERMS],

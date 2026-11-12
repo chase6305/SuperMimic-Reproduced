@@ -8,7 +8,15 @@ import mujoco
 import numpy as np
 
 from supermimic.deployment.validation import validate_contract
-from supermimic.interfaces import ACT_DIM, G1_JOINT_NAMES, OBS_TERMS, goal_dim, observation_dim
+from supermimic.interfaces import (
+    ACT_DIM,
+    G1_JOINT_NAMES,
+    OBS_TERMS,
+    QUATERNION_ORDER,
+    ROBOT_ID,
+    goal_dim,
+    observation_dim,
+)
 
 
 def build_model_and_contract(
@@ -60,10 +68,10 @@ def build_model_and_contract(
         effort[joint_index] = model.actuator_forcerange[actuator, 1]
     contract = {
         "schema_version": 1,
-        "robot": "unitree-g1-29dof",
+        "robot": ROBOT_ID,
         "algorithm": "cuboi-supermimic",
         "joint_names": list(G1_JOINT_NAMES),
-        "quaternion_order": "wxyz",
+        "quaternion_order": QUATERNION_ORDER,
         "root_linear_velocity_frame": "world",
         "root_angular_velocity_frame": "body",
         "control_dt": float(model.opt.timestep) * cfg.decimation,

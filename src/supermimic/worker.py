@@ -9,6 +9,7 @@ from dataclasses import asdict
 from pathlib import Path
 
 from supermimic.artifacts import sha256, snapshot_file, write_json
+from supermimic.interfaces import QUATERNION_ORDER, ROBOT_ID
 from supermimic.resources import ResourceLimits, constrain_torch
 
 
@@ -22,7 +23,6 @@ def run_worker(config_path: Path) -> int:
     trainer = None
     try:
         from supermimic.data.discovery import discover_npz
-        from supermimic.data.schema import validate_motion
 
         files = discover_npz(options["motions"], names=options.get("clips"))
         if not files:
@@ -37,9 +37,13 @@ def run_worker(config_path: Path) -> int:
         expected_motions = None
         if manifest_path.is_file():
             prepared = json.loads(manifest_path.read_text())
-            if prepared.get("robot") != "unitree-g1-29dof":
+            if prepared.get("robot") != ROBOT_ID:
                 raise ValueError("Prepared motion manifest has an incompatible robot")
+            if prepared.get("quaternion_order", QUATERNION_ORDER) != QUATERNION_ORDER:
+                raise ValueError("Prepared motion manifest has an incompatible quaternion order")
             expected_motions = prepared["files"]
+        from supermimic.data.schema import validate_motion
+
         for path in files:
             if expected_motions is not None and path.name not in expected_motions:
                 raise ValueError(f"Motion differs from the prepared manifest: {path}")
@@ -69,7 +73,7 @@ def run_worker(config_path: Path) -> int:
         files = snapshots
         write_json(
             private_motions / "manifest.json",
-            {"robot": "unitree-g1-29dof", "quaternion_order": "wxyz", "files": motion_files},
+            {"robot": ROBOT_ID, "quaternion_order": QUATERNION_ORDER, "files": motion_files},
         )
         record["motion_files"] = motion_files
         record["input_motion_snapshot"] = str(private_motions)
