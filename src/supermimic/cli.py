@@ -10,7 +10,6 @@ from dataclasses import asdict
 from datetime import UTC, datetime
 from pathlib import Path
 
-from supermimic.artifacts import write_json
 from supermimic.data.preparation import prepare_motions as prepare_motions
 from supermimic.resources import ResourceLimits, gpu_snapshot, host_snapshot
 
@@ -307,16 +306,15 @@ def main(argv: list[str] | None = None) -> int:
                     json.dumps(dict(options=options, limits=asdict(limits)), indent=2, default=str)
                 )
                 return 0
-            from supermimic.runtime import isolated_cli_command
+            from supermimic.runtime import isolated_cli_command, temporary_worker_config
             from supermimic.supervisor import supervise
 
             # Worker config lives beside the new run, not inside it; supervisor owns directory creation.
-            output.parent.mkdir(parents=True, exist_ok=True)
-            config_path = output.parent / ("." + output.name + ".worker.json")
-            if config_path.exists() or output.exists():
+            if output.exists():
                 raise FileExistsError(output)
-            write_json(config_path, dict(options=options, limits=asdict(limits)))
-            try:
+            with temporary_worker_config(
+                output, dict(options=options, limits=asdict(limits))
+            ) as config_path:
                 code = supervise(
                     isolated_cli_command(
                         output / "implementation", ["_worker", str(config_path)]
@@ -326,8 +324,6 @@ def main(argv: list[str] | None = None) -> int:
                     max_seconds=args.hours * 3600 + 180,
                     freeze_source=True,
                 )
-            finally:
-                config_path.unlink(missing_ok=True)
             print(f"Run record: {output / 'run.json'}; log: {output / 'worker.log'}")
             return code
         return 0

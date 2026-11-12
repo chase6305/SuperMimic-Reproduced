@@ -2,12 +2,15 @@
 
 from __future__ import annotations
 
+import os
 import shutil
 import sys
-from collections.abc import Sequence
+import tempfile
+from collections.abc import Iterator, Sequence
+from contextlib import contextmanager
 from pathlib import Path
 
-from supermimic.artifacts import sha256
+from supermimic.artifacts import sha256, write_json
 
 _CLI_BOOTSTRAP = (
     "import sys; sys.path.insert(0, sys.argv[1]); "
@@ -32,3 +35,19 @@ def freeze_implementation(implementation: Path, *, source: Path | None = None) -
 def isolated_cli_command(implementation: Path, arguments: Sequence[str]) -> list[str]:
     """Run CLI arguments with this interpreter and only the selected package override."""
     return [sys.executable, "-I", "-c", _CLI_BOOTSTRAP, str(implementation), *arguments]
+
+
+@contextmanager
+def temporary_worker_config(output: Path, payload: dict) -> Iterator[Path]:
+    """Own a unique adjacent worker configuration until the context exits."""
+    output.parent.mkdir(parents=True, exist_ok=True)
+    fd, name = tempfile.mkstemp(
+        prefix="." + output.name + "-", suffix=".worker.json", dir=output.parent
+    )
+    config_path = Path(name)
+    try:
+        os.close(fd)
+        write_json(config_path, payload)
+        yield config_path
+    finally:
+        config_path.unlink(missing_ok=True)
