@@ -11,6 +11,7 @@ import numpy as np
 from supermimic.data.reference import REF_DIM, ClipInfo, reference_array
 from supermimic.data.schema import MotionPlan, inspect_motion, open_motion
 
+_VALIDATION_ROWS = 65_536
 _BODY_FIELDS = {
     "pos": "body_pos_w",
     "quat": "body_quat_w",
@@ -58,7 +59,13 @@ def load_npz_motions(
         stop = start + plan.info["frames"]
         with open_motion(plan.path, plan=plan) as (data, info):
             arrays = {key: data[key] for key in plan.array_dtypes}
-            chunk = reference_array(arrays, info["body_names"]).astype(np.float32)
+            with np.errstate(over="ignore", invalid="ignore"):
+                chunk = reference_array(arrays, info["body_names"]).astype(np.float32)
+            for begin in range(0, len(chunk), _VALIDATION_ROWS):
+                if not np.isfinite(chunk[begin : begin + _VALIDATION_ROWS]).all():
+                    raise ValueError(
+                        f"Motion reference contains non-finite values after float32 conversion: {plan.path}"
+                    )
             ref[start:stop] = chunk
             if not compact:
                 for key, field in _BODY_FIELDS.items():

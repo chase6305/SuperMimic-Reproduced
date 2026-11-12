@@ -35,6 +35,54 @@ from supermimic.data.reference import ClipInfo as ClipInfo
 from supermimic.interfaces import GOAL_FEAT_DIM
 from supermimic.kinematics.rotations import projected_gravity, quat_apply_inverse, yaw_quat
 
+_VALIDATION_ROWS = 65_536
+
+
+def _validate_storage_dtype(
+    values, dtype: torch.dtype, name: str, *, query_dtype: torch.dtype | None = None
+) -> None:
+    """Preview storage and query casts without keeping a second full library.
+
+    Inputs have already passed their source-dtype finite checks. Actual casting
+    preserves boundary values which round to a finite maximum, unlike a range
+    comparison against finfo.max. Final device conversions remain unchanged.
+    """
+    source = values.detach() if isinstance(values, torch.Tensor) else torch.from_numpy(values)
+    targets = [dtype]
+    if query_dtype is not None and query_dtype != dtype:
+        # Standard wider floating types can represent every finite storage
+        # value. Shell query formats may have other restrictions, so preview
+        # those rather than inferring safety from their maximum alone.
+        widening = (
+            query_dtype in (torch.float16, torch.bfloat16, torch.float32, torch.float64)
+            and dtype.is_floating_point
+            and torch.finfo(query_dtype).max > torch.finfo(dtype).max
+        )
+        if not widening:
+            targets.append(query_dtype)
+    if source.dtype == dtype and len(targets) == 1:
+        return
+    for begin in range(0, len(source), _VALIDATION_ROWS):
+        converted = source[begin : begin + _VALIDATION_ROWS]
+        for target in targets:
+            # Query from the storage preview: skipping that intermediate cast
+            # would miss double-rounding overflow at the query boundary.
+            converted = converted.to(device="cpu", dtype=target)
+            # Shell low-precision dtypes can support casts without an isfinite
+            # kernel. Widen only the bounded preview for its finite-value scan.
+            scan = (
+                converted.float()
+                if converted.is_floating_point() and converted.element_size() < 4
+                else converted
+            )
+            if not torch.isfinite(scan).all():
+                stage = "query conversion" if target != dtype else "conversion"
+                raise ValueError(
+                    f"Motion {name} contains non-finite values after {stage} to {target}"
+                )
+            del scan
+        del converted
+
 
 @dataclass
 class RefState:
@@ -100,6 +148,17 @@ class MotionLibrary:
             # Validate every input on CPU before device allocation. Preallocated
             # storage retains at most one clip's source arrays while filling.
             motions = load_npz_motions(npz_files, self.body_names, compact=compact)
+        if packed is not None:
+            _validate_storage_dtype(packed.ref, store_dtype, "reference", query_dtype=dtype)
+        else:
+            assert motions is not None
+            _validate_storage_dtype(
+                motions.ref, store_dtype if compact else dtype, "reference",
+                query_dtype=dtype if compact else None,
+            )
+            if not compact:
+                for name in motions.bodies:
+                    _validate_storage_dtype(motions.bodies[name], dtype, "body " + name)
         if isinstance(default_joint_pos, torch.Tensor):
             q0 = default_joint_pos.detach().to(device=self.device, dtype=dtype).reshape(-1)
         else:
