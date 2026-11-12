@@ -1,12 +1,14 @@
-"""Data-parallel training helpers (plan D13 / 6.3).
+"""Data-parallel helpers for caller-supplied Trainer integrations.
 
-Launch with torchrun, one process per GPU:
-  torchrun --nproc_per_node 4 -m supermimic.scripts.train --run-name e5_ws ...
+The public ``supermimic train``, ``sm-train`` and ``supermimic.scripts.train``
+entrypoints run one supervised worker. Their clean environment sets rank/world
+metadata for that worker. A custom distributed launcher that constructs Trainer
+itself owns process ranks, GPU selection and resource coordination.
 
-Each rank owns its own simulator (num_envs envs), replay buffer and sampler; the
-world model / policy / critic are replicated and their gradients are averaged with
-an explicit all-reduce after backward (no DDP wrapper, so torch.compile'd functions
-stay untouched). Learning rates are scaled by sqrt(world_size) (paper: x sqrt(2) for 2 GPUs).
+Each rank keeps its own environments, replay buffer and sampler. Model gradients
+are averaged by explicit all-reduce rather than DDP, leaving compiled functions
+unchanged. Trainer scales learning rates by sqrt(world_size) (paper: sqrt(2) for
+2 GPUs).
 """
 
 from __future__ import annotations
@@ -29,7 +31,7 @@ def init_distributed() -> tuple[int, int, int]:
     world = int(os.environ["WORLD_SIZE"])
     pinned = (
         os.environ.get("SM_GPU_PINNED") == "1"
-    )  # scripts/train.py set CUDA_VISIBLE_DEVICES=LOCAL_RANK
+    )  # External launchers can pin CUDA_VISIBLE_DEVICES and opt into this convention.
     # Pinned: each process sees exactly one GPU (cuda:0). Otherwise modulo lets a 1-GPU box smoke-test.
     local_rank = 0 if pinned else int(os.environ["LOCAL_RANK"]) % max(torch.cuda.device_count(), 1)
     torch.cuda.set_device(local_rank)
