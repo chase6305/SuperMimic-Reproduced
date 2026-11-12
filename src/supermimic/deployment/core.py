@@ -10,8 +10,9 @@ import torch
 from scipy.spatial.transform import Rotation
 
 from supermimic.artifacts import sha256
-from supermimic.data.motion_convert import G1_JOINT_NAMES
 from supermimic.data.schema import validate_motion
+from supermimic.deployment.validation import validate_contract
+from supermimic.interfaces import ACT_DIM, OBS_DIM, OBS_OFFSETS
 
 
 def rotation(q_wxyz: np.ndarray) -> Rotation:
@@ -46,14 +47,14 @@ class ObservationHistory:
 
     def append(self, observation: np.ndarray) -> np.ndarray:
         value = np.asarray(observation, dtype=np.float32)
-        if value.shape != (93,) or not np.isfinite(value).all():
+        if value.shape != (OBS_DIM,) or not np.isfinite(value).all():
             raise ValueError("Expected a finite 93-dimensional observation")
         if self.frames is None:
             self.frames = np.repeat(value[None], self.length, axis=0)
         else:
             self.frames[:-1] = self.frames[1:]
             self.frames[-1] = value
-        offsets = (0, 29, 58, 61, 64, 93)
+        offsets = OBS_OFFSETS
         return np.concatenate(
             [
                 self.frames[:, a:b].reshape(-1)
@@ -107,10 +108,7 @@ class PolicyRunner:
     def __init__(self, bundle: Path):
         self.contract = json.loads((bundle / "contract.json").read_text())
         c = self.contract
-        if c.get("schema_version") != 1 or c.get("robot") != "unitree-g1-29dof":
-            raise ValueError("Unsupported policy contract")
-        if c["joint_names"] != list(G1_JOINT_NAMES) or c["history_layout"] != "term_major":
-            raise ValueError("Unsupported joint order/history layout")
+        validate_contract(c)
         for name in ("policy.ts", "model.mjb"):
             if sha256(bundle / name) != c["files"][name]:
                 raise ValueError(f"Bundle hash mismatch: {name}")
@@ -119,7 +117,7 @@ class PolicyRunner:
         self.history = ObservationHistory(c["history"])
         self.default_q = np.array(c["default_joint_pos"], dtype=np.float32)
         self.scale = np.array(c["action_scale"], dtype=np.float32)
-        self.previous_action = np.zeros(29, dtype=np.float32)
+        self.previous_action = np.zeros(ACT_DIM, dtype=np.float32)
 
     def reset(self) -> None:
         self.history.reset()
@@ -152,7 +150,7 @@ class PolicyRunner:
             .numpy()
             .copy()
         )
-        if action.shape != (29,) or not np.isfinite(action).all():
+        if action.shape != (ACT_DIM,) or not np.isfinite(action).all():
             raise ValueError("Policy returned invalid actions")
         self.previous_action[:] = action
         return action, self.default_q + self.scale * action

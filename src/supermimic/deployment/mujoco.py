@@ -11,6 +11,7 @@ import numpy as np
 
 from supermimic.artifacts import sha256, write_json
 from supermimic.deployment.core import MotionReference, PolicyRunner, gravity, rotation
+from supermimic.deployment.validation import validate_model_contract
 
 
 def deploy(
@@ -22,6 +23,7 @@ def deploy(
         raise ValueError("MJB deployment requires the same MuJoCo version as export")
     reference = MotionReference(motion, runner.default_q)
     model = mujoco.MjModel.from_binary_path(str(bundle / "model.mjb"))
+    validate_model_contract(model, c)
     data = mujoco.MjData(model)
     qadr, vadr = c["joint_qpos_indices"], c["joint_qvel_indices"]
     root_q, root_v = c["root_qpos_index"], c["root_qvel_index"]
