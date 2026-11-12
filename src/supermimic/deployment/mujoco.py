@@ -5,12 +5,16 @@ from __future__ import annotations
 import time
 from contextlib import nullcontext
 from pathlib import Path
+from tempfile import TemporaryDirectory
 
 import mujoco
 import numpy as np
 
-from supermimic.artifacts import sha256, write_json
+from supermimic.artifacts import sha256, snapshot_file, write_json
+from supermimic.data.schema import validate_motion
 from supermimic.deployment.core import MotionReference, PolicyRunner, gravity, rotation
+from supermimic.deployment.validation import validate_model_contract
+from supermimic.runtime import source_manifest
 
 
 def deploy(
@@ -20,8 +24,30 @@ def deploy(
     c = runner.contract
     if c["packages"]["mujoco"] != mujoco.__version__:
         raise ValueError("MJB deployment requires the same MuJoCo version as export")
-    reference = MotionReference(motion, runner.default_q)
     model = mujoco.MjModel.from_binary_path(str(bundle / "model.mjb"))
+    validate_model_contract(model, c)
+    motion = Path(motion)
+    validate_motion(motion)
+    existing = output.expanduser().resolve().parent
+    while not existing.exists():
+        existing = existing.parent
+    with TemporaryDirectory(prefix=".supermimic-deploy-", dir=existing) as temporary:
+        pinned_motion = Path(temporary) / motion.name
+        snapshot_file(motion, pinned_motion)
+        return _deploy(runner, model, bundle, pinned_motion, output, steps, viewer)
+
+
+def _deploy(
+    runner: PolicyRunner,
+    model: mujoco.MjModel,
+    bundle: Path,
+    motion: Path,
+    output: Path,
+    steps: int | None,
+    viewer: bool,
+) -> dict:
+    c = runner.contract
+    reference = MotionReference(motion, runner.default_q)
     data = mujoco.MjData(model)
     qadr, vadr = c["joint_qpos_indices"], c["joint_qvel_indices"]
     root_q, root_v = c["root_qpos_index"], c["root_qvel_index"]
@@ -60,6 +86,8 @@ def deploy(
             name: sha256(Path(__file__).with_name(name))
             for name in ("mujoco.py", "core.py", "metrics.py")
         },
+        # Whole-package Python source inventory, not an exact imported-module trace.
+        "implementation_package_sha256": source_manifest(),
     }
     write_json(output / "result.json", record)
     states = np.empty((requested + 1, model.nq + model.nv), dtype=np.float64)

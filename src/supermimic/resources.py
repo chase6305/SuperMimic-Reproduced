@@ -114,7 +114,11 @@ def admit(limits: ResourceLimits, path: Path | str = ".", *, cuda: bool = True) 
         )
     if host["disk_free_bytes"] < limits.reserve_disk_gib * GIB:
         raise ResourceUnavailable("Disk free space is below the configured reserve")
-    gpu = next((g for g in gpu_snapshot() if g["index"] == limits.gpu_index), None)
+    gpu = (
+        next((g for g in gpu_snapshot() if g["index"] == limits.gpu_index), None)
+        if cuda
+        else None
+    )
     if cuda and gpu is None:
         raise ResourceUnavailable("Requested NVIDIA GPU is unavailable")
     if cuda and gpu is not None and gpu["free_mib"] < limits.max_gpu_mib + limits.reserve_gpu_mib:
@@ -148,6 +152,11 @@ def clean_environment() -> dict[str, str]:
         OMP_NUM_THREADS="1",
         OPENBLAS_NUM_THREADS="1",
         MKL_NUM_THREADS="1",
+        NUMEXPR_NUM_THREADS="1",
+        CMAKE_BUILD_PARALLEL_LEVEL="2",
+        CTEST_PARALLEL_LEVEL="1",
+        MAX_JOBS="2",
+        RAYON_NUM_THREADS="2",
         PYTHONUNBUFFERED="1",
         PYTEST_DISABLE_PLUGIN_AUTOLOAD="1",
         TORCHINDUCTOR_COMPILE_THREADS="1",

@@ -2,33 +2,15 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-
 import torch
 
+from supermimic.config import WMTrainerCfg as WMTrainerCfg
+from supermimic.data.motion_library import MotionLibrary
 from supermimic.data.replay_buffer import ReplayBuffer, WindowBatch
-from supermimic.envs.mdp.motion_library import MotionLibrary
 from supermimic.training.distributed import allreduce_grads
-from supermimic.world_model.heads import ReferenceFrame
+from supermimic.world_model.reference import ReferenceFrame
+from supermimic.world_model.reference import reference_at as reference_at
 from supermimic.world_model.world_model import WorldModel
-
-
-@dataclass
-class WMTrainerCfg:
-    window: int = 8
-    batches_per_update: int = 10
-    batch_size: int = 2048
-    lr: float = 2e-4
-    grad_clip: float = 1.0
-    weight_decay: float = 0.0
-    compile: str | None = "default"
-    one_step_batches_per_update: int = 0
-
-
-def reference_at(lib: MotionLibrary, frame: torch.Tensor) -> ReferenceFrame:
-    r = lib.ref(frame)
-    b = lib.bodies(frame)
-    return ReferenceFrame(b.pos_w, b.quat_w, b.lin_vel_w, b.ang_vel_w, r.root_pos_w, r.root_quat_w)
 
 
 class WorldModelTrainer:

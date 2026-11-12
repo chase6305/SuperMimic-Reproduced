@@ -28,7 +28,7 @@ from mjlab.utils.lab_api.math import (
     yaw_quat,
 )
 
-from supermimic.envs.mdp.motion_library import MotionLibrary
+from supermimic.data.motion_library import MotionLibrary
 
 if TYPE_CHECKING:
     from mjlab.entity import Entity

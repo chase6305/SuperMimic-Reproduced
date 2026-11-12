@@ -325,3 +325,39 @@ def test_policy_action_limit_is_inside_exportable_actor():
     assert torch.equal(policy(obs, goal), torch.full((2, 29), 4.0))
     exported = torch.jit.trace(policy, (obs, goal))
     torch.testing.assert_close(exported(obs, goal), policy(obs, goal))
+
+
+def test_transfer_provenance_tracks_the_loaded_publication(tmp_path, monkeypatch):
+    from supermimic.artifacts import sha256
+
+    source = fresh_trainer()
+    path = tmp_path / "latest.pt"
+    replacement = tmp_path / "replacement.pt"
+    torch.save(
+        {
+            "wm": source.wm.state_dict(),
+            "policy": source.policy.state_dict(),
+            "critic": source.critic.state_dict(),
+            "iteration": 42,
+            "motion_files": source.motion_files,
+            "control_contract": source.control_contract,
+        },
+        path,
+    )
+    expected = sha256(path)
+    torch.save({"iteration": 43}, replacement)
+    original_load = torch.load
+
+    def rotate_before_loading(source, **kwargs):
+        replacement.replace(path)
+        return original_load(source, **kwargs)
+
+    monkeypatch.setattr(torch, "load", rotate_before_loading)
+    target = fresh_trainer()
+    Trainer.load(target, path, transfer=True)
+    assert target.transfer_provenance["source_checkpoint_sha256"] == expected != sha256(path)
+    assert target.transfer_provenance["source_iteration"] == 42
+    for actual, original in zip(
+        target.policy.parameters(), source.policy.parameters(), strict=True
+    ):
+        torch.testing.assert_close(actual, original)

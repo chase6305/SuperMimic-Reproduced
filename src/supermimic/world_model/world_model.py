@@ -2,25 +2,16 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+from supermimic.config import StateSpecCfg as StateSpecCfg
+from supermimic.config import WorldModelCfg as WorldModelCfg
 from supermimic.world_model.dynamics import MLP, DynamicsMLP
-from supermimic.world_model.heads import AnalyticHeads, ReferenceFrame
-from supermimic.world_model.state_spec import StateSpec, StateSpecCfg
-
-
-@dataclass
-class WorldModelCfg:
-    hidden: tuple[int, ...] = (2048, 2048, 2048)
-    term_hidden: tuple[int, ...] = (64, 64)
-    state_spec: StateSpecCfg = field(default_factory=StateSpecCfg)
-    term_loss_weight: float = 1.0
-    height_threshold: float = 0.25
-    tilt_threshold: float = 0.8
+from supermimic.world_model.heads import AnalyticHeads
+from supermimic.world_model.reference import ReferenceFrame
+from supermimic.world_model.state_spec import StateSpec
 
 
 class TerminationHead(nn.Module):

@@ -6,17 +6,16 @@ from dataclasses import dataclass
 
 import torch
 
+from supermimic.data.motion_library import MotionLibrary
 from supermimic.data.replay_buffer import StartBatch
-from supermimic.envs.mdp.motion_library import MotionLibrary
 from supermimic.imagination.compiled import REWARD_TERM_NAMES, ImagStep
 from supermimic.policy.nets import Policy
 from supermimic.world_model.heads import (
-    ReferenceFrame,
     analytic_observation,
     anchor_relative_obs,
     flatten_history_term_major,
 )
-from supermimic.world_model.wm_trainer import reference_at
+from supermimic.world_model.reference import ReferenceFrame, reference_at
 from supermimic.world_model.world_model import WorldModel
 
 # Paper Table A.1 sensor noise (uniform half-widths) in the 93-d observation order.

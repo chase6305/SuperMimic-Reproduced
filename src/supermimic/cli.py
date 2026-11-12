@@ -10,7 +10,7 @@ from dataclasses import asdict
 from datetime import UTC, datetime
 from pathlib import Path
 
-from supermimic.artifacts import write_json
+from supermimic.data.preparation import prepare_motions as prepare_motions
 from supermimic.resources import ResourceLimits, gpu_snapshot, host_snapshot
 
 
@@ -214,34 +214,6 @@ def parser() -> argparse.ArgumentParser:
     return p
 
 
-def prepare_motions(source: Path, output: Path, clips: list[str]) -> dict:
-    import shutil
-
-    from supermimic.artifacts import sha256
-    from supermimic.data.schema import validate_motion
-
-    if len(set(clips)) != len(clips):
-        raise ValueError("Clip names must be unique")
-    sources = []
-    for name in clips:
-        if Path(name).name != name or name in (".", "..") or name.endswith(".npz"):
-            raise ValueError("Use plain clip names without extensions")
-        path = source / (name + ".npz")
-        info = validate_motion(path)
-        info.update(sha256=sha256(path), source=str(path.resolve()))
-        sources.append((path, info))
-    output.mkdir(parents=True, exist_ok=False)
-    result = dict(robot="unitree-g1-29dof", quaternion_order="wxyz", files={})
-    for path, info in sources:
-        dest = output / path.name
-        shutil.copyfile(path, dest)
-        if sha256(dest) != info["sha256"]:
-            raise RuntimeError("Input changed while copying " + str(path))
-        result["files"][path.name] = info
-    write_json(output / "manifest.json", result)
-    return result
-
-
 def main(argv: list[str] | None = None) -> int:
     args = parser().parse_args(argv)
     try:
@@ -334,36 +306,24 @@ def main(argv: list[str] | None = None) -> int:
                     json.dumps(dict(options=options, limits=asdict(limits)), indent=2, default=str)
                 )
                 return 0
+            from supermimic.runtime import isolated_cli_command, temporary_worker_config
             from supermimic.supervisor import supervise
 
             # Worker config lives beside the new run, not inside it; supervisor owns directory creation.
-            output.parent.mkdir(parents=True, exist_ok=True)
-            config_path = output.parent / ("." + output.name + ".worker.json")
-            if config_path.exists() or output.exists():
+            if output.exists():
                 raise FileExistsError(output)
-            write_json(config_path, dict(options=options, limits=asdict(limits)))
-            try:
-                bootstrap = (
-                    "import sys; sys.path.insert(0, sys.argv[1]); "
-                    "from supermimic.cli import main; raise SystemExit(main(sys.argv[2:]))"
-                )
+            with temporary_worker_config(
+                output, dict(options=options, limits=asdict(limits))
+            ) as config_path:
                 code = supervise(
-                    [
-                        sys.executable,
-                        "-I",
-                        "-c",
-                        bootstrap,
-                        str(output / "implementation"),
-                        "_worker",
-                        str(config_path),
-                    ],
+                    isolated_cli_command(
+                        output / "implementation", ["_worker", str(config_path)]
+                    ),
                     output,
                     limits,
                     max_seconds=args.hours * 3600 + 180,
                     freeze_source=True,
                 )
-            finally:
-                config_path.unlink(missing_ok=True)
             print(f"Run record: {output / 'run.json'}; log: {output / 'worker.log'}")
             return code
         return 0

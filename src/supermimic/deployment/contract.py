@@ -7,7 +7,16 @@ import re
 import mujoco
 import numpy as np
 
-from supermimic.data.motion_convert import G1_JOINT_NAMES
+from supermimic.deployment.validation import validate_contract
+from supermimic.interfaces import (
+    ACT_DIM,
+    G1_JOINT_NAMES,
+    OBS_TERMS,
+    QUATERNION_ORDER,
+    ROBOT_ID,
+    goal_dim,
+    observation_dim,
+)
 
 
 def build_model_and_contract(
@@ -59,32 +68,26 @@ def build_model_and_contract(
         effort[joint_index] = model.actuator_forcerange[actuator, 1]
     contract = {
         "schema_version": 1,
-        "robot": "unitree-g1-29dof",
+        "robot": ROBOT_ID,
         "algorithm": "cuboi-supermimic",
         "joint_names": list(G1_JOINT_NAMES),
-        "quaternion_order": "wxyz",
+        "quaternion_order": QUATERNION_ORDER,
         "root_linear_velocity_frame": "world",
         "root_angular_velocity_frame": "body",
-        "control_dt": 0.02,
+        "control_dt": float(model.opt.timestep) * cfg.decimation,
         "physics_dt": float(model.opt.timestep),
-        "decimation": 4,
-        "observation_terms": [
-            ["joint_pos", 29],
-            ["joint_vel", 29],
-            ["base_ang_vel", 3],
-            ["projected_gravity", 3],
-            ["actions", 29],
-        ],
+        "decimation": cfg.decimation,
+        "observation_terms": [list(term) for term in OBS_TERMS],
         "history": history,
         "history_order": "oldest_to_newest",
         "history_layout": "term_major",
         "history_reset": "repeat_first_observation",
-        "observation_dim": 93 * history,
+        "observation_dim": observation_dim(history),
         "future_frames": future_frames,
-        "goal_dim": 68 * future_frames + (9 if anchor_obs else 0),
+        "goal_dim": goal_dim(future_frames, anchor_obs),
         "anchor_obs": anchor_obs,
         "anchor_body": "torso_link",
-        "action_dim": 29,
+        "action_dim": ACT_DIM,
         "default_joint_pos": default_q.tolist(),
         "action_scale": scales,
         "action_semantics": "joint_target = default_joint_pos + action_scale * raw_action",
@@ -104,4 +107,5 @@ def build_model_and_contract(
         "deployment_target": "mujoco_cpu",
         "hardware_validated": False,
     }
+    validate_contract(contract)
     return model, contract

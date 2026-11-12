@@ -3,13 +3,13 @@
 from __future__ import annotations
 
 import json
-import shutil
 import time
 import traceback
 from dataclasses import asdict
 from pathlib import Path
 
-from supermimic.artifacts import sha256, write_json
+from supermimic.artifacts import sha256, snapshot_file, write_json
+from supermimic.interfaces import QUATERNION_ORDER, ROBOT_ID
 from supermimic.resources import ResourceLimits, constrain_torch
 
 
@@ -22,8 +22,7 @@ def run_worker(config_path: Path) -> int:
     record = dict(status="preparing", official_weights_used=False, paper_scale_result=False)
     trainer = None
     try:
-        from supermimic.data.schema import validate_motion
-        from supermimic.envs.mdp.motion_library import discover_npz
+        from supermimic.data.discovery import discover_npz
 
         files = discover_npz(options["motions"], names=options.get("clips"))
         if not files:
@@ -38,21 +37,35 @@ def run_worker(config_path: Path) -> int:
         expected_motions = None
         if manifest_path.is_file():
             prepared = json.loads(manifest_path.read_text())
-            if prepared.get("robot") != "unitree-g1-29dof":
+            if prepared.get("robot") != ROBOT_ID:
                 raise ValueError("Prepared motion manifest has an incompatible robot")
+            if prepared.get("quaternion_order", QUATERNION_ORDER) != QUATERNION_ORDER:
+                raise ValueError("Prepared motion manifest has an incompatible quaternion order")
             expected_motions = prepared["files"]
+        from supermimic.data.schema import validate_motion
+
         for path in files:
-            info = validate_motion(path)
-            digest = sha256(path)
-            if expected_motions is not None and (
-                path.name not in expected_motions or expected_motions[path.name]["sha256"] != digest
-            ):
+            if expected_motions is not None and path.name not in expected_motions:
                 raise ValueError(f"Motion differs from the prepared manifest: {path}")
+            # Reject invalid/unbounded archives before copying them into the run.
+            # Validate again below so recorded metadata belongs to the pinned copy.
+            validate_motion(path)
             dest = private_motions / path.name
-            shutil.copyfile(path, dest)
-            if sha256(dest) != digest:
-                raise RuntimeError(f"Motion changed during snapshot: {path}")
-            dest.chmod(0o444)
+            try:
+                digest = snapshot_file(
+                    path,
+                    dest,
+                    expected_sha256=(
+                        expected_motions[path.name]["sha256"]
+                        if expected_motions is not None
+                        else None
+                    ),
+                )
+            except ValueError as error:
+                raise ValueError(f"Motion differs from the prepared manifest: {path}") from error
+            except RuntimeError as error:
+                raise RuntimeError(f"Motion changed during snapshot: {path}") from error
+            info = validate_motion(dest)
             snapshots.append(dest)
             motion_files[path.name] = dict(
                 sha256=digest, frames=info["frames"], source=str(path.resolve())
@@ -60,7 +73,7 @@ def run_worker(config_path: Path) -> int:
         files = snapshots
         write_json(
             private_motions / "manifest.json",
-            {"robot": "unitree-g1-29dof", "quaternion_order": "wxyz", "files": motion_files},
+            {"robot": ROBOT_ID, "quaternion_order": QUATERNION_ORDER, "files": motion_files},
         )
         record["motion_files"] = motion_files
         record["input_motion_snapshot"] = str(private_motions)
@@ -68,12 +81,11 @@ def run_worker(config_path: Path) -> int:
         constrain_torch(ResourceLimits(**config["limits"]))
         checkpoint = Path(options["checkpoint"]) if options.get("checkpoint") else None
         if checkpoint:
-            digest = sha256(checkpoint)
             private_checkpoint = output / "inputs/checkpoint.pt"
-            shutil.copyfile(checkpoint, private_checkpoint)
-            if sha256(private_checkpoint) != digest:
-                raise RuntimeError("Checkpoint changed during snapshot")
-            private_checkpoint.chmod(0o444)
+            try:
+                digest = snapshot_file(checkpoint, private_checkpoint)
+            except RuntimeError as error:
+                raise RuntimeError("Checkpoint changed during snapshot") from error
             record["input_checkpoint_sha256"] = digest
             checkpoint = private_checkpoint
         if options["command"] == "train":
@@ -126,21 +138,26 @@ def run_worker(config_path: Path) -> int:
             )
             write_json(output / "result.json", record)
             trainer = Trainer(cfg)
-            record.update(
-                status="running",
-                starting_iteration=trainer.iteration,
-                starting_updates=trainer.num_updates,
-                transfer_provenance=trainer.transfer_provenance,
-            )
-            write_json(output / "result.json", record)
-            trainer.run()
-            record.update(
-                iteration=trainer.iteration,
-                updates=trainer.num_updates,
-                stop_reason=trainer.stop_reason,
-                checkpoint=str(trainer.log_dir / "ckpt_latest.pt"),
-                checkpoint_sha256=sha256(trainer.log_dir / "ckpt_latest.pt"),
-            )
+            try:
+                record.update(
+                    status="running",
+                    starting_iteration=trainer.iteration,
+                    starting_updates=trainer.num_updates,
+                    transfer_provenance=trainer.transfer_provenance,
+                )
+                write_json(output / "result.json", record)
+                trainer.run()
+                record.update(
+                    iteration=trainer.iteration,
+                    updates=trainer.num_updates,
+                    stop_reason=trainer.stop_reason,
+                    checkpoint=str(trainer.log_dir / "ckpt_latest.pt"),
+                    checkpoint_sha256=sha256(trainer.log_dir / "ckpt_latest.pt"),
+                )
+            finally:
+                # run() releases resources too; close() is safe to repeat and also
+                # covers failures before run() installs its own cleanup handler.
+                trainer.close()
         elif options["command"] == "eval":
             from supermimic.eval.benchmark import (
                 load_policy_from_checkpoint,

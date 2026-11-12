@@ -36,6 +36,11 @@ from supermimic.envs.actions import NoisyJointPositionActionCfg
 from supermimic.envs.mdp import observations as sm_obs
 from supermimic.envs.mdp import terminations as sm_term
 from supermimic.envs.mdp.commands import MultiClipMotionCommandCfg
+from supermimic.interfaces import ANCHOR_BODY as ANCHOR_BODY
+from supermimic.interfaces import FOOT_GEOM_REGEX as FOOT_GEOM_REGEX
+from supermimic.interfaces import OBS_TERMS
+from supermimic.interfaces import ROOT_BODY as ROOT_BODY
+from supermimic.interfaces import TRACKED_BODIES as TRACKED_BODIES
 
 
 class CheckedSimulationCfg(SimulationCfg):
@@ -46,27 +51,6 @@ class CheckedSimulationCfg(SimulationCfg):
         from supermimic.envs.physics_audit import capacity_overflow_mask
 
         wp_opt.warn_overflow = capacity_overflow_mask()
-
-
-TRACKED_BODIES = (
-    "pelvis",
-    "left_hip_roll_link",
-    "left_knee_link",
-    "left_ankle_roll_link",
-    "right_hip_roll_link",
-    "right_knee_link",
-    "right_ankle_roll_link",
-    "torso_link",
-    "left_shoulder_roll_link",
-    "left_elbow_link",
-    "left_wrist_yaw_link",
-    "right_shoulder_roll_link",
-    "right_elbow_link",
-    "right_wrist_yaw_link",
-)
-ANCHOR_BODY = "torso_link"
-ROOT_BODY = "pelvis"
-FOOT_GEOM_REGEX = r"^(left|right)_foot[1-7]_collision$"
 
 
 @dataclass
@@ -110,6 +94,10 @@ def make_env_cfg(a: SuperMimicEnvCfgArgs) -> ManagerBasedRlEnvCfg:
         ),
         "actions": ObservationTermCfg(func=base_mdp.last_action),
     }
+    expected_terms = tuple(name for name, _ in OBS_TERMS)
+    if set(policy_terms) != set(expected_terms):
+        raise ValueError("Policy observation terms differ from the shared interface")
+    policy_terms = {name: policy_terms[name] for name in expected_terms}
     observations = {
         "policy": ObservationGroupCfg(
             terms=policy_terms,

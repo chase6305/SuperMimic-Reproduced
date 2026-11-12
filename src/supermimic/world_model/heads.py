@@ -9,23 +9,15 @@ imagined rollouts.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-
 import torch
 
 from supermimic.envs.mdp.rewards import TrackingRewardCfg, tracking_reward_terms
+from supermimic.interfaces import ANCHOR_OBS_DIM as ANCHOR_OBS_DIM
+from supermimic.interfaces import OBS_DIM as OBS_DIM
+from supermimic.interfaces import OBS_TERMS
 from supermimic.kinematics.g1_fk import G1Kinematics
 from supermimic.kinematics.rotations import projected_gravity, quat_apply_inverse
-
-OBS_DIM = 93
-# Term layout of the ``policy`` observation group (order matters: term-major history).
-OBS_TERMS = (
-    ("joint_pos", 29),
-    ("joint_vel", 29),
-    ("base_ang_vel", 3),
-    ("projected_gravity", 3),
-    ("actions", 29),
-)
+from supermimic.world_model.reference import ReferenceFrame as ReferenceFrame
 
 
 def split_state(s: torch.Tensor):
@@ -64,9 +56,6 @@ def anchor_relative_obs(
     return torch.cat([pos, mat[..., :2].reshape(*q12.shape[:-1], 6)], dim=-1)
 
 
-ANCHOR_OBS_DIM = 9
-
-
 def flatten_history_term_major(hist: torch.Tensor) -> torch.Tensor:
     """(H, N, 93) oldest→newest  ->  (N, 930) in mjlab's term-major layout [A_t0..A_tH-1, B_t0..]."""
     H, N, _ = hist.shape
@@ -76,18 +65,6 @@ def flatten_history_term_major(hist: torch.Tensor) -> torch.Tensor:
         chunks.append(hist[:, :, start : start + d].permute(1, 0, 2).reshape(N, H * d))
         start += d
     return torch.cat(chunks, dim=-1)
-
-
-@dataclass
-class ReferenceFrame:
-    """Reference quantities of one target frame for a batch (N, ·)."""
-
-    body_pos_w: torch.Tensor  # (N, B, 3)
-    body_quat_w: torch.Tensor  # (N, B, 4)
-    body_lin_vel_w: torch.Tensor  # (N, B, 3)
-    body_ang_vel_w: torch.Tensor  # (N, B, 3)
-    root_pos_w: torch.Tensor  # (N, 3)
-    root_quat_w: torch.Tensor  # (N, 4)
 
 
 class AnalyticHeads:

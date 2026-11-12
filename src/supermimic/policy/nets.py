@@ -3,37 +3,18 @@
 from __future__ import annotations
 
 import math
-from dataclasses import dataclass
 
 import torch
 import torch.nn as nn
 
+from supermimic.config import CriticCfg as CriticCfg
+from supermimic.config import PolicyCfg as PolicyCfg
+from supermimic.interfaces import ACT_DIM as ACT_DIM
+from supermimic.interfaces import GOAL_DIM as GOAL_DIM
+from supermimic.interfaces import GOAL_FEAT_DIM, GOAL_TERMS, OBS_TERMS, observation_dim
 from supermimic.world_model.dynamics import MLP
-from supermimic.world_model.heads import OBS_TERMS
 
-GOAL_DIM = 680
 LATENT_DIM = 32
-ACT_DIM = 29
-
-
-@dataclass
-class PolicyCfg:
-    encoder_hidden: tuple[int, ...] = (2048, 1024, 512, 256)
-    decoder_hidden: tuple[int, ...] = (2048, 1024, 512, 256)
-    latent_dim: int = LATENT_DIM
-    history: int = 10
-    # Fixed per-term observation scales (divide): joint_pos, joint_vel, base_ang_vel, projected_gravity, actions.
-    obs_term_scale: tuple[float, ...] = (1.0, 5.0, 2.0, 1.0, 1.0)
-    # Fixed goal feature scales: joint_pos 29, joint_vel 29, grav 3, ang_vel_b 3, lin_vel_h 3, height 1.
-    goal_term_scale: tuple[float, ...] = (1.0, 5.0, 1.0, 2.0, 1.0, 1.0)
-    decoder_last_gain: float = 0.01
-    goal_dim: int = GOAL_DIM  # 680 (+9 with anchor_obs)
-    action_clip: float | None = None  # explicit optional bound, shared by training/export
-
-
-@dataclass
-class CriticCfg:
-    hidden: tuple[int, ...] = (256, 128)
 
 
 def _obs_scale_vector(cfg: PolicyCfg) -> torch.Tensor:
@@ -44,11 +25,11 @@ def _obs_scale_vector(cfg: PolicyCfg) -> torch.Tensor:
 
 
 def _goal_scale_vector(cfg: PolicyCfg, goal_dim: int) -> torch.Tensor:
-    sizes = (29, 29, 3, 3, 3, 1)
+    sizes = tuple(size for _, size in GOAL_TERMS)
     per_frame = torch.cat(
         [torch.full((n,), 1.0 / s) for n, s in zip(sizes, cfg.goal_term_scale, strict=True)]
     )
-    k, extra = divmod(goal_dim, 68)
+    k, extra = divmod(goal_dim, GOAL_FEAT_DIM)
     return torch.cat([per_frame.repeat(k), torch.ones(extra)])
 
 
@@ -64,7 +45,7 @@ class MotionEncoder(nn.Module):
 
 
 class Decoder(nn.Module):
-    def __init__(self, cfg: PolicyCfg, obs_dim: int = 930):
+    def __init__(self, cfg: PolicyCfg, obs_dim: int = observation_dim(10)):
         super().__init__()
         self.mlp = MLP(
             cfg.latent_dim + obs_dim, cfg.decoder_hidden, ACT_DIM, last_gain=cfg.decoder_last_gain
@@ -86,7 +67,7 @@ class Policy(nn.Module):
             raise ValueError("Action clipping must be finite and positive")
         self.cfg = cfg
         self.encoders = nn.ModuleDict({"motion": MotionEncoder(cfg)})
-        self.decoder = Decoder(cfg, obs_dim=cfg.history * 93)
+        self.decoder = Decoder(cfg, obs_dim=observation_dim(cfg.history))
 
     def forward(
         self, obs_hist: torch.Tensor, goal: torch.Tensor, interface: str = "motion"

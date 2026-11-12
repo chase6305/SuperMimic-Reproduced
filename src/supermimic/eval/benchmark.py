@@ -15,8 +15,8 @@ from pathlib import Path
 
 import torch
 
-from supermimic.envs import SuperMimicEnvCfgArgs, make_env
-from supermimic.policy.nets import Policy, PolicyCfg
+from supermimic.checkpoints import policy_from_checkpoint, read_checkpoint
+from supermimic.policy.nets import Policy
 
 
 @dataclass
@@ -44,12 +44,8 @@ class ClipResult:
 
 
 def load_policy_from_checkpoint(path: str | Path, device: str) -> tuple[Policy, dict]:
-    ck = torch.load(path, map_location=device, weights_only=False)
-    pc = ck["config"]["policy"]
-    pcfg = PolicyCfg(**{k: (tuple(v) if isinstance(v, list) else v) for k, v in pc.items()})
-    policy = Policy(pcfg).to(device)
-    policy.load_state_dict(ck["policy"])
-    policy.eval()
+    ck = read_checkpoint(path).data
+    policy = policy_from_checkpoint(ck).to(device)
     return policy, ck["config"]
 
 
@@ -67,6 +63,8 @@ def run_benchmark(
         raise ValueError("Benchmark needs at least one motion")
     if num_envs is not None and num_envs < 1:
         raise ValueError("Benchmark environment count must be positive")
+    from supermimic.envs import SuperMimicEnvCfgArgs, make_env
+
     num_envs = min(num_envs or 1024, len(npz_files))
     args = SuperMimicEnvCfgArgs(
         npz_files=npz_files,
