@@ -222,6 +222,29 @@ def test_invalid_reference_storage_is_rejected(tmp_path, bad):
         _read(tmp_path, {**_legacy(), "ref": bad})
 
 
+@pytest.mark.parametrize(
+    "dtype",
+    [
+        getattr(torch, name) for name in dir(torch)
+        if name.startswith("float8_") and isinstance(getattr(torch, name), torch.dtype)
+    ],
+    ids=str,
+)
+@pytest.mark.parametrize("rows", [0, 3])
+def test_float8_storage_is_rejected_before_dtype_arithmetic_or_value_scans(
+    monkeypatch, dtype, rows
+):
+    payload = {**_legacy(), "ref": torch.empty(rows, REF_DIM, dtype=dtype)}
+
+    def unexpected_values(*args, **kwargs):
+        raise AssertionError("Unsupported storage reached dtype arithmetic or value scanning")
+
+    monkeypatch.setattr(torch, "finfo", unexpected_values)
+    monkeypatch.setattr(torch, "isfinite", unexpected_values)
+    with pytest.raises(ValueError, match="supported storage dtypes"):
+        packed._validate_archive(payload)
+
+
 @pytest.mark.parametrize("dtype", [torch.float16, torch.bfloat16, torch.float32, torch.float64])
 @pytest.mark.parametrize("scale", [1.02, 2])
 def test_nonunit_root_quaternions_are_rejected(tmp_path, dtype, scale):

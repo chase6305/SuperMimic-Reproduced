@@ -4,6 +4,7 @@ Legacy archives contain ``ref``, ``names``, ``starts`` and ``lengths``. New writ
 also declare the motion conventions. Validation neither converts storage dtype
 nor moves reference tensors onto a device. Unit-quaternion checks include the
 storage dtype's quantization allowance and the norm computation's rounding.
+Supported storage dtypes are float16, bfloat16, float32 and float64.
 """
 
 from __future__ import annotations
@@ -23,6 +24,7 @@ from supermimic.interfaces import QUATERNION_ORDER, ROBOT_ID
 from supermimic.torch_io import read_torch_archive, write_torch_archive
 
 _VALIDATION_ROWS = 65_536
+_STORAGE_DTYPES = (torch.float16, torch.bfloat16, torch.float32, torch.float64)
 
 
 @dataclass(frozen=True)
@@ -102,11 +104,15 @@ def _validate_archive(data: Any) -> PackedMotion:
         or ref.layout != torch.strided
         or ref.is_nested
         or not ref.is_floating_point()
+        or ref.dtype not in _STORAGE_DTYPES
         or ref.ndim != 2
         or ref.shape[0] < 1
         or ref.shape[1] != REF_DIM
     ):
-        raise ValueError(f"Packed motion ref must be a dense real floating CPU tensor (N>0, {REF_DIM})")
+        raise ValueError(
+            f"Packed motion ref must be a dense real floating CPU tensor (N>0, {REF_DIM}); "
+            "supported storage dtypes: float16, bfloat16, float32, float64"
+        )
     names = _table(data["names"], "names")
     starts = _table(data["starts"], "starts")
     lengths = _table(data["lengths"], "lengths")

@@ -47,8 +47,10 @@ def test_motion_consumers_read_validated_inode_after_path_replacement(
         assert motion.features.shape == (3, 68)
         assert motion.body_names == motion.info["body_names"]
     elif reader == "library":
+        from supermimic.data import loading
         from supermimic.data.motion_library import MotionLibrary
 
+        monkeypatch.setattr(loading, "open_motion", replace_after_validation)
         library = MotionLibrary(
             [source], ("pelvis", "torso_link"), np.zeros(29), device="cpu", compact=False
         )
