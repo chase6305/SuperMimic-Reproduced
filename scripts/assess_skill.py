@@ -8,6 +8,61 @@ import math
 from pathlib import Path
 
 
+def _score_inputs(inputs, skill):
+    """Run the existing physical scoring formulas on context-owned inputs."""
+    import mujoco
+    import numpy as np
+    from scipy.spatial.transform import Rotation
+
+    from supermimic.deployment.metrics import tracking_metrics
+    from supermimic.eval.acceptance import flight_alignment, judge_skill
+
+    contract = inputs.contract
+    states = inputs.trajectory.states
+    actions = inputs.trajectory.arrays["actions"]
+    frames = inputs.trajectory.arrays["reference_frame"]
+    contacts = inputs.trajectory.arrays["physical_contacts"]
+    names, positions, quaternions, n = (
+        inputs.body_names,
+        inputs.positions,
+        inputs.quaternions,
+        inputs.motion_frames,
+    )
+    model = mujoco.MjModel.from_binary_path(str(inputs.model_path))
+    soles = []
+    for side in ("left", "right"):
+        name = side + "_ankle_roll_link"
+        idx = names.index(name)
+        body = model.body("robot/" + name).id
+        rotation = Rotation.from_quat(quaternions[:, idx][:, [1, 2, 3, 0]])
+        bottoms = []
+        for i in range(model.ngeom):
+            if model.geom_bodyid[i] != body or not model.geom_contype[i]:
+                continue
+            center = (
+                positions[:, idx, 2]
+                + rotation.apply(np.broadcast_to(model.geom_pos[i], (n, 3)))[:, 2]
+            )
+            if model.geom_type[i] == mujoco.mjtGeom.mjGEOM_CAPSULE:
+                fixed = Rotation.from_quat(model.geom_quat[i][[1, 2, 3, 0]])
+                axis = (rotation * fixed).apply(np.broadcast_to([0, 0, 1], (n, 3)))[:, 2]
+                extent = model.geom_size[i, 0] + model.geom_size[i, 1] * np.abs(axis)
+            elif model.geom_type[i] == mujoco.mjtGeom.mjGEOM_SPHERE:
+                extent = model.geom_size[i, 0]
+            else:
+                raise ValueError("Unsupported foot collision geometry")
+            bottoms.append(center - extent)
+        if not bottoms:
+            raise ValueError("No physical foot colliders")
+        soles.append(np.min(bottoms, axis=0))
+    metrics = tracking_metrics(states, actions, frames, inputs.motion_path, contract)
+    flight = flight_alignment(
+        np.stack(soles, -1), contacts, contract["control_dt"], contract["physics_dt"]
+    )
+    judgement = judge_skill(metrics, inputs.completed_motion, skill, flight)
+    return metrics, flight, judgement
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--bundle", type=Path, required=True)
@@ -28,102 +83,34 @@ def main():
     from supermimic.resources import ResourceLimits
 
     with cpu_guard(args.output, limits=ResourceLimits(max_rss_gib=args.max_rss_gib)):
-        import mujoco
-        import numpy as np
-        from scipy.spatial.transform import Rotation
-
+        import supermimic.deployment.assessment as assessment_module
         import supermimic.eval.acceptance as acceptance_module
         import supermimic.eval.quality as quality_module
         from supermimic.artifacts import sha256, write_json
-        from supermimic.data.schema import validate_motion
-        from supermimic.deployment.metrics import tracking_metrics
-        from supermimic.eval.acceptance import flight_alignment, judge_skill
+        from supermimic.deployment.assessment import open_assessment_inputs
+        from supermimic.runtime import source_manifest
 
-        result = json.loads((args.run / "result.json").read_text())
-        contract = json.loads((args.bundle / "contract.json").read_text())
-        trajectory = args.run / "trajectory.npz"
-        if result["status"] != "complete" or result["auto_reset"]:
-            raise ValueError("Assessment requires a finished uninterrupted physical rollout")
-        for actual, expected in (
-            (sha256(args.motion), result["motion_sha256"]),
-            (sha256(trajectory), result["trajectory_sha256"]),
-            (sha256(args.bundle / "contract.json"), result["contract_sha256"]),
-            (contract["checkpoint_sha256"], result["checkpoint_sha256"]),
-        ):
-            if actual != expected:
-                raise ValueError("Artifact identity mismatch")
-        for name, expected in contract["files"].items():
-            if sha256(args.bundle / name) != expected:
-                raise ValueError("Modified bundle file")
-        validate_motion(args.motion)
-        with np.load(trajectory, allow_pickle=False) as d:
-            states, actions, frames, contacts = (
-                d[k].copy() for k in ["states", "actions", "reference_frame", "physical_contacts"]
+        with open_assessment_inputs(args.bundle, args.motion, args.run, args.output) as inputs:
+            metrics, flight, judgement = _score_inputs(inputs, args.skill)
+            write_json(
+                args.output,
+                {
+                    "checkpoint_sha256": inputs.result["checkpoint_sha256"],
+                    "trajectory_sha256": inputs.trajectory.sha256,
+                    "motion_sha256": inputs.result["motion_sha256"],
+                    **inputs.evidence,
+                    "assessment_implementation_sha256": sha256(Path(__file__)),
+                    "assessment_inputs_implementation_sha256": sha256(
+                        Path(assessment_module.__file__)
+                    ),
+                    "assessment_implementation_package_sha256": source_manifest(),
+                    "acceptance_implementation_sha256": sha256(Path(acceptance_module.__file__)),
+                    "quality_implementation_sha256": sha256(Path(quality_module.__file__)),
+                    "judgement": judgement,
+                    "tracking": metrics,
+                    "flight": flight,
+                },
             )
-        if (
-            len(states) != len(actions) + 1
-            or len(frames) != len(actions)
-            or len(contacts) != len(actions) * contract["decimation"]
-        ):
-            raise ValueError("Inconsistent trajectory lengths")
-        with np.load(args.motion, allow_pickle=False) as d:
-            names = d["body_names"].tolist()
-            positions = d["body_pos_w"]
-            quaternions = d["body_quat_w"]
-            n = len(d["joint_pos"])
-            if not np.array_equal(
-                frames, np.minimum(np.arange(len(frames)) + result["reference_goal_offset"], n - 1)
-            ):
-                raise ValueError("Reference clock discontinuity")
-            model = mujoco.MjModel.from_binary_path(str(args.bundle / "model.mjb"))
-            soles = []
-            for side in ("left", "right"):
-                name = side + "_ankle_roll_link"
-                idx = names.index(name)
-                body = model.body("robot/" + name).id
-                rotation = Rotation.from_quat(quaternions[:, idx][:, [1, 2, 3, 0]])
-                bottoms = []
-                for i in range(model.ngeom):
-                    if model.geom_bodyid[i] != body or not model.geom_contype[i]:
-                        continue
-                    center = (
-                        positions[:, idx, 2]
-                        + rotation.apply(np.broadcast_to(model.geom_pos[i], (n, 3)))[:, 2]
-                    )
-                    if model.geom_type[i] == mujoco.mjtGeom.mjGEOM_CAPSULE:
-                        fixed = Rotation.from_quat(model.geom_quat[i][[1, 2, 3, 0]])
-                        axis = (rotation * fixed).apply(np.broadcast_to([0, 0, 1], (n, 3)))[:, 2]
-                        extent = model.geom_size[i, 0] + model.geom_size[i, 1] * np.abs(axis)
-                    elif model.geom_type[i] == mujoco.mjtGeom.mjGEOM_SPHERE:
-                        extent = model.geom_size[i, 0]
-                    else:
-                        raise ValueError("Unsupported foot collision geometry")
-                    bottoms.append(center - extent)
-                if not bottoms:
-                    raise ValueError("No physical foot colliders")
-                soles.append(np.min(bottoms, axis=0))
-        metrics = tracking_metrics(states, actions, frames, args.motion, contract)
-        flight = flight_alignment(
-            np.stack(soles, -1), contacts, contract["control_dt"], contract["physics_dt"]
-        )
-        complete = (
-            result["completed_motion"] and len(actions) == n - 1 and result["failure"] is None
-        )
-        judgement = judge_skill(metrics, complete, args.skill, flight)
-        write_json(
-            args.output,
-            {
-                "checkpoint_sha256": result["checkpoint_sha256"],
-                "trajectory_sha256": result["trajectory_sha256"],
-                "motion_sha256": result["motion_sha256"],
-                "assessment_implementation_sha256": sha256(Path(__file__)),
-                "acceptance_implementation_sha256": sha256(Path(acceptance_module.__file__)),
-                "quality_implementation_sha256": sha256(Path(quality_module.__file__)),
-                "judgement": judgement,
-                "tracking": metrics,
-                "flight": flight,
-            },
-        )
         print(
             json.dumps(
                 {

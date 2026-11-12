@@ -3,8 +3,48 @@
 from __future__ import annotations
 
 import argparse
-import json
 from pathlib import Path
+
+
+def _comparison_reference(motion: Path):
+    """Read the plotting fields and digest together without the training ABI."""
+    from supermimic.deployment.evidence import read_motion_evidence
+
+    reference = read_motion_evidence(motion, include_orientation=True)
+    data = reference.arrays
+    root = data["body_names"].tolist().index("pelvis")
+    return (
+        reference.sha256,
+        data["body_pos_w"][:, root].copy(),
+        data["body_quat_w"][:, root].copy(),
+        data["joint_pos"].copy(),
+    )
+
+
+def _comparison_run(run: Path, motion_sha256: str, motion_frames: int):
+    """Prepare one finished rollout without requiring actions, contacts or success."""
+    from supermimic.deployment.evidence import (
+        read_json_evidence,
+        verify_artifact_identity,
+        verify_control_dt,
+    )
+    from supermimic.deployment.trajectory import open_trajectory, validate_reference_clock
+
+    result, _ = read_json_evidence(run / "result.json")
+    if result["status"] != "complete" or result["auto_reset"]:
+        raise ValueError(f"Incompatible deployment: {run}")
+    with open_trajectory(run / "trajectory.npz", fields=("reference_frame",)) as recorded:
+        identity = verify_artifact_identity(
+            result, motion_sha256=motion_sha256, trajectory_sha256=recorded.sha256
+        )
+        if identity["status"] != "verified":
+            raise ValueError(f"Missing deployment artifact fingerprints: {run}")
+        frames = recorded.arrays["reference_frame"]
+        if recorded.states.shape[1] < 36 or len(recorded.states) != len(frames) + 1:
+            raise ValueError(f"Trajectory clock or position layout discontinuity: {run}")
+        validate_reference_clock(recorded, motion_frames, result["reference_goal_offset"])
+        verify_control_dt(recorded.control_dt, result=result)
+    return result, recorded
 
 
 def main():
@@ -25,15 +65,10 @@ def main():
         import matplotlib.pyplot as plt
         import numpy as np
 
-        from supermimic.artifacts import sha256, write_json
+        from supermimic.artifacts import write_json
         from supermimic.deployment.reference import heading_error
 
-        motion_hash = sha256(args.motion)
-        with np.load(args.motion, allow_pickle=False) as data:
-            root = data["body_names"].tolist().index("pelvis")
-            position = data["body_pos_w"][:, root].copy()
-            orientation = data["body_quat_w"][:, root].copy()
-            joints = data["joint_pos"].copy()
+        motion_hash, position, orientation, joints = _comparison_reference(args.motion)
         fig, axes = plt.subplots(2, 2, figsize=(12, 9), constrained_layout=True)
         axes[0, 0].plot(position[:, 0], position[:, 1], color="black", label="reference", alpha=0.6)
         report = {
@@ -42,24 +77,9 @@ def main():
             "runs": [],
         }
         for label, run in zip(args.labels, args.runs, strict=True):
-            result = json.loads((run / "result.json").read_text())
-            trajectory = run / "trajectory.npz"
-            digest = sha256(trajectory)
-            if (
-                result["status"] != "complete"
-                or result["auto_reset"]
-                or result["motion_sha256"] != motion_hash
-                or result["trajectory_sha256"] != digest
-            ):
-                raise ValueError(f"Incompatible or modified deployment: {run}")
-            with np.load(trajectory, allow_pickle=False) as data:
-                states, frames = data["states"], data["reference_frame"]
-                dt = float(data["control_dt"])
-            expected = np.minimum(
-                np.arange(len(frames)) + result["reference_goal_offset"], len(joints) - 1
-            )
-            if not np.array_equal(frames, expected) or len(states) != len(frames) + 1:
-                raise ValueError(f"Trajectory clock discontinuity: {run}")
+            result, recorded = _comparison_run(run, motion_hash, len(joints))
+            states, frames = recorded.states, recorded.arrays["reference_frame"]
+            dt, digest = recorded.control_dt, recorded.sha256
             time = np.arange(1, len(frames) + 1) * dt
             xy = np.linalg.norm(states[1:, :2] - position[frames, :2], axis=-1)
             yaw = heading_error(states[1:, 3:7], orientation[frames])
@@ -84,6 +104,7 @@ def main():
                     ],
                 }
             )
+            del recorded, states, frames
         axes[0, 0].set(title="Full XY path", xlabel="x (m)", ylabel="y (m)")
         axes[0, 0].set_aspect("equal", adjustable="datalim")
         axes[0, 1].set(title="Root path error", xlabel="time (s)", ylabel="m")
