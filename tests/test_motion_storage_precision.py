@@ -279,13 +279,17 @@ def test_target_cast_preview_is_bounded_and_catches_overflow_in_the_last_block(m
 
 
 @pytest.mark.skipif(not hasattr(torch, "float8_e4m3fn"), reason="needs float8_e4m3fn casts")
-@pytest.mark.parametrize("overflow", [False, True])
-def test_float8_target_preview_uses_supported_float32_finite_scan(monkeypatch, overflow):
+@pytest.mark.parametrize("large_value", [False, True])
+def test_float8_target_preview_follows_native_cast_with_float32_scan(monkeypatch, large_value):
     source = torch.tensor([[0.0, 1.0, -2.0], [448.0, 10.0, -10.0]])
-    if overflow:
+    if large_value:
         source[-1, 0] = 70000.0
     original = source.clone()
     real_finite = torch.isfinite
+    # Float8 conversion may saturate rather than produce a non-finite value.
+    # Its native conversion is the contract; the validator must not impose
+    # float16's overflow behavior on this experimental target dtype.
+    expected_finite = bool(real_finite(source.to(torch.float8_e4m3fn).float()).all())
     scans = []
 
     def finite(value):
@@ -297,7 +301,7 @@ def test_float8_target_preview_uses_supported_float32_finite_scan(monkeypatch, o
         return real_finite(value)
 
     monkeypatch.setattr(torch, "isfinite", finite)
-    if overflow:
+    if not expected_finite:
         with pytest.raises(ValueError, match="after conversion to torch.float8_e4m3fn"):
             motion_library._validate_storage_dtype(source, torch.float8_e4m3fn, "reference")
     else:
