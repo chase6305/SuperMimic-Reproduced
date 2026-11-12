@@ -120,11 +120,11 @@ def validate_contract(contract: Mapping) -> None:
 
 
 def validate_model_contract(model, contract: Mapping) -> None:
-    """Check compiled state/control addresses before allocating physical state.
+    """Check compiled state/control addresses and limits before allocating state.
 
     The model argument is deliberately duck typed: importing this metadata layer
     does not import MuJoCo. Policy identity and PD tuning are handled by their
-    existing export and artifact checks; this verifies the model's address map.
+    existing export and artifact checks; this verifies addresses and joint limits.
     """
     validate_contract(contract)
     for name, expected in (("nq", 7 + ACT_DIM), ("nv", 6 + ACT_DIM), ("nu", ACT_DIM)):
@@ -151,6 +151,17 @@ def validate_model_contract(model, contract: Mapping) -> None:
     ):
         if int(actual) != contract[field]:
             raise ValueError(f"Model {field} differs from the control contract")
+    if any(
+        not math.isclose(
+            float(model.jnt_range[joint, bound]),
+            contract["joint_limits"][index][bound],
+            rel_tol=1e-9,
+            abs_tol=1e-12,
+        )
+        for index, joint in enumerate(joints)
+        for bound in (0, 1)
+    ):
+        raise ValueError("Model joint_limits differ from the control contract")
     actual_actuators = [int(model.actuator_trnid[index, 0]) for index in range(model.nu)]
     expected_actuators = [joints[index] for index in contract["actuator_joint_indices"]]
     if actual_actuators != expected_actuators:

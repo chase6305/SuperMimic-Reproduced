@@ -133,6 +133,16 @@ def test_contract_addresses_must_match_compiled_model(model_and_contract, field)
         validate_model_contract(model, changed)
 
 
+def test_validly_ordered_contract_limits_must_match_actual_model(model_and_contract):
+    model, contract = model_and_contract
+    changed = deepcopy(contract)
+    upper = contract["joint_limits"][0][1]
+    changed["joint_limits"][0] = [upper + 10, upper + 11]
+    validate_contract(changed)
+    with pytest.raises(ValueError, match="joint_limits"):
+        validate_model_contract(model, changed)
+
+
 @pytest.mark.parametrize("dimension", ["nq", "nv", "nu"])
 def test_model_dimensions_must_match_g1_layout(model_and_contract, dimension):
     model, contract = model_and_contract
@@ -143,29 +153,31 @@ def test_model_dimensions_must_match_g1_layout(model_and_contract, dimension):
         validate_model_contract(incompatible, contract)
 
 
-def test_deployment_checks_model_addresses_before_allocating_state(
-    tmp_path, model_and_contract, monkeypatch
+@pytest.mark.parametrize("field", ["joint_qpos_indices", "joint_limits"])
+def test_deployment_checks_model_addresses_and_limits_before_allocating_state(
+    tmp_path, model_and_contract, monkeypatch, field
 ):
     from supermimic.deployment import mujoco as runtime
 
     model, contract = model_and_contract
     changed = deepcopy(contract)
     changed["packages"] = {"mujoco": runtime.mujoco.__version__}
-    changed["joint_qpos_indices"][0], changed["joint_qpos_indices"][1] = (
-        changed["joint_qpos_indices"][1],
-        changed["joint_qpos_indices"][0],
-    )
+    if field == "joint_qpos_indices":
+        changed[field][0], changed[field][1] = changed[field][1], changed[field][0]
+    else:
+        upper = changed[field][0][1]
+        changed[field][0] = [upper + 10, upper + 11]
     runtime.mujoco.mj_saveModel(model, str(tmp_path / "model.mjb"))
     runner = SimpleNamespace(contract=changed, default_q=[0.0] * 29)
     monkeypatch.setattr(runtime, "PolicyRunner", lambda bundle: runner)
     monkeypatch.setattr(runtime, "MotionReference", lambda motion, default_q: None)
 
     def unexpected_state(*args, **kwargs):
-        raise AssertionError("Physical state must not be allocated with incorrect addresses")
+        raise AssertionError("Physical state must not be allocated with incorrect model metadata")
 
     monkeypatch.setattr(runtime.mujoco, "MjData", unexpected_state)
     output = tmp_path / "rollout"
-    with pytest.raises(ValueError, match="joint_qpos_indices"):
+    with pytest.raises(ValueError, match=field):
         runtime.deploy(tmp_path, tmp_path / "unused.npz", output)
     assert not output.exists()
 
