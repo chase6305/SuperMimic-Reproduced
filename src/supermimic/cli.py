@@ -11,6 +11,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 from supermimic.artifacts import write_json
+from supermimic.data.preparation import prepare_motions as prepare_motions
 from supermimic.resources import ResourceLimits, gpu_snapshot, host_snapshot
 
 
@@ -212,34 +213,6 @@ def parser() -> argparse.ArgumentParser:
     worker = sub.add_parser("_worker", help=argparse.SUPPRESS)
     worker.add_argument("config", type=Path)
     return p
-
-
-def prepare_motions(source: Path, output: Path, clips: list[str]) -> dict:
-    import shutil
-
-    from supermimic.artifacts import sha256
-    from supermimic.data.schema import validate_motion
-
-    if len(set(clips)) != len(clips):
-        raise ValueError("Clip names must be unique")
-    sources = []
-    for name in clips:
-        if Path(name).name != name or name in (".", "..") or name.endswith(".npz"):
-            raise ValueError("Use plain clip names without extensions")
-        path = source / (name + ".npz")
-        info = validate_motion(path)
-        info.update(sha256=sha256(path), source=str(path.resolve()))
-        sources.append((path, info))
-    output.mkdir(parents=True, exist_ok=False)
-    result = dict(robot="unitree-g1-29dof", quaternion_order="wxyz", files={})
-    for path, info in sources:
-        dest = output / path.name
-        shutil.copyfile(path, dest)
-        if sha256(dest) != info["sha256"]:
-            raise RuntimeError("Input changed while copying " + str(path))
-        result["files"][path.name] = info
-    write_json(output / "manifest.json", result)
-    return result
 
 
 def main(argv: list[str] | None = None) -> int:

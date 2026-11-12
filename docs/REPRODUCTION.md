@@ -82,6 +82,7 @@ CSV 转换前检查时间和数组大小，单片段限制 250,000 个输出帧�
 | --- | --- | --- |
 | `config`、`interfaces`、`memory`、`data.discovery` | 标准库 | 配置、G1 规范、内存估算与文件选择无需数值 SDK |
 | `profiles` | 标准库 | 新运行配置解析保持轻量；读取恢复配置时引入 Torch |
+| `data.preparation` | 标准库 | 准备时加载 NumPy 校验；全源预检后创建输出，从最终可写副本生成清单 |
 | `world_model.reference` | 标准库 | Tensor 类型仅用于静态分析；参考数据由调用方提供的 library 查询 |
 | `data.motion_library` | NumPy、Torch，以及数学工具带入的 mjlab／Warp | 紧凑模式还需 MuJoCo 模型与 FK；移到数据层不代表 SDK 隔离 |
 | `policy.nets`、`checkpoints`、`eval.benchmark` | Torch | actor 先在 CPU 恢复；实际执行 benchmark 时再导入仿真接口 |
@@ -97,7 +98,7 @@ CSV 转换前检查时间和数组大小，单片段限制 250,000 个输出帧�
 
 `checkpoints.read_checkpoint` 始终先在 CPU 读取。训练恢复显式使用 Linux `/proc/self/fd` 上的 mmap，映射绑定同一个已打开 inode，并要求输入在使用期间不被原地改写；原子轮转 `ckpt_latest` 不会改变已打开的输入。导出、迁移和权重 transfer 的来源摘要也绑定该 inode。评测使用兼容旧序列化格式的 CPU 读取，再仅将 actor 移至目标设备。
 
-`checkpoints.write_checkpoint` 先写临时文件，再原子发布，失败清理部分写入。训练显式允许替换自己的 checkpoint，接口迁移保持独占发布，不覆盖已有输出。输入快照由 `artifacts.snapshot_file` 分块复制、复核摘要、只读发布；动作文件在复制前预检，复制后再次验证，使记录的帧数与实际副本一致。源码冻结及隔离 CLI 启动统一由 `runtime` 构造。CPU 部署保留历史三个文件的摘要，另以 `implementation_package_sha256` 记录整个包的 Python 源码清单，覆盖拆出的参考、接口与校验模块；该清单表示包源码身份，并非精确的运行时导入集合。
+`checkpoints.write_checkpoint` 先写临时文件，再原子发布，失败清理部分写入。训练显式允许替换自己的 checkpoint，接口迁移保持独占发布，不覆盖已有输出。运行输入快照由 `artifacts.snapshot_file` 分块复制、复核摘要、只读发布；动作文件在复制前预检，复制后再次验证，使记录的帧数与实际副本一致。源码冻结及隔离 CLI 启动统一由 `runtime` 构造。CPU 部署保留历史三个文件的摘要，另以 `implementation_package_sha256` 记录整个包的 Python 源码清单，覆盖拆出的参考、接口与校验模块；该清单表示包源码身份，并非精确的运行时导入集合。
 
 `Trainer` 创建环境、事件写入器与分布式状态后立即登记清理，即使初始化中途失败也释放已创建资源。公开训练入口运行一个受控 worker，并设置该 worker 的 rank／world 环境；分布式 helper 保留给调用方自行组织的 Trainer 集成。`run()` 还原信号处理器并调用幂等 `close()`；worker 从持有 Trainer 开始负责最终关闭，因此运行状态文件写入失败也不会遗留环境。清理异常不会阻止其余资源清理。关闭后的 Trainer 在开始新训练前需要重新构造。
 
