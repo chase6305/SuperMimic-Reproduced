@@ -49,7 +49,10 @@ def read_checkpoint(
     Pickle loading remains enabled for existing training checkpoints: inputs must
     be trusted, as at the training, migration and export entry points.
     """
-    with Path(path).open("rb") as stream:
+    # A buffered reader can retain the old bytes after torch.load seeks around
+    # a small archive. Rewinding that buffer would hide an external in-place
+    # write from the second fingerprint, even though the inode is unchanged.
+    with Path(path).open("rb", buffering=0) as stream:
         before = os.fstat(stream.fileno())
         if max_bytes is not None and before.st_size > max_bytes:
             raise ValueError(f"Checkpoint exceeds the {max_bytes} byte input budget")
@@ -76,7 +79,7 @@ def read_checkpoint(
 def write_checkpoint(path: Path | str, data: dict[str, Any], *, overwrite: bool = False) -> None:
     """Publish a complete checkpoint, cleaning up partial serialization on failure.
 
-    New exports/migrations use exclusive publication. Only the training writer
+    Migrated checkpoints use exclusive publication. Only the training writer
     explicitly replaces its latest or numbered publication. Neither mode mutates
     an inode that a reader may still have mapped.
     """

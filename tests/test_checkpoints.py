@@ -47,7 +47,8 @@ def test_read_keeps_original_inode_and_tensors_after_descriptor_closes(tmp_path,
     assert loaded.data["value"].device.type == "cpu"
 
 
-def test_fingerprint_detects_same_size_in_place_change(tmp_path, monkeypatch):
+@pytest.mark.parametrize("mmap", [False, True])
+def test_fingerprint_detects_same_size_in_place_change(tmp_path, monkeypatch, mmap):
     checkpoint = tmp_path / "source.pt"
     torch.save({"value": torch.arange(4)}, checkpoint)
     original_load = torch.load
@@ -65,7 +66,7 @@ def test_fingerprint_detects_same_size_in_place_change(tmp_path, monkeypatch):
 
     monkeypatch.setattr(torch, "load", mutate_after_loading)
     with pytest.raises(RuntimeError, match="changed in place"):
-        read_checkpoint(checkpoint, fingerprint=True)
+        read_checkpoint(checkpoint, fingerprint=True, mmap=mmap)
 
 
 def test_input_budget_is_checked_before_deserialization(tmp_path, monkeypatch):
