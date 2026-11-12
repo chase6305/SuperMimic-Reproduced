@@ -52,6 +52,12 @@ def test_generated_contract_supports_nondefault_input_sizes(contract):
         ("first_goal_frame", 0),
         ("first_goal_frame", 2),
         ("first_goal_frame", -1),
+        ("initial_joint_soft_limit_factor", float("nan")),
+        ("initial_joint_soft_limit_factor", float("inf")),
+        ("initial_joint_soft_limit_factor", 0),
+        ("initial_joint_soft_limit_factor", -0.1),
+        ("initial_joint_soft_limit_factor", 1.1),
+        ("initial_joint_soft_limit_factor", True),
         ("action_scale", [float("inf")] * 29),
         ("default_joint_pos", [0.0] * 28),
         ("actuator_joint_indices", [0] * 29),
@@ -78,8 +84,16 @@ def test_early_schema_offsets_use_existing_defaults_and_allow_provenance(contrac
     early = deepcopy(contract)
     del early["initial_reference_state_frame"]
     del early["first_goal_frame"]
+    del early["initial_joint_soft_limit_factor"]
     early["additional_provenance"] = {"source": "older schema-v1 export"}
     validate_contract(early)
+
+
+@pytest.mark.parametrize("factor", [0.5, 1.0])
+def test_valid_custom_initial_soft_limit_factor_is_accepted(contract, factor):
+    changed = deepcopy(contract)
+    changed["initial_joint_soft_limit_factor"] = factor
+    validate_contract(changed)
 
 
 def test_compiled_model_matches_generated_contract(model_and_contract):

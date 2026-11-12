@@ -62,6 +62,10 @@ def validate_contract(contract: Mapping) -> None:
     def finite(value) -> bool:
         return type(value) in (int, float) and math.isfinite(value)
 
+    factor = contract.get("initial_joint_soft_limit_factor", 0.9)
+    if not finite(factor) or not 0 < factor <= 1:
+        raise ValueError("Invalid policy contract initial_joint_soft_limit_factor")
+
     for name in ("control_dt", "physics_dt"):
         if not finite(contract.get(name)) or contract[name] <= 0:
             raise ValueError(f"Invalid policy contract {name}")
