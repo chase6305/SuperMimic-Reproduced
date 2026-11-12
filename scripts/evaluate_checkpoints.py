@@ -9,16 +9,15 @@ from __future__ import annotations
 import argparse
 import json
 import os
-import shutil
 import subprocess
-import sys
 import tempfile
 import time
 from datetime import UTC, datetime
 from pathlib import Path
 
-from supermimic.artifacts import sha256, write_json
+from supermimic.artifacts import snapshot_file, write_json
 from supermimic.resources import ResourceLimits, ResourceUnavailable, admit, clean_environment
+from supermimic.runtime import freeze_implementation, isolated_cli_command
 
 
 def candidates(roots: list[Path]):
@@ -89,20 +88,11 @@ def archive_checkpoints(roots: list[Path]) -> None:
 def run_candidate(checkpoint, output, motion, deadline):
     env = clean_environment()
     env["CUDA_VISIBLE_DEVICES"] = ""
-    import supermimic
-
     implementation = output / "implementation"
-    frozen = implementation / "supermimic"
-    shutil.copytree(
-        Path(supermimic.__file__).parent,
-        frozen,
-        ignore=shutil.ignore_patterns("__pycache__", "*.pyc"),
-    )
     write_json(
         output / "implementation-sha256.json",
-        {str(path.relative_to(frozen)): sha256(path) for path in sorted(frozen.rglob("*.py"))},
+        freeze_implementation(implementation),
     )
-    bootstrap = "import sys; sys.path.insert(0,sys.argv[1]); from supermimic.cli import main; raise SystemExit(main(sys.argv[2:]))"
     with (output / "worker.log").open("w") as log:
         for command in (
             ["export", "--checkpoint", str(checkpoint), "--output", str(output / "export")],
@@ -120,7 +110,7 @@ def run_candidate(checkpoint, output, motion, deadline):
                 return "deadline", {}
             try:
                 executed = subprocess.run(
-                    [sys.executable, "-I", "-c", bootstrap, str(implementation), *command],
+                    isolated_cli_command(implementation, command),
                     env=env,
                     stdout=log,
                     stderr=subprocess.STDOUT,
@@ -228,13 +218,11 @@ def main():
             with tempfile.TemporaryDirectory(prefix="input-", dir=target) as temporary:
                 snapshot = Path(temporary) / "checkpoint.pt"
                 try:
-                    expected = sha256(checkpoint)
-                    shutil.copyfile(checkpoint, snapshot)
+                    expected = snapshot_file(checkpoint, snapshot)
                 except FileNotFoundError:
                     continue  # Trainer rotated this file between discovery and opening it.
-                if sha256(snapshot) != expected:
-                    raise RuntimeError("Checkpoint changed during CPU evaluation snapshot")
-                snapshot.chmod(0o444)
+                except RuntimeError as error:
+                    raise RuntimeError("Checkpoint changed during CPU evaluation snapshot") from error
                 status, result = run_candidate(snapshot, target, args.motion.resolve(), deadline)
                 entry.update(status=status, checkpoint_sha256=expected)
                 if status in ("deferred", "deadline"):

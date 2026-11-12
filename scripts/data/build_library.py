@@ -18,8 +18,8 @@ def _pack(npz_dir: Path, out: Path, manifest: Path | None = None, workers: int =
     import torch
     from tqdm import tqdm
 
+    from supermimic.data.discovery import discover_npz
     from supermimic.data.schema import validate_motion
-    from supermimic.envs.mdp.motion_library import discover_npz
     from supermimic.resources import GIB, host_snapshot
 
     if not 1 <= workers <= 4:

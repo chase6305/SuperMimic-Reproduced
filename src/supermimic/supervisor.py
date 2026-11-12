@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import fcntl
 import os
-import shutil
 import signal
 import subprocess
 import time
@@ -25,6 +24,7 @@ from supermimic.resources import (
     host_snapshot,
     process_gpu_mib,
 )
+from supermimic.runtime import freeze_implementation
 
 
 def supervise(
@@ -60,17 +60,7 @@ def supervise(
                 fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
             record["admission"] = admit(limits, output, cuda=cuda)
             if freeze_source:
-                from supermimic.artifacts import sha256
-
-                package = Path(__file__).parent
-                frozen = output / "implementation/supermimic"
-                shutil.copytree(
-                    package, frozen, ignore=shutil.ignore_patterns("__pycache__", "*.pyc")
-                )
-                record["implementation_sha256"] = {
-                    str(path.relative_to(frozen)): sha256(path)
-                    for path in sorted(frozen.rglob("*.py"))
-                }
+                record["implementation_sha256"] = freeze_implementation(output / "implementation")
             write_json(output / "run.json", record)
             env = clean_environment()
             if cuda:

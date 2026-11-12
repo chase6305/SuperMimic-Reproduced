@@ -334,6 +334,7 @@ def main(argv: list[str] | None = None) -> int:
                     json.dumps(dict(options=options, limits=asdict(limits)), indent=2, default=str)
                 )
                 return 0
+            from supermimic.runtime import isolated_cli_command
             from supermimic.supervisor import supervise
 
             # Worker config lives beside the new run, not inside it; supervisor owns directory creation.
@@ -343,20 +344,10 @@ def main(argv: list[str] | None = None) -> int:
                 raise FileExistsError(output)
             write_json(config_path, dict(options=options, limits=asdict(limits)))
             try:
-                bootstrap = (
-                    "import sys; sys.path.insert(0, sys.argv[1]); "
-                    "from supermimic.cli import main; raise SystemExit(main(sys.argv[2:]))"
-                )
                 code = supervise(
-                    [
-                        sys.executable,
-                        "-I",
-                        "-c",
-                        bootstrap,
-                        str(output / "implementation"),
-                        "_worker",
-                        str(config_path),
-                    ],
+                    isolated_cli_command(
+                        output / "implementation", ["_worker", str(config_path)]
+                    ),
                     output,
                     limits,
                     max_seconds=args.hours * 3600 + 180,
