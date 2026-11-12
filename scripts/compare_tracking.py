@@ -26,7 +26,7 @@ def main():
         import numpy as np
 
         from supermimic.artifacts import sha256, write_json
-        from supermimic.deployment.core import heading_error
+        from supermimic.deployment.reference import heading_error
 
         motion_hash = sha256(args.motion)
         with np.load(args.motion, allow_pickle=False) as data:
