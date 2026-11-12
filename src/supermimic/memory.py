@@ -6,6 +6,8 @@ supervisor, since compiler and driver allocations vary across SDKs and devices.
 
 from __future__ import annotations
 
+from supermimic.interfaces import ACT_DIM, goal_dim, observation_dim
+
 MIB = 1024**2
 
 
@@ -20,14 +22,18 @@ def mlp_parameters(dimensions) -> int:
 def estimate_training_memory(cfg, reference_frames: int) -> dict:
     if reference_frames < 1 or cfg.env.num_envs < 1:
         raise ValueError("Memory planning requires positive frame/environment counts")
-    goal = cfg.env.future_frames * 68 + (9 if cfg.env.anchor_obs else 0)
+    goal = goal_dim(cfg.env.future_frames, cfg.env.anchor_obs)
     parameters = sum(
         [
             mlp_parameters([133, *cfg.world_model.hidden, 70]),
             mlp_parameters([4, *cfg.world_model.term_hidden, 1]),
             mlp_parameters([goal, *cfg.policy.encoder_hidden, cfg.policy.latent_dim]),
             mlp_parameters(
-                [cfg.policy.latent_dim + 93 * cfg.policy.history, *cfg.policy.decoder_hidden, 29]
+                [
+                    cfg.policy.latent_dim + observation_dim(cfg.policy.history),
+                    *cfg.policy.decoder_hidden,
+                    ACT_DIM,
+                ]
             ),
             mlp_parameters([71 + goal + 33 + 4, *cfg.critic.hidden, 1]),
         ]

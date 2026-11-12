@@ -7,53 +7,15 @@ from dataclasses import dataclass
 
 import torch
 
+from supermimic.config import PolicyTrainerCfg as PolicyTrainerCfg
+from supermimic.data.motion_library import MotionLibrary
 from supermimic.data.replay_buffer import ReplayBuffer
-from supermimic.envs.mdp.motion_library import MotionLibrary
 from supermimic.imagination.objective import gae_targets, policy_objective, survival_weighted_mse
 from supermimic.imagination.rollout import ImagRollout, imagine
 from supermimic.imagination.tracking import tracking_auxiliary
 from supermimic.policy.nets import Critic, Policy
 from supermimic.training.distributed import allreduce_grads
 from supermimic.world_model.world_model import WorldModel
-
-
-@dataclass
-class PolicyTrainerCfg:
-    horizon: int = 32
-    batch_size: int = 4096
-    history: int = 10
-    future_frames: int = 10
-    gamma: float = 0.99
-    gae_lambda: float = 0.95
-    lr: float = 2e-4
-    betas: tuple[float, float] = (0.9, 0.95)
-    grad_clip_norm: float = 1.0
-    grad_clip_value: float = 0.1
-    critic_lr: float = 2e-4
-    critic_grad_clip: float = 1.0
-    critic_epochs: int = 5
-    critic_minibatches: int = 4
-    use_critic: bool = True
-    obs_noise: bool = True
-    compile: str | None = "default"
-    anchor_obs: bool = False
-    min_survival: float = 1e-6
-    tracking_objective: str = "baseline"
-    joint_tracking_weight: float = 0.0
-    root_xy_tracking_weight: float = 0.0
-    height_tracking_weight: float = 0.0
-    orientation_tracking_weight: float = 0.0
-    vertical_velocity_tracking_weight: float = 0.0
-    angular_velocity_tracking_weight: float = 0.0
-    foot_support_height_weight: float = 0.0
-    foot_support_velocity_weight: float = 0.0
-    effector_position_weight: float = 0.0
-    effector_position_weights: tuple[float, ...] = (1.0,) * 4
-    orientation_loss: str = "chordal"
-    joint_tracking_weights: tuple[float, ...] = (1.0,) * 29
-    reset_start_fraction: float = 0.0
-    gradient_accumulation_steps: int = 1
-    update_scope: str = "all"
 
 
 def configure_policy_update_scope(policy: Policy, scope: str) -> None:

@@ -21,10 +21,9 @@ Loss / error normalisation (D3): per-quantity nominal scales sigma applied to th
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-
 import torch
 
+from supermimic.config import StateSpecCfg as StateSpecCfg
 from supermimic.kinematics.rotations import (
     heading_quat,
     quat_apply,
@@ -41,23 +40,6 @@ STATE_DIM = 71
 FEAT_DIM = 71
 DELTA_DIM = 70
 NJ = 29
-
-
-@dataclass
-class StateSpecCfg:
-    dt: float = 0.02
-    # Nominal error scales (D3) for [root pos m, root rotvec rad, root lin vel m/s, root ang vel rad/s, joint pos rad, joint vel rad/s].
-    err_scale: tuple[float, ...] = (0.05, 0.1, 0.5, 1.0, 0.1, 2.0)
-    # Output scales of the dynamics head for [dv_h, dw_b, dqd, dp_h, dth_b, dq].
-    out_scale: tuple[float, ...] = (0.3, 0.5, 2.0, 0.01, 0.02, 0.02)
-    # Input feature scales for [root_z, rot6d, lin_vel_h, ang_vel_b, joint_pos, joint_vel] (divide by these).
-    in_scale: tuple[float, ...] = (1.0, 1.0, 1.0, 2.0, 1.0, 5.0)
-    explicit_integration: bool = True
-    # xi normalisation: (offset, scale) for friction, encoder bias, com offset.
-    xi_offset: tuple[float, ...] = field(default_factory=lambda: (0.75,) + (0.0,) * 29 + (0.0,) * 3)
-    xi_scale: tuple[float, ...] = field(
-        default_factory=lambda: (0.45,) + (0.01,) * 29 + (0.05,) * 3
-    )
 
 
 class StateSpec:

@@ -10,7 +10,8 @@ from __future__ import annotations
 
 import torch
 
-from supermimic.world_model.heads import ReferenceFrame, analytic_observation
+from supermimic.world_model.heads import analytic_observation
+from supermimic.world_model.reference import ReferenceFrame
 from supermimic.world_model.world_model import WorldModel
 
 REWARD_TERM_NAMES = (

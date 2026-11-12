@@ -8,7 +8,7 @@ from pathlib import Path
 
 import numpy as np
 
-from supermimic.data.motion_convert import G1_BODY_NAMES, G1_JOINT_NAMES
+from supermimic.interfaces import G1_BODY_NAMES, G1_JOINT_NAMES
 
 
 def validate_motion(
