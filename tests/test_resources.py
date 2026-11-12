@@ -71,6 +71,18 @@ def test_admission_preserves_shared_gpu_headroom(monkeypatch):
     assert admit(ResourceLimits(max_gpu_mib=1500))["gpu"]["free_mib"] == 6000
 
 
+def test_cpu_admission_does_not_query_gpu(available_host, monkeypatch):
+    def unexpected_gpu_snapshot():
+        raise AssertionError("CPU admission must not query GPU state")
+
+    monkeypatch.setattr("supermimic.resources.gpu_snapshot", unexpected_gpu_snapshot)
+
+    admitted = admit(ResourceLimits(), cuda=False)
+
+    assert set(admitted) == {"host", "gpu", "limits"}
+    assert admitted["gpu"] is None
+
+
 @pytest.mark.parametrize(
     "field,value",
     [
