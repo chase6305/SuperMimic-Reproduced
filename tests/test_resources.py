@@ -1,7 +1,9 @@
 """Admission and worker-stop behavior without allocating a CUDA context."""
 
 import json
+import signal
 import sys
+from types import SimpleNamespace
 
 import pytest
 
@@ -18,6 +20,39 @@ def available_host(monkeypatch):
     monkeypatch.setattr("supermimic.resources.host_snapshot", snapshot)
     monkeypatch.setattr("supermimic.supervisor.host_snapshot", snapshot)
     monkeypatch.setattr("supermimic.resources.gpu_snapshot", lambda: [])
+
+
+@pytest.fixture
+def vanished_worker(monkeypatch):
+    class Child:
+        pid = 999999999
+        returncode = None
+
+        def poll(self):
+            return self.returncode
+
+        def wait(self, timeout=None):
+            assert self.returncode is not None
+            return self.returncode
+
+    child = Child()
+    delivered = []
+    process = SimpleNamespace(
+        pid=child.pid,
+        children=lambda recursive: [],
+        memory_info=lambda: SimpleNamespace(rss=0),
+    )
+
+    def group_disappeared(pid, signum):
+        assert pid == child.pid
+        delivered.append(signum)
+        child.returncode = 0
+        raise ProcessLookupError("worker group exited before signal delivery")
+
+    monkeypatch.setattr("supermimic.supervisor.subprocess.Popen", lambda *a, **kw: child)
+    monkeypatch.setattr("supermimic.supervisor.psutil.Process", lambda pid: process)
+    monkeypatch.setattr("supermimic.supervisor.os.killpg", group_disappeared)
+    return child, delivered
 
 
 def test_admission_preserves_shared_gpu_headroom(monkeypatch):
@@ -74,6 +109,47 @@ def test_time_limit_stops_only_own_worker(tmp_path, available_host):
     record = json.loads((output / "run.json").read_text())
     assert code == 2 and record["stop_reason"] == "time_limit"
     assert record["exit_code"] != 0
+
+
+def test_worker_group_exit_during_monitor_signal_preserves_time_limit(
+    tmp_path, available_host, vanished_worker, monkeypatch
+):
+    child, delivered = vanished_worker
+    ticks = iter([100.0, 200.0])
+    monkeypatch.setattr("supermimic.supervisor.time.monotonic", lambda: next(ticks, 200.0))
+    monkeypatch.setattr("supermimic.supervisor.time.sleep", lambda seconds: None)
+    output = tmp_path / "monitor-race"
+
+    code = supervise(["fake-worker"], output, ResourceLimits(), max_seconds=5, cuda=False)
+
+    record = json.loads((output / "run.json").read_text())
+    assert code == 2
+    assert record["status"] == "stopped" and record["stop_reason"] == "time_limit"
+    assert record["exit_code"] == child.returncode == 0
+    assert "error" not in record
+    assert (output / "STOP").read_text() == "time_limit\n"
+    assert delivered == [signal.SIGINT, signal.SIGTERM]
+
+
+def test_worker_group_exit_during_interrupt_cleanup_preserves_final_record(
+    tmp_path, available_host, vanished_worker, monkeypatch
+):
+    child, delivered = vanished_worker
+
+    def parent_interrupted(path):
+        raise KeyboardInterrupt
+
+    monkeypatch.setattr("supermimic.supervisor.host_snapshot", parent_interrupted)
+    output = tmp_path / "interrupt-race"
+
+    code = supervise(["fake-worker"], output, ResourceLimits(), max_seconds=5, cuda=False)
+
+    record = json.loads((output / "run.json").read_text())
+    assert code == 130
+    assert record["status"] == "interrupted" and record["stop_reason"] == "user_interrupt"
+    assert record["exit_code"] == child.returncode == 0
+    assert "error" not in record
+    assert delivered == [signal.SIGINT, signal.SIGTERM]
 
 
 def test_python_ros_path_pollution_is_removed(monkeypatch):

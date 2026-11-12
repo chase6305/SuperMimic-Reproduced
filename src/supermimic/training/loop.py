@@ -42,6 +42,7 @@ class Trainer:
         with ExitStack() as resources:
             self._initialize(cfg, resources)
             self._resources = resources.pop_all()
+            self._closed = False
 
     def _initialize(self, cfg: TrainConfig, resources: ExitStack) -> None:
         self.cfg = cfg
@@ -275,6 +276,8 @@ class Trainer:
         return self.policy(obs["policy"], obs["goal"])
 
     def run(self) -> None:
+        if self._closed:
+            raise RuntimeError("Cannot run a closed Trainer; create a new Trainer")
         old_handlers = {}
 
         def request_stop(signum, frame):
@@ -293,6 +296,7 @@ class Trainer:
 
     def close(self) -> None:
         """Release the simulator, event writer and distributed state exactly once."""
+        self._closed = True
         self._resources.close()
 
     def _run(self) -> None:

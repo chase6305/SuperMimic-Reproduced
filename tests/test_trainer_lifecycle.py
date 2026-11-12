@@ -1,6 +1,7 @@
 """Trainer owns resources through constructor, signal setup and run failures."""
 
 from types import SimpleNamespace
+from unittest.mock import Mock
 
 import pytest
 
@@ -155,3 +156,24 @@ def test_close_is_idempotent_even_after_callback_failure(minimal_trainer, close_
     assert events == ["environment_close", "writer_close", "distributed_close"]
     trainer.close()
     assert events == ["environment_close", "writer_close", "distributed_close"]
+
+
+@pytest.mark.parametrize("close_error", [False, True])
+def test_closed_trainer_rejects_run_before_signals_or_training(
+    minimal_trainer, monkeypatch, close_error
+):
+    trainer, events = minimal_trainer(close_error=close_error)
+    if close_error:
+        with pytest.raises(RuntimeError, match="writer cleanup failed"):
+            trainer.close()
+    else:
+        trainer.close()
+    closed_events = list(events)
+    signal_change = Mock(side_effect=AssertionError("closed Trainer changed signal handlers"))
+    monkeypatch.setattr(loop.signal, "signal", signal_change)
+
+    with pytest.raises(RuntimeError, match="closed Trainer"):
+        trainer.run()
+
+    signal_change.assert_not_called()
+    assert events == closed_events

@@ -27,6 +27,14 @@ from supermimic.resources import (
 from supermimic.runtime import freeze_implementation
 
 
+def _signal_worker_group(child: subprocess.Popen, signum: int) -> None:
+    """Signal our worker group, allowing it to exit between polling and delivery."""
+    try:
+        os.killpg(child.pid, signum)
+    except ProcessLookupError:
+        pass
+
+
 def supervise(
     command: list[str],
     output: Path,
@@ -124,9 +132,9 @@ def supervise(
                         stop_reason, stop_started = reason, time.monotonic()
                         print(f"[guard] stopping worker: {reason}", flush=True)
                         (output / "STOP").write_text(reason + "\n")
-                        os.killpg(child.pid, signal.SIGINT)
+                        _signal_worker_group(child, signal.SIGINT)
                     if stop_started and time.monotonic() - stop_started > limits.stop_grace_seconds:
-                        os.killpg(child.pid, signal.SIGKILL)
+                        _signal_worker_group(child, signal.SIGKILL)
                     time.sleep(limits.poll_seconds)
             code = child.wait()
             record.update(
@@ -155,16 +163,13 @@ def supervise(
         return 2
     finally:
         if child is not None and child.poll() is None:
-            os.killpg(child.pid, signal.SIGINT)
+            _signal_worker_group(child, signal.SIGINT)
             try:
                 child.wait(timeout=limits.stop_grace_seconds)
             except subprocess.TimeoutExpired:
-                os.killpg(child.pid, signal.SIGKILL)
+                _signal_worker_group(child, signal.SIGKILL)
                 child.wait()
         if child is not None:
             record["exit_code"] = child.returncode
-            try:
-                os.killpg(child.pid, signal.SIGTERM)
-            except ProcessLookupError:
-                pass
+            _signal_worker_group(child, signal.SIGTERM)
         write_json(output / "run.json", record)
