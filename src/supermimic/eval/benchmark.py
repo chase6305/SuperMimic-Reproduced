@@ -16,7 +16,6 @@ from pathlib import Path
 import torch
 
 from supermimic.checkpoints import policy_from_checkpoint, read_checkpoint
-from supermimic.envs import SuperMimicEnvCfgArgs, make_env
 from supermimic.policy.nets import Policy
 
 
@@ -64,6 +63,8 @@ def run_benchmark(
         raise ValueError("Benchmark needs at least one motion")
     if num_envs is not None and num_envs < 1:
         raise ValueError("Benchmark environment count must be positive")
+    from supermimic.envs import SuperMimicEnvCfgArgs, make_env
+
     num_envs = min(num_envs or 1024, len(npz_files))
     args = SuperMimicEnvCfgArgs(
         npz_files=npz_files,

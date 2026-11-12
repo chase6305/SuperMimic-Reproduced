@@ -46,6 +46,26 @@ G1_BODY_NAMES = ("pelvis",) + tuple(
     for name in G1_JOINT_NAMES
 )
 
+TRACKED_BODIES = (
+    "pelvis",
+    "left_hip_roll_link",
+    "left_knee_link",
+    "left_ankle_roll_link",
+    "right_hip_roll_link",
+    "right_knee_link",
+    "right_ankle_roll_link",
+    "torso_link",
+    "left_shoulder_roll_link",
+    "left_elbow_link",
+    "left_wrist_yaw_link",
+    "right_shoulder_roll_link",
+    "right_elbow_link",
+    "right_wrist_yaw_link",
+)
+ANCHOR_BODY = "torso_link"
+ROOT_BODY = "pelvis"
+FOOT_GEOM_REGEX = r"^(left|right)_foot[1-7]_collision$"
+
 ACT_DIM = len(G1_JOINT_NAMES)
 CONTROL_DT = 0.02
 OBS_TERMS = (

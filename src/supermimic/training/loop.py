@@ -19,9 +19,8 @@ from supermimic.config import TrainConfig
 from supermimic.data.discovery import discover_npz
 from supermimic.data.motion_convert import load_g1_model
 from supermimic.envs import SuperMimicEnvCfgArgs, make_env
-from supermimic.envs.tracking_env_cfg import ANCHOR_BODY, ROOT_BODY, TRACKED_BODIES
 from supermimic.imagination.policy_trainer import PolicyTrainer
-from supermimic.interfaces import goal_dim
+from supermimic.interfaces import ANCHOR_BODY, ROOT_BODY, TRACKED_BODIES, goal_dim
 from supermimic.kinematics.g1_fk import G1Kinematics
 from supermimic.policy.nets import Critic, Policy
 from supermimic.training.distributed import (

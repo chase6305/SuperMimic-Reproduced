@@ -2,6 +2,8 @@
 
 import json
 import os
+import subprocess
+import sys
 from dataclasses import asdict
 from pathlib import Path
 
@@ -16,6 +18,32 @@ from supermimic.checkpoints import (
     write_checkpoint,
 )
 from supermimic.policy.nets import Policy, PolicyCfg
+
+
+def test_checkpoint_evaluation_import_does_not_load_simulation_sdks():
+    source = Path(__file__).resolve().parents[1] / "src"
+    code = """
+import importlib.abc
+import sys
+sys.path.insert(0, sys.argv[1])
+class BlockSimulation(importlib.abc.MetaPathFinder):
+    def find_spec(self, fullname, path=None, target=None):
+        if fullname.split('.')[0] in {'mjlab', 'mujoco', 'warp'} or (
+            fullname == 'supermimic.envs.tracking_env_cfg'
+        ):
+            raise AssertionError('Unexpected simulation dependency: ' + fullname)
+sys.meta_path.insert(0, BlockSimulation())
+from supermimic.eval import benchmark
+from supermimic.eval.benchmark import load_policy_from_checkpoint
+assert benchmark.load_policy_from_checkpoint is load_policy_from_checkpoint
+assert 'supermimic.envs.tracking_env_cfg' not in sys.modules
+"""
+    subprocess.run(
+        [sys.executable, "-I", "-c", code, str(source)],
+        check=True,
+        timeout=30,
+        env={**os.environ, "CUDA_VISIBLE_DEVICES": ""},
+    )
 
 
 @pytest.mark.parametrize("mmap", [False, True])

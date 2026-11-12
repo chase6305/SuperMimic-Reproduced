@@ -76,7 +76,7 @@ CSV 转换前检查时间和数组大小，单片段限制 250,000 个输出帧�
 
 ## 模块与资源所有权
 
-`config.py` 保存配置 dataclass，`interfaces.py` 保存 G1 关节顺序、观测项与目标项的维数。这两个模块只依赖标准库；无 checkpoint 的 profile 解析、内存估算和 `data.discovery` 文件选择也不加载 Torch 或仿真 SDK。旧实现模块仍重导出原配置类与常量，检查点继续存储相同的 `asdict` 字段树。
+`config.py` 保存配置 dataclass，`interfaces.py` 保存 G1 关节顺序、跟踪刚体、观测项与目标项的维数。这两个模块只依赖标准库；无 checkpoint 的 profile 解析、内存估算和 `data.discovery` 文件选择也不加载 Torch 或仿真 SDK。旧实现模块仍重导出原配置类与常量，检查点继续存储相同的 `asdict` 字段树。环境观测项也按共享规范生成顺序，项名集合不匹配时在创建环境前拒绝。
 
 共享动作库实现属于 `data.motion_library`，环境的 `envs.mdp.motion_library` 保留兼容导出。世界模型与想象轨迹通过 `world_model.reference` 共享参考帧，想象过程不再为了读取参考帧而导入拟合训练器。世界模型拟合仍只查询其损失需要的根位姿，紧凑动作库不会因此增加身体 FK 查询。
 
@@ -89,3 +89,5 @@ CSV 转换前检查时间和数组大小，单片段限制 250,000 个输出帧�
 部署契约在反序列化 actor 前检查观测项、历史布局、目标维数、坐标系及 50 Hz 控制时钟；加载 MJB 后再核对实际物理周期、状态维数和关节／执行器地址。早期 schema-v1 缺省的初始帧与首目标帧沿用 0／1，额外来源字段仍允许保留。数值上的 Torch 与 NumPy 观测、目标和旋转实现保持独立，便于继续做对齐验证。
 
 `deployment.reference` 保存 NumPy／SciPy 的动作参考与旋转工具；轨迹对比绘图可直接导入它，无需导入策略运行器或 Torch。完整 `tracking_metrics` 仍通过 Torch、FK 和解析奖励评分，这部分依赖保持不变。`deployment.core` 继续重导出原参考工具，已有调用方无需迁移。
+
+评测模块仅在实际创建评测环境时导入仿真接口；单独恢复 actor 不需要环境配置。想象目标函数对 rollout 类型的引用仅用于静态分析，不会为了计算损失而导入想象运行时。

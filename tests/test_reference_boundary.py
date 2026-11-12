@@ -67,7 +67,9 @@ def test_legacy_reference_paths_preserve_object_identity():
 def test_reference_gather_preserves_batch_and_quantity_identity():
     frame = [11, 5, 11, 6]
     root = SimpleNamespace(root_pos_w=object(), root_quat_w=object())
-    bodies = SimpleNamespace(pos_w=object(), quat_w=object(), lin_vel_w=object(), ang_vel_w=object())
+    bodies = SimpleNamespace(
+        pos_w=object(), quat_w=object(), lin_vel_w=object(), ang_vel_w=object()
+    )
     calls = []
 
     class Library:
@@ -93,4 +95,15 @@ def test_reference_gather_preserves_batch_and_quantity_identity():
     assert all(
         getattr(result, field.name) is value
         for field, value in zip(fields(ReferenceFrame), expected, strict=True)
+    )
+
+
+def test_objectives_do_not_import_the_imagination_or_simulation_runtime():
+    _isolated_imports(
+        """
+from supermimic.imagination.objective import gae_targets, policy_objective, survival_weighted_mse
+assert callable(gae_targets) and callable(policy_objective) and callable(survival_weighted_mse)
+assert 'supermimic.imagination.rollout' not in sys.modules
+""",
+        ["supermimic.imagination.rollout", "mjlab", "mujoco", "mujoco_warp", "warp"],
     )

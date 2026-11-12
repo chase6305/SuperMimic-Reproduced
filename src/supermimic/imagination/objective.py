@@ -2,9 +2,12 @@
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 import torch
 
-from supermimic.imagination.rollout import ImagRollout
+if TYPE_CHECKING:
+    from supermimic.imagination.rollout import ImagRollout
 
 
 def survival_weighted_mse(

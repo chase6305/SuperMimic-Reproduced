@@ -10,8 +10,8 @@ import torch
 from supermimic.data.motion_convert import load_g1_model
 from supermimic.deployment.reference import heading_error
 from supermimic.envs.mdp.rewards import reanchor_reference
-from supermimic.envs.tracking_env_cfg import ANCHOR_BODY, ROOT_BODY, TRACKED_BODIES
 from supermimic.eval.quality import motion_quality, worst_window_rmse
+from supermimic.interfaces import ANCHOR_BODY, ROOT_BODY, TRACKED_BODIES
 from supermimic.kinematics.g1_fk import G1Kinematics
 from supermimic.world_model.heads import AnalyticHeads
 from supermimic.world_model.reference import ReferenceFrame
