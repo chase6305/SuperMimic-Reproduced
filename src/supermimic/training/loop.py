@@ -4,9 +4,9 @@ from __future__ import annotations
 
 import json
 import math
-import os
 import signal
 import time
+from contextlib import ExitStack
 from dataclasses import asdict
 from pathlib import Path
 
@@ -14,12 +14,14 @@ import torch
 from torch.utils.tensorboard import SummaryWriter
 
 from supermimic.artifacts import sha256, write_json
+from supermimic.checkpoints import read_checkpoint, write_checkpoint
 from supermimic.config import TrainConfig
+from supermimic.data.discovery import discover_npz
 from supermimic.data.motion_convert import load_g1_model
 from supermimic.envs import SuperMimicEnvCfgArgs, make_env
-from supermimic.envs.mdp.motion_library import discover_npz
 from supermimic.envs.tracking_env_cfg import ANCHOR_BODY, ROOT_BODY, TRACKED_BODIES
 from supermimic.imagination.policy_trainer import PolicyTrainer
+from supermimic.interfaces import goal_dim
 from supermimic.kinematics.g1_fk import G1Kinematics
 from supermimic.policy.nets import Critic, Policy
 from supermimic.training.distributed import (
@@ -36,8 +38,15 @@ from supermimic.world_model.world_model import WorldModel
 
 class Trainer:
     def __init__(self, cfg: TrainConfig):
+        # Register each owned resource as soon as it is created. Initialization
+        # can fail before run() gets a chance to install its cleanup handler.
+        with ExitStack() as resources:
+            self._initialize(cfg, resources)
+            self._resources = resources.pop_all()
+
+    def _initialize(self, cfg: TrainConfig, resources: ExitStack) -> None:
         self.cfg = cfg
-        cfg.policy.goal_dim = cfg.env.future_frames * 68 + (9 if cfg.env.anchor_obs else 0)
+        cfg.policy.goal_dim = goal_dim(cfg.env.future_frames, cfg.env.anchor_obs)
         cfg.policy_trainer.anchor_obs = cfg.env.anchor_obs
         cfg.policy_trainer.future_frames = cfg.env.future_frames
         cfg.policy_trainer.history = cfg.policy.history
@@ -46,6 +55,7 @@ class Trainer:
         if min(cfg.schedule.log_interval, cfg.schedule.checkpoint_interval) < 1:
             raise ValueError("Log and checkpoint intervals must be positive")
         self.rank, local_rank, self.world = init_distributed()
+        resources.callback(finalize)
         self.is_main = self.rank == 0
         if self.world > 1:
             cfg.device = f"cuda:{local_rank}"
@@ -62,6 +72,8 @@ class Trainer:
                 json.dumps(asdict(cfg), indent=2, default=str)
             )
         self.writer = SummaryWriter(str(self.log_dir / "tb")) if self.is_main else None
+        if self.writer is not None:
+            resources.callback(self.writer.close)
 
         if cfg.data.library is not None:
             files = [cfg.data.library]
@@ -100,6 +112,7 @@ class Trainer:
             ),
             device=self.device,
         )
+        resources.callback(self.env.close)
         env = self.env
         self.command = env.command_manager.get_term("motion")
         self.lib = self.command.library
@@ -166,8 +179,8 @@ class Trainer:
         if not self.is_main:
             return
         destination = self.log_dir / name
-        temporary = destination.with_name("." + destination.name + ".tmp")
-        torch.save(
+        write_checkpoint(
+            destination,
             {
                 "iteration": self.iteration,
                 "num_updates": self.num_updates,
@@ -189,9 +202,8 @@ class Trainer:
                 "anchor_adaptation": self.anchor_adaptation,
                 "transfer_provenance": self.transfer_provenance,
             },
-            temporary,
+            overwrite=True,
         )
-        os.replace(temporary, destination)
         # Keep a bounded history as well as the atomic latest file.
         for old in sorted(self.log_dir.glob("ckpt_[0-9]*.pt"))[:-3]:
             old.unlink()
@@ -199,7 +211,8 @@ class Trainer:
     def load(self, path: Path, *, transfer: bool = False) -> None:
         # Workers snapshot checkpoints first. Map immutable CPU storage instead of
         # materializing every optimizer tensor before moving the needed state to CUDA.
-        ck = torch.load(path, map_location="cpu", weights_only=False, mmap=True)
+        loaded = read_checkpoint(path, mmap=True, fingerprint=transfer)
+        ck = loaded.data
         if (
             not transfer
             and ck.get("motion_files") is not None
@@ -233,7 +246,7 @@ class Trainer:
         self.anchor_adaptation = ck.get("anchor_adaptation")
         if transfer:
             self.transfer_provenance = {
-                "source_checkpoint_sha256": sha256(path),
+                "source_checkpoint_sha256": loaded.sha256,
                 "source_iteration": ck["iteration"],
                 "source_motion_files": ck.get("motion_files"),
                 "target_motion_files": self.motion_files,
@@ -268,18 +281,20 @@ class Trainer:
         def request_stop(signum, frame):
             self.stop_reason = signal.Signals(signum).name
 
-        for sig in (signal.SIGINT, signal.SIGTERM):
-            old_handlers[sig] = signal.signal(sig, request_stop)
         try:
+            for sig in (signal.SIGINT, signal.SIGTERM):
+                old_handlers[sig] = signal.signal(sig, request_stop)
             self._run()
         finally:
-            for sig, handler in old_handlers.items():
-                signal.signal(sig, handler)
-            if self.writer is not None:
-                self.writer.flush()
-                self.writer.close()
-            self.env.close()
-            finalize()
+            try:
+                for sig, handler in old_handlers.items():
+                    signal.signal(sig, handler)
+            finally:
+                self.close()
+
+    def close(self) -> None:
+        """Release the simulator, event writer and distributed state exactly once."""
+        self._resources.close()
 
     def _run(self) -> None:
         cfg = self.cfg

@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import hashlib
 import importlib.metadata
 import json
 import shutil
@@ -13,31 +12,18 @@ import numpy as np
 import torch
 
 from supermimic.artifacts import sha256, write_json
+from supermimic.checkpoints import policy_from_checkpoint, read_checkpoint
 from supermimic.deployment.contract import build_model_and_contract
-from supermimic.policy.nets import Policy, PolicyCfg
+from supermimic.interfaces import observation_dim
 
 
 def export_policy(checkpoint: Path, output: Path) -> dict:
     torch.set_num_threads(1)
-    # Keep one file descriptor: training atomically replaces ckpt_latest.pt.
-    # Hashing its pathname after loading could otherwise label the old policy
-    # with the new checkpoint's digest during concurrent CPU evaluation.
-    with checkpoint.open("rb") as stream:
-        checkpoint_sha256 = hashlib.file_digest(stream, "sha256").hexdigest()
-        stream.seek(0)
-        ck = torch.load(stream, map_location="cpu", weights_only=False)
-        stream.seek(0)
-        if hashlib.file_digest(stream, "sha256").hexdigest() != checkpoint_sha256:
-            raise RuntimeError("Checkpoint changed in place during export")
+    loaded = read_checkpoint(checkpoint, fingerprint=True)
+    ck = loaded.data
     cfg = ck["config"]
-    pcfg = PolicyCfg(**cfg["policy"])
-    expected = cfg["env"]["future_frames"] * 68 + (9 if cfg["env"].get("anchor_obs", False) else 0)
-    if pcfg.goal_dim != expected:
-        raise ValueError("Checkpoint policy/goal configuration is inconsistent")
-    actor = Policy(pcfg).eval()
-    actor.load_state_dict(ck["policy"], strict=True)
-    if not all(torch.isfinite(p).all() for p in actor.parameters()):
-        raise ValueError("Checkpoint contains non-finite actor parameters")
+    actor = policy_from_checkpoint(ck)
+    pcfg = actor.cfg
     model, contract = build_model_and_contract(
         pcfg.history, cfg["env"]["future_frames"], cfg["env"].get("anchor_obs", False)
     )
@@ -58,7 +44,7 @@ def export_policy(checkpoint: Path, output: Path) -> dict:
             "location": "embedded in policy.ts; observation history uses clipped clean output",
         }
     )
-    obs = torch.zeros(1, 93 * pcfg.history)
+    obs = torch.zeros(1, observation_dim(pcfg.history))
     goal = torch.zeros(1, pcfg.goal_dim)
     traced = torch.jit.freeze(torch.jit.trace(actor, (obs, goal)).eval())
     # Compare independent nonzero inputs, including a different batch size.
@@ -83,7 +69,7 @@ def export_policy(checkpoint: Path, output: Path) -> dict:
         "Model/data provenance is recorded in contract.json and the originating run.\n"
     )
     contract.update(
-        checkpoint_sha256=checkpoint_sha256,
+        checkpoint_sha256=loaded.sha256,
         checkpoint_iteration=int(ck.get("iteration", 0)),
         packages={name: importlib.metadata.version(name) for name in ("torch", "mujoco", "mjlab")},
         export_parity_max_abs_error=worst,
