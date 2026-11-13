@@ -8,9 +8,6 @@ not modify their contents in place while mapped tensors remain in use.
 
 from __future__ import annotations
 
-import hashlib
-import os
-import tempfile
 from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
@@ -19,6 +16,7 @@ from typing import TYPE_CHECKING, Any
 import torch
 
 from supermimic.interfaces import goal_dim
+from supermimic.torch_io import read_torch_archive, write_torch_archive
 
 if TYPE_CHECKING:
     from supermimic.config import PolicyCfg
@@ -49,31 +47,12 @@ def read_checkpoint(
     Pickle loading remains enabled for existing training checkpoints: inputs must
     be trusted, as at the training, migration and export entry points.
     """
-    # A buffered reader can retain the old bytes after torch.load seeks around
-    # a small archive. Rewinding that buffer would hide an external in-place
-    # write from the second fingerprint, even though the inode is unchanged.
-    with Path(path).open("rb", buffering=0) as stream:
-        before = os.fstat(stream.fileno())
-        if max_bytes is not None and before.st_size > max_bytes:
-            raise ValueError(f"Checkpoint exceeds the {max_bytes} byte input budget")
-        digest = hashlib.file_digest(stream, "sha256").hexdigest() if fingerprint else None
-        stream.seek(0)
-        source = stream
-        if mmap:
-            source = f"/proc/self/fd/{stream.fileno()}"
-            if not Path(source).exists():
-                raise RuntimeError("Checkpoint mmap requires Linux /proc/self/fd")
-        data = torch.load(source, map_location="cpu", weights_only=False, mmap=mmap)
-        after = os.fstat(stream.fileno())
-        if (before.st_size, before.st_mtime_ns) != (after.st_size, after.st_mtime_ns):
-            raise RuntimeError("Checkpoint changed in place during loading")
-        if fingerprint:
-            stream.seek(0)
-            if hashlib.file_digest(stream, "sha256").hexdigest() != digest:
-                raise RuntimeError("Checkpoint changed in place during loading")
-    if not isinstance(data, dict):
+    loaded = read_torch_archive(
+        path, mmap=mmap, fingerprint=fingerprint, max_bytes=max_bytes
+    )
+    if not isinstance(loaded.data, dict):
         raise ValueError("Expected a checkpoint dictionary")
-    return CheckpointRead(data, digest)
+    return CheckpointRead(loaded.data, loaded.sha256)
 
 
 def write_checkpoint(path: Path | str, data: dict[str, Any], *, overwrite: bool = False) -> None:
@@ -83,24 +62,7 @@ def write_checkpoint(path: Path | str, data: dict[str, Any], *, overwrite: bool 
     explicitly replaces its latest or numbered publication. Neither mode mutates
     an inode that a reader may still have mapped.
     """
-    path = Path(path)
-    path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = None
-    try:
-        with tempfile.NamedTemporaryFile(
-            prefix="." + path.name + "-", suffix=".tmp", dir=path.parent, delete=False
-        ) as stream:
-            temporary = Path(stream.name)
-            torch.save(data, stream)
-            stream.flush()
-            os.fsync(stream.fileno())
-        if overwrite:
-            os.replace(temporary, path)
-        else:
-            os.link(temporary, path)
-    finally:
-        if temporary is not None:
-            temporary.unlink(missing_ok=True)
+    write_torch_archive(path, data, overwrite=overwrite)
 
 
 def policy_config_from_checkpoint(checkpoint: Mapping[str, Any]) -> PolicyCfg:

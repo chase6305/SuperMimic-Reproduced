@@ -13,6 +13,7 @@ import numpy as np
 from supermimic.artifacts import sha256, snapshot_file, write_json
 from supermimic.data.schema import validate_motion
 from supermimic.deployment.core import MotionReference, PolicyRunner, gravity, rotation
+from supermimic.deployment.trajectory import PHYSICAL_CONTACT_COLUMNS
 from supermimic.deployment.validation import validate_model_contract
 from supermimic.runtime import source_manifest
 
@@ -254,23 +255,7 @@ def _deploy(
             control_dt=np.array(c["control_dt"]),
             joint_names=np.array(c["joint_names"]),
             physical_contacts=contacts[:contact_steps],
-            physical_contact_columns=np.array(
-                [
-                    "time_s",
-                    "left_fx",
-                    "left_fy",
-                    "left_fz",
-                    "right_fx",
-                    "right_fy",
-                    "right_fz",
-                    "nonfoot_fx",
-                    "nonfoot_fy",
-                    "nonfoot_fz",
-                    "nonfoot_force_contacts",
-                    "nonfoot_depth_m",
-                    "all_contacts",
-                ]
-            ),
+            physical_contact_columns=np.array(PHYSICAL_CONTACT_COLUMNS),
         )
         record.update(
             elapsed_s=time.monotonic() - started,

@@ -45,6 +45,8 @@ def test_export_reload_and_physical_rollout(tmp_path, monkeypatch):
     assert action.shape == target.shape == (29,) and np.isfinite(target).all()
     motion = tmp_path / "test-motion.npz"
     make_motion(motion)
+    original_motion = tmp_path / "original-motion.npz"
+    original_motion.write_bytes(motion.read_bytes())
     original_motion_hash = sha256(motion)
     replacement = tmp_path / "replacement.npz"
     with np.load(motion, allow_pickle=False) as data:
@@ -101,6 +103,10 @@ def test_export_reload_and_physical_rollout(tmp_path, monkeypatch):
         "deployment/reference.py",
         "deployment/tracking_metrics.py",
         "deployment/validation.py",
+        "deployment/assessment.py",
+        "deployment/evidence.py",
+        "deployment/trajectory.py",
+        "numpy_io.py",
         "interfaces.py",
     ):
         assert package_sources[name] == sha256(package / name)
@@ -108,6 +114,23 @@ def test_export_reload_and_physical_rollout(tmp_path, monkeypatch):
         assert data["states"].shape == (5, 71)
         assert data["physical_contacts"].shape == (16, 13)
         assert np.isfinite(data["physical_contacts"]).all()
+    from supermimic.deployment.assessment import open_assessment_inputs
+
+    with open_assessment_inputs(
+        bundle, original_motion, tmp_path / "rollout", tmp_path / "assessment.json"
+    ) as inputs:
+        assert inputs.trajectory.contact_layout_verified is True
+        assert inputs.trajectory.states.shape == (5, 71)
+        assert inputs.trajectory.arrays["actions"].shape == (4, 29)
+        assert inputs.motion_frames == 20
+        assert inputs.completed_motion is False
+        assert inputs.evidence["artifact_identity"]["status"] == "verified"
+        model = runtime.mujoco.MjModel.from_binary_path(str(inputs.model_path))
+        assert model.nq + model.nv == inputs.trajectory.states.shape[1]
+        assessment_paths = (inputs.motion_path, inputs.model_path)
+        assessment_directory = inputs.model_path.parent
+    assert all(not path.exists() for path in assessment_paths)
+    assert not assessment_directory.exists()
     with (bundle / "policy.ts").open("ab") as stream:
         stream.write(b"changed")
     with pytest.raises(ValueError, match="hash mismatch"):
