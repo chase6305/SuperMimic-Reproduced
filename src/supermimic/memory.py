@@ -55,6 +55,11 @@ def estimate_training_memory(cfg, reference_frames: int) -> dict:
             if not cfg.env.anchor_obs
             else 0.0
         ),
+        "gae_scan_workspace": (
+            cfg.policy_trainer.horizon * cfg.policy_trainer.batch_size * 4 * 6 / MIB
+            if cfg.policy_trainer.use_critic and cfg.policy_trainer.horizon >= 8
+            else 0.0
+        ),
         "reference_library": reference_frames * (292 if cfg.env.compact_library else 1292) / MIB,
         "compilation_workspace": 256.0
         * (bool(cfg.policy_trainer.compile) + bool(cfg.wm_trainer.compile)),

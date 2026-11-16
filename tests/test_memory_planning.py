@@ -37,6 +37,10 @@ def test_additional_compiler_has_its_own_workspace_allowance():
     assert cfg.wm_trainer.batches_per_update == 10
     estimate = validate_training_budget(cfg, 13066, 2304)
     assert estimate["components_mib"]["compilation_workspace"] == 512
+    assert estimate["components_mib"]["gae_scan_workspace"] > 0
+    cfg.policy_trainer.use_critic = False
+    without_critic = validate_training_budget(cfg, 13066, 2304)
+    assert without_critic["components_mib"]["gae_scan_workspace"] == 0
 
 
 def test_whole_window_compilation_requires_its_explicit_runtime_choice():
