@@ -70,6 +70,15 @@ def estimate_training_memory(cfg, reference_frames: int) -> dict:
         / MIB
     )
     components["activation_workspace"] = max(actor, fitting)
+    # Batched goal lookahead keeps a frame-index grid. Compact libraries also
+    # expand reference states and temporary goal features for that entire grid.
+    components["lookahead_workspace"] = (
+        (cfg.policy_trainer.horizon + 1)
+        * cfg.policy_trainer.batch_size
+        * cfg.env.future_frames
+        * (8 + (71 + 68 + 13) * 4 if cfg.env.compact_library else 8)
+        / MIB
+    )
     components["priority_sampling"] = (
         ((reference_frames + 49) // 50) * 16 / MIB if cfg.env.priority_reset_ratio else 0.0
     )

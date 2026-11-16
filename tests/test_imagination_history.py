@@ -30,7 +30,9 @@ def test_initial_history_matches_individual_frames_and_preserves_noise_rng(histo
     expected_frames = []
     torch.manual_seed(207)
     for i in range(history_length):
-        observation = analytic_observation(states[i], actions[i], context, library.default_joint_pos)
+        observation = analytic_observation(
+            states[i], actions[i], context, library.default_joint_pos
+        )
         if noise:
             observation = observation + (torch.rand_like(observation) * 2 - 1) * OBS_NOISE_HALF
         expected_frames.append(observation)
@@ -59,8 +61,13 @@ def test_initial_history_matches_individual_frames_and_preserves_noise_rng(histo
     heads = SimpleNamespace(anchor_index=0, root_error_features=lambda s, r: torch.zeros(n, 4))
     torch.manual_seed(207)
     rollout = imagine(
-        SimpleNamespace(heads=heads), Policy(), library, start, horizon=1,
-        obs_noise=noise, step_fn=step,
+        SimpleNamespace(heads=heads),
+        Policy(),
+        library,
+        start,
+        horizon=1,
+        obs_noise=noise,
+        step_fn=step,
     )
     actual_gradients = torch.autograd.grad(rollout.actions[0].square().sum(), inputs)
     torch.testing.assert_close(supplied[0][0], expected_history, rtol=0, atol=0)

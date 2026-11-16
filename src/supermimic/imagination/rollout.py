@@ -63,8 +63,8 @@ def imagine(
             return o + (torch.rand_like(o) * 2 - 1) * noise_half
         return o
 
-    def make_goal(frame_t, ref_t, anchor_pose):
-        g = lib.goal_window(frame_t, future_frames)
+    def make_goal(t, ref_t, anchor_pose):
+        g = goals_all[t]
         if not anchor_obs:
             return g
         rel = anchor_relative_obs(
@@ -99,6 +99,9 @@ def imagine(
         frame[None, :] + torch.arange(horizon + 1, device=device)[:, None], last[None, :]
     )  # (H+1, n)
     ref_all = reference_at(lib, frames_all.reshape(-1))
+    # Goal lookahead depends only on reference frames. Compute it once for all
+    # steps; relative anchor feedback is still appended from each reached state.
+    goals_all = lib.goal_window(frames_all.reshape(-1), future_frames).reshape(horizon + 1, n, -1)
 
     def ref_at(t):
         sl = slice(t * n, (t + 1) * n)
@@ -117,7 +120,7 @@ def imagine(
         anchor_pose = torch.cat([b0["pos"][..., ai, :], b0["quat"][..., ai, :]], dim=-1)
     else:
         anchor_pose = None
-    goals = [make_goal(frame, ref, anchor_pose)]
+    goals = [make_goal(0, ref, anchor_pose)]
     e_roots = [wm.heads.root_error_features(s, ref)]
     term_sum = torch.zeros(len(REWARD_TERM_NAMES), device=device)
 
@@ -154,7 +157,7 @@ def imagine(
         rewards.append(r)
         dhats.append(d)
         survivals.append(c)
-        goals.append(make_goal(frame, ref, anchor_pose))
+        goals.append(make_goal(t + 1, ref, anchor_pose))
         e_roots.append(wm.heads.root_error_features(s, ref))
         frames.append(frame)
 
@@ -164,7 +167,7 @@ def imagine(
         rewards=torch.stack(rewards),
         dhat=torch.stack(dhats),
         survival=torch.stack(survivals),
-        goals=torch.stack(goals),
+        goals=torch.stack(goals) if anchor_obs else goals_all,
         e_root=torch.stack(e_roots),
         frames=torch.stack(frames),
         reward_terms={
