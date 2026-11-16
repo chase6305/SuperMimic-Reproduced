@@ -344,7 +344,7 @@ class Trainer:
             # ---------------- (2)+(3) updates at the configured update-to-data ratio
             if (
                 self.iteration >= self._updates_after
-                and self.buffer.window_mask(cfg.wm_trainer.window).any()
+                and self.buffer.has_windows(cfg.wm_trainer.window)
             ):
                 self._utd_acc += sch.updates_per_env_step
                 while self._utd_acc >= 1.0:
@@ -416,7 +416,7 @@ class Trainer:
                     if (
                         self.is_main
                         and self.buffer.size >= cfg.wm_trainer.batch_size
-                        and self.buffer.window_mask(8).any()
+                        and self.buffer.has_windows(8)
                     ):
                         err = self.wm_trainer.online_error(
                             self.buffer, n=min(128, cfg.wm_trainer.batch_size), k=8

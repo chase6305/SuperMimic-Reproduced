@@ -43,6 +43,8 @@ def estimate_training_memory(cfg, reference_frames: int) -> dict:
         "parameters_gradients_adam": parameters * 16 / MIB,
         "simulation_worlds": float(cfg.env.num_envs),
         "replay": cfg.env.num_envs * cfg.env.replay_capacity * 683 / MIB,
+        # Two flattened int64 candidate arrays and one shared time axis.
+        "replay_sampling_indices": cfg.env.replay_capacity * (2 * cfg.env.num_envs + 1) * 8 / MIB,
         "reference_library": reference_frames * (292 if cfg.env.compact_library else 1292) / MIB,
         "compilation_workspace": 256.0
         * (bool(cfg.policy_trainer.compile) + bool(cfg.wm_trainer.compile)),

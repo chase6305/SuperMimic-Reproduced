@@ -10,9 +10,15 @@ can use it as their last target state and the termination head gets positive lab
 
 from __future__ import annotations
 
+from collections import OrderedDict
 from dataclasses import dataclass
 
 import torch
+
+
+def _positive_int(value: int, name: str) -> None:
+    if not isinstance(value, int) or isinstance(value, bool) or value < 1:
+        raise ValueError(f"{name} must be a positive integer")
 
 
 @dataclass
@@ -39,9 +45,21 @@ class StartBatch:
 
 
 class ReplayBuffer:
+    # Fitting alternates multi-step and one-step windows. Bound retained indices
+    # even if a caller probes many different horizons between collection steps.
+    _MAX_CACHED_WINDOWS = 2
+
     def __init__(
         self, num_envs: int, capacity: int, state_dim: int, act_dim: int, xi_dim: int, device
     ):
+        for name, value in (
+            ("Environment count", num_envs),
+            ("Replay capacity", capacity),
+            ("State dimension", state_dim),
+            ("Action dimension", act_dim),
+            ("Context dimension", xi_dim),
+        ):
+            _positive_int(value, name)
         self.E, self.T = num_envs, capacity
         self.device = torch.device(device)
         E, T = num_envs, capacity
@@ -61,12 +79,15 @@ class ReplayBuffer:
         self.ptr = torch.zeros(E, dtype=torch.long, device=self.device)
         self.ep_counter = torch.zeros(E, dtype=torch.long, device=self.device)
         self.total_rows = 0
-        self._env_ar = torch.arange(E, device=self.device)
+        self._time_ar = torch.arange(T, device=self.device)
+        self._window_indices: OrderedDict[int, torch.Tensor] = OrderedDict()
 
     # ------------------------------------------------------------------ writes
 
     @torch.no_grad()
     def add(self, env_ids, s, a, a_exec, xi, r, done, frame, clip, terminal, ep_start) -> None:
+        # Invalidate before writing, including a write that raises partway through.
+        self._window_indices.clear()
         p = self.ptr[env_ids]
         self.s[env_ids, p] = s
         self.a[env_ids, p] = a
@@ -100,6 +121,9 @@ class ReplayBuffer:
     @torch.no_grad()
     def window_mask(self, k: int) -> torch.Tensor:
         """(E,T) True where rows t..t+k are valid, same episode, and t..t+k-1 are non-terminal."""
+        _positive_int(k, "Replay window")
+        if k >= self.T:
+            raise ValueError("Replay window must be below capacity")
         ok = self.valid & ~self.terminal
         ep0 = self.ep_id
         for j in range(1, k + 1):
@@ -110,7 +134,7 @@ class ReplayBuffer:
         # The row currently under the write pointer may be overwritten next; the rolled window must not
         # wrap across the write pointer. Rows t with t + k crossing ptr are excluded by the ep_id test
         # (new rows carry a newer ep_id) except for same-episode wraps, which are rare; exclude explicitly.
-        t = torch.arange(self.T, device=self.device)[None, :]
+        t = self._time_ar[None, :]
         dist_to_ptr = (self.ptr[:, None] - t - 1) % self.T  # rows strictly before ptr: 0 = newest
         ok &= dist_to_ptr >= k
         return ok
@@ -118,15 +142,42 @@ class ReplayBuffer:
     @torch.no_grad()
     def _sample_from_mask(self, mask: torch.Tensor, n: int) -> tuple[torch.Tensor, torch.Tensor]:
         flat = mask.reshape(-1)
-        total = int(flat.sum().item())
-        if total == 0:
+        if not flat.any():
             raise RuntimeError("replay buffer has no sampleable rows yet")
         idx = torch.multinomial(flat.float(), n, replacement=True)
         return idx // self.T, idx % self.T
 
     @torch.no_grad()
+    def _sample_indices(self, candidates: torch.Tensor, n: int):
+        _positive_int(n, "Sample count")
+        if candidates.numel() == 0:
+            raise RuntimeError("replay buffer has no sampleable rows yet")
+        # Uniform sampling with replacement, without scanning the entire ring
+        # or transferring a device-side sum for every minibatch.
+        idx = candidates[torch.randint(candidates.numel(), (n,), device=self.device)]
+        return idx // self.T, idx % self.T
+
+    @torch.no_grad()
+    def _window_candidates(self, k: int) -> torch.Tensor:
+        _positive_int(k, "Replay window")
+        if k >= self.T:
+            raise ValueError("Replay window must be below capacity")
+        candidates = self._window_indices.get(k)
+        if candidates is None:
+            if len(self._window_indices) == self._MAX_CACHED_WINDOWS:
+                self._window_indices.popitem(last=False)
+            candidates = self.window_mask(k).reshape(-1).nonzero().flatten()
+            self._window_indices[k] = candidates
+        self._window_indices.move_to_end(k)
+        return candidates
+
+    def has_windows(self, k: int) -> bool:
+        """Check eligibility once, reusing the indices in subsequent fitting."""
+        return self._window_candidates(k).numel() > 0
+
+    @torch.no_grad()
     def sample_windows(self, n: int, k: int) -> WindowBatch:
-        e, t = self._sample_from_mask(self.window_mask(k), n)
+        e, t = self._sample_indices(self._window_candidates(k), n)
         offs = torch.arange(k + 1, device=self.device)
         tt = (t[None, :] + offs[:, None]) % self.T  # (k+1, n)
         ee = e[None, :].expand(k + 1, n)
@@ -145,10 +196,14 @@ class ReplayBuffer:
 
     @torch.no_grad()
     def sample_starts(self, n: int, hist: int, reset_start_fraction: float = 0.0) -> StartBatch:
+        _positive_int(n, "Sample count")
+        _positive_int(hist, "History length")
+        if hist + 1 >= self.T:
+            raise ValueError("History length plus one must be below replay capacity")
         if not 0 <= reset_start_fraction <= 1:
             raise ValueError("Reset start fraction must be within [0, 1]")
         mask = self.valid & ~self.terminal
-        t_idx = torch.arange(self.T, device=self.device)[None, :]
+        t_idx = self._time_ar[None, :]
         dist_to_ptr = (self.ptr[:, None] - t_idx - 1) % self.T
         mask &= (
             dist_to_ptr < self.T - hist - 1
@@ -170,7 +225,6 @@ class ReplayBuffer:
         first_ok = same_ep.float().argmax(
             dim=0
         )  # first True index per column (same_ep[-1] is always True)
-        pos = torch.arange(hist, device=self.device)[:, None].expand(hist, n)
         tt_fixed = torch.where(
             same_ep, tt, tt[first_ok, torch.arange(n, device=self.device)][None, :].expand(hist, n)
         )
@@ -182,10 +236,7 @@ class ReplayBuffer:
             & self.valid[ee, tprev]
             & ~self.ep_start[ee, tt_fixed]
         )
-        hist_actions = torch.where(
-            prev_ok[..., None], self.a[ee, tprev], torch.zeros_like(self.a[ee, tprev])
-        )
-        del pos
+        hist_actions = self.a[ee, tprev].masked_fill(~prev_ok[..., None], 0)
         return StartBatch(
             state=self.s[e, t],
             xi=self.xi[e, t],
