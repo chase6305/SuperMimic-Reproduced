@@ -119,6 +119,13 @@ def imagine(
     # Goal lookahead depends only on reference frames. Compute it once for all
     # steps; relative anchor feedback is still appended from each reached state.
     goals_all = lib.goal_window(frames_all.reshape(-1), future_frames).reshape(horizon + 1, n, -1)
+    # Without anchor feedback the pointwise goal encoder has no state inputs.
+    # Keep custom policies on their existing forward contract.
+    goal_latents = (
+        policy.encoders["motion"](goals_all[:-1])
+        if not anchor_obs and type(policy) is Policy
+        else None
+    )
 
     def ref_at(t):
         sl = slice(t * n, (t + 1) * n)
@@ -147,7 +154,11 @@ def imagine(
         # even zero survival times an overflowing reward would otherwise be NaN.
         obs_flat = torch.where(alive[:, None], obs_flat, initial_history)
         policy_goal = torch.where(alive[:, None], goals[-1], goals[0])
-        a = policy(obs_flat, policy_goal)
+        if goal_latents is None:
+            a = policy(obs_flat, policy_goal)
+        else:
+            latent = torch.where(alive[:, None], goal_latents[t], goal_latents[0])
+            a = policy(obs_flat, policy_goal, goal_latent=latent)
         a = torch.where(alive[:, None], a, torch.zeros_like(a))
         s_input = torch.where(alive[:, None], s, start.state)
         previous = torch.where(alive[:, None], a_prev, start.prev_action)

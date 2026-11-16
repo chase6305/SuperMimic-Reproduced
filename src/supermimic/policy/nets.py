@@ -70,9 +70,16 @@ class Policy(nn.Module):
         self.decoder = Decoder(cfg, obs_dim=observation_dim(cfg.history))
 
     def forward(
-        self, obs_hist: torch.Tensor, goal: torch.Tensor, interface: str = "motion"
+        self,
+        obs_hist: torch.Tensor,
+        goal: torch.Tensor,
+        interface: str = "motion",
+        *,
+        goal_latent: torch.Tensor | None = None,
     ) -> torch.Tensor:
-        action = self.decoder(self.encoders[interface](goal), obs_hist)
+        """Decode feedback, optionally reusing this interface's pre-encoded goal."""
+        z = self.encoders[interface](goal) if goal_latent is None else goal_latent
+        action = self.decoder(z, obs_hist)
         return (
             action
             if self.cfg.action_clip is None

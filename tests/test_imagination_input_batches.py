@@ -68,6 +68,10 @@ def test_input_batches_preserve_rollout_rng_and_actor_gradients(
     individual_observation, goal_window = module.analytic_observation, lib.goal_window
     root_error = heads.root_error_features
 
+    class PerStepPolicy(torch.nn.Module):
+        def forward(self, observation, goal):
+            return policy(observation, goal)
+
     def per_frame_observation(state, previous, context, q0):
         return torch.stack(
             [
@@ -113,7 +117,7 @@ def test_input_batches_preserve_rollout_rng_and_actor_gradients(
         reference.setattr(heads, "root_error_features", per_step_errors)
         torch.manual_seed(876)
         expected = module.imagine(
-            wm, policy, lib, start, horizon, obs_noise=True, anchor_obs=anchor
+            wm, PerStepPolicy(), lib, start, horizon, obs_noise=True, anchor_obs=anchor
         )
         expected_gradients = torch.autograd.grad(objective(expected), parameters)
         expected_rng = torch.cuda.get_rng_state()
@@ -127,3 +131,12 @@ def test_input_batches_preserve_rollout_rng_and_actor_gradients(
         )
     for actual_gradient, expected_gradient in zip(gradients, expected_gradients, strict=True):
         torch.testing.assert_close(actual_gradient, expected_gradient, atol=3e-6, rtol=1e-4)
+    # A loose absolute tolerance alone could accept a completely lost feedback
+    # gradient when the initialized actor/world model has small Jacobians.
+    expected_norm = sum(g.double().square().sum() for g in expected_gradients).sqrt()
+    difference_norm = sum(
+        (actual - reference).double().square().sum()
+        for actual, reference in zip(gradients, expected_gradients, strict=True)
+    ).sqrt()
+    assert expected_norm > 1e-12
+    assert difference_norm <= 1e-4 * expected_norm + 1e-12

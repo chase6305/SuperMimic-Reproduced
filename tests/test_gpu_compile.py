@@ -91,3 +91,56 @@ def test_compiled_world_model_window_loss_and_parameter_gradients():
     torch.testing.assert_close(actual, expected, atol=2e-5, rtol=2e-5)
     for observed, reference in zip(actual_gradients, expected_gradients, strict=True):
         torch.testing.assert_close(observed, reference, atol=3e-5, rtol=2e-4)
+
+
+def test_compiled_imagination_preserves_state_and_action_feedback():
+    from supermimic.data.motion_convert import load_g1_model
+    from supermimic.imagination.compiled import ImagStep
+    from supermimic.interfaces import ANCHOR_BODY, ROOT_BODY, TRACKED_BODIES
+    from supermimic.kinematics.g1_fk import G1Kinematics
+    from supermimic.world_model.heads import AnalyticHeads, ReferenceFrame
+    from supermimic.world_model.world_model import WorldModel, WorldModelCfg
+
+    torch.set_num_threads(1)
+    torch.backends.cuda.matmul.allow_tf32 = False
+    torch.manual_seed(529)
+    model = load_g1_model()
+    default = torch.tensor(model.qpos0[7:], device="cuda:0", dtype=torch.float32)
+    heads = AnalyticHeads(
+        G1Kinematics(model, "cuda:0"),
+        TRACKED_BODIES,
+        ANCHOR_BODY,
+        ROOT_BODY,
+        torch.tensor(model.jnt_range[1:], device="cuda:0", dtype=torch.float32),
+        default,
+    )
+    wm = WorldModel(WorldModelCfg(hidden=(64, 64)), heads, "cuda:0").requires_grad_(False)
+    with torch.no_grad():
+        wm.dynamics.mlp.net[-1].weight.normal_(std=0.01)
+    state = torch.zeros(16, 71, device="cuda:0")
+    state[:, :36] = torch.tensor(model.qpos0, device="cuda:0", dtype=torch.float32)
+    state[:, 7:] += 0.02 * torch.randn_like(state[:, 7:])
+    state.requires_grad_()
+    action = (0.05 * torch.randn(16, 29, device="cuda:0")).requires_grad_()
+    previous = (0.05 * torch.randn_like(action)).requires_grad_()
+    context = torch.zeros(16, 33, device="cuda:0")
+    context[:, 0] = 0.75
+    context.requires_grad_()
+    with torch.no_grad():
+        bodies = heads.robot_bodies(state)
+        reference = ReferenceFrame(
+            bodies["pos"], bodies["quat"], bodies["lin_vel"], bodies["ang_vel"],
+            state[:, :3].clone(), state[:, 3:7].clone(),
+        )
+    expected = ImagStep(wm, default)(state, action, previous, context, reference)
+    actual = ImagStep(wm, default, compile_mode="default")(
+        state, action, previous, context, reference
+    )
+    for observed, target in zip(actual, expected, strict=True):
+        torch.testing.assert_close(observed, target, atol=2e-5, rtol=2e-5)
+    inputs = (state, action, previous, context)
+    expected_gradients = torch.autograd.grad(sum(x.square().mean() for x in expected), inputs)
+    actual_gradients = torch.autograd.grad(sum(x.square().mean() for x in actual), inputs)
+    assert expected_gradients[1].norm() > 1e-8
+    for observed, target in zip(actual_gradients, expected_gradients, strict=True):
+        torch.testing.assert_close(observed, target, atol=3e-5, rtol=2e-4)
