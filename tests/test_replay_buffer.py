@@ -197,7 +197,12 @@ def test_sampling_rejects_invalid_counts_and_horizons(value):
 
 def test_sampling_rejects_windows_or_histories_that_cannot_fit():
     buffer = ReplayBuffer(1, 16, 2, 1, 1, "cpu")
-    with pytest.raises(ValueError, match="below capacity"):
-        buffer.has_windows(16)
+    for serial in range(buffer.T):
+        write_row(buffer, 0, serial, 0, start=serial == 0)
+    assert buffer.has_windows(15)
+    assert not buffer.has_windows(16)
+    assert not buffer.window_mask(16).any()
+    with pytest.raises(RuntimeError, match="no sampleable rows"):
+        buffer.sample_windows(1, 16)
     with pytest.raises(ValueError, match="below replay capacity"):
         buffer.sample_starts(1, 15)

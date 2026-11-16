@@ -1,0 +1,223 @@
+{
+  "measured_at_utc": "2026-11-16T16:43:37Z",
+  "baseline_revision": "b50f477",
+  "optimized_replay_revision": "dd76f80",
+  "scope": "Replay operations only; excludes model forward/backward, physics and quality evaluation.",
+  "method": "Single CPU thread; seven samples of ten operations after three warmups. CUDA synchronizes after each timed sample. Update cycle includes one write, ten 8-step minibatches and two 1-step minibatches.",
+  "cpu_baseline": {
+    "device": "cpu",
+    "torch_version": "2.14.1+cu130",
+    "threads": 1,
+    "envs": 128,
+    "capacity": 1000,
+    "window_batch_size": 512,
+    "warmup_operations": 3,
+    "operations_per_sample": 10,
+    "timings": {
+      "window_8_warm": {
+        "median_ms": 1.832099398598075,
+        "samples_ms": [
+          1.6506157000549138,
+          2.0056654000654817,
+          1.994603598723188,
+          1.6611183993518353,
+          1.9536908017471433,
+          1.784723502350971,
+          1.832099398598075
+        ]
+      },
+      "window_1_warm": {
+        "median_ms": 0.8994269999675453,
+        "samples_ms": [
+          0.8510773011948913,
+          1.1101497046183795,
+          0.8994269999675453,
+          0.894683098886162,
+          1.0164978972170502,
+          0.9722257032990456,
+          0.7522555999457836
+        ]
+      },
+      "starts": {
+        "median_ms": 0.8256015018559992,
+        "samples_ms": [
+          0.8529457030817866,
+          0.8881799993105233,
+          0.7401779992505908,
+          0.750396098010242,
+          0.7646279002074152,
+          0.8262947027105838,
+          0.8256015018559992
+        ]
+      },
+      "collect_plus_12_minibatches": {
+        "median_ms": 21.56487919855863,
+        "samples_ms": [
+          20.137559802969918,
+          20.505282399244606,
+          21.56487919855863,
+          23.917241801973432,
+          23.994655901333317,
+          24.34206960024312,
+          20.24195159901865
+        ]
+      }
+    },
+    "scope": "sampling only; update includes one ring write, ten 8-step and two 1-step batches"
+  },
+  "cpu_optimized": {
+    "device": "cpu",
+    "torch_version": "2.14.1+cu130",
+    "threads": 1,
+    "envs": 128,
+    "capacity": 1000,
+    "window_batch_size": 512,
+    "warmup_operations": 3,
+    "operations_per_sample": 10,
+    "timings": {
+      "window_8_warm": {
+        "median_ms": 0.6815636996179819,
+        "samples_ms": [
+          1.084890600759536,
+          0.649693695595488,
+          0.623941101366654,
+          0.6815636996179819,
+          0.974165799561888,
+          0.8345222973730415,
+          0.6621371023356915
+        ]
+      },
+      "window_1_warm": {
+        "median_ms": 0.3182273998390883,
+        "samples_ms": [
+          0.2690665947739035,
+          0.3044412995222956,
+          0.3182273998390883,
+          0.3552580950781703,
+          0.41941620293073356,
+          0.4379110992886126,
+          0.27490060310810804
+        ]
+      },
+      "starts": {
+        "median_ms": 0.5706725991331041,
+        "samples_ms": [
+          0.5398444016464055,
+          0.58688810095191,
+          0.5546373024117202,
+          0.5998565990012139,
+          0.5945135024376214,
+          0.5474738019984215,
+          0.5706725991331041
+        ]
+      },
+      "collect_plus_12_minibatches": {
+        "median_ms": 9.577659599017352,
+        "samples_ms": [
+          9.492854296695441,
+          9.812563500599936,
+          10.050250904168934,
+          8.983129996340722,
+          10.23799130343832,
+          9.577659599017352,
+          9.489477297756821
+        ]
+      }
+    },
+    "scope": "sampling only; update includes one ring write, ten 8-step and two 1-step batches"
+  },
+  "cuda": {
+    "device": "NVIDIA GeForce RTX 5090 D v2",
+    "envs": 128,
+    "capacity": 1000,
+    "batch_size": 512,
+    "torch_version": "2.14.1+cu130",
+    "timings": [
+      {
+        "implementation": "baseline",
+        "operation": "window_8_warm",
+        "median_ms": 0.3850625013001263,
+        "samples_ms": [
+          0.3850625013001263,
+          0.34454099950380623,
+          0.3783268039114773,
+          0.3859340969938785,
+          0.39269900298677385,
+          0.38508959696628153,
+          0.3830196976196021
+        ]
+      },
+      {
+        "implementation": "baseline",
+        "operation": "window_1_warm",
+        "median_ms": 0.20096719963476062,
+        "samples_ms": [
+          0.20933299674652517,
+          0.1917097019031644,
+          0.2061969949863851,
+          0.2019450010266155,
+          0.20096719963476062,
+          0.18854769878089428,
+          0.1921925984788686
+        ]
+      },
+      {
+        "implementation": "baseline",
+        "operation": "collect_plus_12_minibatches",
+        "median_ms": 4.581792000681162,
+        "samples_ms": [
+          4.668394400505349,
+          4.334225895581767,
+          4.5851904025767,
+          4.301256604958326,
+          4.581792000681162,
+          4.604463803116232,
+          4.368897300446406
+        ]
+      },
+      {
+        "implementation": "optimized",
+        "operation": "window_8_warm",
+        "median_ms": 0.10066399700008333,
+        "samples_ms": [
+          0.09633279987610877,
+          0.10847770026884973,
+          0.1350387989077717,
+          0.10067489929497242,
+          0.10064990492537618,
+          0.10066399700008333,
+          0.09908399661071599
+        ]
+      },
+      {
+        "implementation": "optimized",
+        "operation": "window_1_warm",
+        "median_ms": 0.08423589752055705,
+        "samples_ms": [
+          0.08556040120311081,
+          0.08330619893968105,
+          0.08423589752055705,
+          0.08466379949823022,
+          0.08267799858003855,
+          0.08400549995712936,
+          0.08859309600666165
+        ]
+      },
+      {
+        "implementation": "optimized",
+        "operation": "collect_plus_12_minibatches",
+        "median_ms": 1.675826997961849,
+        "samples_ms": [
+          1.7064687970560044,
+          1.622839894844219,
+          1.6006961988750845,
+          1.675826997961849,
+          1.993781898636371,
+          1.7800515983253717,
+          1.5870714967604727
+        ]
+      }
+    ]
+  },
+  "caveat": "Shared workstation timings are noisy. Retained index cache is bounded at two horizons; every add invalidates it. The integer sampler preserves the row-uniform distribution but changes RNG consumption."
+}

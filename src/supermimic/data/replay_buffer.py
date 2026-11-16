@@ -123,7 +123,7 @@ class ReplayBuffer:
         """(E,T) True where rows t..t+k are valid, same episode, and t..t+k-1 are non-terminal."""
         _positive_int(k, "Replay window")
         if k >= self.T:
-            raise ValueError("Replay window must be below capacity")
+            return torch.zeros_like(self.valid)
         ok = self.valid & ~self.terminal
         ep0 = self.ep_id
         for j in range(1, k + 1):
@@ -161,7 +161,7 @@ class ReplayBuffer:
     def _window_candidates(self, k: int) -> torch.Tensor:
         _positive_int(k, "Replay window")
         if k >= self.T:
-            raise ValueError("Replay window must be below capacity")
+            return torch.empty(0, dtype=torch.long, device=self.device)
         candidates = self._window_indices.get(k)
         if candidates is None:
             if len(self._window_indices) == self._MAX_CACHED_WINDOWS:
