@@ -1,0 +1,100 @@
+{
+  "source_revision": "3ee417b070d1d6440f36fc35ec03c6c4128dc96c",
+  "implementation_python_manifest_sha256": "573a7fc8fa3cb192ed066a115de884455f12237b57c7de281a31cd84fd62e46c",
+  "implementation_python_files": 85,
+  "scope": "Bounded training-chain and resource validation using paper network widths, local batches and one prepared motion; not a paper-scale run or a skill acceptance result. No full-training speedup is inferred.",
+  "status": "complete",
+  "exit_code": 0,
+  "supervisor_stop_reason": null,
+  "training_stop_reason": "training_time_limit",
+  "iteration": 5576,
+  "updates": 2221,
+  "supervised_elapsed_s": 729.876571292989,
+  "worker_elapsed_s": 725.1017865119502,
+  "limits": {
+    "gpu_index": 0,
+    "max_gpu_mib": 2304,
+    "reserve_gpu_mib": 4096,
+    "max_rss_gib": 6.0,
+    "reserve_ram_gib": 12.5,
+    "reserve_disk_gib": 20.0,
+    "poll_seconds": 2.0,
+    "stop_grace_seconds": 30.0
+  },
+  "peak_rss_bytes": 4575145984,
+  "peak_process_gpu_mib": 1550,
+  "memory_estimate": {
+    "estimated_cuda_mib": 2269.5122299194336,
+    "parameters": 17941317,
+    "components_mib": {
+      "context_and_simulator_base": 768.0,
+      "parameters_gradients_adam": 273.7627716064453,
+      "simulation_worlds": 128.0,
+      "replay": 83.3740234375,
+      "replay_sampling_indices": 1.96075439453125,
+      "history_layout_indices": 0.0070953369140625,
+      "encoded_goals": 0.1875,
+      "reference_library": 16.09923553466797,
+      "compilation_workspace": 512.0,
+      "activation_workspace": 486.0,
+      "lookahead_workspace": 0.120849609375,
+      "priority_sampling": 0.0,
+      "accumulated_critic_inputs": 0.0,
+      "foot_support_workspace": 0.0,
+      "root_xy_tracking_workspace": 0.0
+    },
+    "heuristic": true
+  },
+  "configuration": {
+    "environments": 128,
+    "replay_capacity": 1000,
+    "randomized": true,
+    "world_hidden": [
+      2048,
+      2048,
+      2048
+    ],
+    "encoder_hidden": [
+      2048,
+      1024,
+      512,
+      256
+    ],
+    "decoder_hidden": [
+      2048,
+      1024,
+      512,
+      256
+    ],
+    "world_batch_size": 512,
+    "world_batches_per_update": 10,
+    "world_window": 8,
+    "actor_batch_size": 48,
+    "actor_horizon": 32,
+    "compiled_world_model": "default",
+    "compiled_imagination": "default",
+    "seed": 181
+  },
+  "motion": {
+    "walk1_subject1.npz": {
+      "sha256": "4598698aa035c52ba160986e05796cb525df557d1879266e933c40a65994c041",
+      "frames": 13066
+    }
+  },
+  "checkpoint_sha256": "f99fb46eff62c374b21cffb7a16078e6970ffa2f4de6eea1d82d91d9fe07e8aa",
+  "checkpoint_bytes": 215369519,
+  "logged_metric_rows": 278,
+  "all_logged_update_metrics_finite": true,
+  "last_logged_iteration": 5560,
+  "last_logged_prediction_nse": [
+    0.010630041360855103,
+    0.007174005266278982,
+    0.006713837385177612,
+    0.008667102083563805,
+    0.007995333522558212,
+    0.007843824103474617,
+    0.01006858516484499,
+    0.009716996923089027
+  ],
+  "last_logged_policy_gradient_norm": 0.13681119587272406
+}
