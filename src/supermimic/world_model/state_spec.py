@@ -66,13 +66,21 @@ class StateSpec:
 
     def canonical(self, s: torch.Tensor) -> torch.Tensor:
         """Heading-invariant, scaled network input features (…, 71)."""
+        return self.canonical_with_frame(s)[0]
+
+    def canonical_with_frame(self, s: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+        """Return features with the normalized root orientation and heading.
+
+        A dynamics step can reuse these two tensors during integration instead
+        of normalizing and extracting the same input frame twice.
+        """
         p, q, qj, v, w, qd = self.split(s)
         q = quat_normalize(q)
         hq = heading_quat(q)
         q_local = quat_canonical(quat_mul(quat_apply_inverse_quat(hq), q))
         v_h = quat_apply_inverse(hq, v)
         feat = torch.cat([p[..., 2:3], rot6d_from_quat(q_local), v_h, w, qj, qd], dim=-1)
-        return feat / self.in_scale
+        return feat / self.in_scale, q, hq
 
     def normalize_xi(self, xi: torch.Tensor) -> torch.Tensor:
         return (xi - self.xi_offset) / self.xi_scale
@@ -81,6 +89,13 @@ class StateSpec:
 
     def integrate(self, s: torch.Tensor, delta: torch.Tensor) -> torch.Tensor:
         """Apply the (unscaled) network output ``delta`` (…, 70) to state ``s`` (…, 71)."""
+        q = quat_normalize(s[..., 3:7])
+        return self.integrate_with_frame(s, delta, q, heading_quat(q))
+
+    def integrate_with_frame(
+        self, s: torch.Tensor, delta: torch.Tensor, q: torch.Tensor, hq: torch.Tensor
+    ) -> torch.Tensor:
+        """Integrate using the normalized orientation and heading of this same state."""
         d = delta * self.out_scale
         dv_h, dw_b, dqd, dp_h, dth_b, dq = (
             d[..., 0:3],
@@ -90,9 +105,7 @@ class StateSpec:
             d[..., 38:41],
             d[..., 41:70],
         )
-        p, q, qj, v, w, qd = self.split(s)
-        q = quat_normalize(q)
-        hq = heading_quat(q)
+        p, _, qj, v, w, qd = self.split(s)
         v_new = v + quat_apply(hq, dv_h)
         w_new = w + dw_b
         qd_new = qd + dqd

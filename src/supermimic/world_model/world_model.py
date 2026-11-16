@@ -42,9 +42,9 @@ class WorldModel(nn.Module):
 
     def step(self, s: torch.Tensor, action: torch.Tensor, xi: torch.Tensor) -> torch.Tensor:
         """s_{t+1} = integrate(s_t, f(s_t, a_t, xi))."""
-        feat = self.spec.canonical(s)
+        feat, q, hq = self.spec.canonical_with_frame(s)
         delta = self.dynamics(feat, action, self.spec.normalize_xi(xi))
-        return self.spec.integrate(s, delta)
+        return self.spec.integrate_with_frame(s, delta, q, hq)
 
     def termination_logits(self, s_next: torch.Tensor, ref: ReferenceFrame) -> torch.Tensor:
         # The pelvis is the free-joint body, so its pose is the state's root pose: no FK needed.
