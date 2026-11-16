@@ -67,7 +67,11 @@ class WorldModelTrainer:
                 agg[key] = agg.get(key, 0.0) + v
                 counts[key] = counts.get(key, 0) + 1
         # Single host sync per update (keeps the CPU queuing GPU work across minibatches).
-        return {k: float(v) / counts[k] for k, v in agg.items()}
+        if not agg:
+            return {}
+        keys = list(agg)
+        values = torch.stack([agg[key] for key in keys]).cpu().tolist()
+        return {key: value / counts[key] for key, value in zip(keys, values, strict=True)}
 
     @torch.no_grad()
     def online_error(self, buffer: ReplayBuffer, n: int = 1024, k: int = 8) -> torch.Tensor:
