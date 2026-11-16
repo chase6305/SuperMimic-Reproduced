@@ -78,10 +78,10 @@ def imagine(
         return torch.cat([g, rel], dim=-1)
 
     # Initial observation history from the logged states/actions (noise re-sampled per frame).
-    hist = [
-        add_noise(analytic_observation(start.hist_states[i], start.hist_actions[i], start.xi, q0))
-        for i in range(start.hist_states.shape[0])
-    ]
+    history = analytic_observation(start.hist_states, start.hist_actions, start.xi, q0)
+    # Keep one noise draw per history frame: batching the random draw would
+    # consume a different CUDA Philox sequence even for the same seed.
+    hist = [add_noise(observation) for observation in history.unbind(0)]
     initial_history = flatten_history_term_major(torch.stack(hist, 0))
     initial_observation = hist[-1]
     s = start.state
