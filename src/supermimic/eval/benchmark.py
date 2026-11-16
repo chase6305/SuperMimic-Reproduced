@@ -45,7 +45,7 @@ class ClipResult:
 
 
 def load_policy_from_checkpoint(path: str | Path, device: str) -> tuple[Policy, dict]:
-    ck = read_checkpoint(path).data
+    ck = read_checkpoint(path, mmap="auto").data
     policy = policy_from_checkpoint(ck).to(device)
     return policy, ck["config"]
 

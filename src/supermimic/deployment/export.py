@@ -19,7 +19,7 @@ from supermimic.interfaces import observation_dim
 
 def export_policy(checkpoint: Path, output: Path) -> dict:
     torch.set_num_threads(1)
-    loaded = read_checkpoint(checkpoint, fingerprint=True)
+    loaded = read_checkpoint(checkpoint, mmap="auto", fingerprint=True)
     ck = loaded.data
     cfg = ck["config"]
     actor = policy_from_checkpoint(ck)

@@ -11,7 +11,7 @@ from __future__ import annotations
 from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, Literal
 
 import torch
 
@@ -32,7 +32,7 @@ class CheckpointRead:
 def read_checkpoint(
     path: Path | str,
     *,
-    mmap: bool = False,
+    mmap: bool | Literal["auto"] = False,
     fingerprint: bool = False,
     max_bytes: int | None = None,
 ) -> CheckpointRead:
@@ -40,9 +40,11 @@ def read_checkpoint(
 
     PyTorch accepts mmap only for a pathname. On Linux, /proc/self/fd exposes the
     open descriptor as a pathname, so an atomic replacement of ``path`` cannot
-    redirect the mapping. The mapping outlives the descriptor after return. There
-    is no eager fallback: mmap callers explicitly choose the Linux file mapping
-    requirement to avoid unexpectedly materializing optimizer tensors.
+    redirect the mapping. The mapping outlives the descriptor after return.
+    Explicit ``True`` has no eager fallback: callers choose the Linux mapping
+    requirement to avoid unexpectedly materializing optimizer tensors. ``auto``
+    maps modern ZIP checkpoints when descriptor paths are available and keeps
+    the eager reader for legacy archives and other platforms.
 
     Pickle loading remains enabled for existing training checkpoints: inputs must
     be trusted, as at the training, migration and export entry points.

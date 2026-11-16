@@ -19,7 +19,8 @@ from supermimic.deployment.mujoco import deploy
 from supermimic.policy.nets import Policy, PolicyCfg
 
 
-def test_export_reload_and_physical_rollout(tmp_path, monkeypatch):
+@pytest.mark.parametrize("legacy", [False, True])
+def test_export_reload_and_physical_rollout(tmp_path, monkeypatch, legacy):
     torch.set_num_threads(1)
     torch.manual_seed(4)
     pcfg = PolicyCfg(encoder_hidden=(16, 8), decoder_hidden=(16, 8))
@@ -32,6 +33,7 @@ def test_export_reload_and_physical_rollout(tmp_path, monkeypatch):
             "config": {"policy": asdict(pcfg), "env": {"future_frames": 10, "anchor_obs": False}},
         },
         checkpoint,
+        _use_new_zipfile_serialization=not legacy,
     )
     bundle = tmp_path / "export"
     contract = export_policy(checkpoint, bundle)
@@ -192,7 +194,9 @@ def test_atomic_checkpoint_publication_cannot_change_export_provenance(tmp_path,
         loaded = original_load(stream, **kwargs)
         replacement = tmp_path / "replacement.pt"
         replacement.write_bytes(b"new checkpoint published concurrently")
-        replacement.replace(Path(stream.name))
+        # Publish to the user pathname; a mapped reader receives a /proc fd
+        # path instead of the eager loader's file object.
+        replacement.replace(checkpoint)
         return loaded
 
     monkeypatch.setattr(torch, "load", load_and_publish)

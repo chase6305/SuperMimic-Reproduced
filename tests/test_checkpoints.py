@@ -46,7 +46,7 @@ assert 'supermimic.envs.tracking_env_cfg' not in sys.modules
     )
 
 
-@pytest.mark.parametrize("mmap", [False, True])
+@pytest.mark.parametrize("mmap", [False, True, "auto"])
 def test_read_keeps_original_inode_and_tensors_after_descriptor_closes(tmp_path, monkeypatch, mmap):
     checkpoint = tmp_path / "latest.pt"
     replacement = tmp_path / "replacement.pt"
@@ -59,8 +59,8 @@ def test_read_keeps_original_inode_and_tensors_after_descriptor_closes(tmp_path,
     def publish_before_loading(source, **kwargs):
         assert kwargs["map_location"] == "cpu"
         assert kwargs["weights_only"] is False
-        assert kwargs["mmap"] is mmap
-        descriptors.append(int(source.rsplit("/", 1)[-1]) if mmap else source.fileno())
+        assert kwargs["mmap"] is (mmap is not False)
+        descriptors.append(int(source.rsplit("/", 1)[-1]) if kwargs["mmap"] else source.fileno())
         replacement.replace(checkpoint)
         return original_load(source, **kwargs)
 
@@ -75,7 +75,7 @@ def test_read_keeps_original_inode_and_tensors_after_descriptor_closes(tmp_path,
     assert loaded.data["value"].device.type == "cpu"
 
 
-@pytest.mark.parametrize("mmap", [False, True])
+@pytest.mark.parametrize("mmap", [False, True, "auto"])
 def test_fingerprint_detects_same_size_in_place_change(tmp_path, monkeypatch, mmap):
     checkpoint = tmp_path / "source.pt"
     torch.save({"value": torch.arange(4)}, checkpoint)
@@ -109,10 +109,11 @@ def test_input_budget_is_checked_before_deserialization(tmp_path, monkeypatch):
         read_checkpoint(checkpoint, max_bytes=1)
 
 
-def test_eager_reader_keeps_legacy_checkpoint_support(tmp_path):
+@pytest.mark.parametrize("mmap", [False, "auto"])
+def test_reader_keeps_legacy_checkpoint_support(tmp_path, mmap):
     checkpoint = tmp_path / "legacy.pt"
     torch.save({"value": torch.arange(4)}, checkpoint, _use_new_zipfile_serialization=False)
-    loaded = read_checkpoint(checkpoint)
+    loaded = read_checkpoint(checkpoint, mmap=mmap)
     assert loaded.sha256 is None
     torch.testing.assert_close(loaded.data["value"], torch.arange(4))
 
