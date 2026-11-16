@@ -111,7 +111,8 @@ def test_compiled_world_model_window_loss_and_parameter_gradients(window, whole_
     assert difference <= 2e-4 * reference_norm
 
 
-def test_compiled_imagination_preserves_state_and_action_feedback():
+@pytest.mark.parametrize("compile_mode", ["default", "reduce-overhead"])
+def test_compiled_imagination_preserves_state_and_action_feedback(compile_mode):
     from supermimic.data.motion_convert import load_g1_model
     from supermimic.imagination.compiled import ImagStep
     from supermimic.interfaces import ANCHOR_BODY, ROOT_BODY, TRACKED_BODIES
@@ -155,7 +156,7 @@ def test_compiled_imagination_preserves_state_and_action_feedback():
             state[:, 3:7].clone(),
         )
     expected = ImagStep(wm, default)(state, action, previous, context, reference)
-    actual = ImagStep(wm, default, compile_mode="default")(
+    actual = ImagStep(wm, default, compile_mode=compile_mode)(
         state, action, previous, context, reference
     )
     for observed, target in zip(actual, expected, strict=True):
@@ -166,3 +167,5 @@ def test_compiled_imagination_preserves_state_and_action_feedback():
     assert expected_gradients[1].norm() > 1e-8
     for observed, target in zip(actual_gradients, expected_gradients, strict=True):
         torch.testing.assert_close(observed, target, atol=3e-5, rtol=2e-4)
+        assert target.norm() > 1e-10
+        assert (observed - target).norm() <= 1e-4 * target.norm() + 1e-12

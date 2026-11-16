@@ -63,6 +63,9 @@ def estimate_training_memory(cfg, reference_frames: int) -> dict:
         "reference_library": reference_frames * (292 if cfg.env.compact_library else 1292) / MIB,
         "compilation_workspace": 256.0
         * (bool(cfg.policy_trainer.compile) + bool(cfg.wm_trainer.compile)),
+        "policy_cudagraph_workspace": (
+            256.0 if cfg.policy_trainer.compile == "reduce-overhead" else 0.0
+        ),
     }
     actor = (
         cfg.policy_trainer.horizon

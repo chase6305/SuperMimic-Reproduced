@@ -20,7 +20,7 @@ def training_config(
     seed: int = 0,
     clips: list[str] | None = None,
     resume: Path | None = None,
-    compile_policy: bool = False,
+    compile_policy: bool | str = False,
     compile_world_model: bool = False,
     compile_world_model_window: bool = False,
     wm_batches_per_update: int | None = None,
@@ -75,7 +75,10 @@ def training_config(
     if cfg.env.num_envs < 1 or iterations < 1 or hours <= 0:
         raise ValueError("Environment count, iterations and hours must be positive")
     if compile_policy:
-        cfg.policy_trainer.compile = "default"
+        mode = compile_policy if isinstance(compile_policy, str) else "default"
+        if mode not in ("default", "reduce-overhead"):
+            raise ValueError("Policy compile mode must be default or reduce-overhead")
+        cfg.policy_trainer.compile = mode
     if compile_world_model or compile_world_model_window:
         cfg.wm_trainer.compile = "default"
     cfg.wm_trainer.compile_window = compile_world_model_window

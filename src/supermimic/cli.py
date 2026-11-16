@@ -180,8 +180,11 @@ def parser() -> argparse.ArgumentParser:
             )
             q.add_argument(
                 "--compile-policy",
-                action="store_true",
-                help="Compile imagined physics steps inside the same resource limits",
+                nargs="?",
+                const="default",
+                default=False,
+                choices=("default", "reduce-overhead"),
+                help="Compile imagined steps; reduce-overhead uses CUDA graphs with extra warmup and memory",
             )
             q.add_argument(
                 "--compile-world-model",
