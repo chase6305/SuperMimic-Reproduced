@@ -79,6 +79,8 @@ NPZ 的 ZIP 大小检查之后，还会先检查所选 NPY 成员的头部长度
 
 世界模型在一次动力学步内复用已归一化的根姿态与朝向系，原 `canonical`／`integrate` 接口仍可独立调用，不持有跨步缓存。512×3 世界模型、batch 128 的 8 步损失前向与反向计时为 27.56 → 25.80 ms；参数梯度最大差约 6.6e-7。双精度输入／参数导数另以 1e-10 容差检查，见 [动力学计时](performance/world-frame-reuse.json)。
 
+`scripts/benchmark_world_model.py --backend step --output runs/wm-step` 与 `--backend window --output runs/wm-window` 比较同一固定合成窗口的损失与参数反向，默认 512×3、batch 128、8 步。两次运行均应持有共享重任务锁；可设 `--width 2048 --batch-size 512` 检查更大配置。脚本冻结包与自身源码，隔离 Torch／Triton 编译缓存，单列首次调用时间，再预热三次、测量七组各二十次调用；首轮损失、指标、梯度及输入／权重摘要用于数值核对。测量不包含回放采样、Adam 或物理训练。
+
 `scripts/benchmark_actor.py --motion data/npz/g1/walk1_subject1.npz --output runs/actor-benchmark` 测量固定参考状态上的完整策略更新，包含 BPTT、梯度裁剪、Adam 与 critic 拟合，不运行物理、不拟合世界模型，也不采样 replay。可选 `--compact`／`--compile-policy`，默认 batch 64、32 步；首次更新（含编译）单独计时，再预热两次、测量七组三次更新。应持有共享重任务锁运行。每次运行冻结包源码与输入动作，保存首步参数／梯度／随机状态及监督记录，比较不同 checkout 时须使用相同脚本、动作和参数；基准不评价动作质量。
 
 输入批量化与局部姿态复用阶段（`b0a1f0d` → `858ec15`）的完整更新计时、首步参数／梯度对照及来源摘要见 [固定回放测量](performance/actor-update.json)。该记录将后续目标编码原型的相邻时间对照单列，避免混用源码版本；基准脚本另经相同 eager 模式的初始权重、输入摘要和首步指标一致性检查。
