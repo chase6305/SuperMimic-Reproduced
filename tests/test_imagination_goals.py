@@ -47,7 +47,7 @@ def test_batched_goals_match_individual_lookahead_at_clip_edges(compact, anchor)
     )
     heads = SimpleNamespace(
         anchor_index=0,
-        root_error_features=lambda s, ref: torch.zeros(n, 4),
+        root_error_features=lambda s, ref: torch.zeros(len(s), 4),
         robot_bodies=lambda s: {"pos": s[:, None, :3], "quat": s[:, None, 3:7]},
     )
 

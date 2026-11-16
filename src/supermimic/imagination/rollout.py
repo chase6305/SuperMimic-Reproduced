@@ -121,7 +121,6 @@ def imagine(
     else:
         anchor_pose = None
     goals = [make_goal(0, ref, anchor_pose)]
-    e_roots = [wm.heads.root_error_features(s, ref)]
     term_sum = torch.zeros(len(REWARD_TERM_NAMES), device=device)
 
     for t in range(horizon):
@@ -158,17 +157,20 @@ def imagine(
         dhats.append(d)
         survivals.append(c)
         goals.append(make_goal(t + 1, ref, anchor_pose))
-        e_roots.append(wm.heads.root_error_features(s, ref))
         frames.append(frame)
 
+    states_all = torch.stack(states)
+    # Drift features are consumed only after the rollout, so compute their
+    # pointwise transforms together while preserving bootstrap derivatives.
+    e_roots = wm.heads.root_error_features(states_all.reshape(-1, states_all.shape[-1]), ref_all)
     return ImagRollout(
-        states=torch.stack(states),
+        states=states_all,
         actions=torch.stack(actions),
         rewards=torch.stack(rewards),
         dhat=torch.stack(dhats),
         survival=torch.stack(survivals),
         goals=torch.stack(goals) if anchor_obs else goals_all,
-        e_root=torch.stack(e_roots),
+        e_root=e_roots.reshape(horizon + 1, n, 4),
         frames=torch.stack(frames),
         reward_terms={
             k: float(v / horizon)

@@ -58,7 +58,7 @@ def test_initial_history_matches_individual_frames_and_preserves_noise_rng(histo
             state[:, :7],
         )
 
-    heads = SimpleNamespace(anchor_index=0, root_error_features=lambda s, r: torch.zeros(n, 4))
+    heads = SimpleNamespace(anchor_index=0, root_error_features=lambda s, r: torch.zeros(len(s), 4))
     torch.manual_seed(207)
     rollout = imagine(
         SimpleNamespace(heads=heads),
