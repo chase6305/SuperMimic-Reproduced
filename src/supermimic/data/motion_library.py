@@ -29,21 +29,59 @@ import numpy as np
 import torch
 
 from supermimic.data.discovery import discover_npz as discover_npz
+from supermimic.data.reference import REF_DIM as REF_DIM
+from supermimic.data.reference import REF_SLICES
+from supermimic.data.reference import ClipInfo as ClipInfo
 from supermimic.interfaces import GOAL_FEAT_DIM
 from supermimic.kinematics.rotations import projected_gravity, quat_apply_inverse, yaw_quat
 
-REF_DIM = 71
+_VALIDATION_ROWS = 65_536
 
 
-@dataclass
-class ClipInfo:
-    name: str
-    start: int
-    length: int
+def _validate_storage_dtype(
+    values, dtype: torch.dtype, name: str, *, query_dtype: torch.dtype | None = None
+) -> None:
+    """Preview storage and query casts without keeping a second full library.
 
-    @property
-    def end(self) -> int:  # exclusive
-        return self.start + self.length
+    Inputs have already passed their source-dtype finite checks. Actual casting
+    preserves boundary values which round to a finite maximum, unlike a range
+    comparison against finfo.max. Final device conversions remain unchanged.
+    """
+    source = values.detach() if isinstance(values, torch.Tensor) else torch.from_numpy(values)
+    targets = [dtype]
+    if query_dtype is not None and query_dtype != dtype:
+        # Standard wider floating types can represent every finite storage
+        # value. Shell query formats may have other restrictions, so preview
+        # those rather than inferring safety from their maximum alone.
+        widening = (
+            query_dtype in (torch.float16, torch.bfloat16, torch.float32, torch.float64)
+            and dtype.is_floating_point
+            and torch.finfo(query_dtype).max > torch.finfo(dtype).max
+        )
+        if not widening:
+            targets.append(query_dtype)
+    if source.dtype == dtype and len(targets) == 1:
+        return
+    for begin in range(0, len(source), _VALIDATION_ROWS):
+        converted = source[begin : begin + _VALIDATION_ROWS]
+        for target in targets:
+            # Query from the storage preview: skipping that intermediate cast
+            # would miss double-rounding overflow at the query boundary.
+            converted = converted.to(device="cpu", dtype=target)
+            # Shell low-precision dtypes can support casts without an isfinite
+            # kernel. Widen only the bounded preview for its finite-value scan.
+            scan = (
+                converted.float()
+                if converted.is_floating_point() and converted.element_size() < 4
+                else converted
+            )
+            if not torch.isfinite(scan).all():
+                stage = "query conversion" if target != dtype else "conversion"
+                raise ValueError(
+                    f"Motion {name} contains non-finite values after {stage} to {target}"
+                )
+            del scan
+        del converted
 
 
 @dataclass
@@ -94,6 +132,33 @@ class MotionLibrary:
         self.compact = compact
         if len(npz_files) == 0:
             raise ValueError("MotionLibrary needs at least one clip")
+        packed = None
+        motions = None
+        if len(npz_files) == 1 and str(npz_files[0]).endswith(".pt"):
+            from supermimic.data.packed import read_packed_motion
+
+            if not compact:
+                raise ValueError("packed .pt libraries are compact-only")
+            # Reject invalid layouts and clip tables on CPU, before even q0 is
+            # transferred to the requested device.
+            packed = read_packed_motion(npz_files[0])
+        else:
+            from supermimic.data.loading import load_npz_motions
+
+            # Validate every input on CPU before device allocation. Preallocated
+            # storage retains at most one clip's source arrays while filling.
+            motions = load_npz_motions(npz_files, self.body_names, compact=compact)
+        if packed is not None:
+            _validate_storage_dtype(packed.ref, store_dtype, "reference", query_dtype=dtype)
+        else:
+            assert motions is not None
+            _validate_storage_dtype(
+                motions.ref, store_dtype if compact else dtype, "reference",
+                query_dtype=dtype if compact else None,
+            )
+            if not compact:
+                for name in motions.bodies:
+                    _validate_storage_dtype(motions.bodies[name], dtype, "body " + name)
         if isinstance(default_joint_pos, torch.Tensor):
             q0 = default_joint_pos.detach().to(device=self.device, dtype=dtype).reshape(-1)
         else:
@@ -102,77 +167,32 @@ class MotionLibrary:
             ).reshape(-1)
         self.default_joint_pos = q0
 
-        clips: list[ClipInfo] = []
-        start = 0
-        ref_chunks: list[np.ndarray] = []
-        body_chunks = {"pos": [], "quat": [], "lin": [], "ang": []}
         # A single packed cache (build_library.py) can stand in for the npz list (compact mode only).
-        if len(npz_files) == 1 and str(npz_files[0]).endswith(".pt"):
-            assert compact, "packed .pt libraries are compact-only"
-            pack = torch.load(npz_files[0], map_location="cpu", weights_only=False)
-            self._ref = pack["ref"].to(device=self.device, dtype=store_dtype)
-            clips = [
-                ClipInfo(n, int(st), int(ln))
-                for n, st, ln in zip(pack["names"], pack["starts"], pack["lengths"], strict=False)
-            ]
-            start = int(self._ref.shape[0])
-            ref_chunks = None
-        for f in npz_files if ref_chunks is not None else []:
-            from supermimic.data.schema import open_motion
-
-            with open_motion(f) as (d, info):
-                # Each clip carries its own body order. A second clip may be
-                # re-ordered while retaining the same valid G1 body name set.
-                names = info["body_names"]
-                body_idx = np.array([names.index(n) for n in self.body_names])
-                root_idx = names.index("pelvis")
-                n = int(d["joint_pos"].shape[0])
-                bp, bq, blv, bav = (
-                    d["body_pos_w"],
-                    d["body_quat_w"],
-                    d["body_lin_vel_w"],
-                    d["body_ang_vel_w"],
-                )
-                ref = np.concatenate(
-                    [
-                        bp[:, root_idx],
-                        bq[:, root_idx],
-                        d["joint_pos"],
-                        blv[:, root_idx],
-                        bav[:, root_idx],
-                        d["joint_vel"],
-                    ],
-                    axis=1,
-                ).astype(np.float32)
-                ref_chunks.append(ref)
-                if not compact:
-                    body_chunks["pos"].append(bp[:, body_idx])
-                    body_chunks["quat"].append(bq[:, body_idx])
-                    body_chunks["lin"].append(blv[:, body_idx])
-                    body_chunks["ang"].append(bav[:, body_idx])
-            clips.append(ClipInfo(Path(f).stem, start, n))
-            start += n
+        if packed is not None:
+            self._ref = packed.ref.to(device=self.device, dtype=store_dtype)
+            clips = list(packed.clips)
+            del packed
+        else:
+            assert motions is not None
+            self._ref = torch.as_tensor(
+                motions.ref, device=self.device, dtype=store_dtype if compact else dtype
+            )
+            clips = list(motions.clips)
+            body_arrays = motions.bodies
+            del motions
         self.clips = clips
         self.num_clips = len(clips)
-        self.num_frames = start
+        self.num_frames = int(self._ref.shape[0])
 
-        if ref_chunks is not None:
-            ref_np = np.concatenate(ref_chunks, 0)
-            assert ref_np.shape[1] == REF_DIM
-            self._ref = torch.as_tensor(
-                ref_np, device=self.device, dtype=store_dtype if compact else dtype
-            )
-            del ref_np, ref_chunks
         if not compact:
+            def t(key):
+                return torch.as_tensor(body_arrays.pop(key), dtype=dtype, device=self.device)
 
-            def t(arrs):
-                return torch.as_tensor(np.concatenate(arrs, 0), dtype=dtype, device=self.device)
-
-            self.body_pos_w = t(body_chunks["pos"])
-            self.body_quat_w = t(body_chunks["quat"])
-            self.body_lin_vel_w = t(body_chunks["lin"])
-            self.body_ang_vel_w = t(body_chunks["ang"])
-            del body_chunks
+            self.body_pos_w = t("pos")
+            self.body_quat_w = t("quat")
+            self.body_lin_vel_w = t("lin")
+            self.body_ang_vel_w = t("ang")
+            del body_arrays
             self.goal_feat = goal_features(self._split(self._ref), q0)
         else:
             from supermimic.data.motion_convert import load_g1_model
@@ -210,7 +230,12 @@ class MotionLibrary:
     @staticmethod
     def _split(r: torch.Tensor) -> RefState:
         return RefState(
-            r[..., 0:3], r[..., 3:7], r[..., 7:36], r[..., 36:39], r[..., 39:42], r[..., 42:71]
+            r[..., REF_SLICES["root_pos_w"]],
+            r[..., REF_SLICES["root_quat_w"]],
+            r[..., REF_SLICES["joint_pos"]],
+            r[..., REF_SLICES["root_lin_vel_w"]],
+            r[..., REF_SLICES["root_ang_vel_w"]],
+            r[..., REF_SLICES["joint_vel"]],
         )
 
     def ref(self, frame: torch.Tensor) -> RefState:

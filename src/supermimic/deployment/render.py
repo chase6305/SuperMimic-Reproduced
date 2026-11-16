@@ -2,13 +2,59 @@
 
 from __future__ import annotations
 
-import json
 import math
 import os
 import time
 from pathlib import Path
+from tempfile import TemporaryDirectory
 
-from supermimic.artifacts import sha256, write_json
+from supermimic.artifacts import sha256, snapshot_file, write_json
+
+
+def _render_inputs(bundle: Path, trajectory: Path):
+    """Read saved states without requiring controls, contact evidence or a result."""
+    from supermimic.deployment.evidence import (
+        read_json_evidence,
+        read_optional_result,
+        verify_artifact_identity,
+        verify_control_dt,
+    )
+    from supermimic.deployment.trajectory import open_trajectory
+
+    contract, contract_sha = read_json_evidence(bundle / "contract.json")
+    with open_trajectory(trajectory) as recorded:
+        if abs(recorded.control_dt - 0.02) > 1e-9:
+            raise ValueError("Expected finite 50 Hz physical states")
+    result, result_sha = read_optional_result(trajectory)
+    identity = verify_artifact_identity(
+        result,
+        trajectory_sha256=recorded.sha256,
+        contract_sha256=contract_sha,
+        checkpoint_sha256=contract["checkpoint_sha256"],
+    )
+    verify_control_dt(recorded.control_dt, contract=contract, result=result)
+    return (
+        contract,
+        recorded,
+        {
+            "contract_sha256": contract_sha,
+            "artifact_identity": identity,
+            "result_sha256": result_sha,
+        },
+    )
+
+
+def _load_render_model(bundle: Path, contract: dict, output: Path, loader):
+    """Give the native loader the verified MJB snapshot, then remove that copy."""
+    existing = output.expanduser().resolve().parent
+    while not existing.exists():
+        existing = existing.parent
+    with TemporaryDirectory(prefix=".supermimic-render-", dir=existing) as temporary:
+        pinned_model = Path(temporary) / "model.mjb"
+        snapshot_file(
+            bundle / "model.mjb", pinned_model, expected_sha256=contract["files"]["model.mjb"]
+        )
+        return loader(str(pinned_model))
 
 
 def render_rollout(
@@ -26,6 +72,8 @@ def render_rollout(
         raise ValueError("Render start must be nonnegative and finite")
     if output.exists():
         raise FileExistsError(output)
+    contract, recorded, evidence = _render_inputs(bundle, trajectory)
+    states, dt = recorded.states, recorded.control_dt
     vendor = Path("/usr/share/glvnd/egl_vendor.d/50_mesa.json")
     if not vendor.is_file():
         raise RuntimeError("CPU rendering requires the Mesa EGL vendor library")
@@ -65,16 +113,7 @@ def render_rollout(
         raise RuntimeError("No Mesa software EGL device is available")
     os.environ["MUJOCO_EGL_DEVICE_ID"] = str(software_device)
 
-    contract = json.loads((bundle / "contract.json").read_text())
-    model_path = bundle / "model.mjb"
-    if sha256(model_path) != contract["files"]["model.mjb"]:
-        raise ValueError("Model hash differs from the export contract")
-    with np.load(trajectory, allow_pickle=False) as data:
-        states = data["states"].copy()
-        dt = float(data["control_dt"])
-    if states.ndim != 2 or not np.isfinite(states).all() or abs(dt - 0.02) > 1e-9:
-        raise ValueError("Expected finite 50 Hz physical states")
-    model = mujoco.MjModel.from_binary_path(str(model_path))
+    model = _load_render_model(bundle, contract, output, mujoco.MjModel.from_binary_path)
     if states.shape[1] != model.nq + model.nv:
         raise ValueError("Trajectory state dimension differs from model")
     data = mujoco.MjData(model)
@@ -100,8 +139,8 @@ def render_rollout(
             codec="libx264",
             output_params=["-crf", "24", "-preset", "fast", "-threads", "2"],
         )
-        writer.send(None)
         try:
+            writer.send(None)
             for index in indices:
                 data.qpos[:] = states[index, : model.nq]
                 data.qvel[:] = states[index, model.nq :]
@@ -113,7 +152,7 @@ def render_rollout(
                 overlay.rectangle((0, 0, 640, 31), fill=(8, 18, 29))
                 overlay.text(
                     (12, 10),
-                    f"G1  |  iteration {contract['checkpoint_iteration']}  |  t = {index * dt:.2f} s  |  saved physical trajectory",
+                    f"G1  |  iteration {contract['checkpoint_iteration']}  |  t = {index * dt:.2f} s  |  saved trajectory",
                     fill="white",
                 )
                 if frames == 0:
@@ -127,9 +166,10 @@ def render_rollout(
         "renderer": backend,
         "egl_software_device_index": software_device,
         "cuda_used": False,
-        "source": "saved actual physical states; no physics rerun or state modification",
+        "source": "saved trajectory states; no physics rerun or state modification",
         "checkpoint_sha256": contract["checkpoint_sha256"],
-        "trajectory_sha256": sha256(trajectory),
+        "trajectory_sha256": recorded.sha256,
+        **evidence,
         "video_sha256": sha256(output),
         "frames": frames,
         "fps": fps,
