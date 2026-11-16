@@ -9,6 +9,7 @@ not modify their contents in place while mapped tensors remain in use.
 from __future__ import annotations
 
 from collections.abc import Mapping
+from copy import deepcopy
 from dataclasses import dataclass
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Literal
@@ -27,6 +28,39 @@ if TYPE_CHECKING:
 class CheckpointRead:
     data: dict[str, Any]
     sha256: str | None
+
+
+@dataclass(frozen=True)
+class ActorCheckpointRead:
+    actor: Policy
+    metadata: dict[str, Any]
+    sha256: str | None
+
+
+def read_actor_checkpoint(path: Path | str, *, fingerprint: bool = False) -> ActorCheckpointRead:
+    """Copy the actor and its metadata while the source inode remains checked.
+
+    Modern checkpoints can map unused optimizer/world-model storage. Returned
+    weights and metadata own their storage, so subsequent source changes cannot
+    alter the actor or its provenance after the reader's final verification.
+    """
+    def restore(data):
+        if not isinstance(data, dict):
+            raise ValueError("Expected a checkpoint dictionary")
+        metadata = {
+            key: deepcopy(data[key])
+            for key in (
+                "config", "iteration", "control_contract", "motion_files",
+                "anchor_adaptation", "transfer_provenance",
+            )
+            if key in data
+        }
+        actor = policy_from_checkpoint({"config": metadata["config"], "policy": data["policy"]})
+        return actor, metadata
+
+    loaded = read_torch_archive(path, mmap="auto", fingerprint=fingerprint, consume=restore)
+    actor, metadata = loaded.data
+    return ActorCheckpointRead(actor, metadata, loaded.sha256)
 
 
 def read_checkpoint(
@@ -91,7 +125,7 @@ def policy_from_checkpoint(checkpoint: Mapping[str, Any]) -> Policy:
     pcfg = policy_config_from_checkpoint(checkpoint)
     with torch.device("cpu"):
         actor = Policy(pcfg)
-    actor.load_state_dict(checkpoint["policy"], strict=True)
+    actor.load_state_dict(checkpoint["policy"], strict=True, assign=False)
     if not all(torch.isfinite(value).all() for value in actor.state_dict().values()):
         raise ValueError("Checkpoint contains non-finite actor parameters or buffers")
     return actor.eval()

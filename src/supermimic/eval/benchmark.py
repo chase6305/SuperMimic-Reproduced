@@ -16,7 +16,7 @@ from pathlib import Path
 
 import torch
 
-from supermimic.checkpoints import policy_from_checkpoint, read_checkpoint
+from supermimic.checkpoints import read_actor_checkpoint
 from supermimic.policy.nets import Policy
 
 
@@ -45,9 +45,8 @@ class ClipResult:
 
 
 def load_policy_from_checkpoint(path: str | Path, device: str) -> tuple[Policy, dict]:
-    ck = read_checkpoint(path, mmap="auto").data
-    policy = policy_from_checkpoint(ck).to(device)
-    return policy, ck["config"]
+    loaded = read_actor_checkpoint(path)
+    return loaded.actor.to(device), loaded.metadata["config"]
 
 
 @torch.no_grad()
