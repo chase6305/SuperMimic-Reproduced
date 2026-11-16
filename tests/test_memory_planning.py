@@ -2,6 +2,7 @@ from pathlib import Path
 
 import pytest
 
+from supermimic.config import WMTrainerCfg
 from supermimic.memory import validate_training_budget
 from supermimic.profiles import training_config
 
@@ -39,6 +40,9 @@ def test_additional_compiler_has_its_own_workspace_allowance():
 
 
 def test_whole_window_compilation_requires_its_explicit_runtime_choice():
+    legacy = WMTrainerCfg(8, 10, 2048, 2e-4, 1.0, 0.0, "default", 2)
+    assert legacy.one_step_batches_per_update == 2
+    assert not legacy.compile_window
     cfg = training_config("smoke", Path("data"), Path("run"), compile_world_model_window=True)
     assert cfg.wm_trainer.compile == "default"
     assert cfg.wm_trainer.compile_window
