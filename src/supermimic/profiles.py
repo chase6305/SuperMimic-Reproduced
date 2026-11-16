@@ -22,6 +22,7 @@ def training_config(
     resume: Path | None = None,
     compile_policy: bool = False,
     compile_world_model: bool = False,
+    compile_world_model_window: bool = False,
     wm_batches_per_update: int | None = None,
     policy_batch_size: int | None = None,
     policy_horizon: int | None = None,
@@ -75,8 +76,9 @@ def training_config(
         raise ValueError("Environment count, iterations and hours must be positive")
     if compile_policy:
         cfg.policy_trainer.compile = "default"
-    if compile_world_model:
+    if compile_world_model or compile_world_model_window:
         cfg.wm_trainer.compile = "default"
+    cfg.wm_trainer.compile_window = compile_world_model_window
     if wm_batches_per_update is not None:
         if wm_batches_per_update < 1:
             raise ValueError("World-model batches per update must be positive")

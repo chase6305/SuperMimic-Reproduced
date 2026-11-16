@@ -19,7 +19,7 @@ class WorldModelTrainer:
         self.lib = lib
         self.cfg = cfg
         self.opt = torch.optim.Adam(wm.parameters(), lr=cfg.lr, weight_decay=cfg.weight_decay)
-        wm.enable_compile(cfg.compile)
+        wm.enable_compile(cfg.compile, window=cfg.compile_window)
 
     def set_lr(self, lr: float) -> None:
         for g in self.opt.param_groups:

@@ -48,7 +48,8 @@ def test_compiled_fk_matches_outputs_and_gradients():
 
 
 @pytest.mark.parametrize("window", [1, 8, 12])
-def test_compiled_world_model_window_loss_and_parameter_gradients(window):
+@pytest.mark.parametrize("whole_window", [False, True])
+def test_compiled_world_model_window_loss_and_parameter_gradients(window, whole_window):
     from supermimic.data.motion_convert import load_g1_model
     from supermimic.envs.tracking_env_cfg import ANCHOR_BODY, ROOT_BODY, TRACKED_BODIES
     from supermimic.kinematics.g1_fk import G1Kinematics
@@ -90,7 +91,7 @@ def test_compiled_world_model_window_loss_and_parameter_gradients(window):
     expected, expected_metrics = wm.window_loss(states, actions, xi, done, refs)
     expected_gradients = torch.autograd.grad(expected, parameters)
     assert expected_gradients[0].abs().sum() > 0
-    wm.enable_compile("default")
+    wm.enable_compile("default", window=whole_window)
     actual, actual_metrics = wm.window_loss(states, actions, xi, done, refs)
     actual_gradients = torch.autograd.grad(actual, parameters)
     torch.testing.assert_close(actual, expected, atol=2e-5, rtol=2e-5)

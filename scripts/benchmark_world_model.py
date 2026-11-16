@@ -71,9 +71,9 @@ def worker(args: argparse.Namespace) -> None:
     refs = [
         ReferenceFrame(None, None, None, None, s[..., :3], s[..., 3:7]) for s in reference_states
     ]
-    wm.enable_compile(None if args.backend == "eager" else "default")
-    if args.backend == "step":
-        wm._MAX_COMPILED_WINDOW = 0
+    wm.enable_compile(
+        None if args.backend == "eager" else "default", window=args.backend == "window"
+    )
 
     def digest(values):
         result = hashlib.sha256()

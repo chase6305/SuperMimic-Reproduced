@@ -32,9 +32,19 @@ def test_additional_compiler_has_its_own_workspace_allowance():
         wm_batches_per_update=10,
     )
     assert cfg.wm_trainer.compile == "default"
+    assert not cfg.wm_trainer.compile_window
     assert cfg.wm_trainer.batches_per_update == 10
     estimate = validate_training_budget(cfg, 13066, 2304)
     assert estimate["components_mib"]["compilation_workspace"] == 512
+
+
+def test_whole_window_compilation_requires_its_explicit_runtime_choice():
+    cfg = training_config("smoke", Path("data"), Path("run"), compile_world_model_window=True)
+    assert cfg.wm_trainer.compile == "default"
+    assert cfg.wm_trainer.compile_window
+    assert cfg.policy_trainer.compile is None
+    estimate = validate_training_budget(cfg, 13066, 2304)
+    assert estimate["components_mib"]["compilation_workspace"] == 256
 
 
 def test_larger_policy_batch_requires_balancing_simulation_budget():

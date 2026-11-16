@@ -188,6 +188,11 @@ def parser() -> argparse.ArgumentParser:
                 action="store_true",
                 help="Compile world-model fitting inside the same resource limits",
             )
+            q.add_argument(
+                "--compile-world-model-window",
+                action="store_true",
+                help="Compile fitting windows up to eight steps together; implies world-model compilation, with a larger first-call cost",
+            )
         if action == "play":
             q.add_argument("--viewer", choices=("native", "viser"), default="viser")
     export = sub.add_parser("export", help="Export a trusted checkpoint and G1 control contract")
@@ -316,9 +321,7 @@ def main(argv: list[str] | None = None) -> int:
                 output, dict(options=options, limits=asdict(limits))
             ) as config_path:
                 code = supervise(
-                    isolated_cli_command(
-                        output / "implementation", ["_worker", str(config_path)]
-                    ),
+                    isolated_cli_command(output / "implementation", ["_worker", str(config_path)]),
                     output,
                     limits,
                     max_seconds=args.hours * 3600 + 180,

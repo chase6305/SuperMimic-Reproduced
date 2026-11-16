@@ -106,6 +106,7 @@ def run_worker(config_path: Path) -> int:
                 resume=checkpoint,
                 compile_policy=options.get("compile_policy", False),
                 compile_world_model=options.get("compile_world_model", False),
+                compile_world_model_window=options.get("compile_world_model_window", False),
                 wm_batches_per_update=options.get("wm_batches_per_update"),
                 policy_batch_size=options.get("policy_batch_size"),
                 policy_horizon=options.get("policy_horizon"),

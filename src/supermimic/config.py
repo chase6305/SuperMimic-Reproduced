@@ -48,6 +48,7 @@ class WMTrainerCfg:
     grad_clip: float = 1.0
     weight_decay: float = 0.0
     compile: str | None = "default"
+    compile_window: bool = False
     one_step_batches_per_update: int = 0
 
 

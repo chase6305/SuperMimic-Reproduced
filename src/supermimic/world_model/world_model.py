@@ -69,7 +69,7 @@ class WorldModel(nn.Module):
         bce = F.binary_cross_entropy_with_logits(logits, done, reduction="none")
         return s_next, e * e, bce, logits
 
-    def enable_compile(self, mode: str | None = "default") -> None:
+    def enable_compile(self, mode: str | None = "default", *, window: bool = False) -> None:
         compile_mode = None if mode == "default" else mode
         self._loss_step_fn = (
             torch.compile(self._loss_step, mode=compile_mode, dynamic=False)
@@ -78,7 +78,7 @@ class WorldModel(nn.Module):
         )
         self._window_loss_fn = (
             torch.compile(self._window_loss, mode=compile_mode, dynamic=False, fullgraph=True)
-            if mode
+            if mode and window
             else None
         )
 
