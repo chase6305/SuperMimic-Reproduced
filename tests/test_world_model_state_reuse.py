@@ -10,6 +10,22 @@ from supermimic.world_model.state_spec import StateSpec
 from supermimic.world_model.world_model import WorldModel
 
 
+def test_default_trainer_preserves_legacy_compile_override():
+    from supermimic.config import WMTrainerCfg
+    from supermimic.world_model.wm_trainer import WorldModelTrainer
+
+    calls = []
+
+    class LegacyWorldModel(WorldModel):
+        def enable_compile(self, mode=None):
+            calls.append(mode)
+            super().enable_compile(mode)
+
+    wm = LegacyWorldModel(WorldModelCfg(hidden=(8,)), SimpleNamespace(), "cpu")
+    WorldModelTrainer(wm, None, WMTrainerCfg(compile=None))
+    assert calls == [None]
+
+
 @pytest.mark.parametrize("explicit", [False, True])
 def test_dynamics_step_matches_independent_feature_and_integration_frames(explicit):
     torch.manual_seed(512)

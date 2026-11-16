@@ -12,12 +12,17 @@ from __future__ import annotations
 
 from collections import OrderedDict
 from dataclasses import dataclass
+from numbers import Integral
 
 import torch
 
 
 def _positive_int(value: int, name: str) -> None:
-    if not isinstance(value, int) or isinstance(value, bool) or value < 1:
+    if (
+        (not isinstance(value, int) and not isinstance(value, Integral))
+        or isinstance(value, bool)
+        or value < 1
+    ):
         raise ValueError(f"{name} must be a positive integer")
 
 

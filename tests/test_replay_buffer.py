@@ -2,6 +2,7 @@
 
 import random
 
+import numpy as np
 import pytest
 import torch
 
@@ -24,6 +25,17 @@ def fill_episode(buffer):
             terminal=torch.tensor([t == 3]),
             ep_start=torch.tensor([t == 0]),
         )
+
+
+@pytest.mark.parametrize("integer", [np.int32, np.int64])
+def test_integer_scalar_arguments_preserve_replay_sampling(integer):
+    buffer = ReplayBuffer(integer(1), integer(16), integer(71), integer(29), integer(33), "cpu")
+    fill_episode(buffer)
+    window = buffer.sample_windows(integer(2), integer(2))
+    start = buffer.sample_starts(integer(2), integer(2))
+    assert window.states.shape == (3, 2, 71)
+    assert start.hist_states.shape == (2, 2, 71)
+    assert buffer.has_windows(2)
 
 
 def test_terminal_transition_does_not_label_previous_state_early(monkeypatch):

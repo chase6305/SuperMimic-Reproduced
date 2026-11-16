@@ -19,7 +19,10 @@ class WorldModelTrainer:
         self.lib = lib
         self.cfg = cfg
         self.opt = torch.optim.Adam(wm.parameters(), lr=cfg.lr, weight_decay=cfg.weight_decay)
-        wm.enable_compile(cfg.compile, window=cfg.compile_window)
+        if cfg.compile_window:
+            wm.enable_compile(cfg.compile, window=True)
+        else:
+            wm.enable_compile(cfg.compile)
 
     def set_lr(self, lr: float) -> None:
         for g in self.opt.param_groups:
@@ -66,7 +69,7 @@ class WorldModelTrainer:
                 key = prefix + k
                 agg[key] = agg.get(key, 0.0) + v
                 counts[key] = counts.get(key, 0) + 1
-        # Single host sync per update (keeps the CPU queuing GPU work across minibatches).
+        # Copy accumulated metrics together after fitting, retaining each window's count.
         if not agg:
             return {}
         keys = list(agg)
