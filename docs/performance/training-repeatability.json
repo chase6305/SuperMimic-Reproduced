@@ -1,0 +1,142 @@
+{
+  "scope": "Same-source repeatability control; distinguishes physics/input differences from component-level numerical comparisons.",
+  "profile": "g1",
+  "num_envs": 16,
+  "seed": 53,
+  "training_mode": "deterministic",
+  "warmup_iterations": 24,
+  "source_manifests_equal": true,
+  "source_manifests_sha256": [
+    "f680a3318a3f9a19b8e3934dba07b00da44499196350fc7c993a1929d2887638",
+    "f680a3318a3f9a19b8e3934dba07b00da44499196350fc7c993a1929d2887638"
+  ],
+  "initial_records_equal": true,
+  "prefix_comparisons": [
+    {
+      "iteration": 0,
+      "different_fields": [],
+      "state_a_sha256": "4bd97c2bf47a0a4dc34b5ce233c6e592b05b949231a2ea079ae6887f522d1c79",
+      "state_b_sha256": "4bd97c2bf47a0a4dc34b5ce233c6e592b05b949231a2ea079ae6887f522d1c79"
+    },
+    {
+      "iteration": 10,
+      "different_fields": [
+        "observation",
+        "action",
+        "state"
+      ],
+      "state_a_sha256": "80a49cb623b1c5d480aa86cf8f2582f12bd14c68ade13625ac2dab7588f51fc0",
+      "state_b_sha256": "6f5d9b77975375d4b08ffd6b50ddd05bf61b2fbd6362483e782641361701b7db"
+    },
+    {
+      "iteration": 20,
+      "different_fields": [
+        "observation",
+        "action",
+        "state"
+      ],
+      "state_a_sha256": "bb496849b0b24d823d64cb773815d25d4c59c33f1640bb12c56b58c1a9768124",
+      "state_b_sha256": "ccfa50c9a073d30f0c06009e457020c99a08c8de3920ad271419f5a2c0e71759"
+    },
+    {
+      "iteration": 24,
+      "different_fields": [
+        "observation",
+        "action",
+        "state"
+      ],
+      "state_a_sha256": "011bc15d48a88d14c014602e21a51aeedcfdd34311b15c4e7cd60bf23b81c3e7",
+      "state_b_sha256": "12c8922a5125ecad300a6ae4b4f700d17947063bbeb3243ed48bbc3960a93ef7"
+    },
+    {
+      "iteration": 25,
+      "different_fields": [
+        "observation",
+        "action",
+        "state"
+      ],
+      "state_a_sha256": "112680c9cb2f3420fa98773fb312973ca8c1786d0b0cbf7f1cabf3cf814278f0",
+      "state_b_sha256": "af0db100c39a3fd4b50c1b62c7f94257811d17c2fc37984370cb2b185fe92402"
+    },
+    {
+      "iteration": 30,
+      "different_fields": [
+        "observation",
+        "action",
+        "state"
+      ],
+      "state_a_sha256": "30fbcde2270b7b5eb3e3eb9ebbf3cf20d0493c5c1d3d3d84645374241f6914c4",
+      "state_b_sha256": "3eaf667a6b4cbc0e41bb4fb7ee300b02dffa4892efae21b1a8b64fd3793aecf4"
+    },
+    {
+      "iteration": 40,
+      "different_fields": [
+        "observation",
+        "action",
+        "state"
+      ],
+      "state_a_sha256": "dc1ed4797193a756ce0b2545893e9c8a147f048794d69b361fa073a30f0fc5fd",
+      "state_b_sha256": "a5bb607321ca9f719eab59ee5e76a1c2e29dd456d60c22cac9e8638f1c4ffcfe"
+    },
+    {
+      "iteration": 60,
+      "different_fields": [
+        "observation",
+        "goal",
+        "action",
+        "state",
+        "cuda_rng"
+      ],
+      "state_a_sha256": "8689743e65a946baf4d8eb603051ae3fc8d49c2ae9a751cf73d00a3f35183d77",
+      "state_b_sha256": "c28df429d750d1374df3e26c9e188909415949d98b32f23e25dcc2d64b96a6d6"
+    },
+    {
+      "iteration": 80,
+      "different_fields": [
+        "observation",
+        "goal",
+        "action",
+        "state",
+        "cuda_rng"
+      ],
+      "state_a_sha256": "022988dd11bfa01dd11b804a540ceeea648331a7e4b5328e8e98531e289e1450",
+      "state_b_sha256": "c9b3ebf917f33329ed81a55de89dd9c5cc156abdae638d6bc6c72e81f06b2aa5"
+    }
+  ],
+  "history_at_iteration20": [
+    {
+      "max_abs_difference": 0.0,
+      "different_elements": 0
+    },
+    {
+      "max_abs_difference": 0.0,
+      "different_elements": 0
+    }
+  ],
+  "observation": "Same-source runs first differed at the iteration-10 sample before any training update; initial weights, state and RNG matched. Therefore full-run differences do not establish a batching regression or an acceleration ratio.",
+  "long_runs": [
+    {
+      "name": "individual-seed53",
+      "iteration": 1600,
+      "updates": 630,
+      "elapsed_s": 567.9582559189876,
+      "peak_rss_bytes": 3676090368,
+      "peak_gpu_mib": 956,
+      "checkpoint_sha256": "da37390d3b3b5438b6f098823163fc6234424ced72bce1bc021ab75608d8c873"
+    },
+    {
+      "name": "batched-seed53",
+      "iteration": 1600,
+      "updates": 630,
+      "elapsed_s": 526.572227925004,
+      "peak_rss_bytes": 3629981696,
+      "peak_gpu_mib": 956,
+      "checkpoint_sha256": "f0d2f55a5aa74462c73bced20e244b4c226cfc44201315e33f0d412905d8e2c3"
+    }
+  ],
+  "long_run_tensor_comparison": {
+    "compared": 152,
+    "different": 111,
+    "equal": false
+  }
+}

@@ -1,0 +1,363 @@
+{
+  "device": "NVIDIA GeForce RTX 5090 D v2",
+  "torch_version": "2.14.1+cu130",
+  "scope": "Fixed-input CUDA component timings only; excludes physics and the rest of training.",
+  "method": "Single CPU thread, three warmups, seven samples; synchronize CUDA after each timed sample. History: 30 operations/sample; goals: 10; drift: 20. Inputs fixed within each comparison.",
+  "source_revisions": {
+    "history_before": "b0a1f0d",
+    "history_after": "dc109c8",
+    "goals_after": "568f118",
+    "drift_after": "5270d50"
+  },
+  "history": [
+    {
+      "device": "cuda:0",
+      "batch_size": 32,
+      "noise": false,
+      "implementation": "individual",
+      "median_ms": 0.814897099432225,
+      "samples_ms": [
+        0.6730625677543381,
+        0.8075836347416043,
+        0.8633000659756362,
+        0.8126622337537507,
+        0.814897099432225,
+        0.8609299334542205,
+        0.817530033721899
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "batch_size": 32,
+      "noise": false,
+      "implementation": "batched",
+      "median_ms": 0.08489046595059335,
+      "samples_ms": [
+        0.14104603324085474,
+        0.09211106807924807,
+        0.08489046595059335,
+        0.08807946772625048,
+        0.0819879681027184,
+        0.08240576717071235,
+        0.08245920180343091
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "batch_size": 32,
+      "noise": true,
+      "implementation": "individual",
+      "median_ms": 0.997921999078244,
+      "samples_ms": [
+        1.0066337340200942,
+        0.8870531998885175,
+        1.0133106998788814,
+        0.8737728329530606,
+        1.0201221991640825,
+        0.8928080671466887,
+        0.997921999078244
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "batch_size": 32,
+      "noise": true,
+      "implementation": "batched",
+      "median_ms": 0.27270403419000405,
+      "samples_ms": [
+        0.27270403419000405,
+        0.2689199347514659,
+        0.26865776744671166,
+        0.2918839008392145,
+        0.29924410046078265,
+        0.2730223350226879,
+        0.2714650666651626
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "batch_size": 128,
+      "noise": false,
+      "implementation": "individual",
+      "median_ms": 0.8666480658575892,
+      "samples_ms": [
+        0.8666480658575892,
+        0.8736242016311735,
+        0.823296932503581,
+        0.8831862321433922,
+        0.8080501652633151,
+        0.8945630649880817,
+        0.8173199991385142
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "batch_size": 128,
+      "noise": false,
+      "implementation": "batched",
+      "median_ms": 0.08556673225636284,
+      "samples_ms": [
+        0.07282436708919704,
+        0.14678919881892702,
+        0.08796726663907369,
+        0.10139826723995309,
+        0.08556673225636284,
+        0.08541476563550532,
+        0.08517599975069363
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "batch_size": 128,
+      "noise": true,
+      "implementation": "individual",
+      "median_ms": 0.9666580338186274,
+      "samples_ms": [
+        0.919327768497169,
+        0.9688317989154408,
+        0.9391898677373925,
+        0.9666580338186274,
+        1.0058649660398562,
+        0.8847081335261464,
+        0.9896080009639263
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "batch_size": 128,
+      "noise": true,
+      "implementation": "batched",
+      "median_ms": 0.2713164334030201,
+      "samples_ms": [
+        0.27400416632493335,
+        0.27058373282973963,
+        0.2689987324022998,
+        0.2680779997414599,
+        0.2713164334030201,
+        0.3089684682587783,
+        0.30377233245720464
+      ]
+    }
+  ],
+  "goal_lookahead": [
+    {
+      "device": "cuda:0",
+      "compact": false,
+      "horizon": 8,
+      "batch_size": 64,
+      "implementation": "individual",
+      "median_ms": 0.21969900117255747,
+      "max_absolute_difference": 0.0,
+      "samples_ms": [
+        0.22334580426104367,
+        0.2203271957114339,
+        0.21465940517373383,
+        0.21363749983720481,
+        0.2144058991689235,
+        0.21969900117255747,
+        0.22048550308682024
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "compact": false,
+      "horizon": 8,
+      "batch_size": 64,
+      "implementation": "batched",
+      "median_ms": 0.030696101021021605,
+      "max_absolute_difference": 0.0,
+      "samples_ms": [
+        0.02967009786516428,
+        0.030688103288412094,
+        0.02985050086863339,
+        0.03107879892922938,
+        0.030696101021021605,
+        0.031094899168238044,
+        0.030984700424596667
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "compact": false,
+      "horizon": 32,
+      "batch_size": 64,
+      "implementation": "individual",
+      "median_ms": 0.7803215004969388,
+      "max_absolute_difference": 0.0,
+      "samples_ms": [
+        0.9181382949464023,
+        0.7996339991223067,
+        0.7803215004969388,
+        0.7757066981866956,
+        0.7707402983214706,
+        0.7815997989382595,
+        0.7707692973781377
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "compact": false,
+      "horizon": 32,
+      "batch_size": 64,
+      "implementation": "batched",
+      "median_ms": 0.031846301862969995,
+      "max_absolute_difference": 0.0,
+      "samples_ms": [
+        0.031855294946581125,
+        0.03168400144204497,
+        0.03173609729856253,
+        0.031846301862969995,
+        0.032050698064267635,
+        0.03179520135745406,
+        0.0321309024002403
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "compact": true,
+      "horizon": 8,
+      "batch_size": 64,
+      "implementation": "individual",
+      "median_ms": 2.0580264972522855,
+      "max_absolute_difference": 0.0,
+      "samples_ms": [
+        1.9091997994109988,
+        2.0658263994846493,
+        1.993494399357587,
+        2.242442703573033,
+        2.0547253952827305,
+        2.0580264972522855,
+        2.1241988986730576
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "compact": true,
+      "horizon": 8,
+      "batch_size": 64,
+      "implementation": "batched",
+      "median_ms": 0.23720620083622634,
+      "max_absolute_difference": 0.0,
+      "samples_ms": [
+        0.2375618030782789,
+        0.23246610071510077,
+        0.2386297972407192,
+        0.23811580031178892,
+        0.23126889718696475,
+        0.23720620083622634,
+        0.22410230012610555
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "compact": true,
+      "horizon": 32,
+      "batch_size": 64,
+      "implementation": "individual",
+      "median_ms": 7.629405200714245,
+      "max_absolute_difference": 0.0,
+      "samples_ms": [
+        7.824245095252991,
+        7.629405200714245,
+        7.841317501151934,
+        6.581101397750899,
+        7.409849500982091,
+        7.305574999190867,
+        8.141375501872972
+      ]
+    },
+    {
+      "device": "cuda:0",
+      "compact": true,
+      "horizon": 32,
+      "batch_size": 64,
+      "implementation": "batched",
+      "median_ms": 0.2466559992171824,
+      "max_absolute_difference": 0.0,
+      "samples_ms": [
+        0.2547804033383727,
+        0.2466559992171824,
+        0.2389032975770533,
+        0.24676420143805444,
+        0.24195510195568204,
+        0.25361619773320854,
+        0.2384765015449375
+      ]
+    }
+  ],
+  "drift_features": [
+    {
+      "device": "cuda:0",
+      "horizon": 8,
+      "batch_size": 64,
+      "implementation": "individual",
+      "median_ms": 1.7379942000843585,
+      "samples_ms": [
+        1.7391694011166692,
+        1.7342375504085794,
+        1.7598421516595408,
+        1.7379942000843585,
+        1.7461065988754854,
+        1.7299869505222887,
+        1.7361742502544075
+      ],
+      "max_output_difference": 0.0,
+      "max_gradient_difference": 0.0
+    },
+    {
+      "device": "cuda:0",
+      "horizon": 8,
+      "batch_size": 64,
+      "implementation": "batched",
+      "median_ms": 0.19228074816055596,
+      "samples_ms": [
+        0.19613855110947043,
+        0.1943196024512872,
+        0.19448090170044452,
+        0.19215249922126532,
+        0.19171065068803728,
+        0.19159989897161722,
+        0.19228074816055596
+      ],
+      "max_output_difference": 0.0,
+      "max_gradient_difference": 0.0
+    },
+    {
+      "device": "cuda:0",
+      "horizon": 32,
+      "batch_size": 64,
+      "implementation": "individual",
+      "median_ms": 6.361731150536798,
+      "samples_ms": [
+        6.387632849509828,
+        6.3550580001901835,
+        6.466318797902204,
+        6.399987800978124,
+        6.361731150536798,
+        6.35286130127497,
+        6.354738850495778
+      ],
+      "max_output_difference": 0.0,
+      "max_gradient_difference": 0.0
+    },
+    {
+      "device": "cuda:0",
+      "horizon": 32,
+      "batch_size": 64,
+      "implementation": "batched",
+      "median_ms": 0.19328865164425224,
+      "samples_ms": [
+        0.19466625235509127,
+        0.1926018507219851,
+        0.19256624800618738,
+        0.19328865164425224,
+        0.1947058510268107,
+        0.19271605124231428,
+        0.1937585009727627
+      ],
+      "max_output_difference": 0.0,
+      "max_gradient_difference": 0.0
+    }
+  ],
+  "precision": "Selected history inputs preserve values and RNG exactly. Compact CPU goal calculations differed by up to 2.2351741790771484e-08 in clip-boundary tests. CUDA rollouts, bootstrap and actor gradients are checked numerically, not by claiming bitwise full training equivalence."
+}

@@ -1,0 +1,69 @@
+{
+  "optimized_revision": "088d17639ae9e572d11ba888ad9977a7b9256935",
+  "status": "complete",
+  "exit_code": 0,
+  "passed": 14,
+  "elapsed_s": 56.95549708500039,
+  "peak_rss_bytes": 5663039488,
+  "peak_process_gpu_mib": 1326,
+  "limits": {
+    "gpu_index": 0,
+    "max_gpu_mib": 2304,
+    "reserve_gpu_mib": 4096,
+    "max_rss_gib": 6,
+    "reserve_ram_gib": 12.5,
+    "reserve_disk_gib": 20.0,
+    "poll_seconds": 2.0,
+    "stop_grace_seconds": 30.0
+  },
+  "stop_reason": null,
+  "coverage": [
+    "environment spaces, replay, state I/O, contexts and clip boundaries",
+    "analytic reward, observation and termination against mjlab",
+    "full/compact reference parity",
+    "world-model fitting on physical replay",
+    "training, restore and weight-transfer smoke",
+    "compiled world-model loss and gradients"
+  ],
+  "world_model_error_before": [
+    0.5144,
+    0.7723,
+    1.0612,
+    1.4579,
+    1.9664,
+    2.5829,
+    3.3196,
+    4.2052
+  ],
+  "world_model_error_after": [
+    0.0687,
+    0.0896,
+    0.1076,
+    0.1307,
+    0.1542,
+    0.1815,
+    0.216,
+    0.2518
+  ],
+  "additional_input_batch_checks": {
+    "passed": 8,
+    "noise": true,
+    "library_modes": [
+      "full",
+      "compact"
+    ],
+    "anchor_modes": [
+      false,
+      true
+    ],
+    "horizons": [
+      8,
+      32
+    ],
+    "rng_equal": true,
+    "forward_atol": 3e-06,
+    "forward_rtol": 3e-06,
+    "actor_gradient_atol": 3e-06,
+    "actor_gradient_rtol": 0.0001
+  }
+}
