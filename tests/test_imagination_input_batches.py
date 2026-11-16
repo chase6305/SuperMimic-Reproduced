@@ -31,7 +31,7 @@ def test_input_batches_preserve_rollout_rng_and_actor_gradients(
     from supermimic.kinematics.g1_fk import G1Kinematics
     from supermimic.kinematics.rotations import quat_apply_inverse
     from supermimic.policy.nets import Critic, Policy
-    from supermimic.world_model.heads import AnalyticHeads
+    from supermimic.world_model.heads import AnalyticHeads, flatten_history_term_major
     from supermimic.world_model.reference import ReferenceFrame
     from supermimic.world_model.world_model import WorldModel
 
@@ -103,6 +103,11 @@ def test_input_batches_preserve_rollout_rng_and_actor_gradients(
         return policy_objective(rollout, torch.where(alive, value, torch.zeros_like(value)), 0.99)
 
     with monkeypatch.context() as reference:
+        reference.setattr(
+            module,
+            "_flatten_history_frames",
+            lambda frames, order: flatten_history_term_major(torch.stack(frames)),
+        )
         reference.setattr(module, "analytic_observation", per_frame_observation)
         reference.setattr(lib, "goal_window", per_step_goals)
         reference.setattr(heads, "root_error_features", per_step_errors)

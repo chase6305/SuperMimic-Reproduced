@@ -9,18 +9,34 @@ import torch
 from supermimic.data.motion_library import MotionLibrary
 from supermimic.data.replay_buffer import StartBatch
 from supermimic.imagination.compiled import REWARD_TERM_NAMES, ImagStep
+from supermimic.interfaces import OBS_DIM, OBS_OFFSETS
 from supermimic.policy.nets import Policy
 from supermimic.world_model.heads import (
     analytic_observation,
     anchor_relative_obs,
-    flatten_history_term_major,
 )
+from supermimic.world_model.heads import flatten_history_term_major as flatten_history_term_major
 from supermimic.world_model.reference import ReferenceFrame, reference_at
 from supermimic.world_model.world_model import WorldModel
 
 # Paper Table A.1 sensor noise (uniform half-widths) in the 93-d observation order.
 OBS_NOISE_HALF = torch.tensor([0.01] * 29 + [0.5] * 29 + [0.2] * 3 + [0.05] * 3 + [0.0] * 29)
 ANCHOR_NOISE_HALF = torch.tensor([0.25] * 3 + [0.05] * 6)
+
+
+def _history_order(length: int, device) -> torch.Tensor:
+    """Indices from frame-major storage to the shared term-major policy layout."""
+    indices = [
+        frame * OBS_DIM + column
+        for begin, end in zip(OBS_OFFSETS[:-1], OBS_OFFSETS[1:], strict=True)
+        for frame in range(length)
+        for column in range(begin, end)
+    ]
+    return torch.tensor(indices, device=device, dtype=torch.long)
+
+
+def _flatten_history_frames(frames: list[torch.Tensor], order: torch.Tensor) -> torch.Tensor:
+    return torch.stack(frames, dim=1).flatten(1).index_select(1, order)
 
 
 @dataclass
@@ -82,7 +98,8 @@ def imagine(
     # Keep one noise draw per history frame: batching the random draw would
     # consume a different CUDA Philox sequence even for the same seed.
     hist = [add_noise(observation) for observation in history.unbind(0)]
-    initial_history = flatten_history_term_major(torch.stack(hist, 0))
+    history_order = _history_order(len(hist), device)
+    initial_history = _flatten_history_frames(hist, history_order)
     initial_observation = hist[-1]
     s = start.state
     frame = start.frame.clone()
@@ -125,7 +142,7 @@ def imagine(
 
     for t in range(horizon):
         alive = c.detach() > min_survival
-        obs_flat = flatten_history_term_major(torch.stack(hist, 0))
+        obs_flat = initial_history if t == 0 else _flatten_history_frames(hist, history_order)
         # A dead branch is absorbing. Do not extrapolate its feedback dynamics:
         # even zero survival times an overflowing reward would otherwise be NaN.
         obs_flat = torch.where(alive[:, None], obs_flat, initial_history)
