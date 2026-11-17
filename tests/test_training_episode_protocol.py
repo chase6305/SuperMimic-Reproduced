@@ -21,6 +21,19 @@ def test_seed_rejects_values_the_environment_cannot_use_before_reading_checkpoin
 @pytest.mark.parametrize("seed", [0, 2**32 - 1])
 def test_seed_accepts_environment_range_boundaries(tmp_path, seed):
     assert training_config("smoke", tmp_path, tmp_path / "valid-seed", seed=seed).seed == seed
+    assert parser().parse_args(["train", "--seed", str(seed)]).seed == seed
+
+
+@pytest.mark.parametrize("seed", [-1, 2**32])
+def test_cli_rejects_seed_before_resource_probe_or_output_allocation(tmp_path, seed, monkeypatch):
+    from supermimic import cli
+
+    monkeypatch.setattr(cli, "host_snapshot", lambda: pytest.fail("probed resources for invalid seed"))
+    output = tmp_path / "not-created"
+    with pytest.raises(SystemExit) as error:
+        cli.main(["train", "--seed", str(seed), "--output", str(output)])
+    assert error.value.code == 2
+    assert not output.exists()
 
 
 def test_episode_protocol_and_pose_weight_inherit_then_accept_explicit_overrides(tmp_path):

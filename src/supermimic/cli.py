@@ -42,6 +42,13 @@ def nonnegative_int(value: str) -> int:
     return result
 
 
+def environment_seed(value: str) -> int:
+    result = int(value)
+    if not 0 <= result < 2**32:
+        raise argparse.ArgumentTypeError("must be within [0, 2**32 - 1]")
+    return result
+
+
 def parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(description=__doc__)
     sub = p.add_subparsers(dest="command", required=True)
@@ -93,7 +100,7 @@ def parser() -> argparse.ArgumentParser:
                 choices=("return", "uniform", "start"),
                 help="Reference reset sampling; inherited on strict resume, priorities require return",
             )
-            q.add_argument("--seed", type=int, default=0)
+            q.add_argument("--seed", type=environment_seed, default=0)
             q.add_argument(
                 "--priority-window",
                 action="append",
