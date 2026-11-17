@@ -1,6 +1,6 @@
 {
-  "generated_at_utc": "2026-11-17T07:02:30.187661+00:00",
-  "window_status": "in_progress",
+  "generated_at_utc": "2026-11-17T07:30:56.893881+00:00",
+  "window_status": "elapsed",
   "requested_window": {
     "start_utc": "2026-11-17T02:30:42Z",
     "deadline_utc": "2026-11-17T07:30:42Z",
@@ -1398,8 +1398,91 @@
   },
   "local_task_collection": {
     "path": "exports/g1-tasks-20261117",
-    "catalog_sha256": "6a1225c4b9088cff07cb9b620a8be6011eff3160806c3a5b06a4e7b17f69b188",
-    "scope": "Self-contained inference/reference/physics evidence, including required asset licenses. Training checkpoints remain at recorded local paths. Binaries/data excluded from Git."
+    "catalog_sha256": "7c25b7c115ad45f477ce4ad8e50a6d0eeb0e853e38b711caa090518426db5f79",
+    "scope": "Self-contained inference/reference/physics evidence, including required asset licenses. Training checkpoints remain at recorded local paths. Binaries/data excluded from Git.",
+    "short_saved_trajectory_previews": {
+      "scope": "Small software-rendered excerpts, including unaccepted dynamic previews. No new physics, training or hardware execution.",
+      "samples": [
+        {
+          "id": "stand-start",
+          "task": "stand-hold-600",
+          "task_status": "validated-static-hold",
+          "video": "stand-start.mp4",
+          "video_sha256": "2c6524bffabcb6dd6788a26258660d0c92002d447bd488a619f9aa4d50a409c4",
+          "source_start_seconds": 0.0,
+          "duration_s": 10.0,
+          "frames": 100,
+          "source_trajectory_sha256": "c9f4fcc3da662f8284ddc9816df4235c07077621fb05138dcd7e5a48084676c6",
+          "renderer": "llvmpipe (LLVM 15.0.7, 256 bits)",
+          "scope": "Short saved-trajectory visualization. Task acceptance is determined by the complete physical run and fixed assessment, not this excerpt."
+        },
+        {
+          "id": "stand-end",
+          "task": "stand-hold-600",
+          "task_status": "validated-static-hold",
+          "video": "stand-end.mp4",
+          "video_sha256": "b4eaba82443a9fa8630f0314bd9e0ef00ee40b577200a9a27ca0987264943d6e",
+          "source_start_seconds": 590.0,
+          "duration_s": 10.0,
+          "frames": 100,
+          "source_trajectory_sha256": "c9f4fcc3da662f8284ddc9816df4235c07077621fb05138dcd7e5a48084676c6",
+          "renderer": "llvmpipe (LLVM 15.0.7, 256 bits)",
+          "scope": "Short saved-trajectory visualization. Task acceptance is determined by the complete physical run and fixed assessment, not this excerpt."
+        },
+        {
+          "id": "walk-start",
+          "task": "walk-reference",
+          "task_status": "simulation-demo",
+          "video": "walk-start.mp4",
+          "video_sha256": "623dd04f941bc1683c84a5a7ca980fdda56f3d349392531acc4da414fd5bff1e",
+          "source_start_seconds": 0.0,
+          "duration_s": 10.0,
+          "frames": 100,
+          "source_trajectory_sha256": "a4755a03b3b47c2990649480c02f113e569fbf2ca7eca3a70db405c55b929ac5",
+          "renderer": "llvmpipe (LLVM 15.0.7, 256 bits)",
+          "scope": "Short saved-trajectory visualization. Task acceptance is determined by the complete physical run and fixed assessment, not this excerpt."
+        },
+        {
+          "id": "jump-limiting-window",
+          "task": "jump-preview",
+          "task_status": "unaccepted-preview",
+          "video": "jump-limiting-window.mp4",
+          "video_sha256": "106422a21a2ac62c70e4c0bbc2826df8c9319a382377bd18d8dff062d425717a",
+          "source_start_seconds": 206.0,
+          "duration_s": 8.0,
+          "frames": 80,
+          "source_trajectory_sha256": "9fa1f43a5e9dcc0205bb8ae692b8741231f05a049b97560725fb2eada02a5cef",
+          "renderer": "llvmpipe (LLVM 15.0.7, 256 bits)",
+          "scope": "Short saved-trajectory visualization. Task acceptance is determined by the complete physical run and fixed assessment, not this excerpt."
+        },
+        {
+          "id": "dance-start",
+          "task": "dance-preview",
+          "task_status": "unaccepted-preview",
+          "video": "dance-start.mp4",
+          "video_sha256": "42e633ffae80d542e3f095e63488964a06f778d46526d968d767e3cc9ad3e95f",
+          "source_start_seconds": 0.0,
+          "duration_s": 10.0,
+          "frames": 100,
+          "source_trajectory_sha256": "ebc34d7952dfe36a76817f1541ad09f05bb993637cf72503b60633b9c9daec72",
+          "renderer": "llvmpipe (LLVM 15.0.7, 256 bits)",
+          "scope": "Short saved-trajectory visualization. Task acceptance is determined by the complete physical run and fixed assessment, not this excerpt."
+        },
+        {
+          "id": "fight-start",
+          "task": "fight-preview",
+          "task_status": "unaccepted-preview",
+          "video": "fight-start.mp4",
+          "video_sha256": "3ff54198f352459f209bdcbc06b79b744470130f3623a76da5584dc9801bb726",
+          "source_start_seconds": 0.0,
+          "duration_s": 10.0,
+          "frames": 100,
+          "source_trajectory_sha256": "90bbd0e012fda9154edb7ef7d4e626559315db34dc4b23c2dd143b81d7617beb",
+          "renderer": "llvmpipe (LLVM 15.0.7, 256 bits)",
+          "scope": "Short saved-trajectory visualization. Task acceptance is determined by the complete physical run and fixed assessment, not this excerpt."
+        }
+      ]
+    }
   },
   "packaged_inference_verification": {
     "passed": true,
@@ -1581,5 +1664,257 @@
         "passed": false
       }
     ]
+  },
+  "accepted_record_scope": "The3 accepted candidate records are two30s checkpoints and one600s checkpoint for the same fixed-pose task, not three distinct accepted skills. The later120s run and relocation rechecks are separate validation records.",
+  "collection_integrity": {
+    "passed": true,
+    "catalog_sha256": "7c25b7c115ad45f477ce4ad8e50a6d0eeb0e853e38b711caa090518426db5f79",
+    "entries": [
+      {
+        "id": "walk-reference",
+        "files": 10,
+        "inference_and_evidence_bytes": 144755776,
+        "checkpoint_exists_and_matches": true,
+        "checkpoint_bytes": 215620255,
+        "hardware_deployed": false
+      },
+      {
+        "id": "stand-hold",
+        "files": 11,
+        "inference_and_evidence_bytes": 113551290,
+        "checkpoint_exists_and_matches": true,
+        "checkpoint_bytes": 182204395,
+        "hardware_deployed": false
+      },
+      {
+        "id": "jump-preview",
+        "files": 11,
+        "inference_and_evidence_bytes": 142329672,
+        "checkpoint_exists_and_matches": true,
+        "checkpoint_bytes": 215623535,
+        "hardware_deployed": false
+      },
+      {
+        "id": "dance-preview",
+        "files": 11,
+        "inference_and_evidence_bytes": 125950854,
+        "checkpoint_exists_and_matches": true,
+        "checkpoint_bytes": 215622319,
+        "hardware_deployed": false
+      },
+      {
+        "id": "fight-preview",
+        "files": 11,
+        "inference_and_evidence_bytes": 142392788,
+        "checkpoint_exists_and_matches": true,
+        "checkpoint_bytes": 215636975,
+        "hardware_deployed": false
+      },
+      {
+        "id": "stand-hold-600",
+        "files": 18,
+        "inference_and_evidence_bytes": 240462678,
+        "checkpoint_exists_and_matches": true,
+        "checkpoint_bytes": 182205099,
+        "hardware_deployed": false
+      }
+    ],
+    "scope": "Every catalogued inference/reference/evidence/license file and the separately retained training checkpoint was streamed and fingerprinted once. No inference or training was repeated."
+  },
+  "handoff_training_config_resolution": {
+    "passed": true,
+    "scope": "Public training_config resolution against every delivered checkpoint; no new optimizer steps or simulation. Real training workflow evidence is reported separately.",
+    "entries": [
+      {
+        "id": "walk-reference",
+        "configuration_resolved": true,
+        "strict_motion_fingerprint_matched": true,
+        "transfer": false,
+        "training_reference": "data/npz/g1/walk1_subject1.npz",
+        "episode_seconds": 10.0,
+        "sampling": "return",
+        "policy_horizon": 32,
+        "policy_update_scope": "all"
+      },
+      {
+        "id": "stand-hold",
+        "configuration_resolved": true,
+        "strict_motion_fingerprint_matched": true,
+        "transfer": false,
+        "training_reference": "data/npz/probes/stand30-walk-first-frame.npz",
+        "episode_seconds": 30.0,
+        "sampling": "start",
+        "policy_horizon": 16,
+        "policy_update_scope": "decoder"
+      },
+      {
+        "id": "jump-preview",
+        "configuration_resolved": true,
+        "strict_motion_fingerprint_matched": true,
+        "transfer": false,
+        "training_reference": "data/npz/validation/jumps1_subject1.npz",
+        "episode_seconds": 10.0,
+        "sampling": "return",
+        "policy_horizon": 32,
+        "policy_update_scope": "all"
+      },
+      {
+        "id": "dance-preview",
+        "configuration_resolved": true,
+        "strict_motion_fingerprint_matched": false,
+        "transfer": true,
+        "training_reference": "data/npz/validation/dance1_subject1.npz",
+        "episode_seconds": 10.0,
+        "sampling": "return",
+        "policy_horizon": 32,
+        "policy_update_scope": "all"
+      },
+      {
+        "id": "fight-preview",
+        "configuration_resolved": true,
+        "strict_motion_fingerprint_matched": false,
+        "transfer": true,
+        "training_reference": "data/npz/validation/fight1_subject2.npz",
+        "episode_seconds": 10.0,
+        "sampling": "return",
+        "policy_horizon": 32,
+        "policy_update_scope": "all"
+      },
+      {
+        "id": "stand-hold-600",
+        "configuration_resolved": true,
+        "strict_motion_fingerprint_matched": true,
+        "transfer": false,
+        "training_reference": "data/npz/probes/stand120-walk-first-frame.npz",
+        "episode_seconds": 120.0,
+        "sampling": "start",
+        "policy_horizon": 16,
+        "policy_update_scope": "decoder"
+      }
+    ]
+  },
+  "source_ci": {
+    "source_head": "9d293e649ecf4fbc52f359dbc0a908a14b018498",
+    "run_id": 44036031380,
+    "url": "https://github.com/chase6305/SuperMimic-Reproduced/actions/runs/44036031380",
+    "conclusion": "success",
+    "passed": 728,
+    "skipped": 42,
+    "subtests": 12,
+    "test_seconds": 47.25,
+    "ruff_passed": true,
+    "wheel_and_sdist_built": true,
+    "log_sha256": "3d79b444164e3a33ea0625fe93bf9a61c54edb05d140d848a47f707ae409f756"
+  },
+  "sampler_empty_tail_regression": {
+    "trigger": "Custom bounded log capacity is smaller than min_remaining_steps and no bootstrap callback is available.",
+    "before": "One targeted regression reproduced a saturated log that failed to release its capacity.",
+    "fix": "Clear that fully omitted chunk without changing sampler return estimates, so the next control starts a new contiguous log.",
+    "after": {
+      "passed_tests": 24,
+      "seconds": 1.89,
+      "resources": "runs/task-readiness-20261117/sampler-empty-tail-after.json.resources.json"
+    },
+    "effect_on_recorded_training": "The recorded training used the default1024-step log and100-step uncertainty tail; its full chunks retain valid samples and did not enter this empty-tail branch."
+  },
+  "extended1800s_static_diagnostic": {
+    "passed": true,
+    "steps": 90000,
+    "seconds": 1800.0,
+    "checkpoint_sha256": "6984a9c7ea58c96834349941e986e3b28f6bddba706448c9c3f690e8f248a5f8",
+    "trajectory_sha256": "e7d895494361dfffa22c830b62f5e5beb7037b25168832608994f212000aa5d0",
+    "motion_sha256": "00e93c930b8ec2bc039036dc2f9b706a0820c78af34fec2417abea1e09fa1f67",
+    "metrics": {
+      "root_xy_rmse_m": 0.030088994248248156,
+      "joint_rmse_rad": 0.06637784542565009,
+      "root_height_rmse_m": 0.013005234140379317,
+      "root_orientation_rmse_rad": 0.044426034401243174,
+      "nonfoot_ground_force_substeps": 0,
+      "joint_velocity_rms_rad_s": 0.012207936559471942
+    },
+    "judgement": {
+      "passed": true,
+      "skill": "static-pose-hold",
+      "criteria": {
+        "version": "g1-static-pose-v1",
+        "min_duration_s": 30.0,
+        "max_root_xy_rmse_m": 0.1,
+        "max_joint_rmse_rad": 0.25,
+        "max_root_height_rmse_m": 0.05,
+        "max_root_orientation_rmse_rad": 0.15,
+        "max_nonfoot_ground_force_substeps": 0,
+        "max_joint_velocity_rms_rad_s": 0.5
+      },
+      "checks": [
+        {
+          "name": "completed_motion",
+          "value": true,
+          "passed": true
+        },
+        {
+          "name": "duration_s",
+          "value": 1800.0,
+          "limit": 30.0,
+          "comparison": ">=",
+          "passed": true
+        },
+        {
+          "name": "root_xy_rmse_m",
+          "value": 0.030088994248248156,
+          "limit": 0.1,
+          "comparison": "<=",
+          "passed": true
+        },
+        {
+          "name": "joint_rmse_rad",
+          "value": 0.06637784542565009,
+          "limit": 0.25,
+          "comparison": "<=",
+          "passed": true
+        },
+        {
+          "name": "root_height_rmse_m",
+          "value": 0.013005234140379317,
+          "limit": 0.05,
+          "comparison": "<=",
+          "passed": true
+        },
+        {
+          "name": "root_orientation_rmse_rad",
+          "value": 0.044426034401243174,
+          "limit": 0.15,
+          "comparison": "<=",
+          "passed": true
+        },
+        {
+          "name": "nonfoot_ground_force_substeps",
+          "value": 0,
+          "limit": 0,
+          "comparison": "<=",
+          "passed": true
+        },
+        {
+          "name": "joint_velocity_rms_rad_s",
+          "value": 0.012207936559471942,
+          "limit": 0.5,
+          "comparison": "<=",
+          "passed": true
+        }
+      ],
+      "scope": "Fixed reference pose for the recorded full duration and initialization. Separate from dynamic imitation, generalization, commanded locomotion and hardware validation."
+    },
+    "first600s_bitexact": {
+      "states": true,
+      "actions": true,
+      "reference_frame": true,
+      "physical_contacts": true
+    },
+    "scope": "Additional bounded1800s diagnostic; the delivery package retains the independently rechecked600s reference and evidence.",
+    "local_assessment": "runs/task-readiness-20261117/stand-1800s-diagnostic/assessment.json"
+  },
+  "local_reproduction_helpers": {
+    "path": "runs/task-readiness-20261117/reproduction-tools-final",
+    "manifest_sha256": "58402de78fcc3540353589937cc746e90a5bdc880ad62d0c51cb4a11cd7201f3",
+    "scope": "Current helper versions captured near the end of the optimization window, not a claim that every earlier trial executed this version. Per-experiment worker-script.py and implementation snapshots are authoritative for earlier computations. Helpers retain their original local paths and are audit/reproduction material; standard training and deployment use the public CLI."
   }
 }

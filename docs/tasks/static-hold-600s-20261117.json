@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-17T07:01:52.327293+00:00",
+  "generated_at_utc": "2026-11-17T07:21:10.442555+00:00",
   "scope": "One fixed reference pose and initialization, full600s CPU MuJoCo inference using the original physical controller. No automatic resets, hardware deployment, disturbance tests, novel motions or general standing claim. Training used the same constant pose repeated for120s;600s is a longer deployment reference, not an unseen motion benchmark.",
   "previous120s_evidence": "docs/tasks/static-hold-20261117.json",
   "selected_checkpoint": "runs/task-readiness-20261117/stand-height100-xy200-resume/training/ckpt_0012000.pt",
@@ -917,7 +917,14 @@
       "reference.npz": "d6cd16727d2c2a7ced18ff52319debbd351ad340490b1516a9c0640981e45508",
       "evidence/result.json": "477fb92f85993a49e17d9c23151500a927a70aad85a2e829187cd30b5ddc097e",
       "evidence/trajectory.npz": "c9f4fcc3da662f8284ddc9816df4235c07077621fb05138dcd7e5a48084676c6",
-      "evidence/assessment.json": "7ed07d6daad0b66b897527fe93542a90ac7f4b81cba1907ec5f66a12c8444d57"
+      "evidence/assessment.json": "7ed07d6daad0b66b897527fe93542a90ac7f4b81cba1907ec5f66a12c8444d57",
+      "extended-1800/reference.npz": "00e93c930b8ec2bc039036dc2f9b706a0820c78af34fec2417abea1e09fa1f67",
+      "extended-1800/result.json": "e06050176bd98d43025e102c4e3ae80924cacf12ef4c1bd3bc03fb89e83ff964",
+      "extended-1800/trajectory.npz": "e7d895494361dfffa22c830b62f5e5beb7037b25168832608994f212000aa5d0",
+      "extended-1800/assessment.json": "3d10eb92928bf44783fcd3a0b4c5b1f210fa6d7c4b3ed37b34142f14dc40a18c",
+      "extended-1800/endurance.json": "5b61ce630596398bf1822987fa40255ab987b37b9647aca2e6d77f53fc1aff76",
+      "extended-1800/plan.json": "586ae55bfaf97168740147086d04ea62d07480a8e002b16defe577cdd5bc34c3",
+      "extended-1800/worker-script.py": "a977109d2326c6f777804cb130b5c32a72b9b4616a69c4aa0263413fd0845f6e"
     },
     "training_checkpoint_included": false,
     "training_reference_for_strict_resume": "data/npz/probes/stand120-walk-first-frame.npz",
@@ -952,5 +959,121 @@
       "nonfoot_ground_force_substeps": 0,
       "joint_velocity_rms_rad_s": 0.021144766365492923
     }
+  },
+  "extended1800s_diagnostic": {
+    "passed": true,
+    "steps": 90000,
+    "seconds": 1800.0,
+    "checkpoint_sha256": "6984a9c7ea58c96834349941e986e3b28f6bddba706448c9c3f690e8f248a5f8",
+    "trajectory_sha256": "e7d895494361dfffa22c830b62f5e5beb7037b25168832608994f212000aa5d0",
+    "motion_sha256": "00e93c930b8ec2bc039036dc2f9b706a0820c78af34fec2417abea1e09fa1f67",
+    "metrics": {
+      "root_xy_rmse_m": 0.030088994248248156,
+      "joint_rmse_rad": 0.06637784542565009,
+      "root_height_rmse_m": 0.013005234140379317,
+      "root_orientation_rmse_rad": 0.044426034401243174,
+      "nonfoot_ground_force_substeps": 0,
+      "joint_velocity_rms_rad_s": 0.012207936559471942
+    },
+    "judgement": {
+      "passed": true,
+      "skill": "static-pose-hold",
+      "criteria": {
+        "version": "g1-static-pose-v1",
+        "min_duration_s": 30.0,
+        "max_root_xy_rmse_m": 0.1,
+        "max_joint_rmse_rad": 0.25,
+        "max_root_height_rmse_m": 0.05,
+        "max_root_orientation_rmse_rad": 0.15,
+        "max_nonfoot_ground_force_substeps": 0,
+        "max_joint_velocity_rms_rad_s": 0.5
+      },
+      "checks": [
+        {
+          "name": "completed_motion",
+          "value": true,
+          "passed": true
+        },
+        {
+          "name": "duration_s",
+          "value": 1800.0,
+          "limit": 30.0,
+          "comparison": ">=",
+          "passed": true
+        },
+        {
+          "name": "root_xy_rmse_m",
+          "value": 0.030088994248248156,
+          "limit": 0.1,
+          "comparison": "<=",
+          "passed": true
+        },
+        {
+          "name": "joint_rmse_rad",
+          "value": 0.06637784542565009,
+          "limit": 0.25,
+          "comparison": "<=",
+          "passed": true
+        },
+        {
+          "name": "root_height_rmse_m",
+          "value": 0.013005234140379317,
+          "limit": 0.05,
+          "comparison": "<=",
+          "passed": true
+        },
+        {
+          "name": "root_orientation_rmse_rad",
+          "value": 0.044426034401243174,
+          "limit": 0.15,
+          "comparison": "<=",
+          "passed": true
+        },
+        {
+          "name": "nonfoot_ground_force_substeps",
+          "value": 0,
+          "limit": 0,
+          "comparison": "<=",
+          "passed": true
+        },
+        {
+          "name": "joint_velocity_rms_rad_s",
+          "value": 0.012207936559471942,
+          "limit": 0.5,
+          "comparison": "<=",
+          "passed": true
+        }
+      ],
+      "scope": "Fixed reference pose for the recorded full duration and initialization. Separate from dynamic imitation, generalization, commanded locomotion and hardware validation."
+    },
+    "first600s_bitexact": {
+      "states": true,
+      "actions": true,
+      "reference_frame": true,
+      "physical_contacts": true
+    },
+    "scope": "Additional bounded1800s diagnostic; the delivery package retains the independently rechecked600s reference and evidence.",
+    "local_assessment": "runs/task-readiness-20261117/stand-1800s-diagnostic/assessment.json"
+  },
+  "extended1800s_predeclared_plan": {
+    "created_at_utc": "2026-11-17T07:15:54.775854+00:00",
+    "expected_seconds": 1800,
+    "expected_controls": 90000,
+    "reference": "data/npz/probes/stand1800-walk-first-frame-20261117.npz",
+    "bundle": "exports/g1-tasks-20261117/stand-hold-600/bundle",
+    "checkpoint_sha256": "6984a9c7ea58c96834349941e986e3b28f6bddba706448c9c3f690e8f248a5f8",
+    "criteria": {
+      "version": "g1-static-pose-v1",
+      "min_duration_s": 30.0,
+      "max_root_xy_rmse_m": 0.1,
+      "max_joint_rmse_rad": 0.25,
+      "max_root_height_rmse_m": 0.05,
+      "max_root_orientation_rmse_rad": 0.15,
+      "max_nonfoot_ground_force_substeps": 0,
+      "max_joint_velocity_rms_rad_s": 0.5
+    },
+    "memory_estimate": "Expanded constant-reference arrays approximately154MiB; guarded preparation and separate deploy/assessment processes each limited to2GiB RSS with12.5GiB RAM reserve.",
+    "scope": "Single bounded30min simulation diagnostic of the accepted600s actor and exactly the same constant reference pose. No new training, perturbation, controller changes or acceptance relaxation. Retain600s delivery regardless of this outcome.",
+    "additional_verification": "Require the initial600s states/actions/reference frames/physical contacts to be bitexact with the accepted run."
   }
 }

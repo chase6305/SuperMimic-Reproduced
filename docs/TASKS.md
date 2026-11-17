@@ -1,6 +1,6 @@
 # 当前可训练与部署的任务
 
-本页区分训练入口、完整仿真运行和技能质量验收。当前可交接的模型包括已通过固定姿态条件的 600 秒站立保持、261.30 秒行走参考演示，以及三个未验收的动态技能预览。五类任务的推理文件、参考数据和证据在本机 `exports/g1-tasks-20261117/`，站立保留 120 秒和 600 秒两个版本，详情见该目录的 `README.md` 与 `catalog.json`。
+本页区分训练入口、完整仿真运行和技能质量验收。当前可交接的模型包括已通过 600 秒交付复验和 1,800 秒延长耐久验证的固定姿态保持、261.30 秒行走参考演示，以及三个未验收的动态技能预览。五类任务的推理文件、参考数据和证据在本机 `exports/g1-tasks-20261117/`，站立保留 120 秒和 600 秒两个版本，并附 1,800 秒参考与证据，详情见该目录的 `README.md` 与 `catalog.json`。
 
 下表是 2026-11-17 对五个原有保留模型的完整复验基线，均从参考首帧开始、全程由神经网络控制，不自动重置。数据、模型和运行记录是本机产物，未随 Git 分发。来源摘要见 [复核记录](tasks/readiness-baseline.json)，本轮新增站立的结果见下方、[120 秒证据](tasks/static-hold-20261117.json)及 [600 秒证据](tasks/static-hold-600s-20261117.json)。
 
@@ -63,9 +63,25 @@
 
 针对这一高度漂移，以 120 秒静态参考迁移训练，将高度损失权重从 10 调到 100；该阶段最佳模型在完整 600 秒中的平面误差为 0.10900 m，仍超过 0.1 m 门槛。随后从该检查点严格续训，仅将平面损失权重从 100 调到 200。第 12,000 次迭代模型通过完整 600 秒、30,000 步验收：平面 RMSE 0.03015 m、关节 RMSE 0.06657 rad、根高度 RMSE 0.01295 m、根姿态 RMSE 0.04535 rad、关节速度 RMS 0.02114 rad/s，非脚部触地为零。后续第 16,000、20,000 次及最终检查点均未通过，因此交付已验证的第 12,000 次模型。
 
+同一模型又通过完整 1,800 秒、90,000 步延长耐久诊断：平面 RMSE 0.03009 m、关节 RMSE 0.06638 rad、根高度 RMSE 0.01301 m、根姿态 RMSE 0.04443 rad、关节速度 RMS 0.01221 rad/s，非脚部触地为零。前 600 秒的状态、动作、参考帧及接触记录与已验收轨迹逐位一致。它使用同一固定姿态与初始化，没有新增训练或放宽条件，不能据此推断扰动恢复或其他姿态的表现。
+
 600 秒版训练检查点为 `runs/task-readiness-20261117/stand-height100-xy200-resume/training/ckpt_0012000.pt`，SHA-256 为 `6984a9c7ea58c96834349941e986e3b28f6bddba706448c9c3f690e8f248a5f8`。其训练参考为 `data/npz/probes/stand120-walk-first-frame.npz`；600 秒文件仅用于更长的部署测试，严格续训应继续使用原 120 秒训练文件。修改训练数据时使用 `--transfer` 并重新评测。
 
-本机可直接使用 600 秒交接目录；旧版 `stand-hold/` 仍保留 120 秒证据：
+继续训练时可使用以下入口，损失权重与 120 秒起点采样协议从检查点继承，学习率和本轮计算预算显式设置：
+
+```bash
+./supermimic train --profile g1 \
+  --checkpoint runs/task-readiness-20261117/stand-height100-xy200-resume/training/ckpt_0012000.pt \
+  --motions data/npz/probes --clips stand120-walk-first-frame \
+  --num-envs 32 --wm-batches-per-update 2 --wm-batch-size 128 \
+  --policy-batch-size 32 --replay-capacity 512 --learning-rate 0.0000005 \
+  --training-mode deterministic --compile-policy --compile-world-model \
+  --iterations 100000 --hours 0.25 --output runs/my-static-continuation
+```
+
+后续训练的质量可能回退，需导出候选并重新运行完整部署与验收，再决定采用哪个模型。
+
+本机可直接使用 600 秒交接目录；旧版 `stand-hold/` 仍保留 120 秒证据。旧版的原始训练参考是 `data/npz/probes/stand30-walk-first-frame.npz`，严格续训使用 30 秒文件；各条目的 `source.strict_resume_training_motion` 记录训练与部署参考的区别：
 
 ```bash
 ./supermimic deploy --bundle exports/g1-tasks-20261117/stand-hold-600/bundle \
@@ -77,6 +93,8 @@
 ```
 
 `scripts/assess_static_hold.py` 会重新计算真实轨迹的误差，并核对静态参考、文件指纹与完整参考时钟。固定的 `g1-static-pose-v1` 条件为：完成至少 30 秒；平面、关节、根高度和根姿态 RMSE 分别不超过 0.1 m、0.25 rad、0.05 m、0.15 rad；关节速度 RMS 不超过 0.5 rad/s；非脚部触地为零。该结果限于这一个参考姿态，和跳跃／舞蹈／格斗的动态技能判据分别报告。
+
+复现 1,800 秒运行时，使用同一个 `stand-hold-600/bundle`，将 `--motion` 改为 `exports/g1-tasks-20261117/stand-hold-600/extended-1800/reference.npz`；部署与评测都使用该参考，并指定新的输出目录。`extended-1800/` 已附完整运行、评测和预先制定的诊断计划。
 
 公开评测器也复验了原行走模型的静态对照：它完成 30 秒，但关节误差 0.50005 rad 超过 0.25 rad，因此仍判定失败。通过站立验收需要姿态跟踪与稳定性同时满足，单纯站住或完成时长不够。
 
