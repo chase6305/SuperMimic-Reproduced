@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-17T15:06:58.621988+00:00",
+  "generated_at_utc": "2026-11-17T16:25:36.833160+00:00",
   "window_status": "in_progress",
   "requested_window": {
     "start_utc": "2026-11-17T14:25:57+00:00",
@@ -16,6 +16,1141 @@
     "docs/tasks/static-hold-600s-20261117.json"
   ],
   "candidate_groups": {
+    "dance-inverted-arm-action-head": {
+      "local_evidence": "runs/task-optimization-20261117c/dance-inverted-arm-action-head/physical-results.json",
+      "evidence_sha256": "25e1e4c6d8e7acfc18c787c09da4e96228172d3cc02f985e8e04e99c6b4bf8d5",
+      "evaluations": 9,
+      "passes": 0,
+      "records": [
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/dance-inverted-arm-action-head/gain-0p1/update-0100",
+          "gain": 0.1,
+          "update": 100,
+          "held_action_target_mse": 0.0003728369774762541,
+          "checkpoint_sha256": "24b07236690263651180f30c9e8d800462fcb7b348ea4bc88482aefee7e813fc",
+          "completed_motion": false,
+          "steps": 5806,
+          "strict_passed": false,
+          "return": 0.6956431618314273,
+          "worst_effector_m": 0.38183404931774756,
+          "failed_checks": [
+            {
+              "name": "completed_motion",
+              "value": false,
+              "passed": false
+            },
+            {
+              "name": "full_clip_return",
+              "value": 0.6956431618314273,
+              "limit": 0.7,
+              "comparison": ">=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_orientation_rmse_rad",
+              "value": 0.6759442139600783,
+              "limit": 0.4,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_height_rmse_m",
+              "value": 0.10846332130182147,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.38183404931774756,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_joint_rmse_rad",
+              "value": 0.3513523640701796,
+              "limit": 0.3,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_root_height_rmse_m",
+              "value": 0.10612354509840995,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "cc2927e4a9b5e5b629b7b5bc1c6a084d0819b581a1c656def36a74ac5b7ebe03",
+          "skill": "dance",
+          "inversion_reference_frames": 53,
+          "inverted_joint_rmse_rad": 0.3513523640701796
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/dance-inverted-arm-action-head/gain-0p1/update-0500",
+          "gain": 0.1,
+          "update": 500,
+          "held_action_target_mse": 0.00028963631484657526,
+          "checkpoint_sha256": "33161a08d0a2abc5b252498ea77e8e45f8befa73a4af8d20e461483a72cd7217",
+          "completed_motion": true,
+          "steps": 6573,
+          "strict_passed": false,
+          "return": 0.8081346847288107,
+          "worst_effector_m": 0.351869464826709,
+          "failed_checks": [
+            {
+              "name": "worst_1s_root_orientation_rmse_rad",
+              "value": 0.49010927417464567,
+              "limit": 0.4,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_height_rmse_m",
+              "value": 0.12436822132549118,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.351869464826709,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_joint_rmse_rad",
+              "value": 0.344895892818974,
+              "limit": 0.3,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_root_height_rmse_m",
+              "value": 0.10008969010504196,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "631426f1cc6bdbe2059a083265e51006998563a460966ac89d8ebbec7f159a1e",
+          "skill": "dance",
+          "inversion_reference_frames": 53,
+          "inverted_joint_rmse_rad": 0.344895892818974
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/dance-inverted-arm-action-head/gain-0p1/update-2000",
+          "gain": 0.1,
+          "update": 2000,
+          "held_action_target_mse": 0.0001820025354390964,
+          "checkpoint_sha256": "f4f8485cfb2f8af77fbcb4123c9ed4914670af6b46c2291da6a7f59673387232",
+          "completed_motion": true,
+          "steps": 6573,
+          "strict_passed": false,
+          "return": 0.7723323979298672,
+          "worst_effector_m": 0.3475435362756546,
+          "failed_checks": [
+            {
+              "name": "worst_1s_root_orientation_rmse_rad",
+              "value": 0.4282993327557473,
+              "limit": 0.4,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_height_rmse_m",
+              "value": 0.10708552849695496,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.3475435362756546,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_joint_rmse_rad",
+              "value": 0.3359588352155249,
+              "limit": 0.3,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "e98ea8cef0965435a95afc17d3d683add15edd884c8af97aeea3db20da7d7f9c",
+          "skill": "dance",
+          "inversion_reference_frames": 53,
+          "inverted_joint_rmse_rad": 0.3359588352155249
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/dance-inverted-arm-action-head/gain-0p25/update-0100",
+          "gain": 0.25,
+          "update": 100,
+          "held_action_target_mse": 0.0011968804756179452,
+          "checkpoint_sha256": "8ca60b037d4771426dab77d99dd06ad6b423abc73c88128def12652bb11fd929",
+          "completed_motion": false,
+          "steps": 5806,
+          "strict_passed": false,
+          "return": 0.7114199182494996,
+          "worst_effector_m": 0.39801358068743337,
+          "failed_checks": [
+            {
+              "name": "completed_motion",
+              "value": false,
+              "passed": false
+            },
+            {
+              "name": "worst_1s_joint_rmse_rad",
+              "value": 0.35082056694060065,
+              "limit": 0.35,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_orientation_rmse_rad",
+              "value": 0.4118941659369076,
+              "limit": 0.4,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_height_rmse_m",
+              "value": 0.10472649269251781,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.39801358068743337,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_joint_rmse_rad",
+              "value": 0.35003975160840956,
+              "limit": 0.3,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_root_height_rmse_m",
+              "value": 0.10454326473058947,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "29ed2ccfdb46e1c9e29ca3e64f80a642542c39ba4c806628a4299cb0882a2b48",
+          "skill": "dance",
+          "inversion_reference_frames": 53,
+          "inverted_joint_rmse_rad": 0.35003975160840956
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/dance-inverted-arm-action-head/gain-0p25/update-0500",
+          "gain": 0.25,
+          "update": 500,
+          "held_action_target_mse": 0.0018346001161262393,
+          "checkpoint_sha256": "35f1133bc61fd7d936c1f1217ca941831b6b358db87d9495ec71fe2b93ac04de",
+          "completed_motion": true,
+          "steps": 6573,
+          "strict_passed": false,
+          "return": 0.8023768089395416,
+          "worst_effector_m": 0.33263527102614804,
+          "failed_checks": [
+            {
+              "name": "worst_1s_joint_rmse_rad",
+              "value": 0.35732917377078355,
+              "limit": 0.35,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_orientation_rmse_rad",
+              "value": 0.560053095955279,
+              "limit": 0.4,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_height_rmse_m",
+              "value": 0.12923998314092316,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.33263527102614804,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_joint_rmse_rad",
+              "value": 0.3484094764571006,
+              "limit": 0.3,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_root_height_rmse_m",
+              "value": 0.11905523678638656,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "6c67923b4af1d2475cfd41550e565e9a5056bc0c41617bd0ce23c61dd590f0de",
+          "skill": "dance",
+          "inversion_reference_frames": 53,
+          "inverted_joint_rmse_rad": 0.3484094764571006
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/dance-inverted-arm-action-head/gain-0p25/update-2000",
+          "gain": 0.25,
+          "update": 2000,
+          "held_action_target_mse": 0.001409182557836175,
+          "checkpoint_sha256": "af7b7c2658edc6212d0e00f3cc30bb46e3314803e0eb5dc0689f6f4f79811975",
+          "completed_motion": true,
+          "steps": 6573,
+          "strict_passed": false,
+          "return": 0.7937898052603836,
+          "worst_effector_m": 0.3345920602997712,
+          "failed_checks": [
+            {
+              "name": "worst_1s_root_orientation_rmse_rad",
+              "value": 0.5899619746042177,
+              "limit": 0.4,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_height_rmse_m",
+              "value": 0.1321192320428,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.3345920602997712,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_joint_rmse_rad",
+              "value": 0.34193856187037636,
+              "limit": 0.3,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_root_orientation_rmse_rad",
+              "value": 0.35820021604327745,
+              "limit": 0.35,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_root_height_rmse_m",
+              "value": 0.11954814618367487,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "f83b20524440218dbe9990f80c7adb0540db174bee409dda581d88158a807242",
+          "skill": "dance",
+          "inversion_reference_frames": 53,
+          "inverted_joint_rmse_rad": 0.34193856187037636
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/dance-inverted-arm-action-head/gain-0p5/update-0100",
+          "gain": 0.5,
+          "update": 100,
+          "held_action_target_mse": 0.0018880082061514258,
+          "checkpoint_sha256": "0cb31fcc086c7c4cda06cec345956acb705c6254de0ac7cc658a92a5156a92d0",
+          "completed_motion": false,
+          "steps": 5805,
+          "strict_passed": false,
+          "return": 0.7058659545475355,
+          "worst_effector_m": 0.39517043547360386,
+          "failed_checks": [
+            {
+              "name": "completed_motion",
+              "value": false,
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_orientation_rmse_rad",
+              "value": 0.4307105823440386,
+              "limit": 0.4,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_height_rmse_m",
+              "value": 0.11098679451300761,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.39517043547360386,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_joint_rmse_rad",
+              "value": 0.34407343560556275,
+              "limit": 0.3,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_root_height_rmse_m",
+              "value": 0.11549198343335772,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "63297cb537f880cbc8a2caf86d6e8713fb9d63475722912e1ede98ab81343a38",
+          "skill": "dance",
+          "inversion_reference_frames": 53,
+          "inverted_joint_rmse_rad": 0.34407343560556275
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/dance-inverted-arm-action-head/gain-0p5/update-0500",
+          "gain": 0.5,
+          "update": 500,
+          "held_action_target_mse": 0.00932911317795515,
+          "checkpoint_sha256": "08052eb6ad028e22a484fd131dc309992dac41f2e2061d7bd225fc9cae987126",
+          "completed_motion": false,
+          "steps": 3873,
+          "strict_passed": false,
+          "return": 0.47086517294937114,
+          "worst_effector_m": 0.3621611300717005,
+          "failed_checks": [
+            {
+              "name": "completed_motion",
+              "value": false,
+              "passed": false
+            },
+            {
+              "name": "full_clip_return",
+              "value": 0.47086517294937114,
+              "limit": 0.7,
+              "comparison": ">=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_joint_rmse_rad",
+              "value": 0.41516814303862326,
+              "limit": 0.35,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_orientation_rmse_rad",
+              "value": 1.0852091682208564,
+              "limit": 0.4,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_height_rmse_m",
+              "value": 0.12175940847930027,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.3621611300717005,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "5bb71d43dcea8da19438c74951ee52944dd916bec9b54d46fa25bc403047d9ea",
+          "skill": "dance",
+          "inversion_reference_frames": 0,
+          "inverted_joint_rmse_rad": null
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/dance-inverted-arm-action-head/gain-0p5/update-2000",
+          "gain": 0.5,
+          "update": 2000,
+          "held_action_target_mse": 0.007467273157089949,
+          "checkpoint_sha256": "a339083bf9fdb5cf6fad85ed18bad50fd984c3486b54982355561cd22944314e",
+          "completed_motion": false,
+          "steps": 4123,
+          "strict_passed": false,
+          "return": 0.4861576249206626,
+          "worst_effector_m": 0.3745562469365896,
+          "failed_checks": [
+            {
+              "name": "completed_motion",
+              "value": false,
+              "passed": false
+            },
+            {
+              "name": "full_clip_return",
+              "value": 0.4861576249206626,
+              "limit": 0.7,
+              "comparison": ">=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_height_rmse_m",
+              "value": 0.11627507259801889,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.3745562469365896,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "a082065ab4952efcdbf2917b597d338f19593ff91bec0fe2932e77fad90e070b",
+          "skill": "dance",
+          "inversion_reference_frames": 0,
+          "inverted_joint_rmse_rad": null
+        }
+      ]
+    },
+    "dance-inverted-arm-hidden16": {
+      "local_evidence": "runs/task-optimization-20261117c/dance-inverted-arm-hidden16/physical-results.json",
+      "evidence_sha256": "b14513ac4055920c0f778ed5a4ccc9a3e3f989d955ebbc1f883f3af675c2e6ac",
+      "evaluations": 7,
+      "passes": 0,
+      "records": [
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/dance-inverted-arm-hidden16/zero-residual",
+          "gain": 0.0,
+          "update": 0,
+          "extra_hidden_units": 16,
+          "assembly_parity_error": 6.198883056640625e-06,
+          "checkpoint_sha256": "68a593a7667c5d35757017c735456e0181429c3c18e984bbbf84ea986c27ef79",
+          "completed_motion": true,
+          "steps": 6573,
+          "strict_passed": false,
+          "return": 0.8080700922643468,
+          "worst_effector_m": 0.3375150778170743,
+          "failed_checks": [
+            {
+              "name": "worst_1s_root_orientation_rmse_rad",
+              "value": 0.48580352267431515,
+              "limit": 0.4,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_height_rmse_m",
+              "value": 0.12411361400212906,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.3375150778170743,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_joint_rmse_rad",
+              "value": 0.33045056527614997,
+              "limit": 0.3,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_root_height_rmse_m",
+              "value": 0.10140565307826635,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "c428f7e246977df84a837accf914a43e59c4ad722b0a72ae5da9a13a84c0375e",
+          "skill": "dance",
+          "inversion_reference_frames": 53,
+          "inverted_joint_rmse_rad": 0.33045056527614997
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/dance-inverted-arm-hidden16/gain-0p25/update-0500",
+          "gain": 0.25,
+          "update": 500,
+          "extra_hidden_units": 16,
+          "assembly_parity_error": 6.67572021484375e-06,
+          "checkpoint_sha256": "c4e812c433f8020b166508f53c77294c58deb694eb61d97a57d85f0eb6f2b1d0",
+          "completed_motion": true,
+          "steps": 6573,
+          "strict_passed": false,
+          "return": 0.8067736806308009,
+          "worst_effector_m": 0.3963737506347522,
+          "failed_checks": [
+            {
+              "name": "worst_1s_root_orientation_rmse_rad",
+              "value": 0.6066724937674225,
+              "limit": 0.4,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_height_rmse_m",
+              "value": 0.12872763590833017,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.3963737506347522,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_joint_rmse_rad",
+              "value": 0.33823976344717577,
+              "limit": 0.3,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_root_orientation_rmse_rad",
+              "value": 0.35136982454173366,
+              "limit": 0.35,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_root_height_rmse_m",
+              "value": 0.112474120095906,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "5baed56687bc35335906dccb723f83008f16d707159452c72f56279dff5535c3",
+          "skill": "dance",
+          "inversion_reference_frames": 53,
+          "inverted_joint_rmse_rad": 0.33823976344717577
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/dance-inverted-arm-hidden16/gain-0p25/update-2000",
+          "gain": 0.25,
+          "update": 2000,
+          "extra_hidden_units": 16,
+          "assembly_parity_error": 5.7220458984375e-06,
+          "checkpoint_sha256": "1d6acc31afac9a39be991fd57b9d928ffc9481e4059d4bc53f47abfda39703f6",
+          "completed_motion": false,
+          "steps": 5807,
+          "strict_passed": false,
+          "return": 0.699140604601845,
+          "worst_effector_m": 0.3312163126376954,
+          "failed_checks": [
+            {
+              "name": "completed_motion",
+              "value": false,
+              "passed": false
+            },
+            {
+              "name": "full_clip_return",
+              "value": 0.699140604601845,
+              "limit": 0.7,
+              "comparison": ">=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_orientation_rmse_rad",
+              "value": 0.5267277936986694,
+              "limit": 0.4,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_height_rmse_m",
+              "value": 0.11287750694993748,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.3312163126376954,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_joint_rmse_rad",
+              "value": 0.33414410532707933,
+              "limit": 0.3,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_root_orientation_rmse_rad",
+              "value": 0.3659501841049424,
+              "limit": 0.35,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_root_height_rmse_m",
+              "value": 0.11542845515938698,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "92b713ed2aff4db97cc29777eecf478cd5a6598c81621309029d22ec0b4bfc74",
+          "skill": "dance",
+          "inversion_reference_frames": 53,
+          "inverted_joint_rmse_rad": 0.33414410532707933
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/dance-inverted-arm-hidden16/gain-0p25/update-6000",
+          "gain": 0.25,
+          "update": 6000,
+          "extra_hidden_units": 16,
+          "assembly_parity_error": 5.7220458984375e-06,
+          "checkpoint_sha256": "562e838bf6bb60b45b42202b8e88df69e1dbf9ce4968a4807a684c1bcca83cb4",
+          "completed_motion": false,
+          "steps": 5805,
+          "strict_passed": false,
+          "return": 0.7007065251703115,
+          "worst_effector_m": 0.3336807165256163,
+          "failed_checks": [
+            {
+              "name": "completed_motion",
+              "value": false,
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_orientation_rmse_rad",
+              "value": 0.6041081912888276,
+              "limit": 0.4,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_height_rmse_m",
+              "value": 0.11717172746454801,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.3336807165256163,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_joint_rmse_rad",
+              "value": 0.33421813290193203,
+              "limit": 0.3,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_root_orientation_rmse_rad",
+              "value": 0.3609933990376339,
+              "limit": 0.35,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_root_height_rmse_m",
+              "value": 0.12246212008684874,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "a6ce7feae36726d21684dbfcc88c82754ac501ac73803628d862cb28e6a400a0",
+          "skill": "dance",
+          "inversion_reference_frames": 53,
+          "inverted_joint_rmse_rad": 0.33421813290193203
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/dance-inverted-arm-hidden16/gain-0p5/update-0500",
+          "gain": 0.5,
+          "update": 500,
+          "extra_hidden_units": 16,
+          "assembly_parity_error": 5.7220458984375e-06,
+          "checkpoint_sha256": "1c7faa823ae383a4c5bb34d0cf5b3f1f4013dd4aa730a85550819072f84cd6f5",
+          "completed_motion": false,
+          "steps": 3899,
+          "strict_passed": false,
+          "return": 0.47813076334929655,
+          "worst_effector_m": 0.4637410462580588,
+          "failed_checks": [
+            {
+              "name": "completed_motion",
+              "value": false,
+              "passed": false
+            },
+            {
+              "name": "full_clip_return",
+              "value": 0.47813076334929655,
+              "limit": 0.7,
+              "comparison": ">=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_joint_rmse_rad",
+              "value": 0.37567592258970955,
+              "limit": 0.35,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_orientation_rmse_rad",
+              "value": 0.9931989495037833,
+              "limit": 0.4,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.4637410462580588,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "05cd8af7fb1a547111239fd81c61fcdfe5fb33c252396a944d7b5bbc4b6f26cb",
+          "skill": "dance",
+          "inversion_reference_frames": 0,
+          "inverted_joint_rmse_rad": null
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/dance-inverted-arm-hidden16/gain-0p5/update-2000",
+          "gain": 0.5,
+          "update": 2000,
+          "extra_hidden_units": 16,
+          "assembly_parity_error": 5.7220458984375e-06,
+          "checkpoint_sha256": "31333c14856f8191bdef41dc7806e9574fb602e2d8c95d0a60452b2396570469",
+          "completed_motion": false,
+          "steps": 5361,
+          "strict_passed": false,
+          "return": 0.6602193753178508,
+          "worst_effector_m": 0.33632929499352876,
+          "failed_checks": [
+            {
+              "name": "completed_motion",
+              "value": false,
+              "passed": false
+            },
+            {
+              "name": "full_clip_return",
+              "value": 0.6602193753178508,
+              "limit": 0.7,
+              "comparison": ">=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.33632929499352876,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_joint_rmse_rad",
+              "value": 0.32175905176296365,
+              "limit": 0.3,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_root_height_rmse_m",
+              "value": 0.11660089856557616,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "fe472e71b5e7242bf1952be252f46d986276c30299ccd27c5c8e4fe93c35e0f1",
+          "skill": "dance",
+          "inversion_reference_frames": 24,
+          "inverted_joint_rmse_rad": 0.32175905176296365
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/dance-inverted-arm-hidden16/gain-0p5/update-6000",
+          "gain": 0.5,
+          "update": 6000,
+          "extra_hidden_units": 16,
+          "assembly_parity_error": 6.198883056640625e-06,
+          "checkpoint_sha256": "3da77b8cf0f65d9de79119fbef4f9abe38b11823c0a92b4fc73d14fb34068b88",
+          "completed_motion": false,
+          "steps": 5361,
+          "strict_passed": false,
+          "return": 0.6644272655543355,
+          "worst_effector_m": 0.33276754252476914,
+          "failed_checks": [
+            {
+              "name": "completed_motion",
+              "value": false,
+              "passed": false
+            },
+            {
+              "name": "full_clip_return",
+              "value": 0.6644272655543355,
+              "limit": 0.7,
+              "comparison": ">=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.33276754252476914,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_joint_rmse_rad",
+              "value": 0.3239271404210811,
+              "limit": 0.3,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_root_height_rmse_m",
+              "value": 0.11653172109037178,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "610b3b8deb22ad36f9f97294662ca947c11d0ce9e12e494e8167f25892db16cc",
+          "skill": "dance",
+          "inversion_reference_frames": 24,
+          "inverted_joint_rmse_rad": 0.3239271404210811
+        }
+      ]
+    },
+    "jump-distill-peak133-preserve-123-143": {
+      "local_evidence": "runs/task-optimization-20261117c/jump-distill-peak133-preserve-123-143/physical-results.json",
+      "evidence_sha256": "5f62f0c1862d3c8301f2384c05d3272db17463bfe65ee186f9b94de656d4cbd1",
+      "evaluations": 3,
+      "passes": 0,
+      "records": [
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-distill-peak133-preserve-123-143/alpha-1p0/update-0500",
+          "alpha": 1.0,
+          "update": 500,
+          "held_action_target_mse": 0.0007349114195246415,
+          "checkpoint_sha256": "d710250b48b563b40534644c5c88e087d9a5de7da44cf491c8f720feefd74f23",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8106892636243493,
+          "worst_effector_m": 0.24794171634845977,
+          "failed_checks": [
+            {
+              "name": "jump_time_precision",
+              "value": 0.7138028169014085,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "c725c189c4f655ddf2d3408472249f9e516b815d481ecd46c642c6defc5c7d48",
+          "skill": "jump",
+          "flight_time_precision": 0.7138028169014085,
+          "flight_airtime_ratio": 0.8692458374142996,
+          "flight_event_recall": 0.8666666666666667
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-distill-peak133-preserve-123-143/alpha-1p0/update-2000",
+          "alpha": 1.0,
+          "update": 2000,
+          "held_action_target_mse": 0.000582913931784922,
+          "checkpoint_sha256": "65d1b549c706a98b1c218c4753663faa53a8ededd0580c9954fa57260f1f6aff",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8077351815395606,
+          "worst_effector_m": 0.2535431953421053,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2535431953421053,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7489063867016623,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "0e35a9ef716010fa7d38548699bfc7b8d046ae5ea83c294650db5bc3c6715856",
+          "skill": "jump",
+          "flight_time_precision": 0.7489063867016623,
+          "flight_airtime_ratio": 0.8396180215475023,
+          "flight_event_recall": 0.8777777777777778
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-distill-peak133-preserve-123-143/alpha-1p0/update-6000",
+          "alpha": 1.0,
+          "update": 6000,
+          "held_action_target_mse": 0.0005293802210253668,
+          "checkpoint_sha256": "36517d430d9892fc2fa9af2b306e03985c6abf52b53b5d49bb0c81abcae30c87",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.7951647707994787,
+          "worst_effector_m": 0.27740996618017405,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.27740996618017405,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.745872641509434,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "5305aabb3041c40f734e8902fc1b373cd922f5d1b14027a598f25106bab759d2",
+          "skill": "jump",
+          "flight_time_precision": 0.745872641509434,
+          "flight_airtime_ratio": 0.830558276199804,
+          "flight_event_recall": 0.8777777777777778
+        }
+      ]
+    },
+    "jump-distill-peak133-preserve-126-140": {
+      "local_evidence": "runs/task-optimization-20261117c/jump-distill-peak133-preserve-126-140/physical-results.json",
+      "evidence_sha256": "1b1dce657811c59afa7a8c17087fbb543baf509f08fe88373a2e7780806129d1",
+      "evaluations": 3,
+      "passes": 0,
+      "records": [
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-distill-peak133-preserve-126-140/alpha-1p0/update-0500",
+          "alpha": 1.0,
+          "update": 500,
+          "held_action_target_mse": 0.0007209848243229348,
+          "checkpoint_sha256": "74074328ff57697f605aead9d7bb1b24cc50c8b7a750f0792e817a869c1b09f1",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8097817684954253,
+          "worst_effector_m": 0.24416960117047604,
+          "failed_checks": [
+            {
+              "name": "jump_time_precision",
+              "value": 0.7280575539568346,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "916ffea5a39415a2ca9573ec39e138cfcb9d6a186ba221572edf256a64b5f58a",
+          "skill": "jump",
+          "flight_time_precision": 0.7280575539568346,
+          "flight_airtime_ratio": 0.8508814887365327,
+          "flight_event_recall": 0.9
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-distill-peak133-preserve-126-140/alpha-1p0/update-2000",
+          "alpha": 1.0,
+          "update": 2000,
+          "held_action_target_mse": 0.0005545168438366628,
+          "checkpoint_sha256": "3c5dfe52b1c8d6d615c8f553ad0b19cdb92cf4ac45d29c9ad640c8ec5cceba8f",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8089230975741089,
+          "worst_effector_m": 0.23887573238210752,
+          "failed_checks": [
+            {
+              "name": "jump_time_precision",
+              "value": 0.7437097717963721,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "a869e498b8d6627e3fe16b9e881756fd79ff2f34879f0797edff162fa903cef6",
+          "skill": "jump",
+          "flight_time_precision": 0.7437097717963721,
+          "flight_airtime_ratio": 0.8369245837414299,
+          "flight_event_recall": 0.8888888888888888
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-distill-peak133-preserve-126-140/alpha-1p0/update-6000",
+          "alpha": 1.0,
+          "update": 6000,
+          "held_action_target_mse": 0.0004755696643079663,
+          "checkpoint_sha256": "29e4a1e5f81520b71c41a1a41aea8d077367feefc3292d27c4fecaa4d7413eac",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.7855578614436177,
+          "worst_effector_m": 0.33759909784827447,
+          "failed_checks": [
+            {
+              "name": "worst_1s_root_orientation_rmse_rad",
+              "value": 0.5923873557085466,
+              "limit": 0.4,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.33759909784827447,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7169257846875917,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "10f5bb717e716522d9706c35ca795bcfd23580f0c9465ca5ac51d19e6cb3c1b6",
+          "skill": "jump",
+          "flight_time_precision": 0.7169257846875917,
+          "flight_airtime_ratio": 0.834720861900098,
+          "flight_event_recall": 0.8666666666666667
+        }
+      ]
+    },
     "jump-distill-preserve-198-216": {
       "local_evidence": "runs/task-optimization-20261117c/jump-distill-preserve-198-216/physical-results.json",
       "evidence_sha256": "b3671d69f34234ff49c0a5bdcdf384bf596496005a83e259cbb2008dea8d5bec",
@@ -43,6 +1178,7 @@
             }
           ],
           "trajectory_sha256": "966521de70d6a844f56270c8a433a2685d334636be769198fd8ce5e09ef857ea",
+          "skill": "jump",
           "flight_time_precision": 0.7409250585480094,
           "flight_airtime_ratio": 0.8364348677766895,
           "flight_event_recall": 0.8888888888888888
@@ -75,6 +1211,7 @@
             }
           ],
           "trajectory_sha256": "128ef380b142634597dca99781097ff7b16e9f6a6daca2a239c61c60b924ab4a",
+          "skill": "jump",
           "flight_time_precision": 0.7719132893496701,
           "flight_airtime_ratio": 0.779382957884427,
           "flight_event_recall": 0.8555555555555555
@@ -100,6 +1237,7 @@
             }
           ],
           "trajectory_sha256": "995c507bd1c8719d831b618e27a0780f5c59d7a20bc64d26cea6dfe0ea2dc1df",
+          "skill": "jump",
           "flight_time_precision": 0.8056628056628057,
           "flight_airtime_ratio": 0.7610186092066601,
           "flight_event_recall": 0.8666666666666667
@@ -133,6 +1271,7 @@
             }
           ],
           "trajectory_sha256": "5d62961838b3f21c698638b666df70ed8e9fae3d8e351a1a0898cd7ff5d40d24",
+          "skill": "jump",
           "flight_time_precision": 0.7502986857825568,
           "flight_airtime_ratio": 0.8197845249755142,
           "flight_event_recall": 0.9
@@ -158,6 +1297,7 @@
             }
           ],
           "trajectory_sha256": "10934b90bc572042d6fb3ea075bfc1e61d80a602d814cfd330298641f93b7c18",
+          "skill": "jump",
           "flight_time_precision": 0.8034188034188035,
           "flight_airtime_ratio": 0.7735063663075415,
           "flight_event_recall": 0.9
@@ -183,6 +1323,7 @@
             }
           ],
           "trajectory_sha256": "acaa63ca2b59f864d7deaf2d4e0e2500dfd3a5cfe61e6f84dd9ce45c98fcd15f",
+          "skill": "jump",
           "flight_time_precision": 0.8110336081166772,
           "flight_airtime_ratio": 0.7722820763956905,
           "flight_event_recall": 0.8888888888888888
@@ -214,6 +1355,7 @@
             }
           ],
           "trajectory_sha256": "e121d1426ff12b5bf1041dde1dab873f603d9acdf2734b111c04ac165bbe2add",
+          "skill": "jump",
           "flight_time_precision": 0.7891975308641975,
           "flight_airtime_ratio": 0.7933398628795297,
           "flight_event_recall": 0.8888888888888888
@@ -244,6 +1386,7 @@
             }
           ],
           "trajectory_sha256": "249c3b5a21239114ea3a6c3134d739b12f185dd9929f97446a2a31be80160255",
+          "skill": "jump",
           "flight_time_precision": 0.7908147216105693,
           "flight_airtime_ratio": 0.778403525954946,
           "flight_event_recall": 0.8777777777777778
@@ -274,9 +1417,928 @@
             }
           ],
           "trajectory_sha256": "04bedad2837c40946ff8352a9967069d7e1da26d17e170531a4d0f51781ff51a",
+          "skill": "jump",
           "flight_time_precision": 0.7850496277915633,
           "flight_airtime_ratio": 0.7894221351616062,
           "flight_event_recall": 0.8888888888888888
+        }
+      ]
+    },
+    "jump-distilled-local-C-refinement": {
+      "local_evidence": "runs/task-optimization-20261117c/jump-distilled-local-C-refinement/physical-results.json",
+      "evidence_sha256": "b6c4047e09e6fc5f0fe662ecce3ee0ff31a39bfbdb3d4a92267b690c064bcf8e",
+      "evaluations": 6,
+      "passes": 0,
+      "records": [
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-distilled-local-C-refinement/alpha-0p25/update-0500",
+          "alpha": 0.25,
+          "update": 500,
+          "held_action_target_mse": 9.402735627347659e-06,
+          "checkpoint_sha256": "be6b80a818db2e8f7404c0283ac2eb7eaf4a5053439fe6db1decbcc01b596fe2",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8086092442227759,
+          "worst_effector_m": 0.2608695145801632,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2608695145801632,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "cdbd2c42e1a36f860f73ea872966af9b770c8b4a48aa11c523096fe391dc83d9",
+          "skill": "jump",
+          "flight_time_precision": 0.81024,
+          "flight_airtime_ratio": 0.7651811949069539,
+          "flight_event_recall": 0.8666666666666667
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-distilled-local-C-refinement/alpha-0p25/update-2000",
+          "alpha": 0.25,
+          "update": 2000,
+          "held_action_target_mse": 8.624451436781814e-06,
+          "checkpoint_sha256": "d5a8dd60404e250ae9bcc6ae962e2459e3bddf39080150d52390511bcac69e0f",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8052692549112199,
+          "worst_effector_m": 0.2593719820125636,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2593719820125636,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "f46c7ef18c93ae367a67e65361d33beaa8caf479552f6ca323837db78dd11d3f",
+          "skill": "jump",
+          "flight_time_precision": 0.8012738853503185,
+          "flight_airtime_ratio": 0.7688540646425074,
+          "flight_event_recall": 0.8777777777777778
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-distilled-local-C-refinement/alpha-0p5/update-0500",
+          "alpha": 0.5,
+          "update": 500,
+          "held_action_target_mse": 3.412105082855399e-05,
+          "checkpoint_sha256": "e3e29c5331485b2ae845d01b92e5468e90a2d8bef21c721e06bef0d739919bc0",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8034644050026922,
+          "worst_effector_m": 0.31155623977784475,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.31155623977784475,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7907488986784141,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "d9f77e0cd14de915de073be6023e9fd27c4bc11b8c6900dfce51052530c1e229",
+          "skill": "jump",
+          "flight_time_precision": 0.7907488986784141,
+          "flight_airtime_ratio": 0.7781586679725758,
+          "flight_event_recall": 0.8888888888888888
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-distilled-local-C-refinement/alpha-0p5/update-2000",
+          "alpha": 0.5,
+          "update": 2000,
+          "held_action_target_mse": 3.422012064377135e-05,
+          "checkpoint_sha256": "0ddfc13da656dc731d8c004833448b13acbc08cc5b47e3f764c62753fe313684",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8052169233889774,
+          "worst_effector_m": 0.250360859033007,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.250360859033007,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7808219178082192,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "1f82ccf94ca64dd1f49843ec8c0400f2b7dfe4fbec116380b6e2f2a1b99c4f33",
+          "skill": "jump",
+          "flight_time_precision": 0.7808219178082192,
+          "flight_airtime_ratio": 0.7864838393731635,
+          "flight_event_recall": 0.8666666666666667
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-distilled-local-C-refinement/alpha-1p0/update-0500",
+          "alpha": 1.0,
+          "update": 500,
+          "held_action_target_mse": 0.00012409885224268032,
+          "checkpoint_sha256": "b2fd45d95b5781dc6b754757512b0daf70e271992f94f49429183918163042a9",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8047378988900421,
+          "worst_effector_m": 0.32707587504944485,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.32707587504944485,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7624779800352319,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "32aa885c9322708915e667d9deda59e04b8900828546007f539e32dd60027d61",
+          "skill": "jump",
+          "flight_time_precision": 0.7624779800352319,
+          "flight_airtime_ratio": 0.8339862879529872,
+          "flight_event_recall": 0.9
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-distilled-local-C-refinement/alpha-1p0/update-2000",
+          "alpha": 1.0,
+          "update": 2000,
+          "held_action_target_mse": 0.0001357839922500967,
+          "checkpoint_sha256": "467c1a166c06280480d025d589485990e7ebdda515353d647c8afc96fb7f3566",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8061813174697928,
+          "worst_effector_m": 0.25432963035800293,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25432963035800293,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7809583074051026,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "d901a9a33f79a3002f4dd7d151c506b23fc8b920df067a5ccbcda4bd83e331c0",
+          "skill": "jump",
+          "flight_time_precision": 0.7809583074051026,
+          "flight_airtime_ratio": 0.7869735553379039,
+          "flight_event_recall": 0.8777777777777778
+        }
+      ]
+    },
+    "jump-leg-role-guard-0p12": {
+      "local_evidence": "runs/task-optimization-20261117c/jump-leg-role-guard-0p12/physical-results.json",
+      "evidence_sha256": "cf33db508ad4580060dfef5908681d2cdf6b26094ee02031bc2387e4038accc1",
+      "evaluations": 3,
+      "passes": 0,
+      "records": [
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-leg-role-guard-0p12/alpha-1p0/update-0500",
+          "alpha": 1.0,
+          "update": 500,
+          "held_action_target_mse": 0.00011318180884413532,
+          "checkpoint_sha256": "16c6b7026db846e08b67e1a4194ccf6a471b4c050227802760d0cb5dd77fb34d",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.7915895331092224,
+          "worst_effector_m": 0.2994602690898721,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2994602690898721,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7361071530350527,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "a3c27c94cb761a5dbce61d66aed55d9ba9e502ea91a9b39e3c233b20f05cbc75",
+          "skill": "jump",
+          "flight_time_precision": 0.7361071530350527,
+          "flight_airtime_ratio": 0.8592066601371204,
+          "flight_event_recall": 0.8777777777777778
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-leg-role-guard-0p12/alpha-1p0/update-2000",
+          "alpha": 1.0,
+          "update": 2000,
+          "held_action_target_mse": 7.359537679078103e-05,
+          "checkpoint_sha256": "6653cd005a6969cdef408979da0da7085d01dcf446810f371595f1426a6b1b50",
+          "completed_motion": false,
+          "steps": 6626,
+          "strict_passed": false,
+          "return": 0.4127691635064413,
+          "worst_effector_m": 0.4138447133002433,
+          "failed_checks": [
+            {
+              "name": "completed_motion",
+              "value": false,
+              "passed": false
+            },
+            {
+              "name": "full_clip_return",
+              "value": 0.4127691635064413,
+              "limit": 0.7,
+              "comparison": ">=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_orientation_rmse_rad",
+              "value": 0.44191643878121206,
+              "limit": 0.4,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_height_rmse_m",
+              "value": 0.10439570335267012,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.4138447133002433,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "78ecd6c381f1746d5b9af8ad57d43b920d32cb27d1a0cc056f7d634638587a61",
+          "skill": "jump",
+          "flight_time_precision": 0.8552052785923754,
+          "flight_airtime_ratio": 0.6679725759059745,
+          "flight_event_recall": 0.8
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-leg-role-guard-0p12/alpha-1p0/update-6000",
+          "alpha": 1.0,
+          "update": 6000,
+          "held_action_target_mse": 6.408212959348899e-05,
+          "checkpoint_sha256": "f0cbee7cf3bceb9bce8a7fa59e70774a5df5a9265f66db2ff8e1cdf3d55270a4",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.785046345609542,
+          "worst_effector_m": 0.39476992431706215,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.39476992431706215,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7364864864864865,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "b0d35a46ac36e3ddcc5f841026e41ba16879de435e4b7001cebeaf72ea109519",
+          "skill": "jump",
+          "flight_time_precision": 0.7364864864864865,
+          "flight_airtime_ratio": 0.8697355533790402,
+          "flight_event_recall": 0.9111111111111111
+        }
+      ]
+    },
+    "jump-leg-role-guard-0p24": {
+      "local_evidence": "runs/task-optimization-20261117c/jump-leg-role-guard-0p24/physical-results.json",
+      "evidence_sha256": "02587253a7f6b54a30460f9f4ada2260dabadde461ae08898706966e614cdd9e",
+      "evaluations": 3,
+      "passes": 0,
+      "records": [
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-leg-role-guard-0p24/alpha-1p0/update-0500",
+          "alpha": 1.0,
+          "update": 500,
+          "held_action_target_mse": 0.00010961569456287243,
+          "checkpoint_sha256": "b68e47711af3e26984bbe3520f15640cda1790b16385baa73ddaf8e910db1d80",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.7884081630677132,
+          "worst_effector_m": 0.31875254522504193,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.31875254522504193,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7615815874889348,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "c4432b5fb0feb1e2d75fb1e697887eca34668e190acc9fcfc37f3d45c7551076",
+          "skill": "jump",
+          "flight_time_precision": 0.7615815874889348,
+          "flight_airtime_ratio": 0.8298237022526934,
+          "flight_event_recall": 0.8888888888888888
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-leg-role-guard-0p24/alpha-1p0/update-2000",
+          "alpha": 1.0,
+          "update": 2000,
+          "held_action_target_mse": 7.3670840872626e-05,
+          "checkpoint_sha256": "e250f0937e73a1d43e86b3390f44058f42b74711a7f8732523586d30556d4040",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.7809557256112559,
+          "worst_effector_m": 0.45372398709116807,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.45372398709116807,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7681246255242661,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "61249d005abb269d592f7a6d475e490e66df94d2f1124fd6da5337328b61525a",
+          "skill": "jump",
+          "flight_time_precision": 0.7681246255242661,
+          "flight_airtime_ratio": 0.817335945151812,
+          "flight_event_recall": 0.8777777777777778
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-leg-role-guard-0p24/alpha-1p0/update-6000",
+          "alpha": 1.0,
+          "update": 6000,
+          "held_action_target_mse": 6.473717509695499e-05,
+          "checkpoint_sha256": "218bfba022069abd22205e9dadcb7d10b28d4f3f791aba58aaef55b56845d3ab",
+          "completed_motion": false,
+          "steps": 6673,
+          "strict_passed": false,
+          "return": 0.41341990488522296,
+          "worst_effector_m": 0.45411434221230307,
+          "failed_checks": [
+            {
+              "name": "completed_motion",
+              "value": false,
+              "passed": false
+            },
+            {
+              "name": "full_clip_return",
+              "value": 0.41341990488522296,
+              "limit": 0.7,
+              "comparison": ">=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_orientation_rmse_rad",
+              "value": 0.6661628000208851,
+              "limit": 0.4,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_height_rmse_m",
+              "value": 0.12128889169667434,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.45411434221230307,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "0262b8519251282d6353021cbf869540c5e00dc8bbfc972884e196064050f88b",
+          "skill": "jump",
+          "flight_time_precision": 0.8468176914778857,
+          "flight_airtime_ratio": 0.6809500489715965,
+          "flight_event_recall": 0.8333333333333334
+        }
+      ]
+    },
+    "jump-native-residual-action-head": {
+      "local_evidence": "runs/task-optimization-20261117c/jump-native-residual-action-head/physical-results.json",
+      "evidence_sha256": "ed991d23b40d2f280603c8c5998bd30262e0e563d348ad03f512895b010b17e7",
+      "evaluations": 9,
+      "passes": 0,
+      "records": [
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-native-residual-action-head/gain-0p025/update-0100",
+          "gain": 0.025,
+          "update": 100,
+          "held_action_target_mse": 3.6645171803684207e-06,
+          "checkpoint_sha256": "8abeda6c10c4127dd96fadcf53746476c1f7a9363512a48621cf5f96be08e853",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8067118369482433,
+          "worst_effector_m": 0.2531394225334156,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2531394225334156,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "c407a1dfdeee2d36d53aab24d933049d2926f518bdb5e194f8701b1fc3042a08",
+          "skill": "jump",
+          "flight_time_precision": 0.8049334631613113,
+          "flight_airtime_ratio": 0.7544074436826641,
+          "flight_event_recall": 0.8666666666666667
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-native-residual-action-head/gain-0p025/update-0500",
+          "gain": 0.025,
+          "update": 500,
+          "held_action_target_mse": 3.873087280226173e-06,
+          "checkpoint_sha256": "1b2abb14ca4e233905fd47f9143fc902243c3934eaa99826b9e81466f3b9c912",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.7989848599419461,
+          "worst_effector_m": 0.25411027249062407,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25411027249062407,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "6ef73bccdc48147ac07cfc1d6ddf929c1294a832d89d36de22d11bc1667a689e",
+          "skill": "jump",
+          "flight_time_precision": 0.8020532563362207,
+          "flight_airtime_ratio": 0.7632223310479922,
+          "flight_event_recall": 0.8666666666666667
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-native-residual-action-head/gain-0p025/update-2000",
+          "gain": 0.025,
+          "update": 2000,
+          "held_action_target_mse": 3.4120055261155358e-06,
+          "checkpoint_sha256": "a6865fcb01754b7b88ea410c0671c70e230b0ef5cc3ad415a185744fd158239a",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8076378117118018,
+          "worst_effector_m": 0.2539012237931661,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2539012237931661,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "74c3632d12537f6f355a0934fb1216f4fabeb5d4c819cedec51d41a5e88c3e30",
+          "skill": "jump",
+          "flight_time_precision": 0.8056887184403962,
+          "flight_airtime_ratio": 0.7661606268364348,
+          "flight_event_recall": 0.8666666666666667
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-native-residual-action-head/gain-0p05/update-0100",
+          "gain": 0.05,
+          "update": 100,
+          "held_action_target_mse": 1.5749616068205796e-05,
+          "checkpoint_sha256": "da41cd72f71fbb1d81d0862a49d2c4d7c023018ed2a1f0caaaf2e71cb32028cb",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.803923946327863,
+          "worst_effector_m": 0.2536039716460958,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2536039716460958,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "a16244733a4b8dd979e3bf6be43646fd6d337e3c28254381746d9c324073053f",
+          "skill": "jump",
+          "flight_time_precision": 0.8136189258312021,
+          "flight_airtime_ratio": 0.7659157688540646,
+          "flight_event_recall": 0.9
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-native-residual-action-head/gain-0p05/update-0500",
+          "gain": 0.05,
+          "update": 500,
+          "held_action_target_mse": 1.467091806262033e-05,
+          "checkpoint_sha256": "9a9fed5e24960c831703d7ba0849b398c79cfbc372a6382ac2ee330efe207f16",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8072148379166751,
+          "worst_effector_m": 0.2531913739840635,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2531913739840635,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "249f656506b058d995205158e66b97b98f27f9a8934e12c487d1993c2e583f49",
+          "skill": "jump",
+          "flight_time_precision": 0.814359637774903,
+          "flight_airtime_ratio": 0.7571008814887366,
+          "flight_event_recall": 0.8666666666666667
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-native-residual-action-head/gain-0p05/update-2000",
+          "gain": 0.05,
+          "update": 2000,
+          "held_action_target_mse": 1.3119102732161991e-05,
+          "checkpoint_sha256": "6d9f5d81b5acffef3c21f17be5f81c9ccc7a3cf4d93575c2075c1bb5ff44d8fa",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8101818723673125,
+          "worst_effector_m": 0.25466479902099953,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25466479902099953,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "e132c04750d0f250a4973c1be605b49f68e98cd8671fc48cdfc199c2781c9ed8",
+          "skill": "jump",
+          "flight_time_precision": 0.8003210272873195,
+          "flight_airtime_ratio": 0.7627326150832517,
+          "flight_event_recall": 0.8777777777777778
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-native-residual-action-head/gain-0p1/update-0100",
+          "gain": 0.1,
+          "update": 100,
+          "held_action_target_mse": 6.579908222192898e-05,
+          "checkpoint_sha256": "08d4c122a3c651352d2193f09a1c32b0f9542ae125f561bcb10b19d211e66dc9",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8062069260560005,
+          "worst_effector_m": 0.25970375826531034,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25970375826531034,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "7ebf918693eda68e58bb6dab2a9aeeedf5c1df6bf12a2da95adec4c43768bf3b",
+          "skill": "jump",
+          "flight_time_precision": 0.8099547511312217,
+          "flight_airtime_ratio": 0.7575905974534769,
+          "flight_event_recall": 0.8888888888888888
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-native-residual-action-head/gain-0p1/update-0500",
+          "gain": 0.1,
+          "update": 500,
+          "held_action_target_mse": 5.967867764411494e-05,
+          "checkpoint_sha256": "60a95e614de4d460e9ff6ad5452eb77102dde845435fc66c8f74f6900250d801",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8062260487048211,
+          "worst_effector_m": 0.2784146945604299,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2784146945604299,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "0d3506860c5553b507de6055d03ed7065f3c8af10e3ef28bc5f333357f4808ef",
+          "skill": "jump",
+          "flight_time_precision": 0.8134715025906736,
+          "flight_airtime_ratio": 0.7561214495592555,
+          "flight_event_recall": 0.8777777777777778
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-native-residual-action-head/gain-0p1/update-2000",
+          "gain": 0.1,
+          "update": 2000,
+          "held_action_target_mse": 5.3504769311985e-05,
+          "checkpoint_sha256": "7e9854a8f22f1d4ed79340e7528a7c9aba98cc46ea33c55656ffa313994e8358",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8054020884540152,
+          "worst_effector_m": 0.2535126793562417,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2535126793562417,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "954c247a0ef54fe42b4998b60b1a81e01c45f608c02f1201853d83fe958e06b5",
+          "skill": "jump",
+          "flight_time_precision": 0.8229742922225838,
+          "flight_airtime_ratio": 0.7524485798237022,
+          "flight_event_recall": 0.8666666666666667
+        }
+      ]
+    },
+    "jump-native-residual-hidden16": {
+      "local_evidence": "runs/task-optimization-20261117c/jump-native-residual-hidden16/physical-results.json",
+      "evidence_sha256": "b43b5de28fe97d738d93520a6ce7b83c4ec0f292ca5b68d80115164fb4b6048b",
+      "evaluations": 7,
+      "passes": 0,
+      "records": [
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-native-residual-hidden16/zero-residual",
+          "gain": 0.0,
+          "update": 0,
+          "extra_hidden_units": 16,
+          "assembly_parity_error": 2.1457672119140625e-06,
+          "checkpoint_sha256": "bfed02a5be338f708a1e25744996ec068cba34f5625ed4fc2c3e1edf34ee8f98",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8079118688059129,
+          "worst_effector_m": 0.2643407215109979,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2643407215109979,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7943396226415095,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "419cb54e5041d679a8f8ca92900060e49460dac95e0805034195b3343e1a5311",
+          "skill": "jump",
+          "flight_time_precision": 0.7943396226415095,
+          "flight_airtime_ratio": 0.7786483839373163,
+          "flight_event_recall": 0.8777777777777778
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-native-residual-hidden16/gain-0p1/update-0500",
+          "gain": 0.1,
+          "update": 500,
+          "extra_hidden_units": 16,
+          "assembly_parity_error": 2.1457672119140625e-06,
+          "checkpoint_sha256": "f0e6f6cc2ae9e4d7437cb3a19d0a0760104bd70802bc0e181bc7af5095804db7",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8046351633274011,
+          "worst_effector_m": 0.2538830710706683,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2538830710706683,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7950270959515461,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "c62f4bbfadfc5d1deca7eb8a37c3f8e103bf757d7888bff9fed5cf66c9d3d8ab",
+          "skill": "jump",
+          "flight_time_precision": 0.7950270959515461,
+          "flight_airtime_ratio": 0.7681194906953966,
+          "flight_event_recall": 0.8666666666666667
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-native-residual-hidden16/gain-0p1/update-2000",
+          "gain": 0.1,
+          "update": 2000,
+          "extra_hidden_units": 16,
+          "assembly_parity_error": 2.1457672119140625e-06,
+          "checkpoint_sha256": "045613f54d061a192e0de21186c22fa44b250c7453dbd405029641f41ff07b22",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8062240307015625,
+          "worst_effector_m": 0.26855642581723893,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.26855642581723893,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7984152139461173,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "9f8dd3d12b96cfd3068138c10a551e06f1995c852e9fbfde097d84c4b5924f5d",
+          "skill": "jump",
+          "flight_time_precision": 0.7984152139461173,
+          "flight_airtime_ratio": 0.7725269343780606,
+          "flight_event_recall": 0.8666666666666667
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-native-residual-hidden16/gain-0p1/update-6000",
+          "gain": 0.1,
+          "update": 6000,
+          "extra_hidden_units": 16,
+          "assembly_parity_error": 2.1457672119140625e-06,
+          "checkpoint_sha256": "94b309f73773fb867c4851c5bace1ce0031a73ea537f92f61debbd1f14810130",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.808671027429267,
+          "worst_effector_m": 0.25390647684600676,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25390647684600676,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "54abab7ca6164feaded2ec57e7880250e5b095690d28dd84382553d7ce0e8d0b",
+          "skill": "jump",
+          "flight_time_precision": 0.8031948881789137,
+          "flight_airtime_ratio": 0.766405484818805,
+          "flight_event_recall": 0.8777777777777778
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-native-residual-hidden16/gain-0p2/update-0500",
+          "gain": 0.2,
+          "update": 500,
+          "extra_hidden_units": 16,
+          "assembly_parity_error": 2.1457672119140625e-06,
+          "checkpoint_sha256": "013f247a875ea24673a57d974ac2008b0662b1698acedc58ec68648097c1280a",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.807383920994028,
+          "worst_effector_m": 0.25240787032938594,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25240787032938594,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7961844197138315,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "1517fe8cd0bc606209b4ea2d669b49e877234a071e3f72755f8b23ca9e78f886",
+          "skill": "jump",
+          "flight_time_precision": 0.7961844197138315,
+          "flight_airtime_ratio": 0.7700783545543584,
+          "flight_event_recall": 0.8666666666666667
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-native-residual-hidden16/gain-0p2/update-2000",
+          "gain": 0.2,
+          "update": 2000,
+          "extra_hidden_units": 16,
+          "assembly_parity_error": 2.1457672119140625e-06,
+          "checkpoint_sha256": "1d09d5e4becafe9448b4c3b396788e839b817cae12db0459c429be7f4012cf84",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.7985139000426531,
+          "worst_effector_m": 0.3245028527581511,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.3245028527581511,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7996815286624204,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "242e9f445efe096434fae48a7b0a798d196b16d898ea2b4b28e7383db603ab22",
+          "skill": "jump",
+          "flight_time_precision": 0.7996815286624204,
+          "flight_airtime_ratio": 0.7688540646425074,
+          "flight_event_recall": 0.8666666666666667
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-native-residual-hidden16/gain-0p2/update-6000",
+          "gain": 0.2,
+          "update": 6000,
+          "extra_hidden_units": 16,
+          "assembly_parity_error": 2.1457672119140625e-06,
+          "checkpoint_sha256": "f743e6f3f9facbd725ef03f14b4def500368ecc51572783f77a630b593293f3d",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8037857845073225,
+          "worst_effector_m": 0.2537994886113993,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2537994886113993,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "bc20145802115bcf2387de4db23df1b21b0cd34e23f1fbbdf6e4685c4ca65239",
+          "skill": "jump",
+          "flight_time_precision": 0.8103280285807081,
+          "flight_airtime_ratio": 0.7539177277179235,
+          "flight_event_recall": 0.8777777777777778
         }
       ]
     },
@@ -314,6 +2376,7 @@
             }
           ],
           "trajectory_sha256": "7a00a27bf05c7d15c9129f595c9f23f6370185ce6213e4dabc2de7c866ba5f24",
+          "skill": "jump",
           "flight_time_precision": 0.7052862229526157,
           "flight_airtime_ratio": 0.8939764936336924,
           "flight_event_recall": 0.8888888888888888
@@ -339,6 +2402,7 @@
             }
           ],
           "trajectory_sha256": "8e6781b14d077eeecea1d59d11a36cd93a982833b870137e5d2b441520daef86",
+          "skill": "jump",
           "flight_time_precision": 0.7156092083099382,
           "flight_airtime_ratio": 0.8721841332027422,
           "flight_event_recall": 0.8555555555555555
@@ -364,6 +2428,7 @@
             }
           ],
           "trajectory_sha256": "1f7fee9d2ce84d2960abe05b407777521b71d598d859daa35f77471f583d849a",
+          "skill": "jump",
           "flight_time_precision": 0.7249371683887182,
           "flight_airtime_ratio": 0.8768364348677766,
           "flight_event_recall": 0.9
@@ -396,6 +2461,7 @@
             }
           ],
           "trajectory_sha256": "7f111a3e10e9be491ecb4b75e137bf1f2ad000a9b8f400ce28262dad94e912b3",
+          "skill": "jump",
           "flight_time_precision": 0.7322608445848894,
           "flight_airtime_ratio": 0.8523506366307542,
           "flight_event_recall": 0.8777777777777778
@@ -421,6 +2487,7 @@
             }
           ],
           "trajectory_sha256": "602ff5030e1d4d01c0255f9b4ea3447925f5fc2381998a1a8b46224a23bee34d",
+          "skill": "jump",
           "flight_time_precision": 0.7454702329594478,
           "flight_airtime_ratio": 0.8513712047012733,
           "flight_event_recall": 0.8777777777777778
@@ -446,6 +2513,7 @@
             }
           ],
           "trajectory_sha256": "14698769da88c7593d209da0ce2b535ed33ceea957a369759bf529c88ad8ab10",
+          "skill": "jump",
           "flight_time_precision": 0.761761158021713,
           "flight_airtime_ratio": 0.8119490695396671,
           "flight_event_recall": 0.9
@@ -471,6 +2539,7 @@
             }
           ],
           "trajectory_sha256": "5f156ebe8ba320fe6624d7bdc4cf1d57180da145d001cc04c9ccc1402e1d2e9e",
+          "skill": "jump",
           "flight_time_precision": 0.7533013205282113,
           "flight_airtime_ratio": 0.8158667972575905,
           "flight_event_recall": 0.8777777777777778
@@ -503,6 +2572,7 @@
             }
           ],
           "trajectory_sha256": "884c5ccec8bf626b24ec0491adad122072b867de07ec651b9a3df975c31c1cc1",
+          "skill": "jump",
           "flight_time_precision": 0.7948717948717948,
           "flight_airtime_ratio": 0.7830558276199804,
           "flight_event_recall": 0.8777777777777778
@@ -528,6 +2598,7 @@
             }
           ],
           "trajectory_sha256": "93584281cbcb3d3376ec084c7c4ec81d09d815366c2e1ee7867f421ca2edde1f",
+          "skill": "jump",
           "flight_time_precision": 0.8172983479105929,
           "flight_airtime_ratio": 0.7558765915768854,
           "flight_event_recall": 0.8777777777777778
@@ -535,7 +2606,7 @@
       ]
     }
   },
-  "original_full_motion_candidate_evaluations": 18,
+  "original_full_motion_candidate_evaluations": 68,
   "original_full_motion_candidate_passes": 0,
   "shared_resources": {
     "exclusive_lock": "/home/ubuntu/.cache/codex-heavy-work.lock",
@@ -603,5 +2674,101 @@
     "source_model_sha256": "1ca1b82eed7d833a081cd5f95df580c0bc3668ee86865c88cfc4b7319e0c5ce7",
     "source_contract_sha256": "0e5e6abdd2ae8d201c209bc488fc51896b74fa46f63ac5372584423fad911ab7",
     "generation_script_sha256": "e1280fbe057c4a0495afc3fba06fec8ff178a9347dd2c00873eb0500b23fa5c6"
+  },
+  "final_source_ci": {
+    "head_sha": "f8a917a",
+    "run_id": 44107567092,
+    "url": "https://github.com/chase6305/SuperMimic-Reproduced/actions/runs/44107567092",
+    "conclusion": "success",
+    "passed": 751,
+    "skipped": 42,
+    "subtests": 12,
+    "seconds": 46.96,
+    "ruff": "passed",
+    "wheel_and_sdist": "passed",
+    "scope": "Source metadata fix and all current CPU tests. Subsequent documentation-only head checks verified separately."
+  },
+  "prototype_workflow_corrections": {
+    "residual-activation-fix.json": {
+      "fixed_at_utc": "2026-11-17T15:51:01.288762+00:00",
+      "cause": "Private training residual usedELU; ordinaryMLP usesSiLU. Zero residual hid the difference, learned residual exposed it before physical evaluation.",
+      "fix": "Construct residual hidden activation with a deepcopy of the original last hidden activation.",
+      "preserved_workflows": [
+        {
+          "original_prefix": "runs/task-optimization-20261117c/jump-native-residual-hidden16",
+          "preserved_error_prefix": "runs/task-optimization-20261117c/jump-native-residual-hidden16-activation-mismatch",
+          "error": "Residual usedELU while the standard model usesSiLU; first learned checkpoint failed assembly parity. No trained checkpoint reached physics. Historical absolute paths must be relocated using this mapping."
+        },
+        {
+          "original_prefix": "runs/task-optimization-20261117c/dance-inverted-arm-hidden16",
+          "preserved_error_prefix": "runs/task-optimization-20261117c/dance-inverted-arm-hidden16-activation-mismatch",
+          "error": "Residual usedELU while the standard model usesSiLU; first learned checkpoint failed assembly parity. No trained checkpoint reached physics. Historical absolute paths must be relocated using this mapping."
+        }
+      ],
+      "public_model_or_controller_changed": false
+    },
+    "native-teacher-rotation-fix.json": {
+      "fixed_at_utc": "2026-11-17T16:09:08.367435+00:00",
+      "error_run": "runs/task-optimization-20261117c/jump-native-window-teacher-rotation-error",
+      "cause": "SciPy single-axis batch from_euler requires Nx1 angles; old native diagnostic already used this shape.",
+      "fix": "Pass yaw[:,None], preserve failed inputs and reuse the verified native warm prefix.",
+      "scored_teacher_or_skill_pass_before_fix": false
+    }
+  },
+  "native_training_teacher_diagnostic": {
+    "local_evidence": "runs/task-optimization-20261117c/jump-native-window-teacher/result.json",
+    "evidence_sha256": "01a78d245ab208b14a9ece32002b29a033a68bcd252f2bcc938e469be16fac8c",
+    "trials": 49,
+    "neural_only": false,
+    "skill_acceptance_claim": false,
+    "baseline_worst_left_foot_m": 0.25438298731753556,
+    "selected_by_predeclared_combined_cost": {
+      "trial": 45,
+      "parameters": [
+        0.3425807403084676,
+        0.04821940416397742,
+        -0.06999050874828414
+      ],
+      "cost": 0.07904653728989962,
+      "worst_1s_left_foot_rmse_m": 0.25274346109726037,
+      "worst_1s_right_foot_rmse_m": 0.07035894526929916,
+      "root_height_rmse_m": 0.03980521411062911,
+      "root_orientation_rmse_rad": 0.10400887301612857,
+      "joint_rmse_rad": 0.16373668032483685,
+      "controls": 400,
+      "terminal_failure": null,
+      "artifact": "runs/task-optimization-20261117c/jump-native-window-teacher/trial-045.npz",
+      "artifact_sha256": "9476e570fc653fcc37fa74728f00be9daa62d56a8865e89f361163be409318c3",
+      "neural_only": false,
+      "role": "training_teacher_only"
+    },
+    "minimum_left_foot_trial": {
+      "trial": 36,
+      "parameters": [
+        0.4411262866250551,
+        0.07910586680359065,
+        -0.07486666700553561
+      ],
+      "cost": 0.0803230503283244,
+      "worst_1s_left_foot_rmse_m": 0.25163262933754266,
+      "worst_1s_right_foot_rmse_m": 0.09242863988282272,
+      "root_height_rmse_m": 0.04062769341730049,
+      "root_orientation_rmse_rad": 0.10926989279874581,
+      "joint_rmse_rad": 0.16463249023282134,
+      "controls": 400,
+      "terminal_failure": null,
+      "artifact": "runs/task-optimization-20261117c/jump-native-window-teacher/trial-036.npz",
+      "artifact_sha256": "04a5a28309b8b12b98e8bd680d2753c0195745e8b078af9e21ffa5ddb4eb9dcc",
+      "neural_only": false,
+      "role": "training_teacher_only"
+    },
+    "selected_improvement_m": 0.0016395262202751892,
+    "eligible_for_distillation": false,
+    "independent_teacher_replay_bitexact": {
+      "states": true,
+      "physical_contacts": true,
+      "actuator_forces": true
+    },
+    "scope": "This is training data from a native physical teacher with external action corrections, not a deployable neural skill. Only a subsequently distilled single neural policy may undergo original full-motion acceptance."
   }
 }
