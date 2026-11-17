@@ -134,3 +134,30 @@ def test_root_height_override_is_validated(tmp_path, weight):
 def test_foot_support_height_override_is_validated(tmp_path, weight):
     with pytest.raises(ValueError, match="Foot support height weight"):
         training_config("smoke", tmp_path, tmp_path / "invalid", foot_support_height_weight=weight)
+
+
+@pytest.mark.parametrize("transfer", [False, True])
+@pytest.mark.parametrize("anchor", [False, True])
+def test_restored_anchor_feedback_is_in_the_planned_training_config(tmp_path, transfer, anchor):
+    """The pre-simulator config must describe the actual inherited goal interface."""
+    import json
+
+    from supermimic.artifacts import write_json
+
+    source = training_config("smoke", tmp_path, tmp_path / "source")
+    source.env.future_frames = 7
+    source.env.anchor_obs = anchor
+    source.policy.goal_dim = 485 if anchor else 476
+    source.policy_trainer.future_frames = 7
+    source.policy_trainer.anchor_obs = anchor
+    checkpoint = tmp_path / "interface.pt"
+    torch.save({"config": asdict(source), "iteration": 10}, checkpoint)
+    resumed = training_config(
+        "smoke", tmp_path, tmp_path / "resumed", resume=checkpoint, transfer=transfer
+    )
+    planned_path = tmp_path / "planned-config.json"
+    write_json(planned_path, asdict(resumed))
+    planned = json.loads(planned_path.read_text())
+    assert planned["policy"]["goal_dim"] == (485 if anchor else 476)
+    assert planned["policy_trainer"]["future_frames"] == 7
+    assert planned["policy_trainer"]["anchor_obs"] is anchor

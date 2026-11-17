@@ -288,6 +288,7 @@ def _restore_checkpoint_config(cfg: TrainConfig, saved: dict, *, transfer: bool)
         cfg.env.priority_reset_ratio = saved["env"].get("priority_reset_ratio", 0.0)
     cfg.env.future_frames = saved["env"]["future_frames"]
     cfg.policy_trainer.future_frames = cfg.env.future_frames
+    cfg.policy_trainer.anchor_obs = cfg.env.anchor_obs
     cfg.policy_trainer.history = cfg.policy.history
     if not transfer:
         cfg.policy_trainer.horizon = saved["policy_trainer"].get(
