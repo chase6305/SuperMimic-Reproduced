@@ -1,0 +1,607 @@
+{
+  "generated_at_utc": "2026-11-17T15:06:58.621988+00:00",
+  "window_status": "in_progress",
+  "requested_window": {
+    "start_utc": "2026-11-17T14:25:57+00:00",
+    "deadline_utc": "2026-11-17T18:25:57+00:00",
+    "start_local": "2026-11-17T22:25:57+08:00",
+    "deadline_local": "2026-11-18T02:25:57+08:00",
+    "hours": 4
+  },
+  "scope": "Known-reference G1 simulation optimization, original controllers and all original skill gates unchanged. Retained120s jump and1800s static results stay separate from full244.42s jump attempts. No hardware or generic skill-success claim.",
+  "pr": "https://github.com/chase6305/SuperMimic-Reproduced/pull/6",
+  "retained_accepted_models": [
+    "docs/tasks/jump120-20261117.json",
+    "docs/tasks/jump30-20261117.json",
+    "docs/tasks/static-hold-600s-20261117.json"
+  ],
+  "candidate_groups": {
+    "jump-distill-preserve-198-216": {
+      "local_evidence": "runs/task-optimization-20261117c/jump-distill-preserve-198-216/physical-results.json",
+      "evidence_sha256": "b3671d69f34234ff49c0a5bdcdf384bf596496005a83e259cbb2008dea8d5bec",
+      "evaluations": 3,
+      "passes": 0,
+      "records": [
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-distill-preserve-198-216/alpha-1p0/update-0100",
+          "alpha": 1.0,
+          "update": 100,
+          "held_action_target_mse": 0.0009997135092472207,
+          "checkpoint_sha256": "15a56bffb3aa30ea38067442b6960bdbc2d5cb3da9cf141dbc75445902765bcb",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8031795544004334,
+          "worst_effector_m": 0.2458758891641103,
+          "failed_checks": [
+            {
+              "name": "jump_time_precision",
+              "value": 0.7409250585480094,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "966521de70d6a844f56270c8a433a2685d334636be769198fd8ce5e09ef857ea",
+          "flight_time_precision": 0.7409250585480094,
+          "flight_airtime_ratio": 0.8364348677766895,
+          "flight_event_recall": 0.8888888888888888
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-distill-preserve-198-216/alpha-1p0/update-0500",
+          "alpha": 1.0,
+          "update": 500,
+          "held_action_target_mse": 0.0006041345668250117,
+          "checkpoint_sha256": "e0b840db5f5f8c83526a0524c6f37e869e94e435ae8ea443746f970aa5e19955",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8039056032557074,
+          "worst_effector_m": 0.26287849810660835,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.26287849810660835,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7719132893496701,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "128ef380b142634597dca99781097ff7b16e9f6a6daca2a239c61c60b924ab4a",
+          "flight_time_precision": 0.7719132893496701,
+          "flight_airtime_ratio": 0.779382957884427,
+          "flight_event_recall": 0.8555555555555555
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-distill-preserve-198-216/alpha-1p0/update-2000",
+          "alpha": 1.0,
+          "update": 2000,
+          "held_action_target_mse": 0.0004257934283822995,
+          "checkpoint_sha256": "b820d247a9181b6ae1e8f7ec20dd9924e95b18923cf2b41e1431b01d9bd27dcc",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8061790247808627,
+          "worst_effector_m": 0.25548783206069087,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25548783206069087,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "995c507bd1c8719d831b618e27a0780f5c59d7a20bc64d26cea6dfe0ea2dc1df",
+          "flight_time_precision": 0.8056628056628057,
+          "flight_airtime_ratio": 0.7610186092066601,
+          "flight_event_recall": 0.8666666666666667
+        }
+      ]
+    },
+    "jump-distill-preserve-202-214": {
+      "local_evidence": "runs/task-optimization-20261117c/jump-distill-preserve-202-214/physical-results.json",
+      "evidence_sha256": "e50b83d4011906013620324e7b76d61d8a6e1e782368aa177b31e13f5ab81830",
+      "evaluations": 3,
+      "passes": 0,
+      "records": [
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-distill-preserve-202-214/alpha-1p0/update-0100",
+          "alpha": 1.0,
+          "update": 100,
+          "held_action_target_mse": 0.0009969940519171396,
+          "checkpoint_sha256": "bf81e47fd886d46d2f8586cabb903ed503c7d558f139c0a37a726c9e3b6b502d",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8072046909343199,
+          "worst_effector_m": 0.2455274396150745,
+          "failed_checks": [
+            {
+              "name": "jump_time_precision",
+              "value": 0.7502986857825568,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "5d62961838b3f21c698638b666df70ed8e9fae3d8e351a1a0898cd7ff5d40d24",
+          "flight_time_precision": 0.7502986857825568,
+          "flight_airtime_ratio": 0.8197845249755142,
+          "flight_event_recall": 0.9
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-distill-preserve-202-214/alpha-1p0/update-0500",
+          "alpha": 1.0,
+          "update": 500,
+          "held_action_target_mse": 0.0005866902618866249,
+          "checkpoint_sha256": "83d1e3ce3317346681e4f56ea3dec178459124494e8a7c2d8dbb4c7e964ce647",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.81149589994927,
+          "worst_effector_m": 0.25225533386523663,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25225533386523663,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "10934b90bc572042d6fb3ea075bfc1e61d80a602d814cfd330298641f93b7c18",
+          "flight_time_precision": 0.8034188034188035,
+          "flight_airtime_ratio": 0.7735063663075415,
+          "flight_event_recall": 0.9
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-distill-preserve-202-214/alpha-1p0/update-2000",
+          "alpha": 1.0,
+          "update": 2000,
+          "held_action_target_mse": 0.0004078939699297174,
+          "checkpoint_sha256": "c62dfe4442423fef62994d737b47067e3cf441a9f9411ec13b82670a4e40b078",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8116541633765149,
+          "worst_effector_m": 0.2554608023899003,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2554608023899003,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "acaa63ca2b59f864d7deaf2d4e0e2500dfd3a5cfe61e6f84dd9ce45c98fcd15f",
+          "flight_time_precision": 0.8110336081166772,
+          "flight_airtime_ratio": 0.7722820763956905,
+          "flight_event_recall": 0.8888888888888888
+        }
+      ]
+    },
+    "jump-distillation-decoder-interpolation": {
+      "local_evidence": "runs/task-optimization-20261117c/jump-distillation-decoder-interpolation/physical-results.json",
+      "evidence_sha256": "f557d967c1181c5be67bc0d1092c7c7a68081c7991a2a23748f25a7bfaf416b4",
+      "evaluations": 3,
+      "passes": 0,
+      "records": [
+        {
+          "stage": "runs/task-optimization-20261117c/jump-distillation-decoder-interpolation/beta-0p5",
+          "beta": 0.5,
+          "checkpoint_sha256": "9b7e22303ad4d0c4e92a71289897d2ce5eaa1cab32578ee6c005c8ea9cea78ef",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8099675036112675,
+          "worst_effector_m": 0.2493784161790965,
+          "failed_checks": [
+            {
+              "name": "jump_time_precision",
+              "value": 0.7891975308641975,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "e121d1426ff12b5bf1041dde1dab873f603d9acdf2734b111c04ac165bbe2add",
+          "flight_time_precision": 0.7891975308641975,
+          "flight_airtime_ratio": 0.7933398628795297,
+          "flight_event_recall": 0.8888888888888888
+        },
+        {
+          "stage": "runs/task-optimization-20261117c/jump-distillation-decoder-interpolation/beta-0p65",
+          "beta": 0.65,
+          "checkpoint_sha256": "95e79e6fa42be2fb23e98950d97c76c99a4877b3818f19144c9100a90875e92e",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8097269620708879,
+          "worst_effector_m": 0.25087873632218133,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25087873632218133,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7908147216105693,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "249c3b5a21239114ea3a6c3134d739b12f185dd9929f97446a2a31be80160255",
+          "flight_time_precision": 0.7908147216105693,
+          "flight_airtime_ratio": 0.778403525954946,
+          "flight_event_recall": 0.8777777777777778
+        },
+        {
+          "stage": "runs/task-optimization-20261117c/jump-distillation-decoder-interpolation/beta-0p8",
+          "beta": 0.8,
+          "checkpoint_sha256": "990a66d2ce9d122531c32c7a898602b76988287a004b1a24206af7e8396e6992",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8073650488398115,
+          "worst_effector_m": 0.25252772688963093,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25252772688963093,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7850496277915633,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "04bedad2837c40946ff8352a9967069d7e1da26d17e170531a4d0f51781ff51a",
+          "flight_time_precision": 0.7850496277915633,
+          "flight_airtime_ratio": 0.7894221351616062,
+          "flight_event_recall": 0.8888888888888888
+        }
+      ]
+    },
+    "jump-reference-support-distillation": {
+      "local_evidence": "runs/task-optimization-20261117c/jump-reference-support-distillation/physical-results.json",
+      "evidence_sha256": "682bbb9f057aeda5ed707b391e55038229de8d4a44b1f59c703ac9fd0fec376a",
+      "evaluations": 9,
+      "passes": 0,
+      "records": [
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-reference-support-distillation/alpha-0p25/update-0100",
+          "alpha": 0.25,
+          "update": 100,
+          "held_action_target_mse": 4.906359394172693e-05,
+          "checkpoint_sha256": "7584e9a3fe5157b56f4c8cbcf7057f8de9c2e50555f5ece83b9ca46dde6dff6b",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.7957172904932677,
+          "worst_effector_m": 0.27483903098216295,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.27483903098216295,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7052862229526157,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "7a00a27bf05c7d15c9129f595c9f23f6370185ce6213e4dabc2de7c866ba5f24",
+          "flight_time_precision": 0.7052862229526157,
+          "flight_airtime_ratio": 0.8939764936336924,
+          "flight_event_recall": 0.8888888888888888
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-reference-support-distillation/alpha-0p25/update-0500",
+          "alpha": 0.25,
+          "update": 500,
+          "held_action_target_mse": 2.7639031730789526e-05,
+          "checkpoint_sha256": "5d2392d6effe83ef582774ef8297bdcd5307edf503694d7924e7ce685d01bb4e",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8019242724852595,
+          "worst_effector_m": 0.23964374706404615,
+          "failed_checks": [
+            {
+              "name": "jump_time_precision",
+              "value": 0.7156092083099382,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "8e6781b14d077eeecea1d59d11a36cd93a982833b870137e5d2b441520daef86",
+          "flight_time_precision": 0.7156092083099382,
+          "flight_airtime_ratio": 0.8721841332027422,
+          "flight_event_recall": 0.8555555555555555
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-reference-support-distillation/alpha-0p25/update-2000",
+          "alpha": 0.25,
+          "update": 2000,
+          "held_action_target_mse": 2.0989154462915906e-05,
+          "checkpoint_sha256": "0ec20010443a84ec918decdbb5a84a56e5bf547eb16a04e01fae68262387d88a",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8016161364196471,
+          "worst_effector_m": 0.24947571013121073,
+          "failed_checks": [
+            {
+              "name": "jump_time_precision",
+              "value": 0.7249371683887182,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "1f7fee9d2ce84d2960abe05b407777521b71d598d859daa35f77471f583d849a",
+          "flight_time_precision": 0.7249371683887182,
+          "flight_airtime_ratio": 0.8768364348677766,
+          "flight_event_recall": 0.9
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-reference-support-distillation/alpha-0p5/update-0100",
+          "alpha": 0.5,
+          "update": 100,
+          "held_action_target_mse": 0.000244634588400425,
+          "checkpoint_sha256": "f2a38047f85b2b288a4808f1e9438086dfd30015b6d1b380c91cdc23af263652",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8059971333135316,
+          "worst_effector_m": 0.344924369583743,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.344924369583743,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7322608445848894,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "7f111a3e10e9be491ecb4b75e137bf1f2ad000a9b8f400ce28262dad94e912b3",
+          "flight_time_precision": 0.7322608445848894,
+          "flight_airtime_ratio": 0.8523506366307542,
+          "flight_event_recall": 0.8777777777777778
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-reference-support-distillation/alpha-0p5/update-0500",
+          "alpha": 0.5,
+          "update": 500,
+          "held_action_target_mse": 0.00013114280455052998,
+          "checkpoint_sha256": "a723a1c12891b7cee70d0926872f54a8d307f21fb8f27eaa7bf93604be7c0a91",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8073022581924052,
+          "worst_effector_m": 0.2466805369142782,
+          "failed_checks": [
+            {
+              "name": "jump_time_precision",
+              "value": 0.7454702329594478,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "602ff5030e1d4d01c0255f9b4ea3447925f5fc2381998a1a8b46224a23bee34d",
+          "flight_time_precision": 0.7454702329594478,
+          "flight_airtime_ratio": 0.8513712047012733,
+          "flight_event_recall": 0.8777777777777778
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-reference-support-distillation/alpha-0p5/update-2000",
+          "alpha": 0.5,
+          "update": 2000,
+          "held_action_target_mse": 9.160579653603616e-05,
+          "checkpoint_sha256": "f764ad631baea222bde8d6e4894ad91780701de4e95b58964576ea781564a53f",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8036999432840262,
+          "worst_effector_m": 0.24608574888301527,
+          "failed_checks": [
+            {
+              "name": "jump_time_precision",
+              "value": 0.761761158021713,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "14698769da88c7593d209da0ce2b535ed33ceea957a369759bf529c88ad8ab10",
+          "flight_time_precision": 0.761761158021713,
+          "flight_airtime_ratio": 0.8119490695396671,
+          "flight_event_recall": 0.9
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-reference-support-distillation/alpha-1p0/update-0100",
+          "alpha": 1.0,
+          "update": 100,
+          "held_action_target_mse": 0.0011827016359406153,
+          "checkpoint_sha256": "48c77c1fe76b858e3346e2b638fda2f096cafea4d8e337a4b63bb1750ee00507",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8096273744684731,
+          "worst_effector_m": 0.2467482234433941,
+          "failed_checks": [
+            {
+              "name": "jump_time_precision",
+              "value": 0.7533013205282113,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "5f156ebe8ba320fe6624d7bdc4cf1d57180da145d001cc04c9ccc1402e1d2e9e",
+          "flight_time_precision": 0.7533013205282113,
+          "flight_airtime_ratio": 0.8158667972575905,
+          "flight_event_recall": 0.8777777777777778
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-reference-support-distillation/alpha-1p0/update-0500",
+          "alpha": 1.0,
+          "update": 500,
+          "held_action_target_mse": 0.000672759157903676,
+          "checkpoint_sha256": "42010b925e38fd4b89c22d2f0b53be9f6e3af371d7871c82a70f9409c52728f6",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8095435360314733,
+          "worst_effector_m": 0.25309172628878374,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25309172628878374,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7948717948717948,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "884c5ccec8bf626b24ec0491adad122072b867de07ec651b9a3df975c31c1cc1",
+          "flight_time_precision": 0.7948717948717948,
+          "flight_airtime_ratio": 0.7830558276199804,
+          "flight_event_recall": 0.8777777777777778
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-reference-support-distillation/alpha-1p0/update-2000",
+          "alpha": 1.0,
+          "update": 2000,
+          "held_action_target_mse": 0.0004188881262567977,
+          "checkpoint_sha256": "0a4cc6aeca517d9d85c48f82a35871d1a85f3134c47c857cc20fec28f7cdc93e",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8062835106843036,
+          "worst_effector_m": 0.25438295722449555,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25438295722449555,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "93584281cbcb3d3376ec084c7c4ec81d09d815366c2e1ee7867f421ca2edde1f",
+          "flight_time_precision": 0.8172983479105929,
+          "flight_airtime_ratio": 0.7558765915768854,
+          "flight_event_recall": 0.8777777777777778
+        }
+      ]
+    }
+  },
+  "original_full_motion_candidate_evaluations": 18,
+  "original_full_motion_candidate_passes": 0,
+  "shared_resources": {
+    "exclusive_lock": "/home/ubuntu/.cache/codex-heavy-work.lock",
+    "reserve_ram_gib": 12.5,
+    "max_cpu_rss_gib": 2,
+    "max_training_tree_rss_gib": 6,
+    "gpu_mib": 2304,
+    "reserve_gpu_mib": 4096,
+    "math_threads": 1,
+    "build_workers": 2,
+    "tests_serial": true
+  },
+  "other_dialogues_automatically_limited": false,
+  "controller_or_threshold_changes": false,
+  "acceptance_sha256": "c1432354083bf95ac063c91e39a02f06fb10446d0bf20c263b16841931bdfe1c",
+  "quality_sha256": "a6b5c11dc7f8f7a897be9e054ba92f49f6b2c8395ef3ffe4f7b59dde8bbf16a6",
+  "configuration_fix": "docs/performance/goal-feedback-configuration.json",
+  "physical_feature_contract": {
+    "passed": true,
+    "all_controls": 29050,
+    "cohort_maximum_action_error": {
+      "0": 4.231929779052734e-06,
+      "1": 3.606081008911133e-06,
+      "2": 3.4868717193603516e-06,
+      "3": 4.172325134277344e-06
+    },
+    "max_action_error_limit": 0.0001,
+    "encoders_bitexact": true,
+    "rows": {
+      "0": 12221,
+      "1": 12221,
+      "2": 3072,
+      "3": 1536
+    },
+    "train_pool_sizes": {
+      "0": 11045,
+      "1": 11045,
+      "2": 3072
+    },
+    "held_rows": 3584,
+    "packed_context_storage_bytes": 16056216,
+    "stored_features_bytes": 118524000,
+    "mask_scope": "Training-only smoothed single-reference-support mask, zero within preserved spatial window; does not change physical evaluation labels or criteria."
+  },
+  "moved_spatial_peak_native_diagnostic": {
+    "source_checkpoint_sha256": "0a4cc6aeca517d9d85c48f82a35871d1a85f3134c47c857cc20fec28f7cdc93e",
+    "trajectory_sha256": "93584281cbcb3d3376ec084c7c4ec81d09d815366c2e1ee7867f421ca2edde1f",
+    "worst_start_control": 6643,
+    "native_double_worst_rmse_m": 0.2543829873175356,
+    "reported_float32_worst_rmse_m": 0.25438295722449555,
+    "mean_error_xyz_m": [
+      0.021064266842833117,
+      -0.025553473512616796,
+      -0.2169979273110658
+    ],
+    "position_cost_joint_gradients": {
+      "left_hip_pitch_joint": -0.07153722050160942,
+      "left_hip_roll_joint": -0.00045641944242698546,
+      "left_hip_yaw_joint": 0.031138494219199436,
+      "left_knee_joint": -0.1162102569974729,
+      "left_ankle_pitch_joint": -0.00638797275972586,
+      "left_ankle_roll_joint": 0.0
+    },
+    "scope": "Native kinematic Jacobian of the observed worst window at fixed root/torso; not a closed-loop parameter gradient. Every proposed neural-network bias change requires the complete original physical rollout and unchanged gates.",
+    "source_model_sha256": "1ca1b82eed7d833a081cd5f95df580c0bc3668ee86865c88cfc4b7319e0c5ce7",
+    "source_contract_sha256": "0e5e6abdd2ae8d201c209bc488fc51896b74fa46f63ac5372584423fad911ab7",
+    "generation_script_sha256": "e1280fbe057c4a0495afc3fba06fec8ff178a9347dd2c00873eb0500b23fa5c6"
+  }
+}
