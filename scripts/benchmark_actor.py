@@ -19,7 +19,13 @@ def parser() -> argparse.ArgumentParser:
     p.add_argument("--motion", type=Path, required=True)
     p.add_argument("--output", type=Path, required=True)
     p.add_argument("--compact", action="store_true")
-    p.add_argument("--compile-policy", action="store_true")
+    p.add_argument(
+        "--compile-policy",
+        nargs="?",
+        const="default",
+        default=False,
+        choices=("default", "reduce-overhead"),
+    )
     p.add_argument("--batch-size", type=int, choices=(32, 64), default=64)
     p.add_argument("--horizon", type=int, choices=(8, 32), default=32)
     p.add_argument("--repeats", type=int, choices=range(1, 16), default=7)
@@ -60,8 +66,7 @@ def worker(args: argparse.Namespace) -> None:
     torch.backends.cuda.matmul.allow_tf32 = False
     torch.manual_seed(args.seed)
     device = "cuda:0"  # The parent maps the selected physical device to local index zero.
-    cfg = training_config("g1", args.motion.parent, args.output)
-    cfg.policy_trainer.compile = "default" if args.compile_policy else None
+    cfg = training_config("g1", args.motion.parent, args.output, compile_policy=args.compile_policy)
     cfg.policy_trainer.batch_size = args.batch_size
     cfg.policy_trainer.horizon = args.horizon
     cfg.policy_trainer.obs_noise = True
@@ -145,9 +150,11 @@ def worker(args: argparse.Namespace) -> None:
         },
         args.output / "first-update.pt",
     )
+    begun = time.perf_counter()
     for _ in range(2):
         trainer.update(buffer)
     torch.cuda.synchronize()
+    report["warmup_updates_elapsed_s"] = time.perf_counter() - begun
     torch.cuda.reset_peak_memory_stats()
     samples = []
     for _ in range(args.repeats):

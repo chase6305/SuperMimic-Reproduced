@@ -1,5 +1,6 @@
 """The optional CUDA graph mode retains the flag API and has its own allowance."""
 
+import importlib.util
 from pathlib import Path
 
 import pytest
@@ -20,6 +21,14 @@ from supermimic.profiles import training_config
 )
 def test_cli_mode_and_legacy_boolean_choices(flags, expected):
     args = parser().parse_args(["train", *flags])
+    script = Path(__file__).resolve().parents[1] / "scripts/benchmark_actor.py"
+    spec = importlib.util.spec_from_file_location("benchmark_actor_modes", script)
+    benchmark = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(benchmark)
+    benchmark_args = benchmark.parser().parse_args(
+        ["--motion", "input.npz", "--output", "run", *flags]
+    )
+    assert benchmark_args.compile_policy == args.compile_policy
     cfg = training_config("smoke", Path("data"), Path("run"), compile_policy=args.compile_policy)
     assert cfg.policy_trainer.compile == expected
     estimate = validate_training_budget(cfg, 13066, 2304)
