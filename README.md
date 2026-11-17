@@ -76,7 +76,7 @@ CSV 在解析前限制为 128 MiB，重采样后每条最多 250000 帧；NPZ �
 
 `paper-width` 仅保留论文网络宽度，批量和并行环境仍缩小。默认关闭 Torch 编译，避免编译阶段占用大量资源。`sm-train` 和 `python -m supermimic.scripts.train` 也进入同一受控训练入口。
 
-本机探测中，`--compile-policy` 的完整 G1 小网络训练约从 2.3 提升到 5.8 迭代／秒；首次编译需额外时间，此速度不保证适用于其他机器。完整网络宽度也已在相同显存上限内运行，训练质量仍需用连续动作评测判断。
+`--compile-policy` 用默认编译模式执行想象步骤，首次编译和预热会占用训练预算。固定输入的更新计时与数值对照见[实现约定](docs/REPRODUCTION.md)。完整网络宽度已在相同显存上限内运行，训练质量仍需用连续动作评测判断。
 
 `--compile-world-model` 使用逐步编译；`--compile-world-model-window` 另选完整短窗口编译，增加首次调用耗时以降低重复拟合成本。两者的首次调用与预热测量分开记录，适用条件见[实现约定](docs/REPRODUCTION.md)。
 
