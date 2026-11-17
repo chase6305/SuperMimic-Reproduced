@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-17T09:42:24.805892+00:00",
+  "generated_at_utc": "2026-11-17T09:58:42.529162+00:00",
   "window_status": "in_progress",
   "requested_window": {
     "start_utc": "2026-11-17T07:35:22Z",
@@ -1153,10 +1153,156 @@
     "selection": "Evaluate all four combinations, publish all results, preserve30s result. Any passed extension requires copied-bundle independent full recheck before delivery.",
     "scope": "Separately named exact source prefixes, original frame clock and every original jump gate. Original244.42s task remains separate and failed; no new-motion, perturbation or hardware claim."
   },
+  "prefix_extension_results": [
+    {
+      "task": "jump60-original-start",
+      "model": "pose100",
+      "checkpoint_sha256": "c511d5bffe21965e3ffda9680d636d4558d708b00f8c5b1795e329cb6f136494",
+      "source_checkpoint": "runs/task-optimization-20261117b/jump-full-pose100-decoder-h16/training/ckpt_0005000.pt",
+      "reference": "data/npz/task-slices/jump60-original-start-20261117.npz",
+      "motion_sha256": "067c1806a3aec44397df8227bf3c35e50cf9b851eb03d52ff935753e23f0ad37",
+      "assessment": "runs/task-optimization-20261117b/jump60-pose100-probe/assessment.json",
+      "deployment": "runs/task-optimization-20261117b/jump60-pose100-probe/deploy",
+      "passed": false,
+      "steps": 3000,
+      "full_prefix_controls_bitexact": 2990,
+      "prefix_fields_bitexact": {
+        "states": true,
+        "actions": true,
+        "reference_frame": true,
+        "physical_contacts": true
+      },
+      "flight": {
+        "reference_events": 63,
+        "matched_events": 54,
+        "actual_events": 100,
+        "event_recall": 0.8571428571428571,
+        "time_precision": 0.9913892078071183,
+        "reference_airtime_s": 14.540000000000001,
+        "actual_airtime_s": 8.71,
+        "airtime_ratio": 0.5990371389270976,
+        "definition": "Target: both feet collider bottoms >3 cm, >=120 ms. Actual: both feet <1 N and no nonfoot support, >=40 ms. Match tolerance +/-100 ms and >=min(60 ms,30% target duration) overlap."
+      },
+      "return": 0.77892742395401,
+      "failed_checks": [
+        {
+          "name": "jump_airtime_ratio_min",
+          "value": 0.5990371389270976,
+          "limit": 0.6,
+          "comparison": ">=",
+          "passed": false
+        }
+      ],
+      "trajectory_sha256": "c2ae5dd8352cf8e7c1d637bc65a56d7e4bcb96fe7dedbd1d39372679a4b32279",
+      "original_full_motion_passed": false
+    },
+    {
+      "task": "jump60-original-start",
+      "model": "stance200",
+      "checkpoint_sha256": "a4db166b41d4361cd121fae3941c8ce9327d454df24d6a4154b5e8d79dccc746",
+      "source_checkpoint": "runs/task-optimization-20261117b/jump-pose100-stance200-resume/training/ckpt_latest.pt",
+      "reference": "data/npz/task-slices/jump60-original-start-20261117.npz",
+      "motion_sha256": "067c1806a3aec44397df8227bf3c35e50cf9b851eb03d52ff935753e23f0ad37",
+      "assessment": "runs/task-optimization-20261117b/jump60-stance200-probe/assessment.json",
+      "deployment": "runs/task-optimization-20261117b/jump60-stance200-probe/deploy",
+      "passed": true,
+      "steps": 3000,
+      "full_prefix_controls_bitexact": 2990,
+      "prefix_fields_bitexact": {
+        "states": true,
+        "actions": true,
+        "reference_frame": true,
+        "physical_contacts": true
+      },
+      "flight": {
+        "reference_events": 63,
+        "matched_events": 55,
+        "actual_events": 101,
+        "event_recall": 0.873015873015873,
+        "time_precision": 0.9894459102902374,
+        "reference_airtime_s": 14.540000000000001,
+        "actual_airtime_s": 9.475,
+        "airtime_ratio": 0.6516506189821182,
+        "definition": "Target: both feet collider bottoms >3 cm, >=120 ms. Actual: both feet <1 N and no nonfoot support, >=40 ms. Match tolerance +/-100 ms and >=min(60 ms,30% target duration) overlap."
+      },
+      "return": 0.7890076231956482,
+      "failed_checks": [],
+      "trajectory_sha256": "136790d38d208a0fcda1f9538a6f57f1e38eed6925aa2075e33138e4238bec04",
+      "original_full_motion_passed": false
+    },
+    {
+      "task": "jump120-original-start",
+      "model": "pose100",
+      "checkpoint_sha256": "c511d5bffe21965e3ffda9680d636d4558d708b00f8c5b1795e329cb6f136494",
+      "source_checkpoint": "runs/task-optimization-20261117b/jump-full-pose100-decoder-h16/training/ckpt_0005000.pt",
+      "reference": "data/npz/task-slices/jump120-original-start-20261117.npz",
+      "motion_sha256": "8efac68a783073eec79cf4c59f80067e7aeccec3de2856e5871208a47e5fb097",
+      "assessment": "runs/task-optimization-20261117b/jump120-pose100-probe/assessment.json",
+      "deployment": "runs/task-optimization-20261117b/jump120-pose100-probe/deploy",
+      "passed": true,
+      "steps": 6000,
+      "full_prefix_controls_bitexact": 5990,
+      "prefix_fields_bitexact": {
+        "states": true,
+        "actions": true,
+        "reference_frame": true,
+        "physical_contacts": true
+      },
+      "flight": {
+        "reference_events": 83,
+        "matched_events": 73,
+        "actual_events": 153,
+        "event_recall": 0.8795180722891566,
+        "time_precision": 0.8582089552238806,
+        "reference_airtime_s": 18.36,
+        "actual_airtime_s": 12.73,
+        "airtime_ratio": 0.6933551198257081,
+        "definition": "Target: both feet collider bottoms >3 cm, >=120 ms. Actual: both feet <1 N and no nonfoot support, >=40 ms. Match tolerance +/-100 ms and >=min(60 ms,30% target duration) overlap."
+      },
+      "return": 0.7724212996164957,
+      "failed_checks": [],
+      "trajectory_sha256": "d195e22645443115a5c651aad60351ab1a3ac4be70e8be2764788c994bbaec3a",
+      "original_full_motion_passed": false
+    },
+    {
+      "task": "jump120-original-start",
+      "model": "stance200",
+      "checkpoint_sha256": "a4db166b41d4361cd121fae3941c8ce9327d454df24d6a4154b5e8d79dccc746",
+      "source_checkpoint": "runs/task-optimization-20261117b/jump-pose100-stance200-resume/training/ckpt_latest.pt",
+      "reference": "data/npz/task-slices/jump120-original-start-20261117.npz",
+      "motion_sha256": "8efac68a783073eec79cf4c59f80067e7aeccec3de2856e5871208a47e5fb097",
+      "assessment": "runs/task-optimization-20261117b/jump120-stance200-probe/assessment.json",
+      "deployment": "runs/task-optimization-20261117b/jump120-stance200-probe/deploy",
+      "passed": true,
+      "steps": 6000,
+      "full_prefix_controls_bitexact": 5990,
+      "prefix_fields_bitexact": {
+        "states": true,
+        "actions": true,
+        "reference_frame": true,
+        "physical_contacts": true
+      },
+      "flight": {
+        "reference_events": 83,
+        "matched_events": 73,
+        "actual_events": 156,
+        "event_recall": 0.8795180722891566,
+        "time_precision": 0.8467976710334789,
+        "reference_airtime_s": 18.36,
+        "actual_airtime_s": 13.74,
+        "airtime_ratio": 0.7483660130718954,
+        "definition": "Target: both feet collider bottoms >3 cm, >=120 ms. Actual: both feet <1 N and no nonfoot support, >=40 ms. Match tolerance +/-100 ms and >=min(60 ms,30% target duration) overlap."
+      },
+      "return": 0.7827080742518107,
+      "failed_checks": [],
+      "trajectory_sha256": "b09328ee7b9e49b4b503276fbeeed873ddb773fa4eaef56a71d8677b8fd1cee1",
+      "original_full_motion_passed": false
+    }
+  ],
   "current_ci": {
-    "head_sha": "ed0326529a809010a74ee09a967ec45939843cee",
-    "run_id": 44054875841,
-    "url": "https://github.com/chase6305/SuperMimic-Reproduced/actions/runs/44054875841",
+    "head_sha": "88dceec0dac3d16e0ca29aa61aae361682fdecea",
+    "run_id": 44058037997,
+    "url": "https://github.com/chase6305/SuperMimic-Reproduced/actions/runs/44058037997",
     "conclusion": "success",
     "cpu_passed": 747,
     "cpu_skipped": 42,
@@ -1164,5 +1310,243 @@
     "ruff": "passed",
     "wheel_and_sdist": "passed",
     "scope": "Remote required CI for the published30s task plus packed-history/stance-height source. Subsequent experiment-only files do not change tested source; final head CI checked separately."
-  }
+  },
+  "further_simulation_tasks": [
+    {
+      "task": "jump120",
+      "packet": "exports/g1-tasks-20261117b/jump120",
+      "source": {
+        "id": "jump120",
+        "label": "跳跃首120秒指定参考",
+        "bundle": "runs/task-optimization-20261117b/jump-pose100-stance200-resume-evaluations/ckpt_latest/export",
+        "deployment": "runs/task-optimization-20261117b/jump120-stance200-probe/deploy",
+        "assessment": "runs/task-optimization-20261117b/jump120-stance200-probe/assessment.json",
+        "motion": "data/npz/task-slices/jump120-original-start-20261117.npz",
+        "checkpoint": "runs/task-optimization-20261117b/jump-pose100-stance200-resume/training/ckpt_latest.pt",
+        "strict_resume_supported": true,
+        "strict_resume_training_motion": "data/npz/validation/jumps1_subject1.npz",
+        "original_full_task_passed": false,
+        "original_full_task_assessment": "runs/task-optimization-20261117b/jump-pose100-stance200-resume-evaluations/ckpt_latest/assessment.json",
+        "scope": "Only the exact known first120s reference. Original244.42s task still failed. Strict resume uses the original full training motion; changing training data requires --transfer."
+      },
+      "score": {
+        "passed": true,
+        "skill": "jump",
+        "criteria": {
+          "version": "g1-skills-v2-full-motion",
+          "min_full_clip_return": 0.7,
+          "max_joint_rmse_rad": 0.25,
+          "max_body_relative_pos_rmse_m": 0.15,
+          "max_root_xy_rmse_m": 0.75,
+          "max_root_orientation_rmse_rad": 0.3,
+          "max_root_height_rmse_m": 0.08,
+          "min_joint_motion_correlation": 0.6,
+          "min_active_joints": 3,
+          "min_reference_jump_events": 3,
+          "min_jump_event_recall": 0.8,
+          "min_jump_time_precision": 0.8,
+          "min_jump_airtime_ratio": 0.6,
+          "max_jump_airtime_ratio": 1.6,
+          "max_jump_vertical_velocity_rmse_mps": 0.6,
+          "min_joint_amplitude_ratio": 0.6,
+          "max_joint_amplitude_ratio": 1.4,
+          "max_worst_1s_joint_rmse_rad": 0.35,
+          "max_worst_1s_root_orientation_rmse_rad": 0.4,
+          "max_worst_1s_root_height_rmse_m": 0.1,
+          "max_worst_1s_effector_rmse_m": 0.25,
+          "min_inversion_recall": 0.8,
+          "max_inverted_joint_rmse_rad": 0.3,
+          "max_inverted_root_orientation_rmse_rad": 0.35,
+          "max_inverted_root_height_rmse_m": 0.1
+        },
+        "scope": "Engineering imitation gate on this reference and initialization, not a general skill-success rate or paper benchmark",
+        "checks": [
+          {
+            "name": "completed_motion",
+            "value": true,
+            "passed": true
+          },
+          {
+            "name": "joint_rmse_rad",
+            "value": 0.1352622065824674,
+            "limit": 0.25,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "body_relative_pos_rmse_m",
+            "value": 0.05482017230228593,
+            "limit": 0.15,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "root_xy_rmse_m",
+            "value": 0.21736274719501436,
+            "limit": 0.75,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "full_clip_return",
+            "value": 0.7827080742518107,
+            "limit": 0.7,
+            "comparison": ">=",
+            "passed": true
+          },
+          {
+            "name": "root_orientation_rmse_rad",
+            "value": 0.1001531083621504,
+            "limit": 0.3,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "root_height_rmse_m",
+            "value": 0.027594150702435875,
+            "limit": 0.08,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "joint_motion_correlation",
+            "value": 0.7659020943418852,
+            "limit": 0.6,
+            "comparison": ">=",
+            "passed": true
+          },
+          {
+            "name": "active_reference_joints",
+            "value": 26.0,
+            "limit": 3,
+            "comparison": ">=",
+            "passed": true
+          },
+          {
+            "name": "worst_1s_joint_rmse_rad",
+            "value": 0.19452487052767306,
+            "limit": 0.35,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "worst_1s_root_orientation_rmse_rad",
+            "value": 0.18381634007672265,
+            "limit": 0.4,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "worst_1s_root_height_rmse_m",
+            "value": 0.0597743679150689,
+            "limit": 0.1,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "worst_1s_effector_rmse_m",
+            "value": 0.2354392765941177,
+            "limit": 0.25,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "legs_amplitude_min",
+            "value": 0.9605596556443411,
+            "limit": 0.6,
+            "comparison": ">=",
+            "passed": true
+          },
+          {
+            "name": "legs_amplitude_max",
+            "value": 0.9605596556443411,
+            "limit": 1.4,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "arms_amplitude_min",
+            "value": 0.8525317101145693,
+            "limit": 0.6,
+            "comparison": ">=",
+            "passed": true
+          },
+          {
+            "name": "arms_amplitude_max",
+            "value": 0.8525317101145693,
+            "limit": 1.4,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "reference_jump_events",
+            "value": 83.0,
+            "limit": 3,
+            "comparison": ">=",
+            "passed": true
+          },
+          {
+            "name": "jump_event_recall",
+            "value": 0.8795180722891566,
+            "limit": 0.8,
+            "comparison": ">=",
+            "passed": true
+          },
+          {
+            "name": "jump_time_precision",
+            "value": 0.8467976710334789,
+            "limit": 0.8,
+            "comparison": ">=",
+            "passed": true
+          },
+          {
+            "name": "jump_airtime_ratio_min",
+            "value": 0.7483660130718954,
+            "limit": 0.6,
+            "comparison": ">=",
+            "passed": true
+          },
+          {
+            "name": "jump_airtime_ratio_max",
+            "value": 0.7483660130718954,
+            "limit": 1.6,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "root_vertical_velocity_rmse_mps",
+            "value": 0.21776490812118215,
+            "limit": 0.6,
+            "comparison": "<=",
+            "passed": true
+          }
+        ]
+      },
+      "flight": {
+        "reference_events": 83,
+        "matched_events": 73,
+        "actual_events": 156,
+        "event_recall": 0.8795180722891566,
+        "time_precision": 0.8467976710334789,
+        "reference_airtime_s": 18.36,
+        "actual_airtime_s": 13.74,
+        "airtime_ratio": 0.7483660130718954,
+        "definition": "Target: both feet collider bottoms >3 cm, >=120 ms. Actual: both feet <1 N and no nonfoot support, >=40 ms. Match tolerance +/-100 ms and >=min(60 ms,30% target duration) overlap."
+      },
+      "packaged_verification": {
+        "passed": true,
+        "seconds": 120,
+        "checkpoint_sha256": "a4db166b41d4361cd121fae3941c8ce9327d454df24d6a4154b5e8d79dccc746",
+        "motion_sha256": "8efac68a783073eec79cf4c59f80067e7aeccec3de2856e5871208a47e5fb097",
+        "trajectory_sha256": "b09328ee7b9e49b4b503276fbeeed873ddb773fa4eaef56a71d8677b8fd1cee1",
+        "copied_full_task_bitexact": {
+          "states": true,
+          "actions": true,
+          "reference_frame": true,
+          "physical_contacts": true
+        },
+        "scope": "Only the exact known first120s reference. Original244.42s task still failed. Strict resume uses the original full training motion; changing training data requires --transfer."
+      }
+    }
+  ]
 }
