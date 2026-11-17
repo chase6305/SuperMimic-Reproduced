@@ -46,3 +46,13 @@
 未含这些可选声明的旧检查点保持原读取兼容性。有效新优化器链中的历史父级失效记录不会使新链失效。导出与推理只使用网络，不要求保留的优化器可续训；因此“能部署”和“能严格恢复训练”是分别检查的能力。
 
 识别的声明为 `native_policy_improvement.policy_optimizer_resume_valid`、`native_policy_improvement.critic_optimizer_resume_valid`、`native_dynamics_calibration.optimizer_resume_valid` 和 `native_dynamics_calibration.optimizer_correspondence_not_proved`。这些检查防止忽略已知失效声明；没有声明并不意味着已经独立证明了所有优化器张量与网络的对应关系。
+
+标准训练器的每个 Adam 优化器使用一个参数组。原生标定实验中采用其他分组的检查点，需要通过 `--transfer` 建立新优化器；严格续训会在配置阶段提示不兼容。当前舞蹈和格斗保留检查点的世界模型属于这种情况；跳跃保留检查点已通过真实 CLI 续训、导出和整段回放。
+
+## 本轮新增：静态姿态保持
+
+`stand30-walk-first-frame.npz` 将行走首帧固定为 30 秒参考，所有参考速度为零。使用标准训练入口迁移并续训后，五个保留模型中两版通过了训练前制定的姿态与稳定性条件。第 28,000 次迭代模型的完整 1,500 步回放中，平面误差为 0.0220 m、关节误差为 0.0495 rad、根高度误差为 0.0112 m、根姿态误差为 0.0395 rad、关节速度 RMS 为 0.1159 rad/s，非脚部触地为零。
+
+该模型的训练检查点为 `runs/task-readiness-20261117/stand-full30-pose-decoder-h16/training/ckpt_0028000.pt`，已验证推理包为同名 `-evaluations/ckpt_0028000/export/` 目录。后续检查点有位置漂移，部署时使用已经验证的版本。
+
+`scripts/assess_static_hold.py` 会重新计算真实轨迹的误差，并核对静态参考、文件指纹与完整参考时钟。固定的 `g1-static-pose-v1` 条件为：完成至少 30 秒；平面、关节、根高度和根姿态 RMSE 分别不超过 0.1 m、0.25 rad、0.05 m、0.15 rad；关节速度 RMS 不超过 0.5 rad/s；非脚部触地为零。该结果限于这一个参考姿态，和跳跃／舞蹈／格斗的动态技能判据分别报告。

@@ -93,3 +93,27 @@ def test_explicit_weight_transfer_accepts_stale_history_and_keeps_fresh_state(tm
     assert not target.policy_trainer.opt.state and not target.policy_trainer.critic_opt.state
     for name, value in target.policy.state_dict().items():
         torch.testing.assert_close(value, source.policy.state_dict()[name], atol=0, rtol=0)
+
+
+@pytest.mark.parametrize("key", ["wm_opt", "policy_opt", "critic_opt"])
+def test_custom_optimizer_groups_are_diagnosed_before_weights_change(tmp_path, key):
+    path = tmp_path / "grouped.pt"
+    torch.save(
+        {
+            "config": asdict(TrainConfig()),
+            "iteration": 0,
+            key: {"param_groups": [{"params": [0]}, {"params": [1]}]},
+        },
+        path,
+    )
+    target = fresh_trainer()
+    before = {name: value.clone() for name, value in target.wm.state_dict().items()}
+    with pytest.raises(ValueError, match="parameter groups.*--transfer"):
+        Trainer.load(target, path)
+    with pytest.raises(ValueError, match="parameter groups.*--transfer"):
+        training_config("smoke", tmp_path, tmp_path / "strict", resume=path)
+    assert training_config(
+        "smoke", tmp_path, tmp_path / "fresh", resume=path, transfer=True
+    ).transfer
+    for name, value in target.wm.state_dict().items():
+        torch.testing.assert_close(value, before[name], atol=0, rtol=0)

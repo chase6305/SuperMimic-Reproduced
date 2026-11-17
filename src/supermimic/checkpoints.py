@@ -36,7 +36,7 @@ def validate_optimizer_resume(checkpoint: Mapping[str, Any]) -> None:
     Some experimental artifacts materialize new weights while retaining their
     source Adam history for forensics. Only the latest declarations apply;
     historical parent provenance must not invalidate a fresh optimizer chain.
-    Archives without these optional declarations keep the legacy behavior.
+    Legacy archives with the standard optimizer layout retain their behavior.
     """
     invalid = []
     for block, field, label in (
@@ -65,6 +65,23 @@ def validate_optimizer_resume(checkpoint: Mapping[str, Any]) -> None:
             + ", ".join(invalid)
             + " optimizer state; use --transfer for weights with fresh optimizers"
         )
+    # Standard trainers construct one Adam group each. A calibrated checkpoint
+    # may have valid moments but a different grouping, which Adam cannot load.
+    # Diagnose that before allocating the simulator or changing any weights.
+    for key, label in (
+        ("wm_opt", "world model"),
+        ("policy_opt", "policy"),
+        ("critic_opt", "critic"),
+    ):
+        state = checkpoint.get(key)
+        if not isinstance(state, Mapping) or "param_groups" not in state:
+            continue
+        groups = state["param_groups"]
+        if not isinstance(groups, (list, tuple)) or len(groups) != 1:
+            raise ValueError(
+                f"Checkpoint {label} optimizer parameter groups differ from the single group "
+                "required by the standard trainer; use --transfer for weights with fresh optimizers"
+            )
 
 
 @dataclass(frozen=True)
@@ -81,14 +98,19 @@ def read_actor_checkpoint(path: Path | str, *, fingerprint: bool = False) -> Act
     weights and metadata own their storage, so subsequent source changes cannot
     alter the actor or its provenance after the reader's final verification.
     """
+
     def restore(data):
         if not isinstance(data, dict):
             raise ValueError("Expected a checkpoint dictionary")
         metadata = {
             key: deepcopy(data[key])
             for key in (
-                "config", "iteration", "control_contract", "motion_files",
-                "anchor_adaptation", "transfer_provenance",
+                "config",
+                "iteration",
+                "control_contract",
+                "motion_files",
+                "anchor_adaptation",
+                "transfer_provenance",
             )
             if key in data
         }
@@ -120,9 +142,7 @@ def read_checkpoint(
     Pickle loading remains enabled for existing training checkpoints: inputs must
     be trusted, as at the training, migration and export entry points.
     """
-    loaded = read_torch_archive(
-        path, mmap=mmap, fingerprint=fingerprint, max_bytes=max_bytes
-    )
+    loaded = read_torch_archive(path, mmap=mmap, fingerprint=fingerprint, max_bytes=max_bytes)
     if not isinstance(loaded.data, dict):
         raise ValueError("Expected a checkpoint dictionary")
     return CheckpointRead(loaded.data, loaded.sha256)
