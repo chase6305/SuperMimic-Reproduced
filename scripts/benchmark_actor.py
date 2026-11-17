@@ -1,8 +1,9 @@
 """Time complete actor updates on fixed motion states, without physical simulation.
 
 Run under the shared heavy-work lock. Each invocation supervises one CUDA worker,
-freezes its implementation and records cold-start time separately from warmed
-updates. Compare runs from separate checkouts with the same motion and options.
+freezes its implementation and records first-update and further warmup times
+separately from warmed updates. Existing compiler caches are allowed. Compare
+runs from separate checkouts with the same motion and options.
 This measures BPTT and critic fitting, not physical training throughput or quality.
 """
 
@@ -171,7 +172,14 @@ def worker(args: argparse.Namespace) -> None:
         final_metrics=metrics,
     )
     write_json(args.output / "benchmark.json", report)
-    print(json.dumps({key: report[key] for key in ("median_ms", "first_update_elapsed_s")}))
+    print(
+        json.dumps(
+            {
+                key: report[key]
+                for key in ("median_ms", "first_update_elapsed_s", "warmup_updates_elapsed_s")
+            }
+        )
+    )
 
 
 def main() -> int:
