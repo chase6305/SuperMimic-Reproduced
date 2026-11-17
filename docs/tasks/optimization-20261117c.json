@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-17T16:25:36.833160+00:00",
+  "generated_at_utc": "2026-11-17T16:40:11.224875+00:00",
   "window_status": "in_progress",
   "requested_window": {
     "start_utc": "2026-11-17T14:25:57+00:00",
@@ -1424,6 +1424,196 @@
         }
       ]
     },
+    "jump-distilled-local-C-left-head": {
+      "local_evidence": "runs/task-optimization-20261117c/jump-distilled-local-C-left-head/physical-results.json",
+      "evidence_sha256": "af1a4ffdb0e85dba15f3af225481326f728e4f6fadaa96b47f4511c99b81ec2a",
+      "evaluations": 6,
+      "passes": 0,
+      "records": [
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-distilled-local-C-left-head/alpha-0p25/update-0100",
+          "alpha": 0.25,
+          "update": 100,
+          "held_action_target_mse": 4.147999193107886e-06,
+          "checkpoint_sha256": "774cfc9822663d5ecf037fd915eee6daa0659f31a39bffcdabad718683dce706",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8067209959986088,
+          "worst_effector_m": 0.25359570459219577,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25359570459219577,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "e615783c132ea51b6de6d268427515205660c315ccd9fb620c3fca95852a55fb",
+          "skill": "jump",
+          "flight_time_precision": 0.8207758897082398,
+          "flight_airtime_ratio": 0.7637120470127325,
+          "flight_event_recall": 0.8888888888888888
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-distilled-local-C-left-head/alpha-0p25/update-1000",
+          "alpha": 0.25,
+          "update": 1000,
+          "held_action_target_mse": 3.0529362102870123e-06,
+          "checkpoint_sha256": "8b5ea45a1976e7397127c6469d9cde38254f5d367ee04447538de2c787e3694c",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.7951777933974593,
+          "worst_effector_m": 0.32100052199458673,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.32100052199458673,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "7700649aa2cecde48ef13ace002222054cad5d6dfef19e9a96de995409f2c257",
+          "skill": "jump",
+          "flight_time_precision": 0.8084632516703786,
+          "flight_airtime_ratio": 0.7695886385896179,
+          "flight_event_recall": 0.8777777777777778
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-distilled-local-C-left-head/alpha-0p5/update-0100",
+          "alpha": 0.5,
+          "update": 100,
+          "held_action_target_mse": 2.23325502608124e-05,
+          "checkpoint_sha256": "55ade9a9fdb89e8eda252353d310c08af404d6bf943ecd4d9c3ebb16852bd510",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.805671919914853,
+          "worst_effector_m": 0.3212108809707557,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.3212108809707557,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "567601f1757a58df8575ab6576d716cf259b3dbb08a544f772309d020cd4bd3b",
+          "skill": "jump",
+          "flight_time_precision": 0.809216886883661,
+          "flight_airtime_ratio": 0.759794319294809,
+          "flight_event_recall": 0.8666666666666667
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-distilled-local-C-left-head/alpha-0p5/update-1000",
+          "alpha": 0.5,
+          "update": 1000,
+          "held_action_target_mse": 1.1495913801401661e-05,
+          "checkpoint_sha256": "1e9bbc04650e607044b6437c171ed161577933662c042f1920b14c064008595a",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8052572448264751,
+          "worst_effector_m": 0.25467931659417925,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25467931659417925,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "70f4f6163e559cd6bfa1c29e06bfb40b6d464c3992b4e3b8d5661c70b65b7607",
+          "skill": "jump",
+          "flight_time_precision": 0.8027769012306721,
+          "flight_airtime_ratio": 0.7759549461312438,
+          "flight_event_recall": 0.9
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-distilled-local-C-left-head/alpha-1p0/update-0100",
+          "alpha": 1.0,
+          "update": 100,
+          "held_action_target_mse": 9.317170092956452e-05,
+          "checkpoint_sha256": "5a3b9bd21ee1ca74dfe8f5bf5e8def56eb93ecff52ef027f3a77e0ad788033be",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.7975581093980035,
+          "worst_effector_m": 0.3142143995311913,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.3142143995311913,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "0e0fcaa4f6008d67ad3af9fa428d08591dca38a36273bb1b7611887b8eefe275",
+          "skill": "jump",
+          "flight_time_precision": 0.8110079575596817,
+          "flight_airtime_ratio": 0.7384916748285993,
+          "flight_event_recall": 0.8666666666666667
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-distilled-local-C-left-head/alpha-1p0/update-1000",
+          "alpha": 1.0,
+          "update": 1000,
+          "held_action_target_mse": 4.773693493414863e-05,
+          "checkpoint_sha256": "6a8f2df3f4c10b0b16d48774716d920b768495f14e7ddfda5bb798533b70d46f",
+          "completed_motion": false,
+          "steps": 6621,
+          "strict_passed": false,
+          "return": 0.4052075480548598,
+          "worst_effector_m": 0.4295375192891706,
+          "failed_checks": [
+            {
+              "name": "completed_motion",
+              "value": false,
+              "passed": false
+            },
+            {
+              "name": "full_clip_return",
+              "value": 0.4052075480548598,
+              "limit": 0.7,
+              "comparison": ">=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_joint_rmse_rad",
+              "value": 0.3504621888349783,
+              "limit": 0.35,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_orientation_rmse_rad",
+              "value": 0.5792317136216885,
+              "limit": 0.4,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.4295375192891706,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "f3e87606346f7928d734222166f7200970a1de467188d68c6b2cfb3f6f5c0584",
+          "skill": "jump",
+          "flight_time_precision": 0.8839182414192056,
+          "flight_airtime_ratio": 0.6349167482859941,
+          "flight_event_recall": 0.8
+        }
+      ]
+    },
     "jump-distilled-local-C-refinement": {
       "local_evidence": "runs/task-optimization-20261117c/jump-distilled-local-C-refinement/physical-results.json",
       "evidence_sha256": "b6c4047e09e6fc5f0fe662ecce3ee0ff31a39bfbdb3d4a92267b690c064bcf8e",
@@ -2606,7 +2796,7 @@
       ]
     }
   },
-  "original_full_motion_candidate_evaluations": 68,
+  "original_full_motion_candidate_evaluations": 74,
   "original_full_motion_candidate_passes": 0,
   "shared_resources": {
     "exclusive_lock": "/home/ubuntu/.cache/codex-heavy-work.lock",
@@ -2676,17 +2866,16 @@
     "generation_script_sha256": "e1280fbe057c4a0495afc3fba06fec8ff178a9347dd2c00873eb0500b23fa5c6"
   },
   "final_source_ci": {
-    "head_sha": "f8a917a",
-    "run_id": 44107567092,
-    "url": "https://github.com/chase6305/SuperMimic-Reproduced/actions/runs/44107567092",
+    "run_id": 44127469967,
+    "url": "https://github.com/chase6305/SuperMimic-Reproduced/actions/runs/44127469967",
+    "head_sha": "502f5d5289b2b30b5bab81dd480049b606deb5b1",
     "conclusion": "success",
-    "passed": 751,
+    "passed": 761,
     "skipped": 42,
-    "subtests": 12,
-    "seconds": 46.96,
+    "subtests_passed": 12,
+    "cpu_test_seconds": 41.64,
     "ruff": "passed",
-    "wheel_and_sdist": "passed",
-    "scope": "Source metadata fix and all current CPU tests. Subsequent documentation-only head checks verified separately."
+    "wheel_and_sdist": "passed"
   },
   "prototype_workflow_corrections": {
     "residual-activation-fix.json": {
@@ -2713,62 +2902,163 @@
       "cause": "SciPy single-axis batch from_euler requires Nx1 angles; old native diagnostic already used this shape.",
       "fix": "Pass yaw[:,None], preserve failed inputs and reuse the verified native warm prefix.",
       "scored_teacher_or_skill_pass_before_fix": false
+    },
+    "standard-training-seed-fix.json": {
+      "fixed_at_utc": "2026-11-17T16:33:04.585079+00:00",
+      "original_prefix": "runs/task-optimization-20261117c/jump-distilled-dynamic40-eff300-head-h32",
+      "preserved_error_prefix": "runs/task-optimization-20261117c/jump-distilled-dynamic40-eff300-head-h32-seed-error",
+      "cause": "Experiment seed20261117105 exceeded the NumPy legacy environment32-bit seed range. Initialization failed before training.",
+      "fix": "Use seed2026111705, and validate the supported integer range in public training_config before checkpoint reading or environment allocation.",
+      "trained_checkpoint_or_skill_pass_before_fix": false
     }
   },
-  "native_training_teacher_diagnostic": {
-    "local_evidence": "runs/task-optimization-20261117c/jump-native-window-teacher/result.json",
-    "evidence_sha256": "01a78d245ab208b14a9ece32002b29a033a68bcd252f2bcc938e469be16fac8c",
-    "trials": 49,
-    "neural_only": false,
-    "skill_acceptance_claim": false,
-    "baseline_worst_left_foot_m": 0.25438298731753556,
-    "selected_by_predeclared_combined_cost": {
-      "trial": 45,
-      "parameters": [
-        0.3425807403084676,
-        0.04821940416397742,
-        -0.06999050874828414
-      ],
-      "cost": 0.07904653728989962,
-      "worst_1s_left_foot_rmse_m": 0.25274346109726037,
-      "worst_1s_right_foot_rmse_m": 0.07035894526929916,
-      "root_height_rmse_m": 0.03980521411062911,
-      "root_orientation_rmse_rad": 0.10400887301612857,
-      "joint_rmse_rad": 0.16373668032483685,
-      "controls": 400,
-      "terminal_failure": null,
-      "artifact": "runs/task-optimization-20261117c/jump-native-window-teacher/trial-045.npz",
-      "artifact_sha256": "9476e570fc653fcc37fa74728f00be9daa62d56a8865e89f361163be409318c3",
+  "native_training_teacher_diagnostics": {
+    "jump-native-window-teacher": {
+      "local_evidence": "runs/task-optimization-20261117c/jump-native-window-teacher/result.json",
+      "evidence_sha256": "01a78d245ab208b14a9ece32002b29a033a68bcd252f2bcc938e469be16fac8c",
+      "trials": 49,
       "neural_only": false,
-      "role": "training_teacher_only"
+      "skill_acceptance_claim": false,
+      "baseline_worst_left_foot_m": 0.25438298731753556,
+      "selected_by_predeclared_combined_cost": {
+        "trial": 45,
+        "parameters": [
+          0.3425807403084676,
+          0.04821940416397742,
+          -0.06999050874828414
+        ],
+        "cost": 0.07904653728989962,
+        "worst_1s_left_foot_rmse_m": 0.25274346109726037,
+        "worst_1s_right_foot_rmse_m": 0.07035894526929916,
+        "root_height_rmse_m": 0.03980521411062911,
+        "root_orientation_rmse_rad": 0.10400887301612857,
+        "joint_rmse_rad": 0.16373668032483685,
+        "controls": 400,
+        "terminal_failure": null,
+        "artifact": "runs/task-optimization-20261117c/jump-native-window-teacher/trial-045.npz",
+        "artifact_sha256": "9476e570fc653fcc37fa74728f00be9daa62d56a8865e89f361163be409318c3",
+        "neural_only": false,
+        "role": "training_teacher_only"
+      },
+      "minimum_left_foot_trial": {
+        "trial": 36,
+        "parameters": [
+          0.4411262866250551,
+          0.07910586680359065,
+          -0.07486666700553561
+        ],
+        "cost": 0.0803230503283244,
+        "worst_1s_left_foot_rmse_m": 0.25163262933754266,
+        "worst_1s_right_foot_rmse_m": 0.09242863988282272,
+        "root_height_rmse_m": 0.04062769341730049,
+        "root_orientation_rmse_rad": 0.10926989279874581,
+        "joint_rmse_rad": 0.16463249023282134,
+        "controls": 400,
+        "terminal_failure": null,
+        "artifact": "runs/task-optimization-20261117c/jump-native-window-teacher/trial-036.npz",
+        "artifact_sha256": "04a5a28309b8b12b98e8bd680d2753c0195745e8b078af9e21ffa5ddb4eb9dcc",
+        "neural_only": false,
+        "role": "training_teacher_only"
+      },
+      "selected_improvement_m": 0.0016395262202751892,
+      "eligible_for_distillation": false,
+      "independent_teacher_replay_bitexact": {
+        "states": true,
+        "physical_contacts": true,
+        "actuator_forces": true
+      },
+      "scope": "This is training data from a native physical teacher with external action corrections, not a deployable neural skill. Only a subsequently distilled single neural policy may undergo original full-motion acceptance."
     },
-    "minimum_left_foot_trial": {
-      "trial": 36,
-      "parameters": [
-        0.4411262866250551,
-        0.07910586680359065,
-        -0.07486666700553561
-      ],
-      "cost": 0.0803230503283244,
-      "worst_1s_left_foot_rmse_m": 0.25163262933754266,
-      "worst_1s_right_foot_rmse_m": 0.09242863988282272,
-      "root_height_rmse_m": 0.04062769341730049,
-      "root_orientation_rmse_rad": 0.10926989279874581,
-      "joint_rmse_rad": 0.16463249023282134,
-      "controls": 400,
-      "terminal_failure": null,
-      "artifact": "runs/task-optimization-20261117c/jump-native-window-teacher/trial-036.npz",
-      "artifact_sha256": "04a5a28309b8b12b98e8bd680d2753c0195745e8b078af9e21ffa5ddb4eb9dcc",
+    "jump-native-window-teacher-wide": {
+      "local_evidence": "runs/task-optimization-20261117c/jump-native-window-teacher-wide/result.json",
+      "evidence_sha256": "f512a620f6ec9e62c58330cb67286b36fd53c6bca34070e1bac80a35af3c923a",
+      "trials": 49,
       "neural_only": false,
-      "role": "training_teacher_only"
-    },
-    "selected_improvement_m": 0.0016395262202751892,
-    "eligible_for_distillation": false,
-    "independent_teacher_replay_bitexact": {
-      "states": true,
-      "physical_contacts": true,
-      "actuator_forces": true
-    },
-    "scope": "This is training data from a native physical teacher with external action corrections, not a deployable neural skill. Only a subsequently distilled single neural policy may undergo original full-motion acceptance."
+      "skill_acceptance_claim": false,
+      "baseline_worst_left_foot_m": 0.25438298731753556,
+      "selected_by_predeclared_combined_cost": {
+        "trial": 33,
+        "parameters": [
+          0.2638357265964515,
+          -0.05530915914611919,
+          -0.10496471072816121
+        ],
+        "cost": 0.07942296944554096,
+        "worst_1s_left_foot_rmse_m": 0.25324605992685784,
+        "worst_1s_right_foot_rmse_m": 0.0710066151048475,
+        "root_height_rmse_m": 0.040254425625566706,
+        "root_orientation_rmse_rad": 0.10347502168597499,
+        "joint_rmse_rad": 0.16300932015029382,
+        "controls": 400,
+        "terminal_failure": null,
+        "artifact": "runs/task-optimization-20261117c/jump-native-window-teacher-wide/trial-033.npz",
+        "artifact_sha256": "ebc09eec4755beeb6a0f6e8213633227b03644c47b4b02cfd32fb029d7721266",
+        "neural_only": false,
+        "role": "training_teacher_only"
+      },
+      "minimum_left_foot_trial": {
+        "trial": 33,
+        "parameters": [
+          0.2638357265964515,
+          -0.05530915914611919,
+          -0.10496471072816121
+        ],
+        "cost": 0.07942296944554096,
+        "worst_1s_left_foot_rmse_m": 0.25324605992685784,
+        "worst_1s_right_foot_rmse_m": 0.0710066151048475,
+        "root_height_rmse_m": 0.040254425625566706,
+        "root_orientation_rmse_rad": 0.10347502168597499,
+        "joint_rmse_rad": 0.16300932015029382,
+        "controls": 400,
+        "terminal_failure": null,
+        "artifact": "runs/task-optimization-20261117c/jump-native-window-teacher-wide/trial-033.npz",
+        "artifact_sha256": "ebc09eec4755beeb6a0f6e8213633227b03644c47b4b02cfd32fb029d7721266",
+        "neural_only": false,
+        "role": "training_teacher_only"
+      },
+      "selected_improvement_m": 0.0011369273906777222,
+      "eligible_for_distillation": false,
+      "independent_teacher_replay_bitexact": {
+        "states": true,
+        "physical_contacts": true,
+        "actuator_forces": true
+      },
+      "scope": "This is training data from a native physical teacher with external action corrections, not a deployable neural skill. Only a subsequently distilled single neural policy may undergo original full-motion acceptance."
+    }
+  },
+  "recorded_context_memory_and_gpu_parity": "docs/performance/recorded-history.json",
+  "training_seed_validation": "docs/performance/training-seed-validation.json",
+  "separate_prefix_extension_plan": {
+    "created_at_utc": "2026-11-17T16:38:38.114787+00:00",
+    "reference_source": "data/npz/validation/jumps1_subject1.npz",
+    "reference_source_sha256": "0c21df779e79a8e96a5fb42f5a8a3ffe9b3cf775b883e6bf40016a67d8468878",
+    "durations_seconds": [
+      180,
+      200,
+      220
+    ],
+    "models": [
+      {
+        "id": "retained-h32",
+        "full_evaluation": "runs/task-readiness-20261117/jump-h32-leftfoot100-all/update-0001",
+        "checkpoint": "runs/task-readiness-20261117/jump-h32-leftfoot100-all/update-0001/checkpoint.pt",
+        "checkpoint_sha256": "2fd371dc544e4a8eda6c39c4529c6fdca1d1f31fe8b0a3ca39151b9c10cf120a",
+        "strict_resume_requires_new_check": true
+      },
+      {
+        "id": "pose100",
+        "full_evaluation": "runs/task-optimization-20261117b/jump-full-pose100-decoder-h16-evaluations/ckpt_0005000",
+        "checkpoint": "runs/task-optimization-20261117b/jump-full-pose100-decoder-h16/training/ckpt_0005000.pt",
+        "checkpoint_sha256": "c511d5bffe21965e3ffda9680d636d4558d708b00f8c5b1795e329cb6f136494"
+      },
+      {
+        "id": "stance200",
+        "full_evaluation": "runs/task-optimization-20261117b/jump-pose100-stance200-resume-evaluations/ckpt_latest",
+        "checkpoint": "runs/task-optimization-20261117b/jump-pose100-stance200-resume/training/ckpt_latest.pt",
+        "checkpoint_sha256": "a4db166b41d4361cd121fae3941c8ce9327d454df24d6a4154b5e8d79dccc746"
+      }
+    ],
+    "selection": "Evaluate all9 declared combinations with original23jump gates. Among passes choose largest declared duration then greatest minimum relative numeric-gate margin. Publish every pass/failure. Any selected extension requires a copied-bundle independent full physical replay before delivery. Previously accepted120s and30s tasks remain intact.",
+    "scope": "Each duration is an explicitly separate exact-original-first-prefix task at50Hz, noresampling/retiming. The original244.42s full-task failures remain attached to each actor. This can extend the known-reference deployment scope, not establish original-full-task acceptance or new-motion/perturbation/hardware robustness."
   }
 }

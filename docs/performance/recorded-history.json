@@ -83,5 +83,17 @@
     "elapsed_s": 14.27375504898373,
     "peak_rss_bytes": 3305185280,
     "peak_process_gpu_mib": 1160
+  },
+  "source_validation": {
+    "run_id": 44127469967,
+    "url": "https://github.com/chase6305/SuperMimic-Reproduced/actions/runs/44127469967",
+    "head_sha": "502f5d5289b2b30b5bab81dd480049b606deb5b1",
+    "conclusion": "success",
+    "passed": 761,
+    "skipped": 42,
+    "subtests_passed": 12,
+    "cpu_test_seconds": 41.64,
+    "ruff": "passed",
+    "wheel_and_sdist": "passed"
   }
 }
