@@ -82,6 +82,17 @@ def parser() -> argparse.ArgumentParser:
                 help="Correct successful clip-end returns before choosing difficult reset bins",
             )
             q.add_argument("--iterations", type=positive_int, default=100000)
+            q.add_argument(
+                "--episode-length-seconds",
+                dest="episode_length_s",
+                type=positive_float,
+                help="Maximum training episode duration; inherited on strict resume",
+            )
+            q.add_argument(
+                "--sampling-mode",
+                choices=("return", "uniform", "start"),
+                help="Reference reset sampling; inherited on strict resume, priorities require return",
+            )
             q.add_argument("--seed", type=int, default=0)
             q.add_argument(
                 "--priority-window",
@@ -177,6 +188,12 @@ def parser() -> argparse.ArgumentParser:
                 "--action-clip",
                 type=positive_float,
                 help="Bound normalized policy actions in training and exported actor",
+            )
+            q.add_argument(
+                "--root-orientation-tracking-weight",
+                dest="orientation_tracking_weight",
+                type=nonnegative_float,
+                help="Override root orientation auxiliary loss weight; evaluation criteria unchanged",
             )
             q.add_argument(
                 "--compile-policy",

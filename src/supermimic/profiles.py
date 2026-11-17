@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import math
+from numbers import Real
 from pathlib import Path
 
 from supermimic.config import CriticCfg, PolicyCfg, StateSpecCfg, TrainConfig, WorldModelCfg
@@ -14,6 +15,8 @@ def training_config(
     output: Path,
     *,
     num_envs: int | None = None,
+    episode_length_s: float | None = None,
+    sampling_mode: str | None = None,
     iterations: int = 100000,
     checkpoint_interval: int | None = None,
     hours: float = 1.0,
@@ -41,6 +44,7 @@ def training_config(
     effector_position_weights: tuple[float, ...] | None = None,
     joint_tracking_weight: float | None = None,
     root_xy_tracking_weight: float | None = None,
+    orientation_tracking_weight: float | None = None,
     use_critic: bool | None = None,
     policy_gradient_accumulation: int | None = None,
     wm_window: int | None = None,
@@ -51,7 +55,8 @@ def training_config(
 
     Architecture and data interfaces are inherited for both resume modes. Runtime
     budgets remain selected for this run; strict continuation additionally restores
-    its horizon, update scope and reset priorities. Explicit overrides apply last.
+    its horizon, episode duration, sampling mode, update scope and reset priorities.
+    Explicit overrides apply last.
     """
     if transfer and resume is None:
         raise ValueError("Transfer requires a source checkpoint")
@@ -108,6 +113,21 @@ def training_config(
         if not transfer and checkpoint["iteration"] >= iterations:
             raise ValueError("--iterations must exceed the checkpoint's cumulative iteration")
         _restore_checkpoint_config(cfg, checkpoint["config"], transfer=transfer)
+    if episode_length_s is not None:
+        cfg.env.episode_length_s = episode_length_s
+    duration = cfg.env.episode_length_s
+    if (
+        isinstance(duration, bool)
+        or not isinstance(duration, Real)
+        or not math.isfinite(duration)
+        or duration <= 0
+    ):
+        raise ValueError("Episode length must be finite and positive")
+    cfg.env.episode_length_s = float(duration)
+    if sampling_mode is not None:
+        cfg.env.sampling_mode = sampling_mode
+    if cfg.env.sampling_mode not in ("return", "uniform", "start"):
+        raise ValueError("Sampling mode must be return, uniform or start")
     if priority_windows_s is not None:
         cfg.env.priority_windows_s = priority_windows_s
         if priority_reset_ratio is None:
@@ -119,6 +139,8 @@ def training_config(
     cfg.env.priority_windows_s = validate_priorities(
         cfg.env.priority_windows_s, cfg.env.priority_reset_ratio
     )
+    if cfg.env.priority_reset_ratio and cfg.env.sampling_mode != "return":
+        raise ValueError("Reset priorities require return-based sampling")
     if completion_aware_sampling is not None:
         cfg.env.completion_aware_sampling = completion_aware_sampling
     if action_clip is not None:
@@ -163,6 +185,10 @@ def training_config(
         if not math.isfinite(root_xy_tracking_weight) or root_xy_tracking_weight < 0:
             raise ValueError("Root XY tracking weight must be finite and nonnegative")
         cfg.policy_trainer.root_xy_tracking_weight = root_xy_tracking_weight
+    if orientation_tracking_weight is not None:
+        if not math.isfinite(orientation_tracking_weight) or orientation_tracking_weight < 0:
+            raise ValueError("Root orientation tracking weight must be finite and nonnegative")
+        cfg.policy_trainer.orientation_tracking_weight = orientation_tracking_weight
     if effector_position_weight is not None:
         if not math.isfinite(effector_position_weight) or effector_position_weight < 0:
             raise ValueError("Effector position weight must be finite and nonnegative")
@@ -237,7 +263,7 @@ def _apply_profile(cfg: TrainConfig, profile: str) -> None:
 
 
 def _restore_checkpoint_config(cfg: TrainConfig, saved: dict, *, transfer: bool) -> None:
-    """Restore the legacy field selection while leaving this run's budgets intact."""
+    """Restore architecture and training protocol while retaining this run's budgets."""
     cfg.policy = PolicyCfg(**saved["policy"])
     cfg.critic = CriticCfg(**saved["critic"])
     wm = dict(saved["world_model"])
@@ -246,6 +272,8 @@ def _restore_checkpoint_config(cfg: TrainConfig, saved: dict, *, transfer: bool)
     cfg.env.anchor_obs = saved["env"].get("anchor_obs", False)
     cfg.env.completion_aware_sampling = saved["env"].get("completion_aware_sampling", False)
     if not transfer:
+        cfg.env.episode_length_s = saved["env"].get("episode_length_s", cfg.env.episode_length_s)
+        cfg.env.sampling_mode = saved["env"].get("sampling_mode", cfg.env.sampling_mode)
         cfg.env.priority_windows_s = saved["env"].get("priority_windows_s", ())
         cfg.env.priority_reset_ratio = saved["env"].get("priority_reset_ratio", 0.0)
     cfg.env.future_frames = saved["env"]["future_frames"]

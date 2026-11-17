@@ -33,8 +33,14 @@
 
 这是从零训练入口，运行时长不保证达到表内质量。其他两个片段名为 `dance1_subject1`、`fight1_subject2`。共享机器执行训练、评测和批量操作时，应按协作约定持有重任务锁、检查整机资源并保留至少 `max(12 GiB, 总内存的 20%)` 可用内存；本次复验实际保留 12.5 GiB，规则不代表其他运行中会话已自动限流。
 
+训练默认每回合最多 10 秒，并按回报选择参考起点。需要学习更长的连续片段时，可显式设置 `--episode-length-seconds 30 --sampling-mode start`，从首帧训练最长 30 秒；原高度／倾斜终止条件仍生效。`uniform` 均匀选择参考帧，`return` 使用回报采样；难点窗口优先采样要求 `return`。严格续训继承检查点的时长与采样方式，显式参数可以覆盖；`--transfer` 使用新任务的默认值。
+
+`--root-orientation-tracking-weight` 可单独调整训练中的根姿态辅助损失，`0` 表示关闭该辅助项。这些参数只影响训练，不修改部署时长、仿真控制器或技能验收阈值。
+
 ## 检查点是否能严格续训
 
 插值或校准生成的新权重可能保留旧 Adam 状态供审计。若检查点明确声明 actor、critic 或世界模型优化器状态失效／未验证，严格续训会拒绝该状态，并提示 `--transfer`。迁移仅继承网络，重新建立优化器、采样器、计数和新种子的随机状态，不声称是不中断续训。
 
 未含这些可选声明的旧检查点保持原读取兼容性。有效新优化器链中的历史父级失效记录不会使新链失效。导出与推理只使用网络，不要求保留的优化器可续训；因此“能部署”和“能严格恢复训练”是分别检查的能力。
+
+识别的声明为 `native_policy_improvement.policy_optimizer_resume_valid`、`native_policy_improvement.critic_optimizer_resume_valid`、`native_dynamics_calibration.optimizer_resume_valid` 和 `native_dynamics_calibration.optimizer_correspondence_not_proved`。这些检查防止忽略已知失效声明；没有声明并不意味着已经独立证明了所有优化器张量与网络的对应关系。
