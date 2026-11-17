@@ -245,13 +245,21 @@ class MultiClipMotionCommand(CommandTerm):
         self.ep_len[ids] = torch.minimum(
             self.ep_len[ids] + 1, torch.full_like(pos, self.max_ep_steps)
         )
+        # Long physical episodes may outlast the bounded sampler log. Fold a
+        # complete, contiguous chunk now instead of overwriting its last slot
+        # with ever later rewards. Nonterminal chunks use the existing critic
+        # bootstrap (or omit the uncertain tail when no critic is available).
+        full = ids[self.ep_len[ids] == self.max_ep_steps]
+        if full.numel():
+            self._finalize_episodes(full)
 
     def _finalize_episodes(self, env_ids: torch.Tensor) -> None:
-        """Fold the finished episodes' discounted returns-to-go into the per-bin estimates."""
+        """Fold completed episodes or contiguous log chunks into per-bin estimates."""
         cfg = self.cfg
-        lens = self.ep_len[env_ids]
-        if lens.sum() == 0:
+        env_ids = env_ids[self.ep_len[env_ids] > 0]
+        if not env_ids.numel():
             return
+        lens = self.ep_len[env_ids]
         T = int(lens.max().item())
         r = self.ep_rewards[env_ids, :T].double()
         bins = self.ep_bins[env_ids, :T]
