@@ -1204,5 +1204,56 @@
     "all_update_metric_values_finite": true,
     "max_logged_mean_abs_policy_action": 0.9970531463623047,
     "interpretation": "The configured policy clip bounds nominal actor outputs; executed actions also include configured simulation noise. Unmatched physical trajectories do not establish a causal compiler comparison."
+  },
+  "combined_compiler_continuation": {
+    "scope": "Continuation from the new-mode clipped-action checkpoint, enabling whole-window world-model compilation and reduce-overhead policy compilation together. Checks operation and resources; does not measure matched physical throughput or skill.",
+    "status": "complete",
+    "input_checkpoint_sha256": "aa3955aa893c561ec70de4f0f4f79fff3298a8894f8a037ab28db100db4c6df0",
+    "runtime_snapshot_matches_public_mode": true,
+    "configuration_sha256": "39ae3355fc49097273e8ce5e20197160c37ef21bd27bbc9224b31e82aafa52ab",
+    "configuration": {
+      "seed": 213,
+      "envs": 32,
+      "replay_capacity": 1000,
+      "world_batch": 128,
+      "world_batches_per_update": 2,
+      "world_window": 8,
+      "whole_window_compilation": true,
+      "actor_batch": 64,
+      "horizon": 32,
+      "policy_compile_mode": "reduce-overhead",
+      "nominal_policy_action_clip": 1.0
+    },
+    "resources": {
+      "status": "complete",
+      "exit_code": 0,
+      "stop_reason": null,
+      "elapsed_s": 310.7596991320024,
+      "limits": {
+        "gpu_index": 0,
+        "max_gpu_mib": 2304,
+        "reserve_gpu_mib": 4096,
+        "max_rss_gib": 6.0,
+        "reserve_ram_gib": 12.5,
+        "reserve_disk_gib": 20.0,
+        "poll_seconds": 2.0,
+        "stop_grace_seconds": 30.0
+      },
+      "peak_rss_bytes": 4599201792,
+      "peak_process_gpu_mib": 1140
+    },
+    "logged_rows": 209,
+    "all_update_metric_values_finite": true,
+    "last_logged_iteration": 9320,
+    "last_logged_updates": 3709,
+    "cache_policy": "Existing compiler caches allowed. Total elapsed time includes initialization and further warmups; this check does not provide cold-start compilation timings.",
+    "starting_iteration": 5151,
+    "iteration": 9327,
+    "starting_updates": 2051,
+    "updates": 3712,
+    "stop_reason": "training_time_limit",
+    "checkpoint_sha256": "718a75688d5f031f3c502dd3a9eae66c9762062d587bb4665bbb2af3edc98d37",
+    "added_iterations": 4176,
+    "added_updates": 1661
   }
 }
