@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-17T16:40:11.224875+00:00",
+  "generated_at_utc": "2026-11-17T17:16:46.778272+00:00",
   "window_status": "in_progress",
   "requested_window": {
     "start_utc": "2026-11-17T14:25:57+00:00",
@@ -951,6 +951,347 @@
         }
       ]
     },
+    "dance-parallel-residual-control": {
+      "local_evidence": "runs/task-optimization-20261117c/dance-parallel-residual-control/physical-results.json",
+      "evidence_sha256": "af4640826108ec59f31b11bf6ca4e1838a7dad6cbe2b37185cd71eeb7effa06c",
+      "evaluations": 5,
+      "passes": 0,
+      "records": [
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/dance-parallel-residual-control/zero-residual",
+          "checkpoint": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/dance-parallel-residual-control/zero-residual/research-residual.pt",
+          "checkpoint_sha256": "d692e626a941490ffb5c339d1fd519b6d7e77040132a49c899b7024e9a8da31a",
+          "gain": 0.0,
+          "update": 0,
+          "extra_hidden_units": 16,
+          "assembly_parity_error": 6.67572021484375e-06,
+          "checkpoint_format": "parallel-residual-research-v1",
+          "standard_training_supported": false,
+          "completed_motion": true,
+          "steps": 6573,
+          "strict_passed": false,
+          "return": 0.8115803384715593,
+          "worst_effector_m": 0.33159459813226294,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.33159459813226294,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_joint_rmse_rad",
+              "value": 0.3419627449473929,
+              "limit": 0.3,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "ebc34d7952dfe36a76817f1541ad09f05bb993637cf72503b60633b9c9daec72",
+          "zero_source_full_bitexact": {
+            "states": true,
+            "actions": true,
+            "reference_frame": true,
+            "physical_contacts": true
+          },
+          "skill": "dance",
+          "inversion_reference_frames": 53,
+          "inverted_joint_rmse_rad": 0.3419627449473929
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/dance-parallel-residual-control/gain-0p5/update-2000",
+          "checkpoint": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/dance-parallel-residual-control/gain-0p5/update-2000/research-residual.pt",
+          "checkpoint_sha256": "7ebd1d0a353125f9ac32d682a09219780f5327b064f535bb4ac9a3137965a250",
+          "gain": 0.5,
+          "update": 2000,
+          "extra_hidden_units": 16,
+          "assembly_parity_error": 7.62939453125e-06,
+          "checkpoint_format": "parallel-residual-research-v1",
+          "standard_training_supported": false,
+          "completed_motion": false,
+          "steps": 5361,
+          "strict_passed": false,
+          "return": 0.664539844972003,
+          "worst_effector_m": 0.3441744408220028,
+          "failed_checks": [
+            {
+              "name": "completed_motion",
+              "value": false,
+              "passed": false
+            },
+            {
+              "name": "full_clip_return",
+              "value": 0.664539844972003,
+              "limit": 0.7,
+              "comparison": ">=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.3441744408220028,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_joint_rmse_rad",
+              "value": 0.31901682686256005,
+              "limit": 0.3,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_root_height_rmse_m",
+              "value": 0.11933209070743753,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "2b39cc2f92cee758bd98bdcb1cda87c1f034fe9ef63bce6de946f0189ca70b11",
+          "skill": "dance",
+          "inversion_reference_frames": 24,
+          "inverted_joint_rmse_rad": 0.31901682686256005
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/dance-parallel-residual-control/gain-0p5/update-6000",
+          "checkpoint": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/dance-parallel-residual-control/gain-0p5/update-6000/research-residual.pt",
+          "checkpoint_sha256": "1e8cdac9dd41e8487b81c2eec374895a20202156b0bb0d9f86e162b33fae8201",
+          "gain": 0.5,
+          "update": 6000,
+          "extra_hidden_units": 16,
+          "assembly_parity_error": 9.5367431640625e-06,
+          "checkpoint_format": "parallel-residual-research-v1",
+          "standard_training_supported": false,
+          "completed_motion": false,
+          "steps": 5360,
+          "strict_passed": false,
+          "return": 0.6695733446881195,
+          "worst_effector_m": 0.3447236531664381,
+          "failed_checks": [
+            {
+              "name": "completed_motion",
+              "value": false,
+              "passed": false
+            },
+            {
+              "name": "full_clip_return",
+              "value": 0.6695733446881195,
+              "limit": 0.7,
+              "comparison": ">=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.3447236531664381,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_joint_rmse_rad",
+              "value": 0.31701270744458593,
+              "limit": 0.3,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_root_height_rmse_m",
+              "value": 0.11958252833400466,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "97e698aceac4b3691650517d3b2b518b29b675cde91a4ab1f72f0e05435846e3",
+          "skill": "dance",
+          "inversion_reference_frames": 23,
+          "inverted_joint_rmse_rad": 0.31701270744458593
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/dance-parallel-residual-control/gain-1p0/update-2000",
+          "checkpoint": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/dance-parallel-residual-control/gain-1p0/update-2000/research-residual.pt",
+          "checkpoint_sha256": "f8e764f8b76e8fe9f51093c4e2310b10079ed49a3a9ffd5edf6c5f9a113ead39",
+          "gain": 1.0,
+          "update": 2000,
+          "extra_hidden_units": 16,
+          "assembly_parity_error": 7.62939453125e-06,
+          "checkpoint_format": "parallel-residual-research-v1",
+          "standard_training_supported": false,
+          "completed_motion": false,
+          "steps": 5356,
+          "strict_passed": false,
+          "return": 0.6578609458427713,
+          "worst_effector_m": 0.33401744281462675,
+          "failed_checks": [
+            {
+              "name": "completed_motion",
+              "value": false,
+              "passed": false
+            },
+            {
+              "name": "full_clip_return",
+              "value": 0.6578609458427713,
+              "limit": 0.7,
+              "comparison": ">=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.33401744281462675,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_root_height_rmse_m",
+              "value": 0.10633378929842066,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "7a3b75797a7887d4ca7f4dbd7de84f3db530522292e2840ce56327f56fdce21c",
+          "skill": "dance",
+          "inversion_reference_frames": 19,
+          "inverted_joint_rmse_rad": 0.28000847301671417
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/dance-parallel-residual-control/gain-1p0/update-6000",
+          "checkpoint": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/dance-parallel-residual-control/gain-1p0/update-6000/research-residual.pt",
+          "checkpoint_sha256": "6e3ed5601344f43995506e258707e7c69b9dc0182ef8a12492b19899e100ec3b",
+          "gain": 1.0,
+          "update": 6000,
+          "extra_hidden_units": 16,
+          "assembly_parity_error": 9.5367431640625e-06,
+          "checkpoint_format": "parallel-residual-research-v1",
+          "standard_training_supported": false,
+          "completed_motion": false,
+          "steps": 5357,
+          "strict_passed": false,
+          "return": 0.6610456993640439,
+          "worst_effector_m": 0.3313384110875219,
+          "failed_checks": [
+            {
+              "name": "completed_motion",
+              "value": false,
+              "passed": false
+            },
+            {
+              "name": "full_clip_return",
+              "value": 0.6610456993640439,
+              "limit": 0.7,
+              "comparison": ">=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.3313384110875219,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_root_height_rmse_m",
+              "value": 0.11165399974959603,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "84b732658429818a66ac0efea643d61a48b5fcc5d59365a188f01161abb8c671",
+          "skill": "dance",
+          "inversion_reference_frames": 20,
+          "inverted_joint_rmse_rad": 0.28416756269553756
+        }
+      ]
+    },
+    "dance-pose80-ori40-wrist150-head-h16-evaluations": {
+      "local_evidence": "runs/task-optimization-20261117c/dance-pose80-ori40-wrist150-head-h16-evaluations/physical-results.json",
+      "evidence_sha256": "9b28dc6fb1c351b5724409a7d7978dda6d5830ea38cffda46ba2336db3de9777",
+      "evaluations": 2,
+      "passes": 0,
+      "records": [
+        {
+          "stage": "runs/task-optimization-20261117c/dance-pose80-ori40-wrist150-head-h16-evaluations/ckpt_0005000",
+          "checkpoint": "runs/task-optimization-20261117c/dance-pose80-ori40-wrist150-head-h16/training/ckpt_0005000.pt",
+          "checkpoint_sha256": "4afd00d89cdf9751beabee3fb5336a954faa6ee5c6d570d6c6150bf4459337eb",
+          "completed_motion": false,
+          "steps": 5801,
+          "strict_passed": false,
+          "return": 0.7050477783737634,
+          "worst_effector_m": 0.33432821833375725,
+          "failed_checks": [
+            {
+              "name": "completed_motion",
+              "value": false,
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.33432821833375725,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_joint_rmse_rad",
+              "value": 0.3297059265079658,
+              "limit": 0.3,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_root_height_rmse_m",
+              "value": 0.10076007205162561,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "718d22ed1a70f33cc28d2856cad55451b4d5d55352e4d3133119ae771426e84a",
+          "skill": "dance",
+          "inversion_reference_frames": 51,
+          "inverted_joint_rmse_rad": 0.3297059265079658
+        },
+        {
+          "stage": "runs/task-optimization-20261117c/dance-pose80-ori40-wrist150-head-h16-evaluations/ckpt_0010000",
+          "checkpoint": "runs/task-optimization-20261117c/dance-pose80-ori40-wrist150-head-h16/training/ckpt_0010000.pt",
+          "checkpoint_sha256": "448384dab697b38ddb477ce6cf8be59a4080eb465b8475aaf564621845171eef",
+          "completed_motion": false,
+          "steps": 3902,
+          "strict_passed": false,
+          "return": 0.4789848061397197,
+          "worst_effector_m": 0.3425645101314616,
+          "failed_checks": [
+            {
+              "name": "completed_motion",
+              "value": false,
+              "passed": false
+            },
+            {
+              "name": "full_clip_return",
+              "value": 0.4789848061397197,
+              "limit": 0.7,
+              "comparison": ">=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.3425645101314616,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "1e086e5c8a6f2cbc367da5ca397f94fabad3d5cef15ea9c22d7fd4ec0bb412ce",
+          "skill": "dance",
+          "inversion_reference_frames": 0,
+          "inverted_joint_rmse_rad": null
+        }
+      ]
+    },
     "jump-distill-peak133-preserve-123-143": {
       "local_evidence": "runs/task-optimization-20261117c/jump-distill-peak133-preserve-123-143/physical-results.json",
       "evidence_sha256": "5f62f0c1862d3c8301f2384c05d3272db17463bfe65ee186f9b94de656d4cbd1",
@@ -1421,6 +1762,100 @@
           "flight_time_precision": 0.7850496277915633,
           "flight_airtime_ratio": 0.7894221351616062,
           "flight_event_recall": 0.8888888888888888
+        }
+      ]
+    },
+    "jump-distilled-dynamic40-eff300-head-h32-evaluations": {
+      "local_evidence": "runs/task-optimization-20261117c/jump-distilled-dynamic40-eff300-head-h32-evaluations/physical-results.json",
+      "evidence_sha256": "c91dcac1f39e072e7edc6f8913af3182eace3c3638b9e1e2ffc3573fe8a3b4e0",
+      "evaluations": 3,
+      "passes": 0,
+      "records": [
+        {
+          "stage": "runs/task-optimization-20261117c/jump-distilled-dynamic40-eff300-head-h32-evaluations/ckpt_0005000",
+          "checkpoint": "runs/task-optimization-20261117c/jump-distilled-dynamic40-eff300-head-h32/training/ckpt_0005000.pt",
+          "checkpoint_sha256": "fb6d8980470c1e86c2e429d12503c2a936b5bb223cc95ab20c394379b9fcf387",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8015656992140753,
+          "worst_effector_m": 0.2684838618778271,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2684838618778271,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7979192938209332,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "f5b8f3d33fd86d6ee6591b4931781c930f19fc3510f0280ad2040dc6b3fe4252",
+          "skill": "jump",
+          "flight_time_precision": 0.7979192938209332,
+          "flight_airtime_ratio": 0.7766895200783546,
+          "flight_event_recall": 0.8777777777777778
+        },
+        {
+          "stage": "runs/task-optimization-20261117c/jump-distilled-dynamic40-eff300-head-h32-evaluations/ckpt_0010000",
+          "checkpoint": "runs/task-optimization-20261117c/jump-distilled-dynamic40-eff300-head-h32/training/ckpt_0010000.pt",
+          "checkpoint_sha256": "19f826eec08e4a02673a111b9ae8d835aa47385383d4ca9ba8b5518c0db63c53",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.7994404171543419,
+          "worst_effector_m": 0.2795194630081152,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2795194630081152,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7904135338345865,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "89f84d1088dd489de212db319cf37f197c7a2b19b39090b09397ef9d2774cf1d",
+          "skill": "jump",
+          "flight_time_precision": 0.7904135338345865,
+          "flight_airtime_ratio": 0.781586679725759,
+          "flight_event_recall": 0.8888888888888888
+        },
+        {
+          "stage": "runs/task-optimization-20261117c/jump-distilled-dynamic40-eff300-head-h32-evaluations/ckpt_latest",
+          "checkpoint": "runs/task-optimization-20261117c/jump-distilled-dynamic40-eff300-head-h32/training/ckpt_latest.pt",
+          "checkpoint_sha256": "0dc2163b368ef74eae054cd0ed60a314b5036d621543ed88b75e4cd26da7c2b3",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.80399540205964,
+          "worst_effector_m": 0.28919850796903107,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.28919850796903107,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "75b582ca8f1b579d02b15d7042baaef75ab47a60b9958508321e1b569d9bf3dd",
+          "skill": "jump",
+          "flight_time_precision": 0.8016450490351155,
+          "flight_airtime_ratio": 0.773996082272282,
+          "flight_event_recall": 0.8666666666666667
         }
       ]
     },
@@ -2532,6 +2967,177 @@
         }
       ]
     },
+    "jump-parallel-residual-control": {
+      "local_evidence": "runs/task-optimization-20261117c/jump-parallel-residual-control/physical-results.json",
+      "evidence_sha256": "fffcac7264bcb02b32dc70da7e627001f6d2fa856bf77a0d7b4482fad08b492f",
+      "evaluations": 5,
+      "passes": 0,
+      "records": [
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-parallel-residual-control/zero-residual",
+          "checkpoint": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-parallel-residual-control/zero-residual/research-residual.pt",
+          "checkpoint_sha256": "c40428bef4a5c97760c86ceab27b9c77c6675bc13d8872b4eccba8143425abbd",
+          "gain": 0.0,
+          "update": 0,
+          "extra_hidden_units": 16,
+          "assembly_parity_error": 2.384185791015625e-06,
+          "checkpoint_format": "parallel-residual-research-v1",
+          "standard_training_supported": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8062835106843036,
+          "worst_effector_m": 0.25438295722449555,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25438295722449555,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "93584281cbcb3d3376ec084c7c4ec81d09d815366c2e1ee7867f421ca2edde1f",
+          "zero_source_full_bitexact": {
+            "states": true,
+            "actions": true,
+            "reference_frame": true,
+            "physical_contacts": true
+          },
+          "skill": "jump",
+          "flight_time_precision": 0.8172983479105929,
+          "flight_airtime_ratio": 0.7558765915768854,
+          "flight_event_recall": 0.8777777777777778
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-parallel-residual-control/gain-0p25/update-2000",
+          "checkpoint": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-parallel-residual-control/gain-0p25/update-2000/research-residual.pt",
+          "checkpoint_sha256": "a3a2f6f704dd864e325ad4b808624f6ebc3006ec54d7d687e24cf1e45f184213",
+          "gain": 0.25,
+          "update": 2000,
+          "extra_hidden_units": 16,
+          "assembly_parity_error": 2.384185791015625e-06,
+          "checkpoint_format": "parallel-residual-research-v1",
+          "standard_training_supported": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8020324034363496,
+          "worst_effector_m": 0.2729873403286543,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2729873403286543,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "43faeaf9124ffdeeaf26df97182b057f3f4ec14b41b53a3d3b2b6e4f0ddf12ad",
+          "skill": "jump",
+          "flight_time_precision": 0.8053543307086615,
+          "flight_airtime_ratio": 0.7774240940254652,
+          "flight_event_recall": 0.8777777777777778
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-parallel-residual-control/gain-0p25/update-6000",
+          "checkpoint": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-parallel-residual-control/gain-0p25/update-6000/research-residual.pt",
+          "checkpoint_sha256": "43fae73e74162cc4e2478759400d4bf2a69e85c1a505ec313ea868162a8663b2",
+          "gain": 0.25,
+          "update": 6000,
+          "extra_hidden_units": 16,
+          "assembly_parity_error": 2.384185791015625e-06,
+          "checkpoint_format": "parallel-residual-research-v1",
+          "standard_training_supported": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8082999259162754,
+          "worst_effector_m": 0.27233807538446203,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.27233807538446203,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "22a6a4ab7d3c944e9c977f6ff35b9b78d15fa3956cf8209e746461d58c2f548a",
+          "skill": "jump",
+          "flight_time_precision": 0.8061224489795918,
+          "flight_airtime_ratio": 0.7678746327130264,
+          "flight_event_recall": 0.8777777777777778
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-parallel-residual-control/gain-0p5/update-2000",
+          "checkpoint": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-parallel-residual-control/gain-0p5/update-2000/research-residual.pt",
+          "checkpoint_sha256": "34688a58cf47d4974f10b78c06d47ed7e8ae1c6ef77739aa4c91a110f027004c",
+          "gain": 0.5,
+          "update": 2000,
+          "extra_hidden_units": 16,
+          "assembly_parity_error": 2.384185791015625e-06,
+          "checkpoint_format": "parallel-residual-research-v1",
+          "standard_training_supported": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8021006448775536,
+          "worst_effector_m": 0.29450882203682244,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.29450882203682244,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7875345409886398,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "cb4e416400560315dcc5b12db3d3d673762384a5639a8b10a6a26a58c4064f61",
+          "skill": "jump",
+          "flight_time_precision": 0.7875345409886398,
+          "flight_airtime_ratio": 0.7975024485798237,
+          "flight_event_recall": 0.8666666666666667
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-parallel-residual-control/gain-0p5/update-6000",
+          "checkpoint": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-parallel-residual-control/gain-0p5/update-6000/research-residual.pt",
+          "checkpoint_sha256": "02df37c9fd970c8001edd6bfb66c3449e1b4aecde30d4512e10fcc457d6d172b",
+          "gain": 0.5,
+          "update": 6000,
+          "extra_hidden_units": 16,
+          "assembly_parity_error": 2.384185791015625e-06,
+          "checkpoint_format": "parallel-residual-research-v1",
+          "standard_training_supported": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8052096797249221,
+          "worst_effector_m": 0.27642489110581914,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.27642489110581914,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "8da5a3aab74c98edb3e56071f05c759db5e788d2b3e4e6bef9ca0397e5fd1df7",
+          "skill": "jump",
+          "flight_time_precision": 0.8169657422512235,
+          "flight_airtime_ratio": 0.7504897159647405,
+          "flight_event_recall": 0.8666666666666667
+        }
+      ]
+    },
     "jump-reference-support-distillation": {
       "local_evidence": "runs/task-optimization-20261117c/jump-reference-support-distillation/physical-results.json",
       "evidence_sha256": "682bbb9f057aeda5ed707b391e55038229de8d4a44b1f59c703ac9fd0fec376a",
@@ -2796,7 +3402,7 @@
       ]
     }
   },
-  "original_full_motion_candidate_evaluations": 74,
+  "original_full_motion_candidate_evaluations": 89,
   "original_full_motion_candidate_passes": 0,
   "shared_resources": {
     "exclusive_lock": "/home/ubuntu/.cache/codex-heavy-work.lock",
@@ -2866,14 +3472,14 @@
     "generation_script_sha256": "e1280fbe057c4a0495afc3fba06fec8ff178a9347dd2c00873eb0500b23fa5c6"
   },
   "final_source_ci": {
-    "run_id": 44127469967,
-    "url": "https://github.com/chase6305/SuperMimic-Reproduced/actions/runs/44127469967",
-    "head_sha": "502f5d5289b2b30b5bab81dd480049b606deb5b1",
+    "run_id": 44132818838,
+    "url": "https://github.com/chase6305/SuperMimic-Reproduced/actions/runs/44132818838",
+    "head_sha": "f566d3b0798cb11deed3200cc75a51976e20a043",
     "conclusion": "success",
-    "passed": 761,
+    "passed": 763,
     "skipped": 42,
     "subtests_passed": 12,
-    "cpu_test_seconds": 41.64,
+    "cpu_test_seconds": 51.52,
     "ruff": "passed",
     "wheel_and_sdist": "passed"
   },
@@ -3060,5 +3666,600 @@
     ],
     "selection": "Evaluate all9 declared combinations with original23jump gates. Among passes choose largest declared duration then greatest minimum relative numeric-gate margin. Publish every pass/failure. Any selected extension requires a copied-bundle independent full physical replay before delivery. Previously accepted120s and30s tasks remain intact.",
     "scope": "Each duration is an explicitly separate exact-original-first-prefix task at50Hz, noresampling/retiming. The original244.42s full-task failures remain attached to each actor. This can extend the known-reference deployment scope, not establish original-full-task acceptance or new-motion/perturbation/hardware robustness."
+  },
+  "separate_prefix_extension_results": [
+    {
+      "task": "jump180-original-start",
+      "model": "retained-h32",
+      "checkpoint_sha256": "2fd371dc544e4a8eda6c39c4529c6fdca1d1f31fe8b0a3ca39151b9c10cf120a",
+      "source_checkpoint": "runs/task-readiness-20261117/jump-h32-leftfoot100-all/update-0001/checkpoint.pt",
+      "reference": "data/npz/task-slices/jump180-original-start-20261117c.npz",
+      "motion_sha256": "e0976f54392ccae57b86c240193ead836daa90096b57dba7217668393dc9bef4",
+      "assessment": "runs/task-optimization-20261117c/jump180-retained-h32-probe/assessment.json",
+      "deployment": "runs/task-optimization-20261117c/jump180-retained-h32-probe/deploy",
+      "passed": false,
+      "steps": 9000,
+      "full_prefix_controls_bitexact": 8990,
+      "prefix_fields_bitexact": {
+        "states": true,
+        "actions": true,
+        "reference_frame": true,
+        "physical_contacts": true
+      },
+      "flight": {
+        "reference_events": 83,
+        "matched_events": 71,
+        "actual_events": 152,
+        "event_recall": 0.8554216867469879,
+        "time_precision": 0.7851414098775855,
+        "reference_airtime_s": 18.36,
+        "actual_airtime_s": 11.845,
+        "airtime_ratio": 0.6451525054466232,
+        "definition": "Target: both feet collider bottoms >3 cm, >=120 ms. Actual: both feet <1 N and no nonfoot support, >=40 ms. Match tolerance +/-100 ms and >=min(60 ms,30% target duration) overlap."
+      },
+      "return": 0.796491789287991,
+      "failed_checks": [
+        {
+          "name": "worst_1s_effector_rmse_m",
+          "value": 0.25363011333230656,
+          "limit": 0.25,
+          "comparison": "<=",
+          "passed": false
+        },
+        {
+          "name": "jump_time_precision",
+          "value": 0.7851414098775855,
+          "limit": 0.8,
+          "comparison": ">=",
+          "passed": false
+        }
+      ],
+      "trajectory_sha256": "93cca741e47a3a5b94f80dcdb6545f16a44c801d503734cdb65766137963f5de",
+      "original_full_motion_passed": false
+    },
+    {
+      "task": "jump180-original-start",
+      "model": "pose100",
+      "checkpoint_sha256": "c511d5bffe21965e3ffda9680d636d4558d708b00f8c5b1795e329cb6f136494",
+      "source_checkpoint": "runs/task-optimization-20261117b/jump-full-pose100-decoder-h16/training/ckpt_0005000.pt",
+      "reference": "data/npz/task-slices/jump180-original-start-20261117c.npz",
+      "motion_sha256": "e0976f54392ccae57b86c240193ead836daa90096b57dba7217668393dc9bef4",
+      "assessment": "runs/task-optimization-20261117c/jump180-pose100-probe/assessment.json",
+      "deployment": "runs/task-optimization-20261117c/jump180-pose100-probe/deploy",
+      "passed": false,
+      "steps": 9000,
+      "full_prefix_controls_bitexact": 8990,
+      "prefix_fields_bitexact": {
+        "states": true,
+        "actions": true,
+        "reference_frame": true,
+        "physical_contacts": true
+      },
+      "flight": {
+        "reference_events": 83,
+        "matched_events": 73,
+        "actual_events": 191,
+        "event_recall": 0.8795180722891566,
+        "time_precision": 0.6901452937460518,
+        "reference_airtime_s": 18.36,
+        "actual_airtime_s": 15.83,
+        "airtime_ratio": 0.8622004357298475,
+        "definition": "Target: both feet collider bottoms >3 cm, >=120 ms. Actual: both feet <1 N and no nonfoot support, >=40 ms. Match tolerance +/-100 ms and >=min(60 ms,30% target duration) overlap."
+      },
+      "return": 0.7847474808163113,
+      "failed_checks": [
+        {
+          "name": "jump_time_precision",
+          "value": 0.6901452937460518,
+          "limit": 0.8,
+          "comparison": ">=",
+          "passed": false
+        }
+      ],
+      "trajectory_sha256": "a37c10c25363fe9fe4ec791b67197ae931b9b0df8b40a26912fc85cc5fc7eaca",
+      "original_full_motion_passed": false
+    },
+    {
+      "task": "jump180-original-start",
+      "model": "stance200",
+      "checkpoint_sha256": "a4db166b41d4361cd121fae3941c8ce9327d454df24d6a4154b5e8d79dccc746",
+      "source_checkpoint": "runs/task-optimization-20261117b/jump-pose100-stance200-resume/training/ckpt_latest.pt",
+      "reference": "data/npz/task-slices/jump180-original-start-20261117c.npz",
+      "motion_sha256": "e0976f54392ccae57b86c240193ead836daa90096b57dba7217668393dc9bef4",
+      "assessment": "runs/task-optimization-20261117c/jump180-stance200-probe/assessment.json",
+      "deployment": "runs/task-optimization-20261117c/jump180-stance200-probe/deploy",
+      "passed": false,
+      "steps": 9000,
+      "full_prefix_controls_bitexact": 8990,
+      "prefix_fields_bitexact": {
+        "states": true,
+        "actions": true,
+        "reference_frame": true,
+        "physical_contacts": true
+      },
+      "flight": {
+        "reference_events": 83,
+        "matched_events": 73,
+        "actual_events": 205,
+        "event_recall": 0.8795180722891566,
+        "time_precision": 0.6663802978235968,
+        "reference_airtime_s": 18.36,
+        "actual_airtime_s": 17.46,
+        "airtime_ratio": 0.9509803921568628,
+        "definition": "Target: both feet collider bottoms >3 cm, >=120 ms. Actual: both feet <1 N and no nonfoot support, >=40 ms. Match tolerance +/-100 ms and >=min(60 ms,30% target duration) overlap."
+      },
+      "return": 0.7915615585115221,
+      "failed_checks": [
+        {
+          "name": "jump_time_precision",
+          "value": 0.6663802978235968,
+          "limit": 0.8,
+          "comparison": ">=",
+          "passed": false
+        }
+      ],
+      "trajectory_sha256": "ed6a168f7f12db48a8d1efcd7f3c9ea85185ef41cd4d7718bb897509ee67b03e",
+      "original_full_motion_passed": false
+    },
+    {
+      "task": "jump200-original-start",
+      "model": "retained-h32",
+      "checkpoint_sha256": "2fd371dc544e4a8eda6c39c4529c6fdca1d1f31fe8b0a3ca39151b9c10cf120a",
+      "source_checkpoint": "runs/task-readiness-20261117/jump-h32-leftfoot100-all/update-0001/checkpoint.pt",
+      "reference": "data/npz/task-slices/jump200-original-start-20261117c.npz",
+      "motion_sha256": "98b33891d0fe65b3ced697e00bff082e2017d8e2eae55ab7c86eb906ffe27651",
+      "assessment": "runs/task-optimization-20261117c/jump200-retained-h32-probe/assessment.json",
+      "deployment": "runs/task-optimization-20261117c/jump200-retained-h32-probe/deploy",
+      "passed": false,
+      "steps": 10000,
+      "full_prefix_controls_bitexact": 9990,
+      "prefix_fields_bitexact": {
+        "states": true,
+        "actions": true,
+        "reference_frame": true,
+        "physical_contacts": true
+      },
+      "flight": {
+        "reference_events": 83,
+        "matched_events": 71,
+        "actual_events": 152,
+        "event_recall": 0.8554216867469879,
+        "time_precision": 0.7851414098775855,
+        "reference_airtime_s": 18.36,
+        "actual_airtime_s": 11.845,
+        "airtime_ratio": 0.6451525054466232,
+        "definition": "Target: both feet collider bottoms >3 cm, >=120 ms. Actual: both feet <1 N and no nonfoot support, >=40 ms. Match tolerance +/-100 ms and >=min(60 ms,30% target duration) overlap."
+      },
+      "return": 0.8026998196840286,
+      "failed_checks": [
+        {
+          "name": "worst_1s_effector_rmse_m",
+          "value": 0.25363011333230656,
+          "limit": 0.25,
+          "comparison": "<=",
+          "passed": false
+        },
+        {
+          "name": "jump_time_precision",
+          "value": 0.7851414098775855,
+          "limit": 0.8,
+          "comparison": ">=",
+          "passed": false
+        }
+      ],
+      "trajectory_sha256": "11e4f1148a9b7e8cd5064076028ef59eb4d5b761e6fd93227d95c8326f401258",
+      "original_full_motion_passed": false
+    },
+    {
+      "task": "jump200-original-start",
+      "model": "pose100",
+      "checkpoint_sha256": "c511d5bffe21965e3ffda9680d636d4558d708b00f8c5b1795e329cb6f136494",
+      "source_checkpoint": "runs/task-optimization-20261117b/jump-full-pose100-decoder-h16/training/ckpt_0005000.pt",
+      "reference": "data/npz/task-slices/jump200-original-start-20261117c.npz",
+      "motion_sha256": "98b33891d0fe65b3ced697e00bff082e2017d8e2eae55ab7c86eb906ffe27651",
+      "assessment": "runs/task-optimization-20261117c/jump200-pose100-probe/assessment.json",
+      "deployment": "runs/task-optimization-20261117c/jump200-pose100-probe/deploy",
+      "passed": false,
+      "steps": 10000,
+      "full_prefix_controls_bitexact": 9990,
+      "prefix_fields_bitexact": {
+        "states": true,
+        "actions": true,
+        "reference_frame": true,
+        "physical_contacts": true
+      },
+      "flight": {
+        "reference_events": 83,
+        "matched_events": 73,
+        "actual_events": 191,
+        "event_recall": 0.8795180722891566,
+        "time_precision": 0.6901452937460518,
+        "reference_airtime_s": 18.36,
+        "actual_airtime_s": 15.83,
+        "airtime_ratio": 0.8622004357298475,
+        "definition": "Target: both feet collider bottoms >3 cm, >=120 ms. Actual: both feet <1 N and no nonfoot support, >=40 ms. Match tolerance +/-100 ms and >=min(60 ms,30% target duration) overlap."
+      },
+      "return": 0.7928580057621002,
+      "failed_checks": [
+        {
+          "name": "jump_time_precision",
+          "value": 0.6901452937460518,
+          "limit": 0.8,
+          "comparison": ">=",
+          "passed": false
+        }
+      ],
+      "trajectory_sha256": "c3d6ede15512a6883734b543b1c0bef173d0a4f4f9a4cfa599e7bf1754f002aa",
+      "original_full_motion_passed": false
+    },
+    {
+      "task": "jump200-original-start",
+      "model": "stance200",
+      "checkpoint_sha256": "a4db166b41d4361cd121fae3941c8ce9327d454df24d6a4154b5e8d79dccc746",
+      "source_checkpoint": "runs/task-optimization-20261117b/jump-pose100-stance200-resume/training/ckpt_latest.pt",
+      "reference": "data/npz/task-slices/jump200-original-start-20261117c.npz",
+      "motion_sha256": "98b33891d0fe65b3ced697e00bff082e2017d8e2eae55ab7c86eb906ffe27651",
+      "assessment": "runs/task-optimization-20261117c/jump200-stance200-probe/assessment.json",
+      "deployment": "runs/task-optimization-20261117c/jump200-stance200-probe/deploy",
+      "passed": false,
+      "steps": 10000,
+      "full_prefix_controls_bitexact": 9990,
+      "prefix_fields_bitexact": {
+        "states": true,
+        "actions": true,
+        "reference_frame": true,
+        "physical_contacts": true
+      },
+      "flight": {
+        "reference_events": 83,
+        "matched_events": 73,
+        "actual_events": 205,
+        "event_recall": 0.8795180722891566,
+        "time_precision": 0.6663802978235968,
+        "reference_airtime_s": 18.36,
+        "actual_airtime_s": 17.46,
+        "airtime_ratio": 0.9509803921568628,
+        "definition": "Target: both feet collider bottoms >3 cm, >=120 ms. Actual: both feet <1 N and no nonfoot support, >=40 ms. Match tolerance +/-100 ms and >=min(60 ms,30% target duration) overlap."
+      },
+      "return": 0.8001437888145447,
+      "failed_checks": [
+        {
+          "name": "jump_time_precision",
+          "value": 0.6663802978235968,
+          "limit": 0.8,
+          "comparison": ">=",
+          "passed": false
+        }
+      ],
+      "trajectory_sha256": "009678b59d26d34ff48ba1f131758cb06beb48019567beb881413bff6b62b496",
+      "original_full_motion_passed": false
+    },
+    {
+      "task": "jump220-original-start",
+      "model": "retained-h32",
+      "checkpoint_sha256": "2fd371dc544e4a8eda6c39c4529c6fdca1d1f31fe8b0a3ca39151b9c10cf120a",
+      "source_checkpoint": "runs/task-readiness-20261117/jump-h32-leftfoot100-all/update-0001/checkpoint.pt",
+      "reference": "data/npz/task-slices/jump220-original-start-20261117c.npz",
+      "motion_sha256": "a25bbcca6974287c29a1c8875d2deef1e92b87184db681bae510a02d15d99d50",
+      "assessment": "runs/task-optimization-20261117c/jump220-retained-h32-probe/assessment.json",
+      "deployment": "runs/task-optimization-20261117c/jump220-retained-h32-probe/deploy",
+      "passed": false,
+      "steps": 11000,
+      "full_prefix_controls_bitexact": 10990,
+      "prefix_fields_bitexact": {
+        "states": true,
+        "actions": true,
+        "reference_frame": true,
+        "physical_contacts": true
+      },
+      "flight": {
+        "reference_events": 87,
+        "matched_events": 75,
+        "actual_events": 158,
+        "event_recall": 0.8620689655172413,
+        "time_precision": 0.7943434343434344,
+        "reference_airtime_s": 19.48,
+        "actual_airtime_s": 12.375,
+        "airtime_ratio": 0.6352669404517454,
+        "definition": "Target: both feet collider bottoms >3 cm, >=120 ms. Actual: both feet <1 N and no nonfoot support, >=40 ms. Match tolerance +/-100 ms and >=min(60 ms,30% target duration) overlap."
+      },
+      "return": 0.8050594065406106,
+      "failed_checks": [
+        {
+          "name": "worst_1s_effector_rmse_m",
+          "value": 0.2540947345106545,
+          "limit": 0.25,
+          "comparison": "<=",
+          "passed": false
+        },
+        {
+          "name": "jump_time_precision",
+          "value": 0.7943434343434344,
+          "limit": 0.8,
+          "comparison": ">=",
+          "passed": false
+        }
+      ],
+      "trajectory_sha256": "deb97301913471f5af9e3a1f0321ece8edef478a93575e4ca02621e6aad04ed5",
+      "original_full_motion_passed": false
+    },
+    {
+      "task": "jump220-original-start",
+      "model": "pose100",
+      "checkpoint_sha256": "c511d5bffe21965e3ffda9680d636d4558d708b00f8c5b1795e329cb6f136494",
+      "source_checkpoint": "runs/task-optimization-20261117b/jump-full-pose100-decoder-h16/training/ckpt_0005000.pt",
+      "reference": "data/npz/task-slices/jump220-original-start-20261117c.npz",
+      "motion_sha256": "a25bbcca6974287c29a1c8875d2deef1e92b87184db681bae510a02d15d99d50",
+      "assessment": "runs/task-optimization-20261117c/jump220-pose100-probe/assessment.json",
+      "deployment": "runs/task-optimization-20261117c/jump220-pose100-probe/deploy",
+      "passed": false,
+      "steps": 11000,
+      "full_prefix_controls_bitexact": 10990,
+      "prefix_fields_bitexact": {
+        "states": true,
+        "actions": true,
+        "reference_frame": true,
+        "physical_contacts": true
+      },
+      "flight": {
+        "reference_events": 87,
+        "matched_events": 77,
+        "actual_events": 196,
+        "event_recall": 0.8850574712643678,
+        "time_precision": 0.6996059411943013,
+        "reference_airtime_s": 19.48,
+        "actual_airtime_s": 16.495,
+        "airtime_ratio": 0.8467659137577003,
+        "definition": "Target: both feet collider bottoms >3 cm, >=120 ms. Actual: both feet <1 N and no nonfoot support, >=40 ms. Match tolerance +/-100 ms and >=min(60 ms,30% target duration) overlap."
+      },
+      "return": 0.7939472532272339,
+      "failed_checks": [
+        {
+          "name": "jump_time_precision",
+          "value": 0.6996059411943013,
+          "limit": 0.8,
+          "comparison": ">=",
+          "passed": false
+        }
+      ],
+      "trajectory_sha256": "134f84aae574cffb304434b1fbdffdcae2aeabef28a5abc39dff9443b77b7731",
+      "original_full_motion_passed": false
+    },
+    {
+      "task": "jump220-original-start",
+      "model": "stance200",
+      "checkpoint_sha256": "a4db166b41d4361cd121fae3941c8ce9327d454df24d6a4154b5e8d79dccc746",
+      "source_checkpoint": "runs/task-optimization-20261117b/jump-pose100-stance200-resume/training/ckpt_latest.pt",
+      "reference": "data/npz/task-slices/jump220-original-start-20261117c.npz",
+      "motion_sha256": "a25bbcca6974287c29a1c8875d2deef1e92b87184db681bae510a02d15d99d50",
+      "assessment": "runs/task-optimization-20261117c/jump220-stance200-probe/assessment.json",
+      "deployment": "runs/task-optimization-20261117c/jump220-stance200-probe/deploy",
+      "passed": false,
+      "steps": 11000,
+      "full_prefix_controls_bitexact": 10990,
+      "prefix_fields_bitexact": {
+        "states": true,
+        "actions": true,
+        "reference_frame": true,
+        "physical_contacts": true
+      },
+      "flight": {
+        "reference_events": 87,
+        "matched_events": 77,
+        "actual_events": 209,
+        "event_recall": 0.8850574712643678,
+        "time_precision": 0.6787093215664645,
+        "reference_airtime_s": 19.48,
+        "actual_airtime_s": 18.13,
+        "airtime_ratio": 0.9306981519507186,
+        "definition": "Target: both feet collider bottoms >3 cm, >=120 ms. Actual: both feet <1 N and no nonfoot support, >=40 ms. Match tolerance +/-100 ms and >=min(60 ms,30% target duration) overlap."
+      },
+      "return": 0.8034658475355668,
+      "failed_checks": [
+        {
+          "name": "jump_time_precision",
+          "value": 0.6787093215664645,
+          "limit": 0.8,
+          "comparison": ">=",
+          "passed": false
+        }
+      ],
+      "trajectory_sha256": "873c9e6190467bf80a48bb18e175d6d84b8e400c225299dc122f98bebc1f4552",
+      "original_full_motion_passed": false
+    },
+    {
+      "task": "jump150-original-start",
+      "model": "retained-h32",
+      "checkpoint_sha256": "2fd371dc544e4a8eda6c39c4529c6fdca1d1f31fe8b0a3ca39151b9c10cf120a",
+      "source_checkpoint": "runs/task-readiness-20261117/jump-h32-leftfoot100-all/update-0001/checkpoint.pt",
+      "reference": "data/npz/task-slices/jump150-original-start-20261117c.npz",
+      "motion_sha256": "d8c98909a8bf99c95a26059c60847ea741ad975ecb4ffa99836d96631624f722",
+      "assessment": "runs/task-optimization-20261117c/jump150-retained-h32-probe/assessment.json",
+      "deployment": "runs/task-optimization-20261117c/jump150-retained-h32-probe/deploy",
+      "passed": false,
+      "steps": 7500,
+      "full_prefix_controls_bitexact": 7490,
+      "prefix_fields_bitexact": {
+        "states": true,
+        "actions": true,
+        "reference_frame": true,
+        "physical_contacts": true
+      },
+      "flight": {
+        "reference_events": 83,
+        "matched_events": 71,
+        "actual_events": 134,
+        "event_recall": 0.8554216867469879,
+        "time_precision": 0.8933717579250721,
+        "reference_airtime_s": 18.36,
+        "actual_airtime_s": 10.41,
+        "airtime_ratio": 0.5669934640522876,
+        "definition": "Target: both feet collider bottoms >3 cm, >=120 ms. Actual: both feet <1 N and no nonfoot support, >=40 ms. Match tolerance +/-100 ms and >=min(60 ms,30% target duration) overlap."
+      },
+      "return": 0.7942938041687012,
+      "failed_checks": [
+        {
+          "name": "worst_1s_effector_rmse_m",
+          "value": 0.25363011333230656,
+          "limit": 0.25,
+          "comparison": "<=",
+          "passed": false
+        },
+        {
+          "name": "jump_airtime_ratio_min",
+          "value": 0.5669934640522876,
+          "limit": 0.6,
+          "comparison": ">=",
+          "passed": false
+        }
+      ],
+      "trajectory_sha256": "da9bd8db25e9ac661dc74dbe2fc8e99b28b9dc5890feb5469c1da1f7355f73ef",
+      "original_full_motion_passed": false
+    },
+    {
+      "task": "jump150-original-start",
+      "model": "pose100",
+      "checkpoint_sha256": "c511d5bffe21965e3ffda9680d636d4558d708b00f8c5b1795e329cb6f136494",
+      "source_checkpoint": "runs/task-optimization-20261117b/jump-full-pose100-decoder-h16/training/ckpt_0005000.pt",
+      "reference": "data/npz/task-slices/jump150-original-start-20261117c.npz",
+      "motion_sha256": "d8c98909a8bf99c95a26059c60847ea741ad975ecb4ffa99836d96631624f722",
+      "assessment": "runs/task-optimization-20261117c/jump150-pose100-probe/assessment.json",
+      "deployment": "runs/task-optimization-20261117c/jump150-pose100-probe/deploy",
+      "passed": false,
+      "steps": 7500,
+      "full_prefix_controls_bitexact": 7490,
+      "prefix_fields_bitexact": {
+        "states": true,
+        "actions": true,
+        "reference_frame": true,
+        "physical_contacts": true
+      },
+      "flight": {
+        "reference_events": 83,
+        "matched_events": 73,
+        "actual_events": 174,
+        "event_recall": 0.8795180722891566,
+        "time_precision": 0.7845601436265709,
+        "reference_airtime_s": 18.36,
+        "actual_airtime_s": 13.925,
+        "airtime_ratio": 0.758442265795207,
+        "definition": "Target: both feet collider bottoms >3 cm, >=120 ms. Actual: both feet <1 N and no nonfoot support, >=40 ms. Match tolerance +/-100 ms and >=min(60 ms,30% target duration) overlap."
+      },
+      "return": 0.7805843760172526,
+      "failed_checks": [
+        {
+          "name": "jump_time_precision",
+          "value": 0.7845601436265709,
+          "limit": 0.8,
+          "comparison": ">=",
+          "passed": false
+        }
+      ],
+      "trajectory_sha256": "194064dc9b922b639cb526078811c4b2e0b9825b47f91ee2ac4f2b38bdb61a61",
+      "original_full_motion_passed": false
+    },
+    {
+      "task": "jump150-original-start",
+      "model": "stance200",
+      "checkpoint_sha256": "a4db166b41d4361cd121fae3941c8ce9327d454df24d6a4154b5e8d79dccc746",
+      "source_checkpoint": "runs/task-optimization-20261117b/jump-pose100-stance200-resume/training/ckpt_latest.pt",
+      "reference": "data/npz/task-slices/jump150-original-start-20261117c.npz",
+      "motion_sha256": "d8c98909a8bf99c95a26059c60847ea741ad975ecb4ffa99836d96631624f722",
+      "assessment": "runs/task-optimization-20261117c/jump150-stance200-probe/assessment.json",
+      "deployment": "runs/task-optimization-20261117c/jump150-stance200-probe/deploy",
+      "passed": false,
+      "steps": 7500,
+      "full_prefix_controls_bitexact": 7490,
+      "prefix_fields_bitexact": {
+        "states": true,
+        "actions": true,
+        "reference_frame": true,
+        "physical_contacts": true
+      },
+      "flight": {
+        "reference_events": 83,
+        "matched_events": 73,
+        "actual_events": 188,
+        "event_recall": 0.8795180722891566,
+        "time_precision": 0.750161186331399,
+        "reference_airtime_s": 18.36,
+        "actual_airtime_s": 15.51,
+        "airtime_ratio": 0.8447712418300654,
+        "definition": "Target: both feet collider bottoms >3 cm, >=120 ms. Actual: both feet <1 N and no nonfoot support, >=40 ms. Match tolerance +/-100 ms and >=min(60 ms,30% target duration) overlap."
+      },
+      "return": 0.7912523187001547,
+      "failed_checks": [
+        {
+          "name": "jump_time_precision",
+          "value": 0.750161186331399,
+          "limit": 0.8,
+          "comparison": ">=",
+          "passed": false
+        }
+      ],
+      "trajectory_sha256": "9ad24e29760524282033176c3c2e527572034c686508038a3d8c6bdc1dd7b324",
+      "original_full_motion_passed": false
+    }
+  ],
+  "adaptive_prefix_followup150_plan": {
+    "created_at_utc": "2026-11-17T16:56:13.912570+00:00",
+    "reference_source": "data/npz/validation/jumps1_subject1.npz",
+    "reference_source_sha256": "0c21df779e79a8e96a5fb42f5a8a3ffe9b3cf775b883e6bf40016a67d8468878",
+    "durations_seconds": [
+      150
+    ],
+    "models": [
+      {
+        "id": "retained-h32",
+        "full_evaluation": "runs/task-readiness-20261117/jump-h32-leftfoot100-all/update-0001",
+        "checkpoint": "runs/task-readiness-20261117/jump-h32-leftfoot100-all/update-0001/checkpoint.pt",
+        "checkpoint_sha256": "2fd371dc544e4a8eda6c39c4529c6fdca1d1f31fe8b0a3ca39151b9c10cf120a",
+        "strict_resume_requires_new_check": true
+      },
+      {
+        "id": "pose100",
+        "full_evaluation": "runs/task-optimization-20261117b/jump-full-pose100-decoder-h16-evaluations/ckpt_0005000",
+        "checkpoint": "runs/task-optimization-20261117b/jump-full-pose100-decoder-h16/training/ckpt_0005000.pt",
+        "checkpoint_sha256": "c511d5bffe21965e3ffda9680d636d4558d708b00f8c5b1795e329cb6f136494"
+      },
+      {
+        "id": "stance200",
+        "full_evaluation": "runs/task-optimization-20261117b/jump-pose100-stance200-resume-evaluations/ckpt_latest",
+        "checkpoint": "runs/task-optimization-20261117b/jump-pose100-stance200-resume/training/ckpt_latest.pt",
+        "checkpoint_sha256": "a4db166b41d4361cd121fae3941c8ce9327d454df24d6a4154b5e8d79dccc746"
+      }
+    ],
+    "selection": "After the separately declared180/200/220s phase failedall9, predeclare all3 retained actors for150s. Keep both phases and do not infer monotonic prefix acceptance. Any pass needs copied full rerun and actual source training qualification.",
+    "scope": "Each duration is an explicitly separate exact-original-first-prefix task at50Hz, noresampling/retiming. The original244.42s full-task failures remain attached to each actor. This can extend the known-reference deployment scope, not establish original-full-task acceptance or new-motion/perturbation/hardware robustness.",
+    "adaptive_followup_to": {
+      "results": "runs/task-optimization-20261117c/jump-extension-results.json",
+      "sha256": "52f9b7d570e80b7e3cc70aba051a4057b9596aafb6e56c70804f2fac870c8e5b",
+      "evaluations": 9,
+      "passes": 0
+    }
+  },
+  "parallel_residual_zero_controls": {
+    "dance-parallel-residual-control": {
+      "passed": true,
+      "fields_bitexact": {
+        "states": true,
+        "actions": true,
+        "reference_frame": true,
+        "physical_contacts": true
+      },
+      "source_trajectory_sha256": "ebc34d7952dfe36a76817f1541ad09f05bb993637cf72503b60633b9c9daec72",
+      "zero_trajectory_sha256": "ebc34d7952dfe36a76817f1541ad09f05bb993637cf72503b60633b9c9daec72"
+    },
+    "jump-parallel-residual-control": {
+      "passed": true,
+      "fields_bitexact": {
+        "states": true,
+        "actions": true,
+        "reference_frame": true,
+        "physical_contacts": true
+      },
+      "source_trajectory_sha256": "93584281cbcb3d3376ec084c7c4ec81d09d815366c2e1ee7867f421ca2edde1f",
+      "zero_trajectory_sha256": "93584281cbcb3d3376ec084c7c4ec81d09d815366c2e1ee7867f421ca2edde1f"
+    }
   }
 }

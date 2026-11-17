@@ -85,14 +85,14 @@
     "peak_process_gpu_mib": 1160
   },
   "source_validation": {
-    "run_id": 44127469967,
-    "url": "https://github.com/chase6305/SuperMimic-Reproduced/actions/runs/44127469967",
-    "head_sha": "502f5d5289b2b30b5bab81dd480049b606deb5b1",
+    "run_id": 44132818838,
+    "url": "https://github.com/chase6305/SuperMimic-Reproduced/actions/runs/44132818838",
+    "head_sha": "f566d3b0798cb11deed3200cc75a51976e20a043",
     "conclusion": "success",
-    "passed": 761,
+    "passed": 763,
     "skipped": 42,
     "subtests_passed": 12,
-    "cpu_test_seconds": 41.64,
+    "cpu_test_seconds": 51.52,
     "ruff": "passed",
     "wheel_and_sdist": "passed"
   }

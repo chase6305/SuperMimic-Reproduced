@@ -1,0 +1,144 @@
+{
+  "generated_at_utc": "2026-11-17T17:02:29.636880+00:00",
+  "scope": "Experimental numerical controls only. Separating the residual branch retains original base matrix dimensions, unlike widening the existing final hidden layer. The observed entire-trajectory parity is exact. All eight trained variants still fail original full-motion gates; no new skill, public architecture, or model handoff is adopted. Research residual checkpoints deliberately omit standard network/config keys so ordinary loading cannot silently omit the branch.",
+  "controls": [
+    {
+      "experiment": "jump-parallel-residual-control",
+      "source_trajectory_sha256": "93584281cbcb3d3376ec084c7c4ec81d09d815366c2e1ee7867f421ca2edde1f",
+      "parallel_zero_residual_full_parity": {
+        "passed": true,
+        "fields_bitexact": {
+          "states": true,
+          "actions": true,
+          "reference_frame": true,
+          "physical_contacts": true
+        },
+        "source_trajectory_sha256": "93584281cbcb3d3376ec084c7c4ec81d09d815366c2e1ee7867f421ca2edde1f",
+        "zero_trajectory_sha256": "93584281cbcb3d3376ec084c7c4ec81d09d815366c2e1ee7867f421ca2edde1f"
+      },
+      "parallel_zero_metrics": {
+        "return": 0.8062835106843036,
+        "steps": 12221,
+        "worst_effector_m": 0.25438295722449555,
+        "failed_checks": [
+          {
+            "name": "worst_1s_effector_rmse_m",
+            "value": 0.25438295722449555,
+            "limit": 0.25,
+            "comparison": "<=",
+            "passed": false
+          }
+        ]
+      },
+      "prior_expanded_hidden_zero_metrics": {
+        "return": 0.8079118688059129,
+        "steps": 12221,
+        "worst_effector_m": 0.2643407215109979,
+        "failed_checks": [
+          {
+            "name": "worst_1s_effector_rmse_m",
+            "value": 0.2643407215109979,
+            "limit": 0.25,
+            "comparison": "<=",
+            "passed": false
+          },
+          {
+            "name": "jump_time_precision",
+            "value": 0.7943396226415095,
+            "limit": 0.8,
+            "comparison": ">=",
+            "passed": false
+          }
+        ]
+      },
+      "trained_variants": 4,
+      "trained_passes": 0,
+      "standard_checkpoint_training_supported": false,
+      "local_evidence": "runs/task-optimization-20261117c/jump-parallel-residual-control/physical-results.json"
+    },
+    {
+      "experiment": "dance-parallel-residual-control",
+      "source_trajectory_sha256": "ebc34d7952dfe36a76817f1541ad09f05bb993637cf72503b60633b9c9daec72",
+      "parallel_zero_residual_full_parity": {
+        "passed": true,
+        "fields_bitexact": {
+          "states": true,
+          "actions": true,
+          "reference_frame": true,
+          "physical_contacts": true
+        },
+        "source_trajectory_sha256": "ebc34d7952dfe36a76817f1541ad09f05bb993637cf72503b60633b9c9daec72",
+        "zero_trajectory_sha256": "ebc34d7952dfe36a76817f1541ad09f05bb993637cf72503b60633b9c9daec72"
+      },
+      "parallel_zero_metrics": {
+        "return": 0.8115803384715593,
+        "steps": 6573,
+        "worst_effector_m": 0.33159459813226294,
+        "failed_checks": [
+          {
+            "name": "worst_1s_effector_rmse_m",
+            "value": 0.33159459813226294,
+            "limit": 0.25,
+            "comparison": "<=",
+            "passed": false
+          },
+          {
+            "name": "inverted_joint_rmse_rad",
+            "value": 0.3419627449473929,
+            "limit": 0.3,
+            "comparison": "<=",
+            "passed": false
+          }
+        ]
+      },
+      "prior_expanded_hidden_zero_metrics": {
+        "return": 0.8080700922643468,
+        "steps": 6573,
+        "worst_effector_m": 0.3375150778170743,
+        "failed_checks": [
+          {
+            "name": "worst_1s_root_orientation_rmse_rad",
+            "value": 0.48580352267431515,
+            "limit": 0.4,
+            "comparison": "<=",
+            "passed": false
+          },
+          {
+            "name": "worst_1s_root_height_rmse_m",
+            "value": 0.12411361400212906,
+            "limit": 0.1,
+            "comparison": "<=",
+            "passed": false
+          },
+          {
+            "name": "worst_1s_effector_rmse_m",
+            "value": 0.3375150778170743,
+            "limit": 0.25,
+            "comparison": "<=",
+            "passed": false
+          },
+          {
+            "name": "inverted_joint_rmse_rad",
+            "value": 0.33045056527614997,
+            "limit": 0.3,
+            "comparison": "<=",
+            "passed": false
+          },
+          {
+            "name": "inverted_root_height_rmse_m",
+            "value": 0.10140565307826635,
+            "limit": 0.1,
+            "comparison": "<=",
+            "passed": false
+          }
+        ]
+      },
+      "trained_variants": 4,
+      "trained_passes": 0,
+      "standard_checkpoint_training_supported": false,
+      "local_evidence": "runs/task-optimization-20261117c/dance-parallel-residual-control/physical-results.json"
+    }
+  ],
+  "controller_or_acceptance_changes": false,
+  "private_runtime_branch_inputs": "Only original policy observation history and original goal; no time-based switching or external action correction."
+}
