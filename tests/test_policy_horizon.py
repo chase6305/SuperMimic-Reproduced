@@ -87,7 +87,14 @@ def test_export_records_actual_horizon_or_unknown_legacy(tmp_path, saved_horizon
             "policy": actor.state_dict(),
             "config": {
                 "policy": asdict(pcfg),
-                "env": {"future_frames": 10},
+                "env": {
+                    "future_frames": 10,
+                    **(
+                        {"episode_length_s": 30, "sampling_mode": "start"}
+                        if saved_horizon is not None
+                        else {}
+                    ),
+                },
                 "policy_trainer": training,
             },
         },
@@ -95,6 +102,9 @@ def test_export_records_actual_horizon_or_unknown_legacy(tmp_path, saved_horizon
     )
     contract = export_policy(checkpoint, tmp_path / "export")
     assert contract["training_metadata"]["imagination_horizon"] == saved_horizon
+    environment = contract["training_metadata"]["training_environment"]
+    assert environment["episode_length_s"] == (30 if saved_horizon is not None else None)
+    assert environment["sampling_mode"] == ("start" if saved_horizon is not None else None)
 
 
 def test_shorter_horizon_reduces_imagination_memory_estimate(tmp_path):

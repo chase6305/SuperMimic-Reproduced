@@ -107,7 +107,14 @@ def export_policy(checkpoint: Path, output: Path) -> dict:
             "imagination_horizon": cfg.get("policy_trainer", {}).get("horizon"),
             "training_environment": {
                 name: cfg.get("env", {}).get(name)
-                for name in ("obs_noise", "reset_noise", "domain_randomization", "action_noise_std")
+                for name in (
+                    "obs_noise",
+                    "reset_noise",
+                    "domain_randomization",
+                    "action_noise_std",
+                    "episode_length_s",
+                    "sampling_mode",
+                )
             },
             "tracking_auxiliary": {
                 name: cfg.get("policy_trainer", {}).get(
