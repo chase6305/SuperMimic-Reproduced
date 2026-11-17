@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-17T17:16:46.778272+00:00",
+  "generated_at_utc": "2026-11-17T18:17:51.226071+00:00",
   "window_status": "in_progress",
   "requested_window": {
     "start_utc": "2026-11-17T14:25:57+00:00",
@@ -1209,8 +1209,8 @@
     },
     "dance-pose80-ori40-wrist150-head-h16-evaluations": {
       "local_evidence": "runs/task-optimization-20261117c/dance-pose80-ori40-wrist150-head-h16-evaluations/physical-results.json",
-      "evidence_sha256": "9b28dc6fb1c351b5724409a7d7978dda6d5830ea38cffda46ba2336db3de9777",
-      "evaluations": 2,
+      "evidence_sha256": "602fe8b90a9aedab2251942fb1b20a72d31e99f342a5bb9e658ff51e5866dbd2",
+      "evaluations": 4,
       "passes": 0,
       "records": [
         {
@@ -1289,6 +1289,106 @@
           "skill": "dance",
           "inversion_reference_frames": 0,
           "inverted_joint_rmse_rad": null
+        },
+        {
+          "stage": "runs/task-optimization-20261117c/dance-pose80-ori40-wrist150-head-h16-evaluations/ckpt_0015000",
+          "checkpoint": "runs/task-optimization-20261117c/dance-pose80-ori40-wrist150-head-h16/training/ckpt_0015000.pt",
+          "checkpoint_sha256": "d58b3b84579d2185e6e8c95b017644dda0dd5182551aa156ab5e7c0e24fadf93",
+          "completed_motion": false,
+          "steps": 5863,
+          "strict_passed": false,
+          "return": 0.7132138770482283,
+          "worst_effector_m": 0.45599104079789354,
+          "failed_checks": [
+            {
+              "name": "completed_motion",
+              "value": false,
+              "passed": false
+            },
+            {
+              "name": "worst_1s_joint_rmse_rad",
+              "value": 0.39900483787507085,
+              "limit": 0.35,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_orientation_rmse_rad",
+              "value": 0.8502493044520133,
+              "limit": 0.4,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_height_rmse_m",
+              "value": 0.12343648425379208,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.45599104079789354,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_joint_rmse_rad",
+              "value": 0.3645344398132828,
+              "limit": 0.3,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "8845e52591566a22600e5e8296b6162db5fc6ba02a524096627918c47ac59593",
+          "skill": "dance",
+          "inversion_reference_frames": 53,
+          "inverted_joint_rmse_rad": 0.3645344398132828
+        },
+        {
+          "stage": "runs/task-optimization-20261117c/dance-pose80-ori40-wrist150-head-h16-evaluations/ckpt_latest",
+          "checkpoint": "runs/task-optimization-20261117c/dance-pose80-ori40-wrist150-head-h16/training/ckpt_latest.pt",
+          "checkpoint_sha256": "a6a3a9ce1d2bc05dfb501be452a1eec1050f5789af4fc55933730000fb18dbee",
+          "completed_motion": true,
+          "steps": 6573,
+          "strict_passed": false,
+          "return": 0.7969854506622179,
+          "worst_effector_m": 0.3339262612852506,
+          "failed_checks": [
+            {
+              "name": "worst_1s_root_orientation_rmse_rad",
+              "value": 0.5774356158477114,
+              "limit": 0.4,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_height_rmse_m",
+              "value": 0.12478945391857219,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.3339262612852506,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "inverted_joint_rmse_rad",
+              "value": 0.32913223328429864,
+              "limit": 0.3,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "b25167beb95195d63f440b5d3b33dc69356d48189a4e88463ac5fa108d4b67e5",
+          "skill": "dance",
+          "inversion_reference_frames": 53,
+          "inverted_joint_rmse_rad": 0.32913223328429864
         }
       ]
     },
@@ -3138,6 +3238,203 @@
         }
       ]
     },
+    "jump-raw-input-parallel-residual": {
+      "local_evidence": "runs/task-optimization-20261117c/jump-raw-input-parallel-residual/physical-results.json",
+      "evidence_sha256": "4b46d8ad46c6d9819811fe4fc47ec030ff9842dcd616b35268ca829120e6d989",
+      "evaluations": 5,
+      "passes": 0,
+      "records": [
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-raw-input-parallel-residual/zero-residual",
+          "checkpoint": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-raw-input-parallel-residual/zero-residual/research-residual.pt",
+          "checkpoint_sha256": "2746486cf73db6e0abee6a59343c7cd7961fd383770b54b5f47c7324af453343",
+          "gain": 0.0,
+          "update": 0,
+          "extra_hidden_units": 16,
+          "assembly_parity_error": 2.384185791015625e-06,
+          "checkpoint_format": "parallel-residual-research-v1",
+          "standard_training_supported": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8062835106843036,
+          "worst_effector_m": 0.25438295722449555,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25438295722449555,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "93584281cbcb3d3376ec084c7c4ec81d09d815366c2e1ee7867f421ca2edde1f",
+          "zero_source_full_bitexact": {
+            "states": true,
+            "actions": true,
+            "reference_frame": true,
+            "physical_contacts": true
+          },
+          "skill": "jump",
+          "flight_time_precision": 0.8172983479105929,
+          "flight_airtime_ratio": 0.7558765915768854,
+          "flight_event_recall": 0.8777777777777778
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-raw-input-parallel-residual/gain-0p1/update-2000",
+          "checkpoint": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-raw-input-parallel-residual/gain-0p1/update-2000/research-residual.pt",
+          "checkpoint_sha256": "898d6be94d438970d8d1e67e0031fc3eb259a94a51f0e916b99b4038c4190226",
+          "gain": 0.1,
+          "update": 2000,
+          "extra_hidden_units": 16,
+          "assembly_parity_error": 2.384185791015625e-06,
+          "checkpoint_format": "parallel-residual-research-v1",
+          "standard_training_supported": false,
+          "completed_motion": false,
+          "steps": 11540,
+          "strict_passed": false,
+          "return": 0.7329345708314373,
+          "worst_effector_m": 0.5636665707647267,
+          "failed_checks": [
+            {
+              "name": "completed_motion",
+              "value": false,
+              "passed": false
+            },
+            {
+              "name": "worst_1s_joint_rmse_rad",
+              "value": 0.35198295923255435,
+              "limit": 0.35,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_orientation_rmse_rad",
+              "value": 1.1117129793629736,
+              "limit": 0.4,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_height_rmse_m",
+              "value": 0.12919425757521505,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.5636665707647267,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7841973766396002,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "ef471dd7ef07405a2724272087fb04053ed4b3a62d267d03584e63a3498d71bb",
+          "skill": "jump",
+          "flight_time_precision": 0.7841973766396002,
+          "flight_airtime_ratio": 0.7840352595494613,
+          "flight_event_recall": 0.8777777777777778
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-raw-input-parallel-residual/gain-0p1/update-6000",
+          "checkpoint": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-raw-input-parallel-residual/gain-0p1/update-6000/research-residual.pt",
+          "checkpoint_sha256": "af0aefe32982e5b0737aaa46c3aa366251cb6cc8d2bb878ae121573317ec4781",
+          "gain": 0.1,
+          "update": 6000,
+          "extra_hidden_units": 16,
+          "assembly_parity_error": 2.384185791015625e-06,
+          "checkpoint_format": "parallel-residual-research-v1",
+          "standard_training_supported": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8058160659032155,
+          "worst_effector_m": 0.25487010240836316,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25487010240836316,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "d7e32e034c38dbcb1070d9771b3660462ef8258468017d44faa8f57e0642f69c",
+          "skill": "jump",
+          "flight_time_precision": 0.8022047244094488,
+          "flight_airtime_ratio": 0.7774240940254652,
+          "flight_event_recall": 0.9
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-raw-input-parallel-residual/gain-0p25/update-2000",
+          "checkpoint": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-raw-input-parallel-residual/gain-0p25/update-2000/research-residual.pt",
+          "checkpoint_sha256": "06c34973cfa909495b4ce27ed5053033b9e825512a02b4f3006ef920dcc19204",
+          "gain": 0.25,
+          "update": 2000,
+          "extra_hidden_units": 16,
+          "assembly_parity_error": 2.384185791015625e-06,
+          "checkpoint_format": "parallel-residual-research-v1",
+          "standard_training_supported": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8086501969691042,
+          "worst_effector_m": 0.2568846651094113,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2568846651094113,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "1752ff022ed20632d6d56c21e52e4b4d48493f4175831a0659df256b767d6928",
+          "skill": "jump",
+          "flight_time_precision": 0.8061744112030553,
+          "flight_airtime_ratio": 0.7693437806072477,
+          "flight_event_recall": 0.8777777777777778
+        },
+        {
+          "stage": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-raw-input-parallel-residual/gain-0p25/update-6000",
+          "checkpoint": "/home/ubuntu/workspace/chase/SuperMimic-Reproduced/runs/task-optimization-20261117c/jump-raw-input-parallel-residual/gain-0p25/update-6000/research-residual.pt",
+          "checkpoint_sha256": "14fd9778b04837e8157a58eaaadeaaa3e6255394b974040929e14f619c125db1",
+          "gain": 0.25,
+          "update": 6000,
+          "extra_hidden_units": 16,
+          "assembly_parity_error": 2.384185791015625e-06,
+          "checkpoint_format": "parallel-residual-research-v1",
+          "standard_training_supported": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8065283960820453,
+          "worst_effector_m": 0.25375751926429047,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25375751926429047,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "ccac877f2738a2c6288d90beffe5f9ddeebeb48457ec32cfa79c6966bf5898a2",
+          "skill": "jump",
+          "flight_time_precision": 0.8004392845936618,
+          "flight_airtime_ratio": 0.7803623898139079,
+          "flight_event_recall": 0.8777777777777778
+        }
+      ]
+    },
     "jump-reference-support-distillation": {
       "local_evidence": "runs/task-optimization-20261117c/jump-reference-support-distillation/physical-results.json",
       "evidence_sha256": "682bbb9f057aeda5ed707b391e55038229de8d4a44b1f59c703ac9fd0fec376a",
@@ -3402,7 +3699,7 @@
       ]
     }
   },
-  "original_full_motion_candidate_evaluations": 89,
+  "original_full_motion_candidate_evaluations": 96,
   "original_full_motion_candidate_passes": 0,
   "shared_resources": {
     "exclusive_lock": "/home/ubuntu/.cache/codex-heavy-work.lock",
@@ -3471,15 +3768,129 @@
     "source_contract_sha256": "0e5e6abdd2ae8d201c209bc488fc51896b74fa46f63ac5372584423fad911ab7",
     "generation_script_sha256": "e1280fbe057c4a0495afc3fba06fec8ff178a9347dd2c00873eb0500b23fa5c6"
   },
+  "collection_integrity": {
+    "verified_at_utc": "2026-11-17T18:08:01.120876+00:00",
+    "passed": true,
+    "collections": [
+      {
+        "package": "exports/g1-tasks-20261117",
+        "catalog_sha256": "7c25b7c115ad45f477ce4ad8e50a6d0eeb0e853e38b711caa090518426db5f79",
+        "entries": [
+          {
+            "id": "walk-reference",
+            "entry_sha256": "a56e48ed8dc52da30226fb3286c11e0792ea898457025a67876f492b19cfa2b4",
+            "listed_files": 10,
+            "checkpoint_sha256": "bc95a21eb9b55ba56aafd6b5bd4dc9ba663f19f7f087d674348318243ec633c4",
+            "training_checkpoint_checked": "runs/anchor-final-20261106/training-checkpoint.pt",
+            "status": "simulation-demo"
+          },
+          {
+            "id": "stand-hold",
+            "entry_sha256": "1ae7e64a1c48442a38a78caa90d7ef16095ed55f568f9db59c8bc8738f8baa2b",
+            "listed_files": 11,
+            "checkpoint_sha256": "f47634b0c7dcf13a05788f175b40afe38f5cd7a41426c8046e0f2dce0f75238a",
+            "training_checkpoint_checked": "runs/task-readiness-20261117/stand-full30-pose-decoder-h16/training/ckpt_0028000.pt",
+            "status": "validated-static-hold"
+          },
+          {
+            "id": "jump-preview",
+            "entry_sha256": "483db89b1482ea0537abbc91dff6bd818c60c20407a2262069f7dec791bee6a6",
+            "listed_files": 11,
+            "checkpoint_sha256": "2fd371dc544e4a8eda6c39c4529c6fdca1d1f31fe8b0a3ca39151b9c10cf120a",
+            "training_checkpoint_checked": "runs/task-readiness-20261117/jump-h32-leftfoot100-all/update-0001/checkpoint.pt",
+            "status": "unaccepted-preview"
+          },
+          {
+            "id": "dance-preview",
+            "entry_sha256": "d11a86cd66faefafbfea578f12a52422eb34a05b90c9ab35644b8f85dfb8106a",
+            "listed_files": 11,
+            "checkpoint_sha256": "3735896ba6dc398c5bf36b94202b3ee7b77470f77ddad0759455bd15ea1cbf43",
+            "training_checkpoint_checked": "runs/dance-original-source0d29-WM31200-H16-actual-history-all20-fresh5-20261110/update-0003/checkpoint.pt",
+            "status": "unaccepted-preview"
+          },
+          {
+            "id": "fight-preview",
+            "entry_sha256": "8afbcb6c02ca8b06c83f5a7d804b7c77060216465c779aa3ffe6e39c47b7f80c",
+            "listed_files": 11,
+            "checkpoint_sha256": "eb9a6a00c768fb145c056cb68ac947a503bb52c8de4af5471c6b87f5ff06c5da",
+            "training_checkpoint_checked": "runs/fight-original-source110-WM25200-H32-GAE5-20261110/update-0005/checkpoint.pt",
+            "status": "unaccepted-preview"
+          },
+          {
+            "id": "stand-hold-600",
+            "entry_sha256": "d383651ea16c6daf2febb2793438330b9f29fb10bfe588eac08ce2f0e17288f1",
+            "listed_files": 18,
+            "checkpoint_sha256": "6984a9c7ea58c96834349941e986e3b28f6bddba706448c9c3f690e8f248a5f8",
+            "training_checkpoint_checked": "runs/task-readiness-20261117/stand-height100-xy200-resume/training/ckpt_0012000.pt",
+            "status": "validated-static-hold"
+          }
+        ],
+        "entry_count": 6,
+        "listed_files_verified": 72
+      },
+      {
+        "package": "exports/g1-tasks-20261117b",
+        "catalog_sha256": "6e0439eb75ae538aaff8b35b24dfd3cda7aeef8b429061593220b7ea95d0befd",
+        "entries": [
+          {
+            "id": "jump30",
+            "entry_sha256": "2b844fbf8827b3d9f278f8aa9869a3ad7285f3825c84ac0f2df3d94d262ebeeb",
+            "listed_files": 11,
+            "checkpoint_sha256": "c511d5bffe21965e3ffda9680d636d4558d708b00f8c5b1795e329cb6f136494",
+            "training_checkpoint_checked": "runs/task-optimization-20261117b/jump-full-pose100-decoder-h16/training/ckpt_0005000.pt",
+            "status": "strict-skill-pass"
+          },
+          {
+            "id": "jump120",
+            "entry_sha256": "7d718f98e62e0450377f81357e47b50775e9ac831ff0e2a30c73930f5c2f75b8",
+            "listed_files": 11,
+            "checkpoint_sha256": "a4db166b41d4361cd121fae3941c8ce9327d454df24d6a4154b5e8d79dccc746",
+            "training_checkpoint_checked": "runs/task-optimization-20261117b/jump-pose100-stance200-resume/training/ckpt_latest.pt",
+            "status": "strict-skill-pass"
+          }
+        ],
+        "entry_count": 2,
+        "listed_files_verified": 22
+      },
+      {
+        "package": "exports/g1-tasks-20261117c",
+        "catalog_sha256": "992a0ab3f8764fa742f31bcea29afab6328a20b0e940d1f6e5bd9c9cb67e60a2",
+        "entries": [
+          {
+            "id": "stand-hold-600-reset040",
+            "entry_sha256": "236e0304fa7fbd0deaeb63a6793bc7fe63c2c6ecba0537f6e243766f0acc9a3a",
+            "listed_files": 33,
+            "checkpoint_sha256": "0c96f5084c427b9c68a5c5a9d437dcc9bfae2dd905c99a0c695d1a46fab2aba3",
+            "training_checkpoint_checked": "runs/task-optimization-20261117c/stand-reset040-xy400-head-h32/training/ckpt_latest.pt",
+            "status": "validated-static-hold"
+          }
+        ],
+        "entry_count": 1,
+        "listed_files_verified": 33
+      }
+    ],
+    "total_entries": 9,
+    "total_listed_files_verified": 127,
+    "all_source_training_checkpoints_verified": true,
+    "previews": [
+      {
+        "manifest": "exports/g1-tasks-20261117b/previews/jump120-manifest.json",
+        "manifest_sha256": "7fc7459d6f2dd5431dbf3d3e19de545431fe67e14b7ae1d9c1c190c7a90e9675",
+        "video_sha256": "755a04a390ebcd12ebf389b6944f903c0ef400b1d577a85bb632e835b85ee8d5",
+        "seconds": 120,
+        "segments_checked": 2
+      }
+    ],
+    "scope": "File identity, catalog consistency and existing recorded physical evidence only; this does not introduce an additional physical quality claim."
+  },
   "final_source_ci": {
-    "run_id": 44132818838,
-    "url": "https://github.com/chase6305/SuperMimic-Reproduced/actions/runs/44132818838",
-    "head_sha": "f566d3b0798cb11deed3200cc75a51976e20a043",
+    "run_id": 44145588576,
+    "url": "https://github.com/chase6305/SuperMimic-Reproduced/actions/runs/44145588576",
+    "head_sha": "abcca82dcc4f95fcdb8f6672b475a3addcc70885",
     "conclusion": "success",
-    "passed": 763,
+    "passed": 777,
     "skipped": 42,
     "subtests_passed": 12,
-    "cpu_test_seconds": 51.52,
     "ruff": "passed",
     "wheel_and_sdist": "passed"
   },
@@ -3634,6 +4045,7 @@
   },
   "recorded_context_memory_and_gpu_parity": "docs/performance/recorded-history.json",
   "training_seed_validation": "docs/performance/training-seed-validation.json",
+  "static_initialization_sensitivity": "docs/tasks/static-initialization-20261117c.json",
   "separate_prefix_extension_plan": {
     "created_at_utc": "2026-11-17T16:38:38.114787+00:00",
     "reference_source": "data/npz/validation/jumps1_subject1.npz",
@@ -4260,6 +4672,52 @@
       },
       "source_trajectory_sha256": "93584281cbcb3d3376ec084c7c4ec81d09d815366c2e1ee7867f421ca2edde1f",
       "zero_trajectory_sha256": "93584281cbcb3d3376ec084c7c4ec81d09d815366c2e1ee7867f421ca2edde1f"
+    },
+    "jump-raw-input-parallel-residual": {
+      "passed": true,
+      "fields_bitexact": {
+        "states": true,
+        "actions": true,
+        "reference_frame": true,
+        "physical_contacts": true
+      },
+      "source_trajectory_sha256": "93584281cbcb3d3376ec084c7c4ec81d09d815366c2e1ee7867f421ca2edde1f",
+      "zero_trajectory_sha256": "93584281cbcb3d3376ec084c7c4ec81d09d815366c2e1ee7867f421ca2edde1f"
     }
+  },
+  "reproduction_tools": {
+    "archive": "runs/task-optimization-20261117c/reproduction-tools-final",
+    "manifest_sha256": "8cc7c6125fe0093e9d07aa4be3f1d2ad576dcc6c1e28e44ebb8d70f8b3525528",
+    "count": 78,
+    "scope": "Final private helper versions, including prepared-but-unused handoff helpers. Per-run frozen implementation and worker snapshots remain authoritative for each executed experiment. Recorded workflow correction mappings preserve earlier failed versions. No archived helper alone proves it was executed."
+  },
+  "new_static_delivery": "docs/tasks/static-reset-600s-20261117c.json",
+  "new_static_strict_resume_verification": {
+    "passed": true,
+    "source_checkpoint": "runs/task-optimization-20261117c/stand-reset040-xy400-head-h32/training/ckpt_latest.pt",
+    "source_checkpoint_sha256": "0c96f5084c427b9c68a5c5a9d437dcc9bfae2dd905c99a0c695d1a46fab2aba3",
+    "source_iteration": 10538,
+    "resumed_iteration": 10602,
+    "source_updates": 4206,
+    "resumed_updates": 4222,
+    "strict_transfer_flag": false,
+    "inherited_reset_noise_scale": 0.4,
+    "other_noise_disabled": true,
+    "inherited_action_head_scope": "action-head",
+    "goal_feedback": true,
+    "source_training_reference": "data/npz/probes/stand120-walk-first-frame.npz",
+    "check_weights_adopted": false,
+    "scope": "Actual64iteration strict CLI continuation, including new optimizer updates and inherited reset-only curriculum. Check weights are not selected for deployment; the accepted original selected actor remains byte-identical."
+  },
+  "new_static_frozen_policy_audit": {
+    "passed": true,
+    "source_checkpoint": "runs/task-readiness-20261117/stand-height100-xy200-resume/training/ckpt_0012000.pt",
+    "selected_checkpoint_sha256": "0c96f5084c427b9c68a5c5a9d437dcc9bfae2dd905c99a0c695d1a46fab2aba3",
+    "frozen_tensor_count": 20,
+    "only_changed_tensor_keys": [
+      "decoder.mlp.net.8.bias",
+      "decoder.mlp.net.8.weight"
+    ],
+    "all_other_actor_tensors_bitexact": true
   }
 }
