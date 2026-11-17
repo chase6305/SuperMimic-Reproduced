@@ -56,6 +56,37 @@ def test_environment_orders_existing_observation_terms_by_shared_interface(monke
     assert tuple(cfg.observations["policy"].terms) == tuple(name for name, _ in reordered)
 
 
+@pytest.mark.parametrize("scale", [0.0, 0.4, 1.0])
+def test_reset_noise_scale_changes_only_initialization_ranges(scale):
+    from supermimic.envs.tracking_env_cfg import SuperMimicEnvCfgArgs, make_env_cfg
+
+    cfg = make_env_cfg(
+        SuperMimicEnvCfgArgs(
+            npz_files=[],
+            reset_noise=True,
+            reset_noise_scale=scale,
+            obs_noise=False,
+            action_noise_std=0,
+            domain_randomization=False,
+        )
+    )
+    motion = cfg.commands["motion"]
+    assert motion.pose_range["x"] == (-0.05 * scale, 0.05 * scale)
+    assert motion.pose_range["roll"] == (-0.1 * scale, 0.1 * scale)
+    assert motion.velocity_range["x"] == (-0.5 * scale, 0.5 * scale)
+    assert motion.joint_position_range == (-0.1 * scale, 0.1 * scale)
+    assert not cfg.observations["policy"].enable_corruption
+    assert not cfg.observations["goal"].enable_corruption
+    assert cfg.actions["joint_pos"].noise_std == 0
+
+
+def test_environment_rejects_nonfinite_reset_noise_scale():
+    from supermimic.envs.tracking_env_cfg import SuperMimicEnvCfgArgs, make_env_cfg
+
+    with pytest.raises(ValueError, match="Reset noise scale"):
+        make_env_cfg(SuperMimicEnvCfgArgs(npz_files=[], reset_noise_scale=float("nan")))
+
+
 @pytest.mark.parametrize("mismatch", ["missing", "extra"])
 def test_environment_rejects_observation_term_mismatch_before_reordering(monkeypatch, mismatch):
     from supermimic.envs import tracking_env_cfg

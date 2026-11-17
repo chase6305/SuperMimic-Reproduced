@@ -106,10 +106,11 @@ def export_policy(checkpoint: Path, output: Path) -> dict:
             "imagination_use_critic": cfg.get("policy_trainer", {}).get("use_critic", True),
             "imagination_horizon": cfg.get("policy_trainer", {}).get("horizon"),
             "training_environment": {
-                name: cfg.get("env", {}).get(name)
+                name: cfg.get("env", {}).get(name, 1.0 if name == "reset_noise_scale" else None)
                 for name in (
                     "obs_noise",
                     "reset_noise",
+                    "reset_noise_scale",
                     "domain_randomization",
                     "action_noise_std",
                     "episode_length_s",

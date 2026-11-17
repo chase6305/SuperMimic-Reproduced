@@ -49,6 +49,13 @@ def environment_seed(value: str) -> int:
     return result
 
 
+def unit_float(value: str) -> float:
+    result = float(value)
+    if not math.isfinite(result) or not 0 <= result <= 1:
+        raise argparse.ArgumentTypeError("must be finite and within [0, 1]")
+    return result
+
+
 def parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(description=__doc__)
     sub = p.add_subparsers(dest="command", required=True)
@@ -101,6 +108,11 @@ def parser() -> argparse.ArgumentParser:
                 help="Reference reset sampling; inherited on strict resume, priorities require return",
             )
             q.add_argument("--seed", type=environment_seed, default=0)
+            q.add_argument(
+                "--reset-noise-scale",
+                type=unit_float,
+                help="Override reset perturbations (0-1) independently of observation/action/domain noise; zero disables reset noise",
+            )
             q.add_argument(
                 "--priority-window",
                 action="append",

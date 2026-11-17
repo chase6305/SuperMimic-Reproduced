@@ -98,6 +98,7 @@ class Trainer:
                 action_noise_std=cfg.env.action_noise_std,
                 obs_noise=cfg.env.obs_noise,
                 reset_noise=cfg.env.reset_noise,
+                reset_noise_scale=cfg.env.reset_noise_scale,
                 domain_randomization=cfg.env.domain_randomization,
                 sampling_mode=cfg.env.sampling_mode,
                 replay_capacity=cfg.env.replay_capacity,

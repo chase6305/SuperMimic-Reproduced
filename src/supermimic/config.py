@@ -129,6 +129,7 @@ class EnvCfg:
     action_noise_std: float = 0.1
     obs_noise: bool = True
     reset_noise: bool = True
+    reset_noise_scale: float = 1.0
     domain_randomization: bool = True
     sampling_mode: str = "return"
     replay_capacity: int = 1000

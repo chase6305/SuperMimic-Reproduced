@@ -13,7 +13,9 @@ Differences from mjlab's BeyondMimic re-implementation (``mjlab.tasks.tracking``
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass, field
+from numbers import Real
 
 from mjlab.asset_zoo.robots import G1_ACTION_SCALE, get_g1_robot_cfg
 from mjlab.envs import ManagerBasedRlEnv, ManagerBasedRlEnvCfg
@@ -63,6 +65,7 @@ class SuperMimicEnvCfgArgs:
     action_noise_std: float = 0.1
     obs_noise: bool = True
     reset_noise: bool = True
+    reset_noise_scale: float = 1.0
     domain_randomization: bool = True
     sampling_mode: str = "return"  # return | uniform | start
     replay_capacity: int = 1000
@@ -81,6 +84,14 @@ class SuperMimicEnvCfgArgs:
 
 
 def make_env_cfg(a: SuperMimicEnvCfgArgs) -> ManagerBasedRlEnvCfg:
+    scale = a.reset_noise_scale
+    if (
+        isinstance(scale, bool)
+        or not isinstance(scale, Real)
+        or not math.isfinite(scale)
+        or not 0 <= scale <= 1
+    ):
+        raise ValueError("Reset noise scale must be finite and within [0, 1]")
     # ---------------------------------------------------------------- observations
     noise = (lambda lo, hi: Unoise(n_min=lo, n_max=hi)) if a.obs_noise else (lambda lo, hi: None)
     policy_terms = {
@@ -161,6 +172,8 @@ def make_env_cfg(a: SuperMimicEnvCfgArgs) -> ManagerBasedRlEnvCfg:
         "pitch": (-0.52, 0.52),
         "yaw": (-0.78, 0.78),
     }
+    pose_range = {name: (lo * scale, hi * scale) for name, (lo, hi) in pose_range.items()}
+    vel_range = {name: (lo * scale, hi * scale) for name, (lo, hi) in vel_range.items()}
     commands = {
         "motion": MultiClipMotionCommandCfg(
             npz_files=[str(f) for f in a.npz_files],
@@ -172,7 +185,7 @@ def make_env_cfg(a: SuperMimicEnvCfgArgs) -> ManagerBasedRlEnvCfg:
             bin_frames=a.bin_frames,
             pose_range=pose_range if a.reset_noise else {},
             velocity_range=vel_range if a.reset_noise else {},
-            joint_position_range=(-0.1, 0.1) if a.reset_noise else (0.0, 0.0),
+            joint_position_range=(-0.1 * scale, 0.1 * scale) if a.reset_noise else (0.0, 0.0),
             sampling_mode=a.sampling_mode,  # type: ignore[arg-type]
             compact_library=a.compact_library,
             debug_vis=a.debug_vis,

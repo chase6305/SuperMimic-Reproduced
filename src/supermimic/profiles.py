@@ -36,6 +36,7 @@ def training_config(
     action_clip: float | None = None,
     tracking_objective: str | None = None,
     training_mode: str | None = None,
+    reset_noise_scale: float | None = None,
     learning_rate: float | None = None,
     wm_one_step_batches: int | None = None,
     completion_aware_sampling: bool | None = None,
@@ -222,6 +223,19 @@ def training_config(
         cfg.env.obs_noise = cfg.env.reset_noise = cfg.env.domain_randomization = randomized
         cfg.env.action_noise_std = 0.1 if randomized else 0.0
         cfg.policy_trainer.obs_noise = randomized
+    if reset_noise_scale is not None:
+        cfg.env.reset_noise_scale = reset_noise_scale
+    scale = cfg.env.reset_noise_scale
+    if (
+        isinstance(scale, bool)
+        or not isinstance(scale, Real)
+        or not math.isfinite(scale)
+        or not 0 <= scale <= 1
+    ):
+        raise ValueError("Reset noise scale must be finite and within [0, 1]")
+    cfg.env.reset_noise_scale = float(scale)
+    if reset_noise_scale is not None:
+        cfg.env.reset_noise = scale > 0
     if learning_rate is not None:
         if not math.isfinite(learning_rate) or learning_rate <= 0:
             raise ValueError("Learning rate must be finite and positive")
@@ -298,7 +312,13 @@ def _restore_checkpoint_config(cfg: TrainConfig, saved: dict, *, transfer: bool)
         )
     if not transfer:
         cfg.policy_trainer.update_scope = saved["policy_trainer"].get("update_scope", "all")
-    for name in ("obs_noise", "reset_noise", "domain_randomization", "action_noise_std"):
+    for name in (
+        "obs_noise",
+        "reset_noise",
+        "reset_noise_scale",
+        "domain_randomization",
+        "action_noise_std",
+    ):
         if name in saved["env"]:
             setattr(cfg.env, name, saved["env"][name])
     cfg.policy_trainer.obs_noise = saved["policy_trainer"].get("obs_noise", cfg.env.obs_noise)

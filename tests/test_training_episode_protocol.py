@@ -28,12 +28,66 @@ def test_seed_accepts_environment_range_boundaries(tmp_path, seed):
 def test_cli_rejects_seed_before_resource_probe_or_output_allocation(tmp_path, seed, monkeypatch):
     from supermimic import cli
 
-    monkeypatch.setattr(cli, "host_snapshot", lambda: pytest.fail("probed resources for invalid seed"))
+    monkeypatch.setattr(
+        cli, "host_snapshot", lambda: pytest.fail("probed resources for invalid seed")
+    )
     output = tmp_path / "not-created"
     with pytest.raises(SystemExit) as error:
         cli.main(["train", "--seed", str(seed), "--output", str(output)])
     assert error.value.code == 2
     assert not output.exists()
+
+
+def test_reset_only_noise_scale_overrides_mode_and_survives_resume(tmp_path):
+    args = parser().parse_args(
+        ["train", "--training-mode", "deterministic", "--reset-noise-scale", ".4"]
+    )
+    cfg = training_config(
+        "smoke",
+        tmp_path,
+        tmp_path / "reset-only",
+        training_mode=args.training_mode,
+        reset_noise_scale=args.reset_noise_scale,
+    )
+    assert cfg.env.reset_noise and cfg.env.reset_noise_scale == 0.4
+    assert not cfg.env.obs_noise and not cfg.env.domain_randomization
+    assert not cfg.policy_trainer.obs_noise and cfg.env.action_noise_std == 0
+    checkpoint = tmp_path / "reset.pt"
+    torch.save({"config": asdict(cfg), "iteration": 10}, checkpoint)
+    restored = training_config("smoke", tmp_path, tmp_path / "restored", resume=checkpoint)
+    assert restored.env.reset_noise and restored.env.reset_noise_scale == 0.4
+    disabled = training_config(
+        "smoke",
+        tmp_path,
+        tmp_path / "disabled",
+        resume=checkpoint,
+        training_mode="randomized",
+        reset_noise_scale=0,
+    )
+    assert not disabled.env.reset_noise and disabled.env.reset_noise_scale == 0
+    assert disabled.env.obs_noise and disabled.env.domain_randomization
+    assert disabled.env.action_noise_std == 0.1
+    legacy = asdict(cfg)
+    legacy["env"].pop("reset_noise_scale")
+    torch.save({"config": legacy, "iteration": 10}, checkpoint)
+    assert (
+        training_config(
+            "smoke", tmp_path, tmp_path / "legacy", resume=checkpoint
+        ).env.reset_noise_scale
+        == 1
+    )
+
+
+@pytest.mark.parametrize("scale", [-1, 1.01, float("nan"), float("inf"), True])
+def test_reset_noise_scale_rejects_invalid_values(tmp_path, scale):
+    with pytest.raises(ValueError, match="Reset noise scale"):
+        training_config("smoke", tmp_path, tmp_path / "invalid", reset_noise_scale=scale)
+
+
+@pytest.mark.parametrize("scale", ["-0.1", "1.1"])
+def test_cli_rejects_reset_noise_scale_outside_unit_range(scale):
+    with pytest.raises(SystemExit):
+        parser().parse_args(["train", "--reset-noise-scale", scale])
 
 
 def test_episode_protocol_and_pose_weight_inherit_then_accept_explicit_overrides(tmp_path):

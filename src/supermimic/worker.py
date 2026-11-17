@@ -119,6 +119,7 @@ def run_worker(config_path: Path) -> int:
                 action_clip=options.get("action_clip"),
                 tracking_objective=options.get("tracking_objective"),
                 training_mode=options.get("training_mode"),
+                reset_noise_scale=options.get("reset_noise_scale"),
                 learning_rate=options.get("learning_rate"),
                 wm_one_step_batches=options.get("wm_one_step_batches"),
                 completion_aware_sampling=options.get("completion_aware_sampling"),
