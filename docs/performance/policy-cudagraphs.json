@@ -1154,5 +1154,55 @@
     "test_elapsed_s": 41.9,
     "lint": "passed",
     "distribution_build": "passed"
+  },
+  "bounded_action_fresh_training": {
+    "scope": "Additional from-zero operation check with the existing explicit --action-clip 1 option. Does not change defaults, replace the retained failed run or establish stable learning/skill quality.",
+    "status": "complete",
+    "starting_iteration": 0,
+    "iteration": 5151,
+    "starting_updates": 0,
+    "updates": 2051,
+    "training_stop_reason": "training_time_limit",
+    "output_checkpoint_sha256": "aa3955aa893c561ec70de4f0f4f79fff3298a8894f8a037ab28db100db4c6df0",
+    "runtime_snapshot_matches_public_mode": true,
+    "configuration_sha256": "689c2b7a23a02ffa6ed3e5de17db0187cc162882f4cbbaa652d8a4cefcd1ec52",
+    "configuration": {
+      "seed": 213,
+      "envs": 32,
+      "replay_capacity": 1000,
+      "world_hidden": [
+        512,
+        512,
+        512
+      ],
+      "world_batch": 128,
+      "world_batches_per_update": 2,
+      "actor_batch": 64,
+      "horizon": 32,
+      "nominal_policy_action_clip": 1.0,
+      "action_noise_std": 0.1
+    },
+    "resources": {
+      "status": "complete",
+      "exit_code": 0,
+      "stop_reason": null,
+      "elapsed_s": 308.77732594002737,
+      "limits": {
+        "gpu_index": 0,
+        "max_gpu_mib": 2304,
+        "reserve_gpu_mib": 4096,
+        "max_rss_gib": 6.0,
+        "reserve_ram_gib": 12.5,
+        "reserve_disk_gib": 20.0,
+        "poll_seconds": 2.0,
+        "stop_grace_seconds": 30.0
+      },
+      "peak_rss_bytes": 4288774144,
+      "peak_process_gpu_mib": 1140
+    },
+    "logged_rows": 257,
+    "all_update_metric_values_finite": true,
+    "max_logged_mean_abs_policy_action": 0.9970531463623047,
+    "interpretation": "The configured policy clip bounds nominal actor outputs; executed actions also include configured simulation noise. Unmatched physical trajectories do not establish a causal compiler comparison."
   }
 }
