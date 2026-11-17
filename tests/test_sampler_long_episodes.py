@@ -87,6 +87,20 @@ def test_without_critic_only_the_uncertain_chunk_tail_is_omitted():
     assert command.ep_bins[0, 0] == 4 and command.ep_len.tolist() == [1]
 
 
+def test_fully_omitted_chunk_releases_log_capacity_without_updating_returns():
+    command = command_fixture()
+    command.cfg.min_remaining_steps = 5
+    before = command.bin_return.clone()
+    for frame in range(4):
+        command.frame[:] = frame
+        command._log_step_rewards()
+    assert command.ep_len.tolist() == [0]
+    assert torch.equal(command.bin_return, before)
+    command.frame[:] = 4
+    command._log_step_rewards()
+    assert command.ep_bins[0, 0] == 4 and command.ep_len.tolist() == [1]
+
+
 def test_masked_chunk_flush_preserves_another_environments_pending_log():
     command = command_fixture(num_envs=2)
     command.bootstrap_fn = lambda ids: torch.full((len(ids),), 2.0)

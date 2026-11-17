@@ -301,6 +301,9 @@ class MultiClipMotionCommand(CommandTerm):
         b = bins.reshape(-1)[valid]
         g = rtg.reshape(-1)[valid].float()
         if b.numel() == 0:
+            # A custom small log may fit entirely inside the uncertain tail.
+            # Discard that chunk so subsequent rewards start a fresh log.
+            self.ep_len[env_ids] = 0
             return
         sums = torch.zeros(self.library.num_bins, device=self.device).index_add_(0, b, g)
         cnts = torch.zeros(self.library.num_bins, device=self.device).index_add_(
