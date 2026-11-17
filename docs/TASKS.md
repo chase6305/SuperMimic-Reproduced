@@ -36,6 +36,18 @@
 
 训练检查点为 `runs/task-optimization-20261117c/stand-reset040-xy400-head-h32/training/ckpt_latest.pt`，SHA-256 为 `0c96f5084c427b9c68a5c5a9d437dcc9bfae2dd905c99a0c695d1a46fab2aba3`。已实际严格续训 64 次迭代，完成 16 次新更新并正确继承复位比例 `0.4`；用于这项检查的权重未采用。严格续训沿用原 120 秒训练文件 `data/npz/probes/stand120-walk-first-frame.npz` 和支持该参数的 PR #6 代码；改训练数据使用 `--transfer`。部署、评测和训练仍遵守本文共享资源约定。
 
+继续新版训练可使用以下命令；复位比例、其他噪声开关、损失权重与动作层更新范围从检查点继承。后续权重仍需重新部署评测。
+
+```bash
+./supermimic train --profile g1 \
+  --checkpoint runs/task-optimization-20261117c/stand-reset040-xy400-head-h32/training/ckpt_latest.pt \
+  --motions data/npz/probes --clips stand120-walk-first-frame \
+  --num-envs 32 --wm-batches-per-update 2 --wm-batch-size 128 \
+  --policy-batch-size 32 --replay-capacity 512 \
+  --compile-policy --compile-world-model --iterations 100000 --hours 0.25 \
+  --output runs/my-reset040-continuation
+```
+
 ## 新增：120 秒跳跃参考
 
 按评测前预先声明的范围，将原始跳跃参考的前 6,001 帧另行定义为完整 120 秒任务，不重采样或改变时钟。选定的支撑脚高度权重 200 模型在完整 6,000 个控制步中通过原有 23 项跳跃条件：整段回报 0.78271，平面 RMSE 0.21736 m，关节 RMSE 0.13526 rad，最差一秒末端误差 0.23544 m；83 个参考腾空事件中匹配 73 个，时序精确率 0.84680，腾空时长比 0.74837。

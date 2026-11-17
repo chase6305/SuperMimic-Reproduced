@@ -1,6 +1,6 @@
 {
-  "generated_at_utc": "2026-11-17T18:17:51.226071+00:00",
-  "window_status": "in_progress",
+  "generated_at_utc": "2026-11-17T18:26:26.642890+00:00",
+  "window_status": "elapsed",
   "requested_window": {
     "start_utc": "2026-11-17T14:25:57+00:00",
     "deadline_utc": "2026-11-17T18:25:57+00:00",
@@ -4719,5 +4719,7 @@
       "decoder.mlp.net.8.weight"
     ],
     "all_other_actor_tensors_bitexact": true
-  }
+  },
+  "requested_window_finished_at_utc": "2026-11-17T18:26:26.694652+00:00",
+  "completion": "Requested4h optimization window elapsed. New static actor passed9/9 bounded60s initialization cases and default600/1800s original limits, copied600s replay bitexact, strict continuation verified. Original120s jump and older packets preserved; full dynamic task failures retained."
 }
