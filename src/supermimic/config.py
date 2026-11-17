@@ -129,7 +129,6 @@ class EnvCfg:
     action_noise_std: float = 0.1
     obs_noise: bool = True
     reset_noise: bool = True
-    reset_noise_scale: float = 1.0
     domain_randomization: bool = True
     sampling_mode: str = "return"
     replay_capacity: int = 1000
@@ -139,6 +138,7 @@ class EnvCfg:
     completion_aware_sampling: bool = False
     priority_windows_s: tuple[tuple[float, float], ...] = ()
     priority_reset_ratio: float = 0.0
+    reset_noise_scale: float = 1.0
 
 
 @dataclass

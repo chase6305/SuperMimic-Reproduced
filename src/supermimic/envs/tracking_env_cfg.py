@@ -65,7 +65,6 @@ class SuperMimicEnvCfgArgs:
     action_noise_std: float = 0.1
     obs_noise: bool = True
     reset_noise: bool = True
-    reset_noise_scale: float = 1.0
     domain_randomization: bool = True
     sampling_mode: str = "return"  # return | uniform | start
     replay_capacity: int = 1000
@@ -81,6 +80,7 @@ class SuperMimicEnvCfgArgs:
     )
     debug_vis: bool = False  # draw the reference ghost in the viewer (scripts/play.py)
     extra_command_kwargs: dict = field(default_factory=dict)
+    reset_noise_scale: float = 1.0
 
 
 def make_env_cfg(a: SuperMimicEnvCfgArgs) -> ManagerBasedRlEnvCfg:

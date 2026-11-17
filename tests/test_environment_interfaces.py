@@ -87,6 +87,21 @@ def test_environment_rejects_nonfinite_reset_noise_scale():
         make_env_cfg(SuperMimicEnvCfgArgs(npz_files=[], reset_noise_scale=float("nan")))
 
 
+@pytest.mark.parametrize("kind", ["training", "environment"])
+def test_new_reset_scale_preserves_existing_positional_noise_arguments(kind):
+    if kind == "training":
+        from supermimic.config import EnvCfg
+
+        cfg = EnvCfg(2, 10.0, 0.1, False, True, False)
+    else:
+        from supermimic.envs.tracking_env_cfg import SuperMimicEnvCfgArgs
+
+        cfg = SuperMimicEnvCfgArgs([], 2, 10, 10, 10.0, 0.1, False, True, False)
+    assert cfg.reset_noise
+    assert not cfg.obs_noise and not cfg.domain_randomization
+    assert cfg.reset_noise_scale == 1
+
+
 @pytest.mark.parametrize("mismatch", ["missing", "extra"])
 def test_environment_rejects_observation_term_mismatch_before_reordering(monkeypatch, mismatch):
     from supermimic.envs import tracking_env_cfg
