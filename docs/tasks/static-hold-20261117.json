@@ -1,0 +1,509 @@
+{
+  "generated_at_utc": "2026-11-17T06:18:17.965683+00:00",
+  "scope": "Learned G1 static-pose holding on one fixed reference and initialization. Standard MuJoCo control and neural actor, no runtime pose corrections or automatic reset. Separately predeclared static engineering criteria; not a dynamic skill pass, novel-motion benchmark or hardware validation. Data/weights are local and excluded from Git.",
+  "selected_checkpoint": "runs/task-readiness-20261117/stand-full30-pose-decoder-h16/training/ckpt_0028000.pt",
+  "checkpoint_sha256": "f47634b0c7dcf13a05788f175b40afe38f5cd7a41426c8046e0f2dce0f75238a",
+  "source_bundle": "runs/task-readiness-20261117/stand-full30-pose-decoder-h16-evaluations/ckpt_0028000/export",
+  "policy_sha256": "e7935a451deff9606a597e1ee0c324e4de9b01f6b6d51516872fb93e68842ede",
+  "native_model_sha256": "1ca1b82eed7d833a081cd5f95df580c0bc3668ee86865c88cfc4b7319e0c5ce7",
+  "packages": {
+    "torch": "2.14.1+cu130",
+    "mujoco": "3.16.0",
+    "mjlab": "1.6.0"
+  },
+  "training_stages": [
+    {
+      "run": "runs/task-readiness-20261117/stand-transfer-head-lr1e5",
+      "initialization": "transfer",
+      "source_checkpoint_sha256": "bc95a21eb9b55ba56aafd6b5bd4dc9ba663f19f7f087d674348318243ec633c4",
+      "starting_iteration": 0,
+      "ending_iteration": 5081,
+      "starting_updates": 0,
+      "ending_updates": 2023,
+      "elapsed_s": 305.6926756540197,
+      "episode_length_s": 10.0,
+      "sampling_mode": "return",
+      "scope": "action-head",
+      "horizon": 8,
+      "learning_rate": 1e-05,
+      "joint_weight": 30.0,
+      "joint_weights": [
+        2.0,
+        2.0,
+        2.0,
+        2.0,
+        4.0,
+        4.0,
+        2.0,
+        2.0,
+        2.0,
+        2.0,
+        4.0,
+        4.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "root_xy_weight": 10.0,
+      "height_weight": 10.0,
+      "orientation_weight": 2.0,
+      "orientation_loss": "geodesic",
+      "stop_reason": "training_time_limit",
+      "process_limits": {
+        "gpu_index": 0,
+        "max_gpu_mib": 2304,
+        "reserve_gpu_mib": 4096,
+        "max_rss_gib": 6.0,
+        "reserve_ram_gib": 12.5,
+        "reserve_disk_gib": 20.0,
+        "poll_seconds": 2.0,
+        "stop_grace_seconds": 30.0
+      },
+      "peak_rss_bytes": 4435775488,
+      "resource_evidence": "runs/task-readiness-20261117/stand-transfer-head-lr1e5/run.json"
+    },
+    {
+      "run": "runs/task-readiness-20261117/stand-full30-start-head-lr2e6",
+      "initialization": "strict continuation",
+      "source_checkpoint_sha256": "5f0ef1b216e2cd0083d1b92df8cadfa1c40a8edb0b6a78fd463fde51d1f1a86d",
+      "starting_iteration": 4000,
+      "ending_iteration": 15881,
+      "starting_updates": 1590,
+      "ending_updates": 6334,
+      "elapsed_s": 485.2741480930126,
+      "episode_length_s": 30.0,
+      "sampling_mode": "start",
+      "scope": "action-head",
+      "horizon": 8,
+      "learning_rate": 2e-06,
+      "joint_weight": 60.0,
+      "joint_weights": [
+        2.0,
+        2.0,
+        2.0,
+        2.0,
+        4.0,
+        4.0,
+        2.0,
+        2.0,
+        2.0,
+        2.0,
+        4.0,
+        4.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "root_xy_weight": 100.0,
+      "height_weight": 10.0,
+      "orientation_weight": 30.0,
+      "orientation_loss": "geodesic",
+      "stop_reason": "training_time_limit",
+      "process_limits": {
+        "gpu_index": 0,
+        "max_gpu_mib": 2304,
+        "reserve_gpu_mib": 4096,
+        "max_rss_gib": 6.0,
+        "reserve_ram_gib": 12.5,
+        "reserve_disk_gib": 20.0,
+        "poll_seconds": 2.0,
+        "stop_grace_seconds": 30.0
+      },
+      "peak_rss_bytes": 4090408960,
+      "resource_evidence": "runs/task-readiness-20261117/stand-full30-start-head-lr2e6/run.json"
+    },
+    {
+      "run": "runs/task-readiness-20261117/stand-full30-pose-decoder-h16",
+      "initialization": "strict continuation",
+      "source_checkpoint_sha256": "1facfced2f279ecb907d653a32d218f06e7683ccc2df5d3d86155430e7ef7349",
+      "starting_iteration": 12000,
+      "ending_iteration": 33244,
+      "starting_updates": 4781,
+      "ending_updates": 13270,
+      "elapsed_s": 1205.3933238870231,
+      "episode_length_s": 30.0,
+      "sampling_mode": "start",
+      "scope": "decoder",
+      "horizon": 16,
+      "learning_rate": 2e-06,
+      "joint_weight": 150.0,
+      "joint_weights": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "root_xy_weight": 100.0,
+      "height_weight": 10.0,
+      "orientation_weight": 120.0,
+      "orientation_loss": "chordal",
+      "stop_reason": "training_time_limit",
+      "process_limits": {
+        "gpu_index": 0,
+        "max_gpu_mib": 2304,
+        "reserve_gpu_mib": 4096,
+        "max_rss_gib": 6.0,
+        "reserve_ram_gib": 12.5,
+        "reserve_disk_gib": 20.0,
+        "poll_seconds": 2.0,
+        "stop_grace_seconds": 30.0
+      },
+      "peak_rss_bytes": 4090908672,
+      "resource_evidence": "runs/task-readiness-20261117/stand-full30-pose-decoder-h16/run.json"
+    }
+  ],
+  "predeclared_pose_plan": {
+    "path": "runs/task-readiness-20261117/stand-full30-pose-decoder-plan.json",
+    "sha256": "79e9bde35f4eee63dcc4f6c33011e0e843095cf6aac3929e0d8c16e91c8c2ead"
+  },
+  "predeclared_endurance_plan": {
+    "path": "runs/task-readiness-20261117/stand-120s-plan.json",
+    "sha256": "3f49acd408f0f5027fe87ba201427aae80ccbf8326e14cb19e72f43ba87b3f45"
+  },
+  "retained_model_selection": [
+    {
+      "checkpoint": "runs/task-readiness-20261117/stand-full30-pose-decoder-h16/evaluation-checkpoints/ckpt_0020000.pt",
+      "checkpoint_sha256": "26d7dcc0721117d47bde4781476046edaf87ffe66a303f198079eb48f7518a46",
+      "passed": true,
+      "metrics": {
+        "root_xy_rmse_m": 0.039519826711554115,
+        "joint_rmse_rad": 0.07690334901807146,
+        "root_height_rmse_m": 0.011960946412217633,
+        "root_orientation_rmse_rad": 0.10673290560974687,
+        "nonfoot_ground_force_substeps": 0,
+        "joint_velocity_rms_rad_s": 0.15808604419450503
+      },
+      "failed_checks": []
+    },
+    {
+      "checkpoint": "runs/task-readiness-20261117/stand-full30-pose-decoder-h16/training/ckpt_0024000.pt",
+      "checkpoint_sha256": "6cdc34a7e622cf942810c881949db7e2f75db28bab7caf261f9135b591e8bc25",
+      "passed": false,
+      "metrics": {
+        "root_xy_rmse_m": 0.5581668951336924,
+        "joint_rmse_rad": 0.09155941709418478,
+        "root_height_rmse_m": 0.013070646433424652,
+        "root_orientation_rmse_rad": 0.09615132268149208,
+        "nonfoot_ground_force_substeps": 0,
+        "joint_velocity_rms_rad_s": 0.6970511846968322
+      },
+      "failed_checks": [
+        "root_xy_rmse_m",
+        "joint_velocity_rms_rad_s"
+      ]
+    },
+    {
+      "checkpoint": "runs/task-readiness-20261117/stand-full30-pose-decoder-h16/training/ckpt_0028000.pt",
+      "checkpoint_sha256": "f47634b0c7dcf13a05788f175b40afe38f5cd7a41426c8046e0f2dce0f75238a",
+      "passed": true,
+      "metrics": {
+        "root_xy_rmse_m": 0.02203981615325461,
+        "joint_rmse_rad": 0.04947985831753262,
+        "root_height_rmse_m": 0.011208694649717488,
+        "root_orientation_rmse_rad": 0.039454913099543715,
+        "nonfoot_ground_force_substeps": 0,
+        "joint_velocity_rms_rad_s": 0.11590278289799481
+      },
+      "failed_checks": []
+    },
+    {
+      "checkpoint": "runs/task-readiness-20261117/stand-full30-pose-decoder-h16/training/ckpt_0032000.pt",
+      "checkpoint_sha256": "f2ce6c82ffcad1cf4e21cc9913b54f51fc9f185dc5e78461908ac96131b1a62b",
+      "passed": false,
+      "metrics": {
+        "root_xy_rmse_m": 0.3212398663718238,
+        "joint_rmse_rad": 0.08655749247734915,
+        "root_height_rmse_m": 0.015215309546119923,
+        "root_orientation_rmse_rad": 0.05710133529404564,
+        "nonfoot_ground_force_substeps": 0,
+        "joint_velocity_rms_rad_s": 0.2528063598540783
+      },
+      "failed_checks": [
+        "root_xy_rmse_m"
+      ]
+    },
+    {
+      "checkpoint": "runs/task-readiness-20261117/stand-full30-pose-decoder-h16/training/ckpt_latest.pt",
+      "checkpoint_sha256": "634254c4c0f91e96e25e33c2e75e85814f3e81c524ee0d03958585e195036090",
+      "passed": false,
+      "metrics": {
+        "root_xy_rmse_m": 0.35392722751468264,
+        "joint_rmse_rad": 0.0562827534879583,
+        "root_height_rmse_m": 0.009359777690411276,
+        "root_orientation_rmse_rad": 0.04942796995940137,
+        "nonfoot_ground_force_substeps": 0,
+        "joint_velocity_rms_rad_s": 0.3155906084149605
+      },
+      "failed_checks": [
+        "root_xy_rmse_m"
+      ]
+    }
+  ],
+  "verified_runs": [
+    {
+      "duration_s": 30,
+      "controls": 1500,
+      "motion_sha256": "5e3acf77426cc997f3a35dc9f7f4d5dc2da777f7179aa9abdb38c7d3c46ebf41",
+      "trajectory_sha256": "854314feec1cf54ebbe35236980b20fc439df17c9c9dc49878c5c1d50b038018",
+      "checkpoint_sha256": "f47634b0c7dcf13a05788f175b40afe38f5cd7a41426c8046e0f2dce0f75238a",
+      "contract_sha256": "64322cd1d4cbf4926431e53c95260856b3cb5549394d010bbd5f74b6fd072ac1",
+      "metrics": {
+        "root_xy_rmse_m": 0.02203981615325461,
+        "joint_rmse_rad": 0.04947985831753262,
+        "root_height_rmse_m": 0.011208694649717488,
+        "root_orientation_rmse_rad": 0.039454913099543715,
+        "nonfoot_ground_force_substeps": 0,
+        "joint_velocity_rms_rad_s": 0.11590278289799481
+      },
+      "judgement": {
+        "passed": true,
+        "skill": "static-pose-hold",
+        "criteria": {
+          "version": "g1-static-pose-v1",
+          "min_duration_s": 30.0,
+          "max_root_xy_rmse_m": 0.1,
+          "max_joint_rmse_rad": 0.25,
+          "max_root_height_rmse_m": 0.05,
+          "max_root_orientation_rmse_rad": 0.15,
+          "max_nonfoot_ground_force_substeps": 0,
+          "max_joint_velocity_rms_rad_s": 0.5
+        },
+        "checks": [
+          {
+            "name": "completed_motion",
+            "value": true,
+            "passed": true
+          },
+          {
+            "name": "duration_s",
+            "value": 30.0,
+            "limit": 30.0,
+            "comparison": ">=",
+            "passed": true
+          },
+          {
+            "name": "root_xy_rmse_m",
+            "value": 0.02203981615325461,
+            "limit": 0.1,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "joint_rmse_rad",
+            "value": 0.04947985831753262,
+            "limit": 0.25,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "root_height_rmse_m",
+            "value": 0.011208694649717488,
+            "limit": 0.05,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "root_orientation_rmse_rad",
+            "value": 0.039454913099543715,
+            "limit": 0.15,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "nonfoot_ground_force_substeps",
+            "value": 0,
+            "limit": 0,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "joint_velocity_rms_rad_s",
+            "value": 0.11590278289799481,
+            "limit": 0.5,
+            "comparison": "<=",
+            "passed": true
+          }
+        ],
+        "scope": "Fixed reference pose for the recorded full duration and initialization. Separate from dynamic imitation, generalization, commanded locomotion and hardware validation."
+      },
+      "artifact_identity": {
+        "status": "verified",
+        "scope": "provided inputs match result.json fingerprints",
+        "matched_fields": [
+          "trajectory_sha256",
+          "motion_sha256",
+          "contract_sha256",
+          "checkpoint_sha256"
+        ]
+      },
+      "assessment_implementation_sha256": "3abbeaa2cc6e4fb050826c273317a2eeb6dd5d5fd56a239789324e3b5c41ebbd",
+      "acceptance_implementation_sha256": "e49bca273ad944ba375eebb4fb3718ec4fce97bbaf8653c8e5f455e673d4de9c",
+      "deployment": "runs/task-readiness-20261117/stand-full30-pose-decoder-h16-evaluations/ckpt_0028000/deploy",
+      "hardware_deployed": false
+    },
+    {
+      "duration_s": 120,
+      "controls": 6000,
+      "motion_sha256": "318b84fe7aee4dd26eaa74c227678dafe4df59e614cde341c77e3c7f83c69add",
+      "trajectory_sha256": "faec2f67ff1c4aa0e3036234ad8bfbef856fc6ea8232b3ec7d7360454c745b16",
+      "checkpoint_sha256": "f47634b0c7dcf13a05788f175b40afe38f5cd7a41426c8046e0f2dce0f75238a",
+      "contract_sha256": "64322cd1d4cbf4926431e53c95260856b3cb5549394d010bbd5f74b6fd072ac1",
+      "metrics": {
+        "root_xy_rmse_m": 0.02354154104468403,
+        "joint_rmse_rad": 0.08068386159646496,
+        "root_height_rmse_m": 0.024705990673201273,
+        "root_orientation_rmse_rad": 0.0345245420380871,
+        "nonfoot_ground_force_substeps": 0,
+        "joint_velocity_rms_rad_s": 0.05800449045070056
+      },
+      "judgement": {
+        "passed": true,
+        "skill": "static-pose-hold",
+        "criteria": {
+          "version": "g1-static-pose-v1",
+          "min_duration_s": 30.0,
+          "max_root_xy_rmse_m": 0.1,
+          "max_joint_rmse_rad": 0.25,
+          "max_root_height_rmse_m": 0.05,
+          "max_root_orientation_rmse_rad": 0.15,
+          "max_nonfoot_ground_force_substeps": 0,
+          "max_joint_velocity_rms_rad_s": 0.5
+        },
+        "checks": [
+          {
+            "name": "completed_motion",
+            "value": true,
+            "passed": true
+          },
+          {
+            "name": "duration_s",
+            "value": 120.0,
+            "limit": 30.0,
+            "comparison": ">=",
+            "passed": true
+          },
+          {
+            "name": "root_xy_rmse_m",
+            "value": 0.02354154104468403,
+            "limit": 0.1,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "joint_rmse_rad",
+            "value": 0.08068386159646496,
+            "limit": 0.25,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "root_height_rmse_m",
+            "value": 0.024705990673201273,
+            "limit": 0.05,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "root_orientation_rmse_rad",
+            "value": 0.0345245420380871,
+            "limit": 0.15,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "nonfoot_ground_force_substeps",
+            "value": 0,
+            "limit": 0,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "joint_velocity_rms_rad_s",
+            "value": 0.05800449045070056,
+            "limit": 0.5,
+            "comparison": "<=",
+            "passed": true
+          }
+        ],
+        "scope": "Fixed reference pose for the recorded full duration and initialization. Separate from dynamic imitation, generalization, commanded locomotion and hardware validation."
+      },
+      "artifact_identity": {
+        "status": "verified",
+        "scope": "provided inputs match result.json fingerprints",
+        "matched_fields": [
+          "trajectory_sha256",
+          "motion_sha256",
+          "contract_sha256",
+          "checkpoint_sha256"
+        ]
+      },
+      "assessment_implementation_sha256": "3abbeaa2cc6e4fb050826c273317a2eeb6dd5d5fd56a239789324e3b5c41ebbd",
+      "acceptance_implementation_sha256": "e49bca273ad944ba375eebb4fb3718ec4fce97bbaf8653c8e5f455e673d4de9c",
+      "deployment": "runs/task-readiness-20261117/stand-120s-endurance/deploy",
+      "hardware_deployed": false
+    }
+  ],
+  "first30s_of120s_bitexact": {
+    "states": true,
+    "actions": true,
+    "reference_frames": true
+  },
+  "known_longer_duration_concern": {
+    "last10s_root_height_change_m": -0.0068398687253822255,
+    "last10s_mean_vertical_speed_mps": -0.0006842797763650512,
+    "scope": "The120s pass does not establish indefinite holding. Separate bounded600s control and height-focused training were planned."
+  }
+}
