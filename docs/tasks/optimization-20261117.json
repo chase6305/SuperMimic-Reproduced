@@ -1,0 +1,1585 @@
+{
+  "generated_at_utc": "2026-11-17T07:02:30.187661+00:00",
+  "window_status": "in_progress",
+  "requested_window": {
+    "start_utc": "2026-11-17T02:30:42Z",
+    "deadline_utc": "2026-11-17T07:30:42Z",
+    "hours": 5
+  },
+  "scope": "Known-reference G1 simulation optimization. Completed physical motion, static-pose acceptance and dynamic-skill acceptance are reported separately. No official weights, paper-scale benchmark or hardware deployment.",
+  "pr": "https://github.com/chase6305/SuperMimic-Reproduced/pull/6",
+  "static120": {
+    "status": "complete",
+    "passed": true,
+    "first30s_bitexact": {
+      "states": true,
+      "actions": true,
+      "reference_frames": true
+    },
+    "steps": 6000,
+    "seconds": 120.0,
+    "metrics": {
+      "root_xy_rmse_m": 0.02354154104468403,
+      "joint_rmse_rad": 0.08068386159646496,
+      "root_height_rmse_m": 0.024705990673201273,
+      "root_orientation_rmse_rad": 0.0345245420380871,
+      "nonfoot_ground_force_substeps": 0,
+      "joint_velocity_rms_rad_s": 0.05800449045070056
+    },
+    "checkpoint_sha256": "f47634b0c7dcf13a05788f175b40afe38f5cd7a41426c8046e0f2dce0f75238a",
+    "trajectory_sha256": "faec2f67ff1c4aa0e3036234ad8bfbef856fc6ea8232b3ec7d7360454c745b16",
+    "motion_sha256": "318b84fe7aee4dd26eaa74c227678dafe4df59e614cde341c77e3c7f83c69add",
+    "predeclared_plan": "runs/task-readiness-20261117/stand-120s-plan.json",
+    "scope": "Predeclared bounded 120s endurance probe of exactly the same fixed pose and learned actor. No new training, controller changes, resets or relaxed error/velocity criteria. The passed30s result remains separately recorded if endurance fails."
+  },
+  "same_model600_control": {
+    "checkpoint": "runs/task-readiness-20261117/stand-full30-pose-decoder-h16/training/ckpt_0028000.pt",
+    "checkpoint_sha256": "f47634b0c7dcf13a05788f175b40afe38f5cd7a41426c8046e0f2dce0f75238a",
+    "bundle": "runs/task-readiness-20261117/stand-full30-pose-decoder-h16-evaluations/ckpt_0028000/export",
+    "deployment": "runs/task-readiness-20261117/stand-600s-control/deploy",
+    "assessment": "runs/task-readiness-20261117/stand-600s-control/assessment.json",
+    "passed": false,
+    "steps": 30000,
+    "seconds": 600.0,
+    "metrics": {
+      "root_xy_rmse_m": 0.04968512209196289,
+      "joint_rmse_rad": 0.1669713009175609,
+      "root_height_rmse_m": 0.09179944550400794,
+      "root_orientation_rmse_rad": 0.0631358456768214,
+      "nonfoot_ground_force_substeps": 0,
+      "joint_velocity_rms_rad_s": 0.02594198740351926
+    },
+    "trajectory_sha256": "9ec1b7ef40597a9c0f111e7ee79accb01fc1787568743b12776debe883786095",
+    "motion_sha256": "d6cd16727d2c2a7ced18ff52319debbd351ad340490b1516a9c0640981e45508"
+  },
+  "dynamic_strict_passes": 0,
+  "candidate_groups": {
+    "jump_horizon": {
+      "local_evidence": "runs/task-readiness-20261117/horizon-comparison.json",
+      "evidence_sha256": "b4021fefadfcef0bfb0b0c6cfe08f40d5515561e6756f4041417a9c4d93d0edb",
+      "evaluated_records": 4,
+      "passes": 0,
+      "records": [
+        {
+          "stage": "runs/task-readiness-20261117/jump-h16-fresh1/update-0001",
+          "checkpoint_sha256": "8f2b59423c8dd055d15b479aa01288eb9218371b643c7774cbfb136248edba8e",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.7975637275783825,
+          "worst_effector_m": 0.25495305331256274,
+          "trajectory_sha256": "16af5808a08a9ad1e56dc64cf40b778197ca9bd396b0e76699f83cbf66354bce",
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25495305331256274,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.798688777477825,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ]
+        },
+        {
+          "stage": "runs/task-readiness-20261117/jump-h32-fresh5/update-0001",
+          "checkpoint_sha256": "21ba91c50a3ce1633976390ec996cc5dac4428c7a50576b9e9ed46f03b130c74",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8033916788496837,
+          "worst_effector_m": 0.2570358749889532,
+          "trajectory_sha256": "89580e0f6d8aa9c9c362622a00d266a12fd64c38e91f38a41f0fcf240ce2139b",
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2570358749889532,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7881481481481482,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ]
+        },
+        {
+          "stage": "runs/task-readiness-20261117/jump-h32-fresh5/update-0003",
+          "checkpoint_sha256": "1335f7be280ff8396972cadf4d39ccab57a9fee790ed98a92ca33070ea4e3538",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8038412507237217,
+          "worst_effector_m": 0.2653499560010583,
+          "trajectory_sha256": "6f5aade623a574e37df7fdfccde95237f3c4bcd1f5d9f41bda441f20de6ec465",
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2653499560010583,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7976052529934338,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ]
+        },
+        {
+          "stage": "runs/task-readiness-20261117/jump-h32-fresh5/update-0005",
+          "checkpoint_sha256": "c1db6fdc2c381a6dac50943f2c600c0023e52ce6d5cf4b5151d398255defa63e",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8070639160882918,
+          "worst_effector_m": 0.25884048996364806,
+          "trajectory_sha256": "6f69fe3b533c7aca5c4df94ef4089728377afc56bf3a4afb1c0b3883b9f10af1",
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25884048996364806,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7822155237377544,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ]
+        }
+      ]
+    },
+    "jump_left_foot_objective": {
+      "local_evidence": "runs/task-readiness-20261117/leftfoot-comparison.json",
+      "evidence_sha256": "acc10fda0100cb5f7b88d2b1d9639a938ea1cd22a309b623bf33b57f78efc442",
+      "evaluated_records": 9,
+      "passes": 0,
+      "records": [
+        {
+          "stage": "runs/task-readiness-20261117/jump-h32-leftfoot100-all/update-0001",
+          "checkpoint_sha256": "2fd371dc544e4a8eda6c39c4529c6fdca1d1f31fe8b0a3ca39151b9c10cf120a",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8053387960370438,
+          "worst_effector_m": 0.2540947345106545,
+          "trajectory_sha256": "9fa1f43a5e9dcc0205bb8ae692b8741231f05a049b97560725fb2eada02a5cef",
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2540947345106545,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ]
+        },
+        {
+          "stage": "runs/task-readiness-20261117/jump-h32-leftfoot100-all/update-0003",
+          "checkpoint_sha256": "f7de2ea3d6c1b595d795cb2feac66df34391d51673ef7b7c8f41c6ebe0cdfeb4",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8002930016810662,
+          "worst_effector_m": 0.26997462376910886,
+          "trajectory_sha256": "c8fd3d8970ba481277624be5d57a6a10f5db03947c597a0fdc1cdbd979799fd5",
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.26997462376910886,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7582744514689476,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ]
+        },
+        {
+          "stage": "runs/task-readiness-20261117/jump-h32-leftfoot100-all/update-0005",
+          "checkpoint_sha256": "47683d148a79f7b7ec5e46476851699f7192f7487a81111a8851182b4d52d79e",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8058013382251421,
+          "worst_effector_m": 0.2545509090582782,
+          "trajectory_sha256": "944ce163dd9223c4afbcb46eb9a2de2ac3996a227e3663d90d7dbfb3f45a9eca",
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2545509090582782,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7798766383962992,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ]
+        },
+        {
+          "stage": "runs/task-readiness-20261117/jump-h16-leftfoot100-all/update-0001",
+          "checkpoint_sha256": "e5cab85a2c889880d2f3a441af4669cdc1881c53a1a467ad7e8bf8abdbdfd9ba",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.80564420865665,
+          "worst_effector_m": 0.2900422038926082,
+          "trajectory_sha256": "0dba0551b951e79864ea2b9979d29288d005776c45882fcc947a6e534f080212",
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2900422038926082,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7981686379244564,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ]
+        },
+        {
+          "stage": "runs/task-readiness-20261117/jump-h16-leftfoot100-all/update-0003",
+          "checkpoint_sha256": "c10cc88dc6f5dda3f220c529c672b4e6f0b6b41771fddc203224f1ff6b324087",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.7979106263183413,
+          "worst_effector_m": 0.3206129357906027,
+          "trajectory_sha256": "a6ef540688e54213a3274b765cf75f57b1075ca6b9aea1bb74be27f31f4d44f3",
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.3206129357906027,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7907965970610982,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ]
+        },
+        {
+          "stage": "runs/task-readiness-20261117/jump-h16-leftfoot100-all/update-0005",
+          "checkpoint_sha256": "86e5fe46432286c574504779ec46253f068b0fcdd2b72f2d95fcea3e5c719cb3",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8044383572864898,
+          "worst_effector_m": 0.26819955197828643,
+          "trajectory_sha256": "99a4bdca5bbc60bfd4170ab0e3cb2d90248b36a2bca1fd49cce1caf0ccf52ab8",
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.26819955197828643,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7892464678178964,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ]
+        },
+        {
+          "stage": "runs/task-readiness-20261117/jump-h32-leftfoot100-head/update-0001",
+          "checkpoint_sha256": "9f5fc0747c0cae5cba184be79029b525ce2d66c114af718946028c69573295a6",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8054551445377525,
+          "worst_effector_m": 0.2558517323237015,
+          "trajectory_sha256": "d54af4df6a1b1245732e57212bc69a9fcc532f5d372392f08c5a18a07ffddb2b",
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2558517323237015,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7822794396062097,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ]
+        },
+        {
+          "stage": "runs/task-readiness-20261117/jump-h32-leftfoot100-head/update-0003",
+          "checkpoint_sha256": "fbcdaf1fd750bb4d5b7575a18ea1e3dce745c44c062758a8095e563036bd44ef",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8046078051807505,
+          "worst_effector_m": 0.2553938081952986,
+          "trajectory_sha256": "d77c4f905006824f52e111d96a04e971f533205f19c6b934173d4fef22b954f8",
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2553938081952986,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7807083647324793,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ]
+        },
+        {
+          "stage": "runs/task-readiness-20261117/jump-h32-leftfoot100-head/update-0005",
+          "checkpoint_sha256": "4b443104b8ee90d8b4346a75e793f18e4fc525a87e12220d2a7cadb77168e250",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8009415361126455,
+          "worst_effector_m": 0.3238963107117432,
+          "trajectory_sha256": "209af26d91cad0c9d3baa139c8ed0f2cb42c9f9c8a79354dfb9b8980f352874e",
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.3238963107117432,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7772727272727272,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ]
+        }
+      ]
+    },
+    "jump_parameter_line_search": {
+      "local_evidence": "runs/task-readiness-20261117/jump-leftfoot-line-search/physical-results.json",
+      "evidence_sha256": "53d98898e53e5649fdb05442c7139fa874e0fb2fdd1479fc41811776486bd531",
+      "evaluated_records": 5,
+      "passes": 0,
+      "records": [
+        {
+          "stage": "runs/task-readiness-20261117/jump-leftfoot-line-search/alpha-neg1p0",
+          "checkpoint_sha256": "5ebf89e973757c07d8785dcf81eff30ef48d01a4d91142a52373180fdeb2cf42",
+          "alpha": -1.0,
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8047658458160657,
+          "worst_effector_m": 0.26151672935856646,
+          "trajectory_sha256": "7b47023a0fd25bd3af2fedd37d0aabd2512496998356e1342b5d601b1ad850c6",
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.26151672935856646,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7704367301231803,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ]
+        },
+        {
+          "stage": "runs/task-readiness-20261117/jump-leftfoot-line-search/alpha-0p5",
+          "checkpoint_sha256": "156e90ccec2b155a656471774d1621c05aee3b85fafecfbadc57b6308cc54742",
+          "alpha": 0.5,
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8026194071069344,
+          "worst_effector_m": 0.2639201655313037,
+          "trajectory_sha256": "189482a2867dba4453b43900d5318d5b4930b5009c3e30e8cc640dab539166dd",
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2639201655313037,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7867280398925969,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ]
+        },
+        {
+          "stage": "runs/task-readiness-20261117/jump-leftfoot-line-search/alpha-2p0",
+          "checkpoint_sha256": "b075c8d58b7dfd6660de061f64434adf485d6f4927cfdffaee33a1a0e163c699",
+          "alpha": 2.0,
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.800543673426125,
+          "worst_effector_m": 0.25603767572380143,
+          "trajectory_sha256": "055e525ddb1669e114ba17c0f01a7ffce88885a5a689b0730a92973a38eae640",
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25603767572380143,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7908716797605686,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ]
+        },
+        {
+          "stage": "runs/task-readiness-20261117/jump-leftfoot-line-search/alpha-4p0",
+          "checkpoint_sha256": "634f53fbc86d1f8cf7b4ced5d148c7523d5662a0a8953766b7a69366cb434141",
+          "alpha": 4.0,
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8044530915975979,
+          "worst_effector_m": 0.2566096970895793,
+          "trajectory_sha256": "a7c4596b8af183d1bc3c4f14ceaf55ff368f1ca1ae6d742e68fcb650680fd619",
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2566096970895793,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7879710696612106,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ]
+        },
+        {
+          "stage": "runs/task-readiness-20261117/jump-leftfoot-line-search/alpha-8p0",
+          "checkpoint_sha256": "db86211e1dfc98a38f753a4104e90dcb84a49d3c03de59dac68df4fa8f8b00bf",
+          "alpha": 8.0,
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8006697986297818,
+          "worst_effector_m": 0.27183723142836436,
+          "trajectory_sha256": "7807ba1b05a494781e45c924dc85fc62fb1bec4327ff9ee71527eac5e08f9205",
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.27183723142836436,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ]
+        }
+      ]
+    },
+    "jump_native_bias": {
+      "local_evidence": "runs/task-readiness-20261117/jump-native-bias/physical-results.json",
+      "evidence_sha256": "d44be7dd93c610665f69ba8aee0af471ca38ecbd7114890f4906e9ad7afe3d9c",
+      "evaluated_records": 4,
+      "passes": 0,
+      "records": [
+        {
+          "stage": "runs/task-readiness-20261117/jump-native-bias/left_hip_pitch_joint-minus",
+          "checkpoint_sha256": "1ac65e382cf28dea23e9447bb2b80ba463a86f07830fef48b1363143550c2047",
+          "joint": "left_hip_pitch_joint",
+          "delta": -0.05,
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8076958386697684,
+          "worst_effector_m": 0.2566948331015477,
+          "trajectory_sha256": "310a82e6f427684a1e64889cced7321ce612bbc304d1c9ccce23fa5bd5c5677b",
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2566948331015477,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.787660862982589,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ]
+        },
+        {
+          "stage": "runs/task-readiness-20261117/jump-native-bias/left_hip_pitch_joint-plus",
+          "checkpoint_sha256": "ef5b952233f35cf6dd29fff042b15edfe511d148f3fc8b48d745fe4bea0f7745",
+          "joint": "left_hip_pitch_joint",
+          "delta": 0.05,
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.795143142424261,
+          "worst_effector_m": 0.30869053493860715,
+          "trajectory_sha256": "4548f5756de3aec9cfdb750ce46d926dad57368ddae169b4255536dae3e7c4a5",
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.30869053493860715,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ]
+        },
+        {
+          "stage": "runs/task-readiness-20261117/jump-native-bias/left_knee_joint-minus",
+          "checkpoint_sha256": "446777531b502b87573496d9619ea2a9348e097d08529066d4543ca9d509827f",
+          "joint": "left_knee_joint",
+          "delta": -0.05,
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.803164469318844,
+          "worst_effector_m": 0.2853444627926941,
+          "trajectory_sha256": "7c734498324d9712759d45b82d1afc3999d478fcad15fd359ab00dcc6665c27f",
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2853444627926941,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7876489707475623,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ]
+        },
+        {
+          "stage": "runs/task-readiness-20261117/jump-native-bias/left_knee_joint-plus",
+          "checkpoint_sha256": "db35b156694c7caf6ebfd0517d692f9ae687a38732ea39b6b88619ee6d97b0e8",
+          "joint": "left_knee_joint",
+          "delta": 0.05,
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.7958400422135191,
+          "worst_effector_m": 0.3062750590178114,
+          "trajectory_sha256": "1835cd77dcd0e785d89d3093cdc41adc06a4092082fbbb54ccd1060bfbe00b67",
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.3062750590178114,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7873338545738858,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ]
+        }
+      ]
+    },
+    "jump_current_window": {
+      "local_evidence": "runs/task-readiness-20261117/jump-h32-current-window/physical-results.json",
+      "evidence_sha256": "686e26a04aadbebf548746678978e473784f4251344a2202962464cb558aa962",
+      "evaluated_records": 3,
+      "passes": 0,
+      "records": [
+        {
+          "stage": "runs/task-readiness-20261117/jump-h32-current-window/update-0001",
+          "checkpoint_sha256": "583663d091d6486e24b217ceee4f828269a82b52a87115f2fec39b8527dab01e",
+          "update": 1,
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8039418683974054,
+          "worst_effector_m": 0.25730596395269756,
+          "trajectory_sha256": "502498e0b51b2947d44896838a42fab3a385dcd297a74edec0ced3b652e74ead",
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25730596395269756,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7844762622456669,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ]
+        },
+        {
+          "stage": "runs/task-readiness-20261117/jump-h32-current-window/update-0003",
+          "checkpoint_sha256": "842aa256058c2828fd853666961689e6367faa6d6881b2dc5acdf2b0131721c8",
+          "update": 3,
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8082316610643607,
+          "worst_effector_m": 0.2577730999808682,
+          "trajectory_sha256": "e38f24e12ee93738d21ed0acce5988c57d776d5ee5e7c616c3920e081d82f813",
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2577730999808682,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7866171003717473,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ]
+        },
+        {
+          "stage": "runs/task-readiness-20261117/jump-h32-current-window/update-0005",
+          "checkpoint_sha256": "e03d9aca214441963f4b63594136fe0ea23a738461b51b054de67d5bb387ae14",
+          "update": 5,
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8080054343931901,
+          "worst_effector_m": 0.2547881370039632,
+          "trajectory_sha256": "4488ee361d4d2758d9cda96b9a04087f4ac068cc6a79038deba09b17d6e272ca",
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2547881370039632,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7835128109914593,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ]
+        }
+      ]
+    },
+    "jump_calibrated_model_current_replay": {
+      "local_evidence": "runs/task-readiness-20261117/jump-calibrated-current-replay/physical-results.json",
+      "evidence_sha256": "5f478596a99a085bdf6251c41aa3223d16f00a3fa500b27c71070d2876a578c4",
+      "evaluated_records": 3,
+      "passes": 0,
+      "records": [
+        {
+          "stage": "runs/task-readiness-20261117/jump-calibrated-current-replay/update-0001",
+          "checkpoint_sha256": "61bad6bcbe70ebf1f0c9fd39a514a97d01fc7607e25c56769945c051ae4aec99",
+          "update": 1,
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8032600201343847,
+          "worst_effector_m": 0.30692890866399963,
+          "trajectory_sha256": "117472bc8e501aaae7912d36e1c4bbcb48f3db97cf25a5afd08f54cee259d7ce",
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.30692890866399963,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7834631071560993,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ]
+        },
+        {
+          "stage": "runs/task-readiness-20261117/jump-calibrated-current-replay/update-0003",
+          "checkpoint_sha256": "e41cd1b69a550fc4bd9d382e3904c9ba4e3b92db12b3d5ff933c83755c872fe5",
+          "update": 3,
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8040751713249493,
+          "worst_effector_m": 0.2877293804169196,
+          "trajectory_sha256": "4688671db774b8cc3e875ab3688772ed3d61583ef9a84bf75eb25bc17e519fd6",
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2877293804169196,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7821163607965639,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ]
+        },
+        {
+          "stage": "runs/task-readiness-20261117/jump-calibrated-current-replay/update-0005",
+          "checkpoint_sha256": "6b33f4a13e1193c28472d11d917124d3c9e7bee4daaacffc93ead92e36aa430e",
+          "update": 5,
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8014161867104734,
+          "worst_effector_m": 0.31271853101640146,
+          "trajectory_sha256": "a0c91bde12ae4bc74e10309409c45c54632546399e81f7c93d8275e1da982bcf",
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.31271853101640146,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7917493058310194,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ]
+        }
+      ]
+    },
+    "static_first_transfer": {
+      "local_evidence": "runs/task-readiness-20261117/stand-evaluations/summary.json",
+      "evidence_sha256": "763b2fec1c1c87093140855fd8bad9ecd7ebf102260af7e2922372f24ee6ac21",
+      "evaluated_records": 4,
+      "passes": 0,
+      "records": [
+        {
+          "checkpoint": "runs/task-readiness-20261117/stand-transfer-head-lr1e5/training/ckpt_0003000.pt",
+          "checkpoint_sha256": "9ced514bbde9d75248215ebb1082d42d1c6da4aae71270cdc1b2944fe2f306a2",
+          "steps": 1500,
+          "simulated_seconds": 30.0,
+          "passed": false,
+          "metrics": {
+            "root_xy_rmse_m": 0.11361851960875811,
+            "joint_rmse_rad": 0.3600337891753957,
+            "root_height_rmse_m": 0.01290403681748572,
+            "root_orientation_rmse_rad": 0.380021920976009,
+            "nonfoot_ground_force_substeps": 0
+          },
+          "trajectory_sha256": "88c9230d125764a611210579cbab32bebda4f925460c0ba18c35d62500e01034",
+          "motion_sha256": "5e3acf77426cc997f3a35dc9f7f4d5dc2da777f7179aa9abdb38c7d3c46ebf41"
+        },
+        {
+          "checkpoint": "runs/task-readiness-20261117/stand-transfer-head-lr1e5/training/ckpt_0004000.pt",
+          "checkpoint_sha256": "5f0ef1b216e2cd0083d1b92df8cadfa1c40a8edb0b6a78fd463fde51d1f1a86d",
+          "steps": 1500,
+          "simulated_seconds": 30.0,
+          "passed": false,
+          "metrics": {
+            "root_xy_rmse_m": 0.10538882068009628,
+            "joint_rmse_rad": 0.3329751399807127,
+            "root_height_rmse_m": 0.00862082122452672,
+            "root_orientation_rmse_rad": 0.21117325057258654,
+            "nonfoot_ground_force_substeps": 0
+          },
+          "trajectory_sha256": "230819c48a95b59073e5aa8411673b4771feb474619402638f823217e8eb7f6e",
+          "motion_sha256": "5e3acf77426cc997f3a35dc9f7f4d5dc2da777f7179aa9abdb38c7d3c46ebf41"
+        },
+        {
+          "checkpoint": "runs/task-readiness-20261117/stand-transfer-head-lr1e5/training/ckpt_0005000.pt",
+          "checkpoint_sha256": "32c9a63473db0b6caa7d282e7dcfd2a2b0a1bfac848223eecfd50eb5a5430f2b",
+          "steps": 354,
+          "simulated_seconds": 7.08,
+          "passed": false,
+          "metrics": {
+            "root_xy_rmse_m": 1.2992843932919926,
+            "joint_rmse_rad": 0.3416378507137643,
+            "root_height_rmse_m": 0.03138489334967447,
+            "root_orientation_rmse_rad": 0.3943728673152662,
+            "nonfoot_ground_force_substeps": 0
+          },
+          "trajectory_sha256": "bf83b61c3eb9cdc5601979b08f70e415d5b258618d96f80a3668d4324305216b",
+          "motion_sha256": "5e3acf77426cc997f3a35dc9f7f4d5dc2da777f7179aa9abdb38c7d3c46ebf41"
+        },
+        {
+          "checkpoint": "runs/task-readiness-20261117/stand-transfer-head-lr1e5/training/ckpt_latest.pt",
+          "checkpoint_sha256": "378d3d765b42085ca9347a9dacab74aa319f96e9ddaa08bd9c26c74c6672e59b",
+          "steps": 271,
+          "simulated_seconds": 5.42,
+          "passed": false,
+          "metrics": {
+            "root_xy_rmse_m": 0.9329606480667252,
+            "joint_rmse_rad": 0.33576376407640046,
+            "root_height_rmse_m": 0.031831931782261215,
+            "root_orientation_rmse_rad": 0.21786287088565973,
+            "nonfoot_ground_force_substeps": 0
+          },
+          "trajectory_sha256": "5c88289460ce5a614f66c47708afe5fafa4ed24cf678708ffba7ba6003bfad26",
+          "motion_sha256": "5e3acf77426cc997f3a35dc9f7f4d5dc2da777f7179aa9abdb38c7d3c46ebf41"
+        }
+      ]
+    },
+    "static_arm_materializations": {
+      "local_evidence": "runs/task-readiness-20261117/stand-arm-hybrids/physical-results.json",
+      "evidence_sha256": "bd54e73b0e9e57a05b2fe7a4efa4ce52ea7adb7c59c31a48ce7664383a929f7b",
+      "evaluated_records": 4,
+      "passes": 0,
+      "records": [
+        {
+          "stage": "runs/task-readiness-20261117/stand-arm-hybrids/alpha-1p0",
+          "checkpoint_sha256": "bb650d2ef3b4ec0de9bc6d834f0a20a937f0443c7833b7cc5e1e9c3bf8b8b4cb",
+          "alpha": 1.0,
+          "completed_motion": true,
+          "steps": 1500,
+          "simulated_seconds": 30.0,
+          "passed": false,
+          "metrics": {
+            "root_xy_rmse_m": 0.08419449318732056,
+            "joint_rmse_rad": 0.3724110869599439,
+            "root_height_rmse_m": 0.034373952532573866,
+            "root_orientation_rmse_rad": 0.16375099489587994,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.2507831298351375
+          },
+          "trajectory_sha256": "29bf5684873aed1f59bdbf2aa4ddce6495d35b4d43f9869649845801182e8d53",
+          "motion_sha256": "5e3acf77426cc997f3a35dc9f7f4d5dc2da777f7179aa9abdb38c7d3c46ebf41"
+        },
+        {
+          "stage": "runs/task-readiness-20261117/stand-arm-hybrids/alpha-1p5",
+          "checkpoint_sha256": "c2ead8eac64b1f4c207f4fc36d5bfb033c86c1bd5e0aaccca664282cab77525d",
+          "alpha": 1.5,
+          "completed_motion": true,
+          "steps": 1500,
+          "simulated_seconds": 30.0,
+          "passed": false,
+          "metrics": {
+            "root_xy_rmse_m": 0.6014772346046359,
+            "joint_rmse_rad": 0.34904729568795223,
+            "root_height_rmse_m": 0.03230866028047492,
+            "root_orientation_rmse_rad": 0.11200170354734225,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.5557455822211982
+          },
+          "trajectory_sha256": "ed78328c6018d3adda758687068ba5af02ecdf42e2c1273b8c7da6d0db01b5b5",
+          "motion_sha256": "5e3acf77426cc997f3a35dc9f7f4d5dc2da777f7179aa9abdb38c7d3c46ebf41"
+        },
+        {
+          "stage": "runs/task-readiness-20261117/stand-arm-hybrids/alpha-2p0",
+          "checkpoint_sha256": "3a6989c30ee7a63c2141bdafe1c55251fb1dcc5162b611bc27ddbe1278c2cdd4",
+          "alpha": 2.0,
+          "completed_motion": true,
+          "steps": 1500,
+          "simulated_seconds": 30.0,
+          "passed": false,
+          "metrics": {
+            "root_xy_rmse_m": 0.836378501874088,
+            "joint_rmse_rad": 0.32696591803203384,
+            "root_height_rmse_m": 0.03277722995578427,
+            "root_orientation_rmse_rad": 0.08377310134913736,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.619601979959519
+          },
+          "trajectory_sha256": "9e5c39c587ef2e1c463cb04f516470b5fade32e5d8176d10060a2c855bbc84be",
+          "motion_sha256": "5e3acf77426cc997f3a35dc9f7f4d5dc2da777f7179aa9abdb38c7d3c46ebf41"
+        },
+        {
+          "stage": "runs/task-readiness-20261117/stand-arm-hybrids/alpha-3p0",
+          "checkpoint_sha256": "c00e9797e776f706051ee3f8ef09770319f48a86e7fb7be906916b8b37412afa",
+          "alpha": 3.0,
+          "completed_motion": false,
+          "steps": 118,
+          "simulated_seconds": 2.36,
+          "passed": false,
+          "metrics": {
+            "root_xy_rmse_m": 0.37153056705319976,
+            "joint_rmse_rad": 0.3234303362240351,
+            "root_height_rmse_m": 0.06295880983998767,
+            "root_orientation_rmse_rad": 0.20876387338264762,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 1.7632681877006349
+          },
+          "trajectory_sha256": "f06a80cc1d6a7013aa2463a1ab8032524a781aef3a17a5a959ed36c1aafaed92",
+          "motion_sha256": "5e3acf77426cc997f3a35dc9f7f4d5dc2da777f7179aa9abdb38c7d3c46ebf41"
+        }
+      ]
+    },
+    "static_full30_head": {
+      "local_evidence": "runs/task-readiness-20261117/stand-full30-start-head-lr2e6-evaluations/summary.json",
+      "evidence_sha256": "2cc5a743773598220550a75f149332b3e605863239a80f93482191cca77ce741",
+      "evaluated_records": 4,
+      "passes": 0,
+      "records": [
+        {
+          "checkpoint": "runs/task-readiness-20261117/stand-full30-start-head-lr2e6/training/ckpt_0010000.pt",
+          "checkpoint_sha256": "40d4eb7b76d0dff96fbe75a0b38bb8af98134aca109ab3fedd70be245bac9e96",
+          "steps": 312,
+          "simulated_seconds": 6.24,
+          "passed": false,
+          "metrics": {
+            "root_xy_rmse_m": 0.9999159466274467,
+            "joint_rmse_rad": 0.3285475149884911,
+            "root_height_rmse_m": 0.03009515162069763,
+            "root_orientation_rmse_rad": 0.260829049126486,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 1.7567490684769111
+          },
+          "trajectory_sha256": "f402864a5c0138e703915bb4f5d0687ea8f800dce8f5600c68e4ff224be70928",
+          "motion_sha256": "5e3acf77426cc997f3a35dc9f7f4d5dc2da777f7179aa9abdb38c7d3c46ebf41"
+        },
+        {
+          "checkpoint": "runs/task-readiness-20261117/stand-full30-start-head-lr2e6/training/ckpt_0012000.pt",
+          "checkpoint_sha256": "1facfced2f279ecb907d653a32d218f06e7683ccc2df5d3d86155430e7ef7349",
+          "steps": 1500,
+          "simulated_seconds": 30.0,
+          "passed": false,
+          "metrics": {
+            "root_xy_rmse_m": 0.05366563730783144,
+            "joint_rmse_rad": 0.3238994669632254,
+            "root_height_rmse_m": 0.00849241227894787,
+            "root_orientation_rmse_rad": 0.07958918956560676,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.17851712880000314
+          },
+          "trajectory_sha256": "373f6d88f8b33fd72dc089d20ddcc609cc4222f5c4a478b7b0f8e6fe99c10031",
+          "motion_sha256": "5e3acf77426cc997f3a35dc9f7f4d5dc2da777f7179aa9abdb38c7d3c46ebf41"
+        },
+        {
+          "checkpoint": "runs/task-readiness-20261117/stand-full30-start-head-lr2e6/training/ckpt_0014000.pt",
+          "checkpoint_sha256": "9fc176d72f37d56d1a7561b86f3c91bd1b86f7b2ce8f2a96a23c25f197f510d3",
+          "steps": 216,
+          "simulated_seconds": 4.32,
+          "passed": false,
+          "metrics": {
+            "root_xy_rmse_m": 0.411980906821207,
+            "joint_rmse_rad": 0.3270633497844944,
+            "root_height_rmse_m": 0.04742157197755246,
+            "root_orientation_rmse_rad": 0.24171820883755588,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 1.7181459047309027
+          },
+          "trajectory_sha256": "e2685a3d5feff301f0c465fc872896b3d691ae7be56ad1bec48183c451a6160e",
+          "motion_sha256": "5e3acf77426cc997f3a35dc9f7f4d5dc2da777f7179aa9abdb38c7d3c46ebf41"
+        },
+        {
+          "checkpoint": "runs/task-readiness-20261117/stand-full30-start-head-lr2e6/training/ckpt_latest.pt",
+          "checkpoint_sha256": "92bb4b446a083927f1f814c4a3f49ab06e2b14b627b3d24ec8a74ef6794e7435",
+          "steps": 385,
+          "simulated_seconds": 7.7,
+          "passed": false,
+          "metrics": {
+            "root_xy_rmse_m": 1.0029688984668488,
+            "joint_rmse_rad": 0.31478538941618495,
+            "root_height_rmse_m": 0.03413334031616812,
+            "root_orientation_rmse_rad": 0.3698888787232326,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 1.60104329510565
+          },
+          "trajectory_sha256": "4315137f2aa344290d7f2eba0a84cbf334ed976c5ca54b170aea993d22204a0c",
+          "motion_sha256": "5e3acf77426cc997f3a35dc9f7f4d5dc2da777f7179aa9abdb38c7d3c46ebf41"
+        }
+      ]
+    },
+    "static_pose_decoder": {
+      "local_evidence": "runs/task-readiness-20261117/stand-full30-pose-decoder-h16-evaluations/summary.json",
+      "evidence_sha256": "63caf395d3bd9e55fd89c4b2dcc3d71fd4c702288b4385e9dd7017e2ff693203",
+      "evaluated_records": 5,
+      "passes": 2,
+      "records": [
+        {
+          "checkpoint": "runs/task-readiness-20261117/stand-full30-pose-decoder-h16/evaluation-checkpoints/ckpt_0020000.pt",
+          "checkpoint_sha256": "26d7dcc0721117d47bde4781476046edaf87ffe66a303f198079eb48f7518a46",
+          "steps": 1500,
+          "simulated_seconds": 30.0,
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.039519826711554115,
+            "joint_rmse_rad": 0.07690334901807146,
+            "root_height_rmse_m": 0.011960946412217633,
+            "root_orientation_rmse_rad": 0.10673290560974687,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.15808604419450503
+          },
+          "trajectory_sha256": "f9a68c84edcc9553a6586bdd739db00ae16c3868d0ca8056dd38ea1cf1fc192b",
+          "motion_sha256": "5e3acf77426cc997f3a35dc9f7f4d5dc2da777f7179aa9abdb38c7d3c46ebf41"
+        },
+        {
+          "checkpoint": "runs/task-readiness-20261117/stand-full30-pose-decoder-h16/training/ckpt_0024000.pt",
+          "checkpoint_sha256": "6cdc34a7e622cf942810c881949db7e2f75db28bab7caf261f9135b591e8bc25",
+          "steps": 1500,
+          "simulated_seconds": 30.0,
+          "passed": false,
+          "metrics": {
+            "root_xy_rmse_m": 0.5581668951336924,
+            "joint_rmse_rad": 0.09155941709418478,
+            "root_height_rmse_m": 0.013070646433424652,
+            "root_orientation_rmse_rad": 0.09615132268149208,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.6970511846968322
+          },
+          "trajectory_sha256": "9be9446363bb5010483292b429963718ba654b5f76425665dd508bae7241132d",
+          "motion_sha256": "5e3acf77426cc997f3a35dc9f7f4d5dc2da777f7179aa9abdb38c7d3c46ebf41"
+        },
+        {
+          "checkpoint": "runs/task-readiness-20261117/stand-full30-pose-decoder-h16/training/ckpt_0028000.pt",
+          "checkpoint_sha256": "f47634b0c7dcf13a05788f175b40afe38f5cd7a41426c8046e0f2dce0f75238a",
+          "steps": 1500,
+          "simulated_seconds": 30.0,
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.02203981615325461,
+            "joint_rmse_rad": 0.04947985831753262,
+            "root_height_rmse_m": 0.011208694649717488,
+            "root_orientation_rmse_rad": 0.039454913099543715,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.11590278289799481
+          },
+          "trajectory_sha256": "854314feec1cf54ebbe35236980b20fc439df17c9c9dc49878c5c1d50b038018",
+          "motion_sha256": "5e3acf77426cc997f3a35dc9f7f4d5dc2da777f7179aa9abdb38c7d3c46ebf41"
+        },
+        {
+          "checkpoint": "runs/task-readiness-20261117/stand-full30-pose-decoder-h16/training/ckpt_0032000.pt",
+          "checkpoint_sha256": "f2ce6c82ffcad1cf4e21cc9913b54f51fc9f185dc5e78461908ac96131b1a62b",
+          "steps": 1500,
+          "simulated_seconds": 30.0,
+          "passed": false,
+          "metrics": {
+            "root_xy_rmse_m": 0.3212398663718238,
+            "joint_rmse_rad": 0.08655749247734915,
+            "root_height_rmse_m": 0.015215309546119923,
+            "root_orientation_rmse_rad": 0.05710133529404564,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.2528063598540783
+          },
+          "trajectory_sha256": "25a52cdd7f5f3e64b450e856e44efd9d1171aba0fd69b65e569ac41b40ce8585",
+          "motion_sha256": "5e3acf77426cc997f3a35dc9f7f4d5dc2da777f7179aa9abdb38c7d3c46ebf41"
+        },
+        {
+          "checkpoint": "runs/task-readiness-20261117/stand-full30-pose-decoder-h16/training/ckpt_latest.pt",
+          "checkpoint_sha256": "634254c4c0f91e96e25e33c2e75e85814f3e81c524ee0d03958585e195036090",
+          "steps": 1500,
+          "simulated_seconds": 30.0,
+          "passed": false,
+          "metrics": {
+            "root_xy_rmse_m": 0.35392722751468264,
+            "joint_rmse_rad": 0.0562827534879583,
+            "root_height_rmse_m": 0.009359777690411276,
+            "root_orientation_rmse_rad": 0.04942796995940137,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.3155906084149605
+          },
+          "trajectory_sha256": "dd7dcf9bb921ba1c86fc9a72505fe9b037343077f258a704a6cc85904955ca6b",
+          "motion_sha256": "5e3acf77426cc997f3a35dc9f7f4d5dc2da777f7179aa9abdb38c7d3c46ebf41"
+        }
+      ]
+    },
+    "static_height100_long_episodes": {
+      "local_evidence": "runs/task-readiness-20261117/stand-height100-episode120-evaluations/summary.json",
+      "evidence_sha256": "2b76fb6c827e97a6d58865cf9eb6c105c3768202a828ba64b23dfbfb2fc89c0a",
+      "evaluated_records": 3,
+      "passes": 0,
+      "records": [
+        {
+          "checkpoint": "runs/task-readiness-20261117/stand-height100-episode120/training/ckpt_0005000.pt",
+          "checkpoint_sha256": "168d6da705ef8ee2ec282787001d98bbc84ee0d22aed265a247bda511f7b07fc",
+          "steps": 30000,
+          "seconds": 600.0,
+          "passed": false,
+          "metrics": {
+            "root_xy_rmse_m": 0.7188771072535686,
+            "joint_rmse_rad": 0.07611246220333384,
+            "root_height_rmse_m": 0.010170925663673967,
+            "root_orientation_rmse_rad": 0.05625846987937111,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.3637015026854518
+          },
+          "trajectory_sha256": "0c4e6c4722a9027c5634dd705e02ca2092b53f3473252bd1a7a3996bc117fba6",
+          "motion_sha256": "d6cd16727d2c2a7ced18ff52319debbd351ad340490b1516a9c0640981e45508"
+        },
+        {
+          "checkpoint": "runs/task-readiness-20261117/stand-height100-episode120/training/ckpt_0010000.pt",
+          "checkpoint_sha256": "0c14a1ab04e4577ed6933276adc9471ec1dec1aad24e1850c987101a4e835d2f",
+          "steps": 30000,
+          "seconds": 600.0,
+          "passed": false,
+          "metrics": {
+            "root_xy_rmse_m": 0.1090020017305162,
+            "joint_rmse_rad": 0.11728946044456172,
+            "root_height_rmse_m": 0.04262525823262394,
+            "root_orientation_rmse_rad": 0.03348363055538405,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.03547942111580307
+          },
+          "trajectory_sha256": "294f9ecdbce6bfd590ddcb47867ac1df3509725478e502616535389798779aa4",
+          "motion_sha256": "d6cd16727d2c2a7ced18ff52319debbd351ad340490b1516a9c0640981e45508"
+        },
+        {
+          "checkpoint": "runs/task-readiness-20261117/stand-height100-episode120/training/ckpt_latest.pt",
+          "checkpoint_sha256": "c156d1d8463107810e691aa3e9dade107b9e322854876d09d3d3d81b8346f05a",
+          "steps": 30000,
+          "seconds": 600.0,
+          "passed": false,
+          "metrics": {
+            "root_xy_rmse_m": 0.3276540218841826,
+            "joint_rmse_rad": 0.08153444163031263,
+            "root_height_rmse_m": 0.012592777041601774,
+            "root_orientation_rmse_rad": 0.03802269707395205,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.04627713225833765
+          },
+          "trajectory_sha256": "8df18ad03280ac90149529603882982cb2ddfdc2cfbfac48d9682acf835e7222",
+          "motion_sha256": "d6cd16727d2c2a7ced18ff52319debbd351ad340490b1516a9c0640981e45508"
+        }
+      ]
+    },
+    "static_height100_xy200_continuation": {
+      "local_evidence": "runs/task-readiness-20261117/stand-height100-xy200-resume-evaluations/summary.json",
+      "evidence_sha256": "e7602d001c0f9e345b409a5e555cc76303b8489ae711d9f74af800c1d4b1c3ec",
+      "evaluated_records": 4,
+      "passes": 1,
+      "records": [
+        {
+          "checkpoint": "runs/task-readiness-20261117/stand-height100-xy200-resume/training/ckpt_0012000.pt",
+          "checkpoint_sha256": "6984a9c7ea58c96834349941e986e3b28f6bddba706448c9c3f690e8f248a5f8",
+          "steps": 30000,
+          "seconds": 600.0,
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.030147462072352353,
+            "joint_rmse_rad": 0.06657450291533189,
+            "root_height_rmse_m": 0.01294819908477808,
+            "root_orientation_rmse_rad": 0.04534647534128928,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.021144766365492923
+          },
+          "trajectory_sha256": "c9f4fcc3da662f8284ddc9816df4235c07077621fb05138dcd7e5a48084676c6",
+          "motion_sha256": "d6cd16727d2c2a7ced18ff52319debbd351ad340490b1516a9c0640981e45508"
+        },
+        {
+          "checkpoint": "runs/task-readiness-20261117/stand-height100-xy200-resume/training/ckpt_0016000.pt",
+          "checkpoint_sha256": "a632a8824f184b6ea11ec597ca78ddad3e4c44b12e35adb6540cefca1134a77a",
+          "steps": 30000,
+          "seconds": 600.0,
+          "passed": false,
+          "metrics": {
+            "root_xy_rmse_m": 0.1688730870784117,
+            "joint_rmse_rad": 0.0691562123940557,
+            "root_height_rmse_m": 0.01274345292298487,
+            "root_orientation_rmse_rad": 0.04319149043062045,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.3257860804758732
+          },
+          "trajectory_sha256": "96ca948ff8ad6fe35bd9bea48328b281a435f6f41126abc2f723fbd5fa140587",
+          "motion_sha256": "d6cd16727d2c2a7ced18ff52319debbd351ad340490b1516a9c0640981e45508"
+        },
+        {
+          "checkpoint": "runs/task-readiness-20261117/stand-height100-xy200-resume/training/ckpt_0020000.pt",
+          "checkpoint_sha256": "0a2c4e07c52dc4c6d7086280d4e5fb6c49082513d4a9bedff03517457e90230e",
+          "steps": 30000,
+          "seconds": 600.0,
+          "passed": false,
+          "metrics": {
+            "root_xy_rmse_m": 0.20945855313807535,
+            "joint_rmse_rad": 0.0856081917788512,
+            "root_height_rmse_m": 0.01538938421905681,
+            "root_orientation_rmse_rad": 0.05608344275259657,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.3532471108852947
+          },
+          "trajectory_sha256": "6e3ac7539ac1dde8a5a9c4f9c000ba5051800745bb916d71de0fc6a599e1d4c0",
+          "motion_sha256": "d6cd16727d2c2a7ced18ff52319debbd351ad340490b1516a9c0640981e45508"
+        },
+        {
+          "checkpoint": "runs/task-readiness-20261117/stand-height100-xy200-resume/training/ckpt_latest.pt",
+          "checkpoint_sha256": "32b88815d2bbbbc3cd81452b3d350408ccd8322099619b2b97bce03b3b028582",
+          "steps": 9859,
+          "seconds": 197.18,
+          "passed": false,
+          "metrics": {
+            "root_xy_rmse_m": 0.2841876982225209,
+            "joint_rmse_rad": 0.09385096111019095,
+            "root_height_rmse_m": 0.017401219413937175,
+            "root_orientation_rmse_rad": 0.07117201844250708,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.46176943179826213
+          },
+          "trajectory_sha256": "044b54391874d06db87195fc858be326ad7ad487b26bd2169da2fbd0cfb14524",
+          "motion_sha256": "d6cd16727d2c2a7ced18ff52319debbd351ad340490b1516a9c0640981e45508"
+        }
+      ]
+    }
+  },
+  "recorded_candidate_evaluations": 52,
+  "recorded_accepted_candidate_results": 3,
+  "standard_cli_workflows": [
+    {
+      "task": "jump",
+      "initialization": "strict continuation, no transfer fallback",
+      "source_checkpoint_sha256": "63b72f052c9f5e41de23b3feee923d0565abe075cc20097d7e687996bc8d1986",
+      "workflow_passed": true,
+      "completed_motion": true,
+      "controls": 12221,
+      "strict_skill_passed": false,
+      "starting_iteration": 29000,
+      "ending_iteration": 29025,
+      "starting_updates": 11481,
+      "ending_updates": 11482,
+      "trajectory_sha256": "8781dcc0ef4e2c6b71037ddb859078fcacfc46f67e853ef4a4950c36196346e4",
+      "adopted": false,
+      "local_evidence": "runs/task-readiness-20261117/standard-cli-continuations/summary.json",
+      "error": null
+    },
+    {
+      "task": "dance",
+      "initialization": "strict continuation, no transfer fallback",
+      "source_checkpoint_sha256": "3735896ba6dc398c5bf36b94202b3ee7b77470f77ddad0759455bd15ea1cbf43",
+      "workflow_passed": false,
+      "completed_motion": null,
+      "controls": null,
+      "strict_skill_passed": false,
+      "starting_iteration": null,
+      "ending_iteration": null,
+      "starting_updates": null,
+      "ending_updates": null,
+      "trajectory_sha256": null,
+      "adopted": false,
+      "local_evidence": "runs/task-readiness-20261117/standard-cli-continuations/summary.json",
+      "error": "CalledProcessError: Command '['/home/ubuntu/workspace/chase/SuperMimic-Reproduced/.venv/bin/python', '-I', '/tmp/sm_heavy_run.py', '/home/ubuntu/workspace/chase/SuperMimic-Reproduced/.venv/bin/python', '-I', '/tmp/sm_cli_task.py', 'train', '--profile', 'g1', '--checkpoint', 'runs/dance-original-source0d29-WM31200-H16-actual-history-all20-fresh5-20261110/update-0003/checkpoint.pt', '--motions', 'data/npz/validation', '--clips', 'dance1_subject1', '--output', 'runs/task-readiness-20261117/standard-cli-continuations/dance/train', '--num-envs', '32', '--wm-batches-per-update', '2', '--wm-batch-size', '128', '--policy-batch-size', '16', '--replay-capacity', '512', '--compile-policy', '--compile-world-model', '--iterations', '130500', '--hours', '.016666666666666666', '--checkpoint-interval', '100000']' returned non-zero exit status 1."
+    },
+    {
+      "task": "fight",
+      "initialization": "strict continuation, no transfer fallback",
+      "source_checkpoint_sha256": "eb9a6a00c768fb145c056cb68ac947a503bb52c8de4af5471c6b87f5ff06c5da",
+      "workflow_passed": false,
+      "completed_motion": null,
+      "controls": null,
+      "strict_skill_passed": false,
+      "starting_iteration": null,
+      "ending_iteration": null,
+      "starting_updates": null,
+      "ending_updates": null,
+      "trajectory_sha256": null,
+      "adopted": false,
+      "local_evidence": "runs/task-readiness-20261117/standard-cli-continuations/summary.json",
+      "error": "CalledProcessError: Command '['/home/ubuntu/workspace/chase/SuperMimic-Reproduced/.venv/bin/python', '-I', '/tmp/sm_heavy_run.py', '/home/ubuntu/workspace/chase/SuperMimic-Reproduced/.venv/bin/python', '-I', '/tmp/sm_cli_task.py', 'train', '--profile', 'g1', '--checkpoint', 'runs/fight-original-source110-WM25200-H32-GAE5-20261110/update-0005/checkpoint.pt', '--motions', 'data/npz/validation', '--clips', 'fight1_subject2', '--output', 'runs/task-readiness-20261117/standard-cli-continuations/fight/train', '--num-envs', '32', '--wm-batches-per-update', '2', '--wm-batch-size', '128', '--policy-batch-size', '16', '--replay-capacity', '512', '--compile-policy', '--compile-world-model', '--iterations', '125000', '--hours', '.016666666666666666', '--checkpoint-interval', '100000']' returned non-zero exit status 1."
+    },
+    {
+      "task": "dance",
+      "initialization": "explicit network transfer with fresh optimizers after standard optimizer-group incompatibility was diagnosed",
+      "source_checkpoint_sha256": "3735896ba6dc398c5bf36b94202b3ee7b77470f77ddad0759455bd15ea1cbf43",
+      "workflow_passed": true,
+      "completed_motion": true,
+      "controls": 6573,
+      "strict_skill_passed": false,
+      "starting_iteration": 0,
+      "ending_iteration": 158,
+      "starting_updates": 0,
+      "ending_updates": 54,
+      "trajectory_sha256": "c8f93fca51ed180783aa176b9cf29bac41c5843c268c7435036c2c9f943940ea",
+      "adopted": false,
+      "local_evidence": "runs/task-readiness-20261117/standard-cli-transfers/summary.json",
+      "error": null
+    },
+    {
+      "task": "fight",
+      "initialization": "explicit network transfer with fresh optimizers after standard optimizer-group incompatibility was diagnosed",
+      "source_checkpoint_sha256": "eb9a6a00c768fb145c056cb68ac947a503bb52c8de4af5471c6b87f5ff06c5da",
+      "workflow_passed": true,
+      "completed_motion": false,
+      "controls": 11164,
+      "strict_skill_passed": false,
+      "starting_iteration": 0,
+      "ending_iteration": 143,
+      "starting_updates": 0,
+      "ending_updates": 48,
+      "trajectory_sha256": "4cb228e9cc7f031f138490865e79959507587a804502b90b05d9502572f3b025",
+      "adopted": false,
+      "local_evidence": "runs/task-readiness-20261117/standard-cli-transfers/summary.json",
+      "error": null
+    }
+  ],
+  "world_model_diagnostic": {
+    "baseline_mean_32step_nse": 0.010346099923481233,
+    "selected_mean_32step_nse": 0.010143509403860662,
+    "fresh_model_optimizer_steps": 200,
+    "heldout_scope": "Held out from these calibration gradients only; the source model already learned this known reference. Not a novel-motion benchmark.",
+    "subsequent_actor_physics": "All three calibrated-model/current-replay actors failed original dynamic gates; not adopted."
+  },
+  "shared_resource_policy": {
+    "exclusive_heavy_lock": "/home/ubuntu/.cache/codex-heavy-work.lock",
+    "max_training_tree_rss_gib": 6,
+    "max_cpu_operation_tree_rss_gib": 2,
+    "gpu_process_limit_mib": 2304,
+    "reserve_gpu_mib": 4096,
+    "reserve_system_ram_gib": 12.5,
+    "math_threads": 1,
+    "max_build_workers": 2,
+    "no_other_processes_or_system_limits_modified": true
+  },
+  "local_task_collection": {
+    "path": "exports/g1-tasks-20261117",
+    "catalog_sha256": "6a1225c4b9088cff07cb9b620a8be6011eff3160806c3a5b06a4e7b17f69b188",
+    "scope": "Self-contained inference/reference/physics evidence, including required asset licenses. Training checkpoints remain at recorded local paths. Binaries/data excluded from Git."
+  },
+  "packaged_inference_verification": {
+    "passed": true,
+    "artifact_identity": {
+      "status": "verified",
+      "scope": "provided inputs match result.json fingerprints",
+      "matched_fields": [
+        "trajectory_sha256",
+        "motion_sha256",
+        "contract_sha256",
+        "checkpoint_sha256"
+      ]
+    },
+    "checkpoint_sha256": "f47634b0c7dcf13a05788f175b40afe38f5cd7a41426c8046e0f2dce0f75238a",
+    "motion_sha256": "318b84fe7aee4dd26eaa74c227678dafe4df59e614cde341c77e3c7f83c69add",
+    "trajectory_sha256": "faec2f67ff1c4aa0e3036234ad8bfbef856fc6ea8232b3ec7d7360454c745b16",
+    "copied_bundle_full120s_bitexact": {
+      "states": true,
+      "actions": true,
+      "reference_frame": true,
+      "physical_contacts": true
+    },
+    "metrics": {
+      "root_xy_rmse_m": 0.02354154104468403,
+      "joint_rmse_rad": 0.08068386159646496,
+      "root_height_rmse_m": 0.024705990673201273,
+      "root_orientation_rmse_rad": 0.0345245420380871,
+      "nonfoot_ground_force_substeps": 0,
+      "joint_velocity_rms_rad_s": 0.05800449045070056
+    }
+  },
+  "static600_selection": {
+    "selection": "Among actually passed full600s candidates, minimize the worst error fraction of its fixed limit; nonfoot force count must be zero.",
+    "worst_limit_fraction": 0.3023098356085952,
+    "selected": {
+      "checkpoint": "runs/task-readiness-20261117/stand-height100-xy200-resume/training/ckpt_0012000.pt",
+      "checkpoint_sha256": "6984a9c7ea58c96834349941e986e3b28f6bddba706448c9c3f690e8f248a5f8",
+      "bundle": "runs/task-readiness-20261117/stand-height100-xy200-resume-evaluations/ckpt_0012000/export",
+      "deployment": "runs/task-readiness-20261117/stand-height100-xy200-resume-evaluations/ckpt_0012000/deploy",
+      "assessment": "runs/task-readiness-20261117/stand-height100-xy200-resume-evaluations/ckpt_0012000/assessment.json",
+      "passed": true,
+      "steps": 30000,
+      "seconds": 600.0,
+      "metrics": {
+        "root_xy_rmse_m": 0.030147462072352353,
+        "joint_rmse_rad": 0.06657450291533189,
+        "root_height_rmse_m": 0.01294819908477808,
+        "root_orientation_rmse_rad": 0.04534647534128928,
+        "nonfoot_ground_force_substeps": 0,
+        "joint_velocity_rms_rad_s": 0.021144766365492923
+      },
+      "trajectory_sha256": "c9f4fcc3da662f8284ddc9816df4235c07077621fb05138dcd7e5a48084676c6",
+      "motion_sha256": "d6cd16727d2c2a7ced18ff52319debbd351ad340490b1516a9c0640981e45508"
+    },
+    "all_evaluated_candidates": [
+      {
+        "checkpoint": "runs/task-readiness-20261117/stand-height100-xy200-resume/training/ckpt_0012000.pt",
+        "checkpoint_sha256": "6984a9c7ea58c96834349941e986e3b28f6bddba706448c9c3f690e8f248a5f8",
+        "bundle": "runs/task-readiness-20261117/stand-height100-xy200-resume-evaluations/ckpt_0012000/export",
+        "deployment": "runs/task-readiness-20261117/stand-height100-xy200-resume-evaluations/ckpt_0012000/deploy",
+        "assessment": "runs/task-readiness-20261117/stand-height100-xy200-resume-evaluations/ckpt_0012000/assessment.json",
+        "passed": true,
+        "steps": 30000,
+        "seconds": 600.0,
+        "metrics": {
+          "root_xy_rmse_m": 0.030147462072352353,
+          "joint_rmse_rad": 0.06657450291533189,
+          "root_height_rmse_m": 0.01294819908477808,
+          "root_orientation_rmse_rad": 0.04534647534128928,
+          "nonfoot_ground_force_substeps": 0,
+          "joint_velocity_rms_rad_s": 0.021144766365492923
+        },
+        "trajectory_sha256": "c9f4fcc3da662f8284ddc9816df4235c07077621fb05138dcd7e5a48084676c6",
+        "motion_sha256": "d6cd16727d2c2a7ced18ff52319debbd351ad340490b1516a9c0640981e45508"
+      },
+      {
+        "checkpoint": "runs/task-readiness-20261117/stand-height100-xy200-resume/training/ckpt_0016000.pt",
+        "checkpoint_sha256": "a632a8824f184b6ea11ec597ca78ddad3e4c44b12e35adb6540cefca1134a77a",
+        "bundle": "runs/task-readiness-20261117/stand-height100-xy200-resume-evaluations/ckpt_0016000/export",
+        "deployment": "runs/task-readiness-20261117/stand-height100-xy200-resume-evaluations/ckpt_0016000/deploy",
+        "assessment": "runs/task-readiness-20261117/stand-height100-xy200-resume-evaluations/ckpt_0016000/assessment.json",
+        "passed": false,
+        "steps": 30000,
+        "seconds": 600.0,
+        "metrics": {
+          "root_xy_rmse_m": 0.1688730870784117,
+          "joint_rmse_rad": 0.0691562123940557,
+          "root_height_rmse_m": 0.01274345292298487,
+          "root_orientation_rmse_rad": 0.04319149043062045,
+          "nonfoot_ground_force_substeps": 0,
+          "joint_velocity_rms_rad_s": 0.3257860804758732
+        },
+        "trajectory_sha256": "96ca948ff8ad6fe35bd9bea48328b281a435f6f41126abc2f723fbd5fa140587",
+        "motion_sha256": "d6cd16727d2c2a7ced18ff52319debbd351ad340490b1516a9c0640981e45508"
+      },
+      {
+        "checkpoint": "runs/task-readiness-20261117/stand-height100-xy200-resume/training/ckpt_0020000.pt",
+        "checkpoint_sha256": "0a2c4e07c52dc4c6d7086280d4e5fb6c49082513d4a9bedff03517457e90230e",
+        "bundle": "runs/task-readiness-20261117/stand-height100-xy200-resume-evaluations/ckpt_0020000/export",
+        "deployment": "runs/task-readiness-20261117/stand-height100-xy200-resume-evaluations/ckpt_0020000/deploy",
+        "assessment": "runs/task-readiness-20261117/stand-height100-xy200-resume-evaluations/ckpt_0020000/assessment.json",
+        "passed": false,
+        "steps": 30000,
+        "seconds": 600.0,
+        "metrics": {
+          "root_xy_rmse_m": 0.20945855313807535,
+          "joint_rmse_rad": 0.0856081917788512,
+          "root_height_rmse_m": 0.01538938421905681,
+          "root_orientation_rmse_rad": 0.05608344275259657,
+          "nonfoot_ground_force_substeps": 0,
+          "joint_velocity_rms_rad_s": 0.3532471108852947
+        },
+        "trajectory_sha256": "6e3ac7539ac1dde8a5a9c4f9c000ba5051800745bb916d71de0fc6a599e1d4c0",
+        "motion_sha256": "d6cd16727d2c2a7ced18ff52319debbd351ad340490b1516a9c0640981e45508"
+      },
+      {
+        "checkpoint": "runs/task-readiness-20261117/stand-height100-xy200-resume/training/ckpt_latest.pt",
+        "checkpoint_sha256": "32b88815d2bbbbc3cd81452b3d350408ccd8322099619b2b97bce03b3b028582",
+        "bundle": "runs/task-readiness-20261117/stand-height100-xy200-resume-evaluations/ckpt_latest/export",
+        "deployment": "runs/task-readiness-20261117/stand-height100-xy200-resume-evaluations/ckpt_latest/deploy",
+        "assessment": "runs/task-readiness-20261117/stand-height100-xy200-resume-evaluations/ckpt_latest/assessment.json",
+        "passed": false,
+        "steps": 9859,
+        "seconds": 197.18,
+        "metrics": {
+          "root_xy_rmse_m": 0.2841876982225209,
+          "joint_rmse_rad": 0.09385096111019095,
+          "root_height_rmse_m": 0.017401219413937175,
+          "root_orientation_rmse_rad": 0.07117201844250708,
+          "nonfoot_ground_force_substeps": 0,
+          "joint_velocity_rms_rad_s": 0.46176943179826213
+        },
+        "trajectory_sha256": "044b54391874d06db87195fc858be326ad7ad487b26bd2169da2fbd0cfb14524",
+        "motion_sha256": "d6cd16727d2c2a7ced18ff52319debbd351ad340490b1516a9c0640981e45508"
+      }
+    ]
+  },
+  "static600_public_evidence": "docs/tasks/static-hold-600s-20261117.json",
+  "packaged_static600_inference_verification": {
+    "passed": true,
+    "artifact_identity": {
+      "status": "verified",
+      "scope": "provided inputs match result.json fingerprints",
+      "matched_fields": [
+        "trajectory_sha256",
+        "motion_sha256",
+        "contract_sha256",
+        "checkpoint_sha256"
+      ]
+    },
+    "checkpoint_sha256": "6984a9c7ea58c96834349941e986e3b28f6bddba706448c9c3f690e8f248a5f8",
+    "motion_sha256": "d6cd16727d2c2a7ced18ff52319debbd351ad340490b1516a9c0640981e45508",
+    "trajectory_sha256": "c9f4fcc3da662f8284ddc9816df4235c07077621fb05138dcd7e5a48084676c6",
+    "copied_bundle_full600s_bitexact": {
+      "states": true,
+      "actions": true,
+      "reference_frame": true,
+      "physical_contacts": true
+    },
+    "metrics": {
+      "root_xy_rmse_m": 0.030147462072352353,
+      "joint_rmse_rad": 0.06657450291533189,
+      "root_height_rmse_m": 0.01294819908477808,
+      "root_orientation_rmse_rad": 0.04534647534128928,
+      "nonfoot_ground_force_substeps": 0,
+      "joint_velocity_rms_rad_s": 0.021144766365492923
+    }
+  },
+  "static_negative_control": {
+    "local_assessment": "runs/task-readiness-20261117/stand-public-negative-control/assessment.json",
+    "passed": false,
+    "checkpoint_sha256": "bc95a21eb9b55ba56aafd6b5bd4dc9ba663f19f7f087d674348318243ec633c4",
+    "failed_checks": [
+      {
+        "name": "joint_rmse_rad",
+        "value": 0.5000460688210867,
+        "limit": 0.25,
+        "comparison": "<=",
+        "passed": false
+      }
+    ]
+  }
+}

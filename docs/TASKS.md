@@ -1,8 +1,8 @@
 # 当前可训练与部署的任务
 
-本页区分训练入口、完整仿真运行和技能质量验收。当前可交接的模型包括已通过固定姿态条件的 120 秒站立保持、261.30 秒行走参考演示，以及三个未验收的动态技能预览。它们的推理文件、参考数据和证据在本机 `exports/g1-tasks-20261117/`，详情见该目录的 `README.md` 与 `catalog.json`。
+本页区分训练入口、完整仿真运行和技能质量验收。当前可交接的模型包括已通过固定姿态条件的 600 秒站立保持、261.30 秒行走参考演示，以及三个未验收的动态技能预览。五类任务的推理文件、参考数据和证据在本机 `exports/g1-tasks-20261117/`，站立保留 120 秒和 600 秒两个版本，详情见该目录的 `README.md` 与 `catalog.json`。
 
-下表是 2026-11-17 对五个原有保留模型的完整复验基线，均从参考首帧开始、全程由神经网络控制，不自动重置。数据、模型和运行记录是本机产物，未随 Git 分发。来源摘要见 [复核记录](tasks/readiness-baseline.json)，本轮新增站立的结果见下方及[验收证据](tasks/static-hold-20261117.json)。
+下表是 2026-11-17 对五个原有保留模型的完整复验基线，均从参考首帧开始、全程由神经网络控制，不自动重置。数据、模型和运行记录是本机产物，未随 Git 分发。来源摘要见 [复核记录](tasks/readiness-baseline.json)，本轮新增站立的结果见下方、[120 秒证据](tasks/static-hold-20261117.json)及 [600 秒证据](tasks/static-hold-600s-20261117.json)。
 
 | 任务／模型 | 完整 CPU MuJoCo 运行 | 整段回报 | 平面 RMSE / m | 关节 RMSE / rad | 当前结论 |
 | --- | --- | --- | --- | --- | --- |
@@ -61,15 +61,23 @@
 
 同一模型随后通过完整 120 秒、6,000 步试验：平面误差 0.02354 m、关节误差 0.08068 rad、根高度误差 0.02471 m、根姿态误差 0.03452 rad、关节速度 RMS 0.05800 rad/s，非脚部触地为零。最初 30 秒的状态、动作及参考帧与前一次回放逐位一致。另一次 600 秒对照虽完成运行，但高度误差 0.0918 m 超标；该版的已验收时长为 120 秒。
 
-本机可直接使用交接目录：
+针对这一高度漂移，以 120 秒静态参考迁移训练，将高度损失权重从 10 调到 100；该阶段最佳模型在完整 600 秒中的平面误差为 0.10900 m，仍超过 0.1 m 门槛。随后从该检查点严格续训，仅将平面损失权重从 100 调到 200。第 12,000 次迭代模型通过完整 600 秒、30,000 步验收：平面 RMSE 0.03015 m、关节 RMSE 0.06657 rad、根高度 RMSE 0.01295 m、根姿态 RMSE 0.04535 rad、关节速度 RMS 0.02114 rad/s，非脚部触地为零。后续第 16,000、20,000 次及最终检查点均未通过，因此交付已验证的第 12,000 次模型。
+
+600 秒版训练检查点为 `runs/task-readiness-20261117/stand-height100-xy200-resume/training/ckpt_0012000.pt`，SHA-256 为 `6984a9c7ea58c96834349941e986e3b28f6bddba706448c9c3f690e8f248a5f8`。其训练参考为 `data/npz/probes/stand120-walk-first-frame.npz`；600 秒文件仅用于更长的部署测试，严格续训应继续使用原 120 秒训练文件。修改训练数据时使用 `--transfer` 并重新评测。
+
+本机可直接使用 600 秒交接目录；旧版 `stand-hold/` 仍保留 120 秒证据：
 
 ```bash
-./supermimic deploy --bundle exports/g1-tasks-20261117/stand-hold/bundle \
-  --motion exports/g1-tasks-20261117/stand-hold/reference.npz --output runs/my-static-hold
+./supermimic deploy --bundle exports/g1-tasks-20261117/stand-hold-600/bundle \
+  --motion exports/g1-tasks-20261117/stand-hold-600/reference.npz --output runs/my-static-hold
 .venv/bin/python -I scripts/assess_static_hold.py \
-  --bundle exports/g1-tasks-20261117/stand-hold/bundle \
-  --motion exports/g1-tasks-20261117/stand-hold/reference.npz \
+  --bundle exports/g1-tasks-20261117/stand-hold-600/bundle \
+  --motion exports/g1-tasks-20261117/stand-hold-600/reference.npz \
   --run runs/my-static-hold --output runs/my-static-hold-assessment.json
 ```
 
 `scripts/assess_static_hold.py` 会重新计算真实轨迹的误差，并核对静态参考、文件指纹与完整参考时钟。固定的 `g1-static-pose-v1` 条件为：完成至少 30 秒；平面、关节、根高度和根姿态 RMSE 分别不超过 0.1 m、0.25 rad、0.05 m、0.15 rad；关节速度 RMS 不超过 0.5 rad/s；非脚部触地为零。该结果限于这一个参考姿态，和跳跃／舞蹈／格斗的动态技能判据分别报告。
+
+公开评测器也复验了原行走模型的静态对照：它完成 30 秒，但关节误差 0.50005 rad 超过 0.25 rad，因此仍判定失败。通过站立验收需要姿态跟踪与稳定性同时满足，单纯站住或完成时长不够。
+
+本轮跳跃最佳预览的最差一秒末端误差从基线 0.25495 m 降到 0.25409 m，仍高于 0.25 m，交接包明确标记为未验收。其余候选、真实 CLI 训练结果和资源约束见 [优化记录](tasks/optimization-20261117.json)。世界模型的预测误差改善未转化为动态技能验收通过，未采用相关候选。
