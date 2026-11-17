@@ -100,9 +100,11 @@ def training_config(
         cfg.env.replay_capacity = replay_capacity
     if resume is not None:
         # Keep checkpoint I/O behind the resume boundary; new profiles stay SDK-free.
-        from supermimic.checkpoints import read_checkpoint
+        from supermimic.checkpoints import read_checkpoint, validate_optimizer_resume
 
         checkpoint = read_checkpoint(resume, mmap=True).data
+        if not transfer:
+            validate_optimizer_resume(checkpoint)
         if not transfer and checkpoint["iteration"] >= iterations:
             raise ValueError("--iterations must exceed the checkpoint's cumulative iteration")
         _restore_checkpoint_config(cfg, checkpoint["config"], transfer=transfer)

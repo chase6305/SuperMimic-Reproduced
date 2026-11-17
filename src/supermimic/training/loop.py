@@ -213,6 +213,10 @@ class Trainer:
         # materializing every optimizer tensor before moving the needed state to CUDA.
         loaded = read_checkpoint(path, mmap=True, fingerprint=transfer)
         ck = loaded.data
+        if not transfer:
+            from supermimic.checkpoints import validate_optimizer_resume
+
+            validate_optimizer_resume(ck)
         if (
             not transfer
             and ck.get("motion_files") is not None

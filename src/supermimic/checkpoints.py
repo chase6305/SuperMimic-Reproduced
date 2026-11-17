@@ -30,6 +30,43 @@ class CheckpointRead:
     sha256: str | None
 
 
+def validate_optimizer_resume(checkpoint: Mapping[str, Any]) -> None:
+    """Reject explicitly stale or unverified optimizer state before strict restore.
+
+    Some experimental artifacts materialize new weights while retaining their
+    source Adam history for forensics. Only the latest declarations apply;
+    historical parent provenance must not invalidate a fresh optimizer chain.
+    Archives without these optional declarations keep the legacy behavior.
+    """
+    invalid = []
+    for block, field, label in (
+        ("native_policy_improvement", "policy_optimizer_resume_valid", "policy"),
+        ("native_policy_improvement", "critic_optimizer_resume_valid", "critic"),
+        ("native_dynamics_calibration", "optimizer_resume_valid", "world model"),
+    ):
+        metadata = checkpoint.get(block)
+        if not isinstance(metadata, Mapping) or field not in metadata:
+            continue
+        value = metadata[field]
+        if type(value) is not bool:
+            raise ValueError(f"Checkpoint {block}.{field} must be boolean")
+        if not value:
+            invalid.append(label)
+    metadata = checkpoint.get("native_dynamics_calibration")
+    if isinstance(metadata, Mapping) and "optimizer_correspondence_not_proved" in metadata:
+        value = metadata["optimizer_correspondence_not_proved"]
+        if type(value) is not bool:
+            raise ValueError("Checkpoint optimizer_correspondence_not_proved must be boolean")
+        if value and "world model" not in invalid:
+            invalid.append("world model")
+    if invalid:
+        raise ValueError(
+            "Checkpoint declares stale or unverified "
+            + ", ".join(invalid)
+            + " optimizer state; use --transfer for weights with fresh optimizers"
+        )
+
+
 @dataclass(frozen=True)
 class ActorCheckpointRead:
     actor: Policy
