@@ -1,6 +1,6 @@
 {
-  "generated_at_utc": "2026-11-17T09:58:42.529162+00:00",
-  "window_status": "in_progress",
+  "generated_at_utc": "2026-11-17T14:35:20.428399+00:00",
+  "window_status": "elapsed",
   "requested_window": {
     "start_utc": "2026-11-17T07:35:22Z",
     "deadline_utc": "2026-11-17T11:35:22Z",
@@ -712,9 +712,512 @@
           "trajectory_sha256": "40781b81f5a6288053ce506abf1b62f4c15c4f61ba0e621a0b7624ed64ea1fbc"
         }
       ]
+    },
+    "complete_current_nominal_stance_velocity10": {
+      "local_evidence": "runs/task-optimization-20261117b/jump-complete-current-nominal-velocity10/physical-results.json",
+      "evidence_sha256": "f35ed9fdbdedee819d037fb49089792b7f36eff605af517f45529b45c8258132",
+      "evaluated_records": 3,
+      "passes": 0,
+      "records": [
+        {
+          "stage": "runs/task-optimization-20261117b/jump-complete-current-nominal-velocity10/update-0010",
+          "checkpoint_sha256": "eec316463c4c6f986acc4af500d8c2fe29c50e1ed7d039a783e9c087c8f43d78",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8038882477253628,
+          "worst_effector_m": 0.30161578975006503,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.30161578975006503,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.6787509923260122,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "9022ee301eb9fa11c1fe30d393d1038ddfca7e5532666901a6c063620bd4c7e7"
+        },
+        {
+          "stage": "runs/task-optimization-20261117b/jump-complete-current-nominal-velocity10/update-0030",
+          "checkpoint_sha256": "c272d7802cf6199c93a3b7671ffaa5e044d1f8e39c6e5842ab5374f2ef449dd8",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8032526812667727,
+          "worst_effector_m": 0.23582954412877952,
+          "failed_checks": [
+            {
+              "name": "jump_time_precision",
+              "value": 0.6835476956055734,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "a79eb7a54850f5a8461073a41e643daa2b12a9b5d44b836ae1615d8e73aa7491"
+        },
+        {
+          "stage": "runs/task-optimization-20261117b/jump-complete-current-nominal-velocity10/update-0100",
+          "checkpoint_sha256": "eb8e1de00763ef97a4256948de8481b433db052c19bcb94cc3d78513a1127558",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8017611739659073,
+          "worst_effector_m": 0.26935087080283954,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.26935087080283954,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.678760593220339,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "8119e7f42b5999bc0a64399f0b775683b43b3d6c92f13e01323873162350ac67"
+        }
+      ]
+    },
+    "actual_dynamic100_stance600": {
+      "local_evidence": "runs/task-optimization-20261117b/jump-dynamic100-stance600-decoder-h16-evaluations/physical-results.json",
+      "evidence_sha256": "2961b465fb15f98493bd2736a3155173b79dd6b7782d9ef99ce995dc4faa4959",
+      "evaluated_records": 3,
+      "passes": 0,
+      "records": [
+        {
+          "stage": "runs/task-optimization-20261117b/jump-dynamic100-stance600-decoder-h16-evaluations/ckpt_0005000",
+          "checkpoint": "runs/task-optimization-20261117b/jump-dynamic100-stance600-decoder-h16/training/ckpt_0005000.pt",
+          "checkpoint_sha256": "98f18b60b919853581b44e24e4f45caaead643d6fbac1e5474a261fb4c755c45",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.7928605552157054,
+          "worst_effector_m": 0.3402175867425733,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.3402175867425733,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7939481268011528,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "367b313b943589cb194633f19ff906828fe6a263348906a751ef443ed0553d9e"
+        },
+        {
+          "stage": "runs/task-optimization-20261117b/jump-dynamic100-stance600-decoder-h16-evaluations/ckpt_0010000",
+          "checkpoint": "runs/task-optimization-20261117b/jump-dynamic100-stance600-decoder-h16/training/ckpt_0010000.pt",
+          "checkpoint_sha256": "992c2c3c8e6e0138d37b4ec5c51294c012c13a1eed5f8706cbe51161dc32c255",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.7932624090382143,
+          "worst_effector_m": 0.27530904332566186,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.27530904332566186,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.738173455978975,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "c10f88147a268b6e3342ef6f3bace45157122b57e81886b1ce4cd172d12a685a"
+        },
+        {
+          "stage": "runs/task-optimization-20261117b/jump-dynamic100-stance600-decoder-h16-evaluations/ckpt_latest",
+          "checkpoint": "runs/task-optimization-20261117b/jump-dynamic100-stance600-decoder-h16/training/ckpt_latest.pt",
+          "checkpoint_sha256": "b344ed7690315612520bdac21f150a383822039f46d35d166202be70f4e49453",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8023832581962308,
+          "worst_effector_m": 0.32106167663251806,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.32106167663251806,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7348960052822714,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "81bb93e9e153f04d4a26f109390d99243ea946a6ed4bfaf113dfc6c13c287aa2"
+        }
+      ]
+    },
+    "actual_dance_pose100": {
+      "local_evidence": "runs/task-optimization-20261117b/dance-coupled-pose100-decoder-h16-evaluations/physical-results.json",
+      "evidence_sha256": "44f92814419009dcc21b26be39a76d7dd09dfeac1eac3545e7df33e98dc1a452",
+      "evaluated_records": 3,
+      "passes": 0,
+      "records": [
+        {
+          "skill": "dance",
+          "stage": "runs/task-optimization-20261117b/dance-coupled-pose100-decoder-h16-evaluations/ckpt_0005000",
+          "checkpoint": "runs/task-optimization-20261117b/dance-coupled-pose100-decoder-h16/training/ckpt_0005000.pt",
+          "checkpoint_sha256": "292fc33fe391446bf30efd47780829a485f7ccd4dde916887735a48ea6cd649a",
+          "completed_motion": false,
+          "steps": 2151,
+          "strict_passed": false,
+          "return": 0.2686568618129055,
+          "worst_effector_m": 0.4098734166580673,
+          "failed_checks": [
+            {
+              "name": "completed_motion",
+              "value": false,
+              "passed": false
+            },
+            {
+              "name": "full_clip_return",
+              "value": 0.2686568618129055,
+              "limit": 0.7,
+              "comparison": ">=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_orientation_rmse_rad",
+              "value": 0.4371493001209959,
+              "limit": 0.4,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_height_rmse_m",
+              "value": 0.11622997440868077,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.4098734166580673,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "ca39d2724a93fec475a4c9ceaf126a8d3d6dc029aec219caf8af749281f22c1e"
+        },
+        {
+          "skill": "dance",
+          "stage": "runs/task-optimization-20261117b/dance-coupled-pose100-decoder-h16-evaluations/ckpt_0010000",
+          "checkpoint": "runs/task-optimization-20261117b/dance-coupled-pose100-decoder-h16/training/ckpt_0010000.pt",
+          "checkpoint_sha256": "40581b7b9bdc33c4283a4dc4f7d24ac791412ed96d8edb585fe78643c88cbc1e",
+          "completed_motion": false,
+          "steps": 1011,
+          "strict_passed": false,
+          "return": 0.1204685477130982,
+          "worst_effector_m": 0.30430138222547926,
+          "failed_checks": [
+            {
+              "name": "completed_motion",
+              "value": false,
+              "passed": false
+            },
+            {
+              "name": "root_xy_rmse_m",
+              "value": 1.063204790497231,
+              "limit": 0.75,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "full_clip_return",
+              "value": 0.1204685477130982,
+              "limit": 0.7,
+              "comparison": ">=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_orientation_rmse_rad",
+              "value": 0.49789567364748716,
+              "limit": 0.4,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_height_rmse_m",
+              "value": 0.10625536586125726,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.30430138222547926,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "f24dec254ed7539b752114e0c071c2f61bb662608ea984c4ecf32b96e8d30dd5"
+        },
+        {
+          "skill": "dance",
+          "stage": "runs/task-optimization-20261117b/dance-coupled-pose100-decoder-h16-evaluations/ckpt_latest",
+          "checkpoint": "runs/task-optimization-20261117b/dance-coupled-pose100-decoder-h16/training/ckpt_latest.pt",
+          "checkpoint_sha256": "bc90a8213089327e9c5152e7bed943e59788daca1b1d793463b0cf30a036ae56",
+          "completed_motion": false,
+          "steps": 897,
+          "strict_passed": false,
+          "return": 0.11440352890110579,
+          "worst_effector_m": 0.3581704356192037,
+          "failed_checks": [
+            {
+              "name": "completed_motion",
+              "value": false,
+              "passed": false
+            },
+            {
+              "name": "full_clip_return",
+              "value": 0.11440352890110579,
+              "limit": 0.7,
+              "comparison": ">=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_orientation_rmse_rad",
+              "value": 0.5994274631186516,
+              "limit": 0.4,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.3581704356192037,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "cb33117f157eb28c42d891419da0ef814fb94bf81c503229f7bcdaa1221fbb4e"
+        }
+      ]
+    },
+    "actual_fight_pose100": {
+      "local_evidence": "runs/task-optimization-20261117b/fight-coupled-pose100-decoder-h16-evaluations/physical-results.json",
+      "evidence_sha256": "63825c3ad1219a64a4c124e21974a486cc2b83dca348a199e76671ef14e76a41",
+      "evaluated_records": 3,
+      "passes": 0,
+      "records": [
+        {
+          "skill": "fight",
+          "stage": "runs/task-optimization-20261117b/fight-coupled-pose100-decoder-h16-evaluations/ckpt_0005000",
+          "checkpoint": "runs/task-optimization-20261117b/fight-coupled-pose100-decoder-h16/training/ckpt_0005000.pt",
+          "checkpoint_sha256": "8efccd29862dbe62d231f2527960e8da8eea21d88aab1f5f9ae838f303b71a08",
+          "completed_motion": true,
+          "steps": 12243,
+          "strict_passed": false,
+          "return": 0.6008929475249783,
+          "worst_effector_m": 0.4554642729432852,
+          "failed_checks": [
+            {
+              "name": "root_xy_rmse_m",
+              "value": 0.8530359874636709,
+              "limit": 0.75,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "full_clip_return",
+              "value": 0.6008929475249783,
+              "limit": 0.7,
+              "comparison": ">=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_joint_rmse_rad",
+              "value": 0.4643214563041045,
+              "limit": 0.35,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_orientation_rmse_rad",
+              "value": 0.4453705743673803,
+              "limit": 0.4,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_height_rmse_m",
+              "value": 0.1213790155502012,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.4554642729432852,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "7196775388126aa62ac392e94ced0d7e9f15ee8f1401f8eb3ef8161297af5420"
+        },
+        {
+          "skill": "fight",
+          "stage": "runs/task-optimization-20261117b/fight-coupled-pose100-decoder-h16-evaluations/ckpt_0010000",
+          "checkpoint": "runs/task-optimization-20261117b/fight-coupled-pose100-decoder-h16/training/ckpt_0010000.pt",
+          "checkpoint_sha256": "70ffb57f91b34bfe0015433e32bab06a684b20e0d03bb2f2e9bc91683ce2afce",
+          "completed_motion": false,
+          "steps": 11098,
+          "strict_passed": false,
+          "return": 0.5356397576594211,
+          "worst_effector_m": 0.46750849059498417,
+          "failed_checks": [
+            {
+              "name": "completed_motion",
+              "value": false,
+              "passed": false
+            },
+            {
+              "name": "root_xy_rmse_m",
+              "value": 0.8508280963562079,
+              "limit": 0.75,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "full_clip_return",
+              "value": 0.5356397576594211,
+              "limit": 0.7,
+              "comparison": ">=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_joint_rmse_rad",
+              "value": 0.4503234257441049,
+              "limit": 0.35,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_orientation_rmse_rad",
+              "value": 0.518065106376151,
+              "limit": 0.4,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_height_rmse_m",
+              "value": 0.15167673108455157,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.46750849059498417,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "d150ba29171542a3cbd91b3e5d3e3315527203b8a0a3578dbce3baa9b89b4ec1"
+        },
+        {
+          "skill": "fight",
+          "stage": "runs/task-optimization-20261117b/fight-coupled-pose100-decoder-h16-evaluations/ckpt_latest",
+          "checkpoint": "runs/task-optimization-20261117b/fight-coupled-pose100-decoder-h16/training/ckpt_latest.pt",
+          "checkpoint_sha256": "a29bf109929cedfe028bdcb04197f6f35f854d8926dcb4e562dab848c7a3eb2a",
+          "completed_motion": false,
+          "steps": 5961,
+          "strict_passed": false,
+          "return": 0.27102956076243984,
+          "worst_effector_m": 0.4490336403718405,
+          "failed_checks": [
+            {
+              "name": "completed_motion",
+              "value": false,
+              "passed": false
+            },
+            {
+              "name": "root_xy_rmse_m",
+              "value": 1.0986186740123636,
+              "limit": 0.75,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "full_clip_return",
+              "value": 0.27102956076243984,
+              "limit": 0.7,
+              "comparison": ">=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_joint_rmse_rad",
+              "value": 0.47542636534818955,
+              "limit": 0.35,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_orientation_rmse_rad",
+              "value": 0.5026388895603472,
+              "limit": 0.4,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_height_rmse_m",
+              "value": 0.1697801607195317,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.4490336403718405,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "cddf843054615542ca91f338d494de026674dbe7c7e4eba29d0a171fdd033554"
+        }
+      ]
     }
   },
-  "original_full_reference_evaluations": 23,
+  "original_full_reference_evaluations": 35,
   "original_full_reference_passes": 0,
   "world_model_only_diagnostic": {
     "nominal_baseline_h32_nse": 0.0111030060070334,
@@ -1299,10 +1802,85 @@
       "original_full_motion_passed": false
     }
   ],
+  "new_collection_integrity": {
+    "passed": true,
+    "collections": [
+      {
+        "path": "exports/g1-tasks-20261117",
+        "catalog_sha256": "7c25b7c115ad45f477ce4ad8e50a6d0eeb0e853e38b711caa090518426db5f79",
+        "entries": [
+          {
+            "id": "walk-reference",
+            "files": 10,
+            "checkpoint_sha256": "bc95a21eb9b55ba56aafd6b5bd4dc9ba663f19f7f087d674348318243ec633c4",
+            "status": "simulation-demo",
+            "hardware_deployed": false
+          },
+          {
+            "id": "stand-hold",
+            "files": 11,
+            "checkpoint_sha256": "f47634b0c7dcf13a05788f175b40afe38f5cd7a41426c8046e0f2dce0f75238a",
+            "status": "validated-static-hold",
+            "hardware_deployed": false
+          },
+          {
+            "id": "jump-preview",
+            "files": 11,
+            "checkpoint_sha256": "2fd371dc544e4a8eda6c39c4529c6fdca1d1f31fe8b0a3ca39151b9c10cf120a",
+            "status": "unaccepted-preview",
+            "hardware_deployed": false
+          },
+          {
+            "id": "dance-preview",
+            "files": 11,
+            "checkpoint_sha256": "3735896ba6dc398c5bf36b94202b3ee7b77470f77ddad0759455bd15ea1cbf43",
+            "status": "unaccepted-preview",
+            "hardware_deployed": false
+          },
+          {
+            "id": "fight-preview",
+            "files": 11,
+            "checkpoint_sha256": "eb9a6a00c768fb145c056cb68ac947a503bb52c8de4af5471c6b87f5ff06c5da",
+            "status": "unaccepted-preview",
+            "hardware_deployed": false
+          },
+          {
+            "id": "stand-hold-600",
+            "files": 18,
+            "checkpoint_sha256": "6984a9c7ea58c96834349941e986e3b28f6bddba706448c9c3f690e8f248a5f8",
+            "status": "validated-static-hold",
+            "hardware_deployed": false
+          }
+        ]
+      },
+      {
+        "path": "exports/g1-tasks-20261117b",
+        "catalog_sha256": "6e0439eb75ae538aaff8b35b24dfd3cda7aeef8b429061593220b7ea95d0befd",
+        "entries": [
+          {
+            "id": "jump30",
+            "files": 11,
+            "checkpoint_sha256": "c511d5bffe21965e3ffda9680d636d4558d708b00f8c5b1795e329cb6f136494",
+            "status": "strict-skill-pass",
+            "hardware_deployed": false
+          },
+          {
+            "id": "jump120",
+            "files": 11,
+            "checkpoint_sha256": "a4db166b41d4361cd121fae3941c8ce9327d454df24d6a4154b5e8d79dccc746",
+            "status": "strict-skill-pass",
+            "hardware_deployed": false
+          }
+        ]
+      }
+    ],
+    "video_sha256_verified": "755a04a390ebcd12ebf389b6944f903c0ef400b1d577a85bb632e835b85ee8d5",
+    "scope": "Every catalogued inference, reference, evidence, license and separately retained source checkpoint fingerprint verified by streaming. Original collection files were read only; no training or inference repeated."
+  },
   "current_ci": {
-    "head_sha": "88dceec0dac3d16e0ca29aa61aae361682fdecea",
-    "run_id": 44058037997,
-    "url": "https://github.com/chase6305/SuperMimic-Reproduced/actions/runs/44058037997",
+    "head_sha": "a0f9392c7abdd1ec7e3339918a3f34c2f05aecd8",
+    "run_id": 44060944401,
+    "url": "https://github.com/chase6305/SuperMimic-Reproduced/actions/runs/44060944401",
     "conclusion": "success",
     "cpu_passed": 747,
     "cpu_skipped": 42,
@@ -1548,5 +2126,10 @@
         "scope": "Only the exact known first120s reference. Original244.42s task still failed. Strict resume uses the original full training motion; changing training data requires --transfer."
       }
     }
-  ]
+  ],
+  "local_reproduction_helpers": {
+    "path": "runs/task-optimization-20261117b/reproduction-tools-final",
+    "manifest_sha256": "0fb902cb391bc0dee6d45ea5444ceece03465bd7cd9890d6b007f7c287681b15",
+    "scope": "Final helper versions retained after the prior declared window. Per-run worker-script.py and implementation snapshots are authoritative for actual earlier executions. Presence here does not prove a helper was executed; actual outcomes are listed separately. Standard training/export/deployment continue to use public CLI."
+  }
 }
