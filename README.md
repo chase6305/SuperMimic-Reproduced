@@ -80,6 +80,8 @@ CSV 在解析前限制为 128 MiB，重采样后每条最多 250000 帧；NPZ �
 
 `--compile-world-model` 使用逐步编译；`--compile-world-model-window` 另选完整短窗口编译，增加首次调用耗时以降低重复拟合成本。两者的首次调用与预热测量分开记录，适用条件见[实现约定](docs/REPRODUCTION.md)。
 
+`--compile-policy reduce-overhead` 可另选 CUDA Graph 模式；裸 `--compile-policy` 仍用原来的默认模式。新模式额外预估 256 MiB 显存，可能需要更小批量，预热可能耗时数分钟。固定输入的更新耗时、预热成本及成功与失败训练记录见[模式验证](docs/performance/policy-cudagraphs.json)。
+
 已实测的较大采样配置如下，仍使用默认 2304 MiB 显存上限：
 
 ```bash
