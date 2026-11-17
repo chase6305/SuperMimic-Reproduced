@@ -1,0 +1,1168 @@
+{
+  "generated_at_utc": "2026-11-17T09:42:24.805892+00:00",
+  "window_status": "in_progress",
+  "requested_window": {
+    "start_utc": "2026-11-17T07:35:22Z",
+    "deadline_utc": "2026-11-17T11:35:22Z",
+    "hours": 4
+  },
+  "scope": "Known-reference G1 simulation, no hardware. Original full-task results remain separate from explicitly named prefix tasks. No controller or acceptance threshold changed.",
+  "pr": "https://github.com/chase6305/SuperMimic-Reproduced/pull/6",
+  "previous_delivery_preserved": "exports/g1-tasks-20261117",
+  "new_delivery": "exports/g1-tasks-20261117b",
+  "new_accepted_prefix_task": "docs/tasks/jump30-20261117.json",
+  "candidate_groups_original_full_references": {
+    "fresh_clean_history_frozen_old_model": {
+      "local_evidence": "runs/task-optimization-20261117b/jump-fresh-branches-baseline-h32/physical-results.json",
+      "evidence_sha256": "3e377af862dd781aec64185f57664db34207b3feb4908b5d7b62efb5e8d8c11a",
+      "evaluated_records": 3,
+      "passes": 0,
+      "records": [
+        {
+          "update": 1,
+          "checkpoint_sha256": "1c345abac6bb057f8e526da5a761f37812d6b415d8d00b5ee43fe4ec7f344521",
+          "stage": "runs/task-optimization-20261117b/jump-fresh-branches-baseline-h32/update-0001",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8057519045587003,
+          "worst_effector_m": 0.25602043664404633,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25602043664404633,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7776102525442895,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "ebe7abd2e41b3e2074526968b428aca792e757c17c4baa0b97afb803b6cca33d"
+        },
+        {
+          "update": 3,
+          "checkpoint_sha256": "853f95ee5b78a637af46af447f51ac42622d82d5aad9082ef8ef973369e445cc",
+          "stage": "runs/task-optimization-20261117b/jump-fresh-branches-baseline-h32/update-0003",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8069412786903439,
+          "worst_effector_m": 0.2953934142357621,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2953934142357621,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7993145468392994,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "e1be72077e13410debd85b63b23840cbc6b680f9b3235108c000948cbdaf9635"
+        },
+        {
+          "update": 5,
+          "checkpoint_sha256": "f78678662353c22765c2e8ff0875f87df02b5b9d57ab4aa8cc6d4f524703d949",
+          "stage": "runs/task-optimization-20261117b/jump-fresh-branches-baseline-h32/update-0005",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8017367273313052,
+          "worst_effector_m": 0.2692474318019243,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2692474318019243,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7794285714285715,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "c64023954384470198348518460d1b6f162f8ff51d244b1d71318ae8edb46246"
+        }
+      ]
+    },
+    "fresh_clean_history_calibrated_model": {
+      "local_evidence": "runs/task-optimization-20261117b/jump-fresh-branches-calibrated-h32/physical-results.json",
+      "evidence_sha256": "1220ae73338c970909443ed8798ac538bdbbe70129ca7c62baef95e6fd3a42ae",
+      "evaluated_records": 3,
+      "passes": 0,
+      "records": [
+        {
+          "update": 1,
+          "checkpoint_sha256": "41c137e874295309e834c0f77784b3ed98e96851850bd4eb2c6632fa4096d2a3",
+          "stage": "runs/task-optimization-20261117b/jump-fresh-branches-calibrated-h32/update-0001",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8106069554674694,
+          "worst_effector_m": 0.2586055721219772,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2586055721219772,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7916190476190477,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "e3b6733d9a883eb40e2803f2e47efa08a589c21fc37c576aae66980cfdb2a9d8"
+        },
+        {
+          "update": 3,
+          "checkpoint_sha256": "c97285e519ae9e4450d9d861f1ee9bb95326de34cadc55b3431473a44d1d6f42",
+          "stage": "runs/task-optimization-20261117b/jump-fresh-branches-calibrated-h32/update-0003",
+          "completed_motion": false,
+          "steps": 11275,
+          "strict_passed": false,
+          "return": 0.7367710503245442,
+          "worst_effector_m": 0.3145537544732922,
+          "failed_checks": [
+            {
+              "name": "completed_motion",
+              "value": false,
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_orientation_rmse_rad",
+              "value": 0.5164392522424617,
+              "limit": 0.4,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.3145537544732922,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7825915714848366,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "df48445e77d850d306a500f5f3518a8148908f3ff0dd04ce593137640a4a00d9"
+        },
+        {
+          "update": 5,
+          "checkpoint_sha256": "2aedf91ec196445f94778cf6949bb3acab75499ffdd42dde48d92831dfa2255d",
+          "stage": "runs/task-optimization-20261117b/jump-fresh-branches-calibrated-h32/update-0005",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8076571239873787,
+          "worst_effector_m": 0.25645814116872584,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25645814116872584,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.789272030651341,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "d53b69d47e3ce855433f2d9c2844d7fe751be4e6591ac78e9a89065e3bab22b8"
+        }
+      ]
+    },
+    "small_bias_search": {
+      "local_evidence": "runs/task-optimization-20261117b/jump-small-bias-region/physical-results.json",
+      "evidence_sha256": "d22f4abace254db75ce692818ebd47d10524aac1f687a709cdab8c0c6f81d4da",
+      "evaluated_records": 4,
+      "passes": 0,
+      "records": [
+        {
+          "stage": "runs/task-optimization-20261117b/jump-small-bias-region/left_hip_pitch_joint-minus005",
+          "joint": "left_hip_pitch_joint",
+          "delta": -0.005,
+          "checkpoint_sha256": "140fc6161a620d14c1bdd830c213dd024a0873c31682e47d8aa53b19761fa9fb",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8045620524583807,
+          "worst_effector_m": 0.2570621567010442,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2570621567010442,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7940399849113542,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "7f9d5ebbdae5e46a13c2a7de6b55e2ded425bfbea7bb29604152fbeb545532cb"
+        },
+        {
+          "stage": "runs/task-optimization-20261117b/jump-small-bias-region/left_hip_pitch_joint-plus005",
+          "joint": "left_hip_pitch_joint",
+          "delta": 0.005,
+          "checkpoint_sha256": "11d72160c4757b1cc5b87b610db00dc0b98d496f0de6104d668faea71b8531b3",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8041564100025308,
+          "worst_effector_m": 0.2895301049812514,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2895301049812514,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7788138754196196,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "8363d85ade037855fb0f04012d836111c98e358aae47d2ff1c82c01bce5dd5f0"
+        },
+        {
+          "stage": "runs/task-optimization-20261117b/jump-small-bias-region/left_knee_joint-minus005",
+          "joint": "left_knee_joint",
+          "delta": -0.005,
+          "checkpoint_sha256": "f5fb9a7d8f61fd7ee0a664517be47dac97d35ff71c9616cae59a96fc7140cf55",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8096366817866728,
+          "worst_effector_m": 0.311217758977304,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.311217758977304,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7772811918063315,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "9c31aa8922b804bd93d7f24305a2903e0d4057e84bb9c113e9c7ab3f45c04bcd"
+        },
+        {
+          "stage": "runs/task-optimization-20261117b/jump-small-bias-region/left_knee_joint-plus005",
+          "joint": "left_knee_joint",
+          "delta": 0.005,
+          "checkpoint_sha256": "691152415a2aa91cd83a41e859b64d79c47009e7d6c06d79aca34fd992a80961",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8000854442712864,
+          "worst_effector_m": 0.2589682611426546,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2589682611426546,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7965714285714286,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "b80e0bb65d3b98eb9d67f052eefc4491fee791b63c6141cb8cd33777e8b24c65"
+        }
+      ]
+    },
+    "experimental_clearance_not_promoted": {
+      "local_evidence": "runs/task-optimization-20261117b/jump-clearance200-calibrated-h16-decoder/physical-results.json",
+      "evidence_sha256": "5f892ed4597d08124751b99693811fcb891ff33e99267fa7dbc5e75a3dfd6fe1",
+      "evaluated_records": 3,
+      "passes": 0,
+      "records": [
+        {
+          "update": 1,
+          "checkpoint_sha256": "0eaf067e9cd13d5bec7e6894fb99d87d2ad710f211c6e776fc5a493c9ad7d7bc",
+          "stage": "runs/task-optimization-20261117b/jump-clearance200-calibrated-h16-decoder/update-0001",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.7980587864632244,
+          "worst_effector_m": 0.3283681973582053,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.3283681973582053,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7935160169818603,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "3339dd36e0687f62f6e2a15251cf6fad5b71c98998c1a6f951b38065bf31c922"
+        },
+        {
+          "update": 3,
+          "checkpoint_sha256": "a7748b032a256504842f29ebbd18ab60d1bc2bb59c711a1758c79ae2f6cd2e2b",
+          "stage": "runs/task-optimization-20261117b/jump-clearance200-calibrated-h16-decoder/update-0003",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8012791778674326,
+          "worst_effector_m": 0.30055532696170956,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.30055532696170956,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.790090771558245,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "f5e63230aed531a02057d86fe36c628eebe3c023b491c909d523e321818e80d5"
+        },
+        {
+          "update": 5,
+          "checkpoint_sha256": "6dabbe590263a573fa03493cb13c13dca40f80d7a6f91ade622a09f0d4d0e857",
+          "stage": "runs/task-optimization-20261117b/jump-clearance200-calibrated-h16-decoder/update-0005",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8085399485192354,
+          "worst_effector_m": 0.2847970034732488,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2847970034732488,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7889428464699291,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "f48aab0a04e17194e5ab04afe2a97e0497d74278a6d1d5757beedd8a9e12e41e"
+        }
+      ]
+    },
+    "actual_coupled_pose100": {
+      "local_evidence": "runs/task-optimization-20261117b/jump-full-pose100-decoder-h16-evaluations/physical-results.json",
+      "evidence_sha256": "dfbb32632df4c9cbef662555d14bc9440c8f2b040baca7142933571ee779e98d",
+      "evaluated_records": 2,
+      "passes": 0,
+      "records": [
+        {
+          "stage": "runs/task-optimization-20261117b/jump-full-pose100-decoder-h16-evaluations/ckpt_0005000",
+          "checkpoint": "runs/task-optimization-20261117b/jump-full-pose100-decoder-h16/training/ckpt_0005000.pt",
+          "checkpoint_sha256": "c511d5bffe21965e3ffda9680d636d4558d708b00f8c5b1795e329cb6f136494",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.7986669467832069,
+          "worst_effector_m": 0.24910192255105085,
+          "failed_checks": [
+            {
+              "name": "jump_time_precision",
+              "value": 0.7114152591729761,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "608874d0df1f9e23bc9f4dcccb139c6f35f57f0b93d17ef00b6c9534415e191c"
+        },
+        {
+          "stage": "runs/task-optimization-20261117b/jump-full-pose100-decoder-h16-evaluations/ckpt_latest",
+          "checkpoint": "runs/task-optimization-20261117b/jump-full-pose100-decoder-h16/training/ckpt_latest.pt",
+          "checkpoint_sha256": "f881d71928ced3fb48bb03d6b93fd7c9a2d1d24e13f4287040722fbf774618ba",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.7807092777436673,
+          "worst_effector_m": 0.30035881579706786,
+          "failed_checks": [
+            {
+              "name": "worst_1s_root_orientation_rmse_rad",
+              "value": 0.9452556017009137,
+              "limit": 0.4,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.30035881579706786,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.6926349375166179,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "40d6aa0bafd27aaf8c6cc507ea945658bcefbff3978072dcb87c3602b03213de"
+        }
+      ]
+    },
+    "actual_stance_height200_continuation": {
+      "local_evidence": "runs/task-optimization-20261117b/jump-pose100-stance200-resume-evaluations/physical-results.json",
+      "evidence_sha256": "b3de4543bfee7bfa005719c523d9717521c908df24d7f49247f5146ac6b6ec25",
+      "evaluated_records": 2,
+      "passes": 0,
+      "records": [
+        {
+          "stage": "runs/task-optimization-20261117b/jump-pose100-stance200-resume-evaluations/ckpt_0010000",
+          "checkpoint": "runs/task-optimization-20261117b/jump-pose100-stance200-resume/training/ckpt_0010000.pt",
+          "checkpoint_sha256": "996de63e714255ffd0630c6b3a6b9522e4634e199eaf13fee66209628fbe2bf8",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.7950497773887384,
+          "worst_effector_m": 0.24227752196874297,
+          "failed_checks": [
+            {
+              "name": "jump_time_precision",
+              "value": 0.6813394544963544,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "7f92a3d534fc9cfd1b72df27321bd77ba70432d5a9c93cbbaebd897360588123"
+        },
+        {
+          "stage": "runs/task-optimization-20261117b/jump-pose100-stance200-resume-evaluations/ckpt_latest",
+          "checkpoint": "runs/task-optimization-20261117b/jump-pose100-stance200-resume/training/ckpt_latest.pt",
+          "checkpoint_sha256": "a4db166b41d4361cd121fae3941c8ce9327d454df24d6a4154b5e8d79dccc746",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8055510578291298,
+          "worst_effector_m": 0.2354392765941177,
+          "failed_checks": [
+            {
+              "name": "jump_time_precision",
+              "value": 0.6917173855517332,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "b47ac9b403bbd19699712aaa37ae95e165241089d0b709835f564389445b2b48"
+        }
+      ]
+    },
+    "pose_parent_interpolation": {
+      "local_evidence": "runs/task-optimization-20261117b/jump-pose-parent-interpolation/physical-results.json",
+      "evidence_sha256": "80a89c5298addb0c01b26ff07cc9d2000f097e4324b20504d7d029b55f11a4ba",
+      "evaluated_records": 3,
+      "passes": 0,
+      "records": [
+        {
+          "stage": "runs/task-optimization-20261117b/jump-pose-parent-interpolation/alpha-025",
+          "alpha": 0.25,
+          "checkpoint_sha256": "d17eec339578ac31873845d4119f14c3e7ba0ee6d4275f8e2e92646e1d3697ba",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8104872170958578,
+          "worst_effector_m": 0.2512491587750357,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2512491587750357,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7676407697790449,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "e754c188dc543e01352881268a19572023fcf723566c90a64d636e15e892458f"
+        },
+        {
+          "stage": "runs/task-optimization-20261117b/jump-pose-parent-interpolation/alpha-050",
+          "alpha": 0.5,
+          "checkpoint_sha256": "51db15bd784e180d11ca1e9a0bb11b6d95e4c1c2292566a795487e70cdc5d4ff",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.808526416738298,
+          "worst_effector_m": 0.2480687562798003,
+          "failed_checks": [
+            {
+              "name": "jump_time_precision",
+              "value": 0.7525268992500815,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "b5f75f8c50fc7d4eb1ed70addd29b0cff078d00ee2800371f840e3cdebdb322e"
+        },
+        {
+          "stage": "runs/task-optimization-20261117b/jump-pose-parent-interpolation/alpha-075",
+          "alpha": 0.75,
+          "checkpoint_sha256": "c33a58ce20f66b813bce867d4003fa4ed56ba56d1c84447e48e2e1882f2766ae",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.8072353616965283,
+          "worst_effector_m": 0.24180013844301432,
+          "failed_checks": [
+            {
+              "name": "jump_time_precision",
+              "value": 0.7409470752089137,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "90af89a582dbb7a8c6cbf0ae3bbc1efc46da4795b9ad59e0d23cd2cab9d893e9"
+        }
+      ]
+    },
+    "actual_fullcycle_stance_velocity10": {
+      "local_evidence": "runs/task-optimization-20261117b/jump-fullcycle-stance-velocity10-evaluations/physical-results.json",
+      "evidence_sha256": "29c4eafa205ce2c68e5a0836029ae10a5277cea88139e49b0aca10827e1cca3e",
+      "evaluated_records": 3,
+      "passes": 0,
+      "records": [
+        {
+          "stage": "runs/task-optimization-20261117b/jump-fullcycle-stance-velocity10-evaluations/ckpt_0020000",
+          "checkpoint": "runs/task-optimization-20261117b/jump-fullcycle-stance-velocity10/training/ckpt_0020000.pt",
+          "checkpoint_sha256": "a0c9a723e7ca4cd695d955f225c4698948106e7d38b77e29bc86124d18e819f8",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.7855838336761976,
+          "worst_effector_m": 0.3122287698452579,
+          "failed_checks": [
+            {
+              "name": "worst_1s_root_orientation_rmse_rad",
+              "value": 0.40729643668053966,
+              "limit": 0.4,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.3122287698452579,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7043150883289893,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "603a155670766a6305c786d32c3aed937cd6a5164e2070ada5e3ec7e1c6965ec"
+        },
+        {
+          "stage": "runs/task-optimization-20261117b/jump-fullcycle-stance-velocity10-evaluations/ckpt_0030000",
+          "checkpoint": "runs/task-optimization-20261117b/jump-fullcycle-stance-velocity10/training/ckpt_0030000.pt",
+          "checkpoint_sha256": "55da4b8d2b7496b91e44e8332c458d5bc2302982b7f51037623da01b065662a3",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.7682792893233289,
+          "worst_effector_m": 0.4504704030059855,
+          "failed_checks": [
+            {
+              "name": "worst_1s_joint_rmse_rad",
+              "value": 0.35035536570814996,
+              "limit": 0.35,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_orientation_rmse_rad",
+              "value": 0.5712431928252594,
+              "limit": 0.4,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.4504704030059855,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7268803945745993,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "d91eaee1cb48e1451f5169dd53abcfa5f49b9222b69f6c22aea5e5434c754f48"
+        },
+        {
+          "stage": "runs/task-optimization-20261117b/jump-fullcycle-stance-velocity10-evaluations/ckpt_latest",
+          "checkpoint": "runs/task-optimization-20261117b/jump-fullcycle-stance-velocity10/training/ckpt_latest.pt",
+          "checkpoint_sha256": "b0b5ef77ae515529a8c1e2ba4e5fb0e4ca61e4831a04e0c48af36ddf2d81f012",
+          "completed_motion": true,
+          "steps": 12221,
+          "strict_passed": false,
+          "return": 0.791187196245717,
+          "worst_effector_m": 0.2909743968670764,
+          "failed_checks": [
+            {
+              "name": "worst_1s_root_orientation_rmse_rad",
+              "value": 0.4147111667603944,
+              "limit": 0.4,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2909743968670764,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7279949157928186,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "40781b81f5a6288053ce506abf1b62f4c15c4f61ba0e621a0b7624ed64ea1fbc"
+        }
+      ]
+    }
+  },
+  "original_full_reference_evaluations": 23,
+  "original_full_reference_passes": 0,
+  "world_model_only_diagnostic": {
+    "nominal_baseline_h32_nse": 0.0111030060070334,
+    "held_noise_baseline_h32_nse": 0.014533034824125934,
+    "held_noise_selected_h32_nse": 0.009995846885431092,
+    "selected_fresh_model_updates": 1200,
+    "checkpoint_sha256": "55cf14701406a80ffb4fb1585bd4ff29a0c9721065a37525513b4cdc4ed820ad",
+    "subsequent_three_full_physical_actors_passed": false,
+    "adopted": false
+  },
+  "replay_history_contract": "Previous actions are clean policy outputs. Noisy executed commands remain separate world-model transition data; genuine warm branch histories retained. All4992 collectedbranchcontrols independently reproduced with exact states and solved physical contacts/forces.",
+  "compact_actor_contexts": {
+    "passed": true,
+    "rows": 15293,
+    "episodes": 25,
+    "history": 10,
+    "all_start_batch_fields_bitexact": true,
+    "dense_context_storage_bytes": 61294476,
+    "compact_context_storage_bytes": 8470572,
+    "storage_reduction_fraction": 0.8618052954723032,
+    "scope": "Retained actor context tensors only, not total process RSS or total VRAM. All15293 actual current-policy nominal/noiseTRAIN starts compared in bounded512-row batches; held noise pair2 excluded.",
+    "source_manifest_sha256": "49cddad06d24e8f43f416778ff534b2213501835aa84ae6f2c57d2ab3aa36e51",
+    "implementation_sha256": "afd5b6bfea0bfb4c6546c25e4cb2d18f861c786cce17dfbe0b6480f8717af9d0"
+  },
+  "flight_diagnostic": {
+    "scope": "Exactly recomputes original flight scores. Category attribution maps physical time to the preceding reference frame; it is diagnostic and does not alter event definitions, tolerances or acceptance.",
+    "results": [
+      {
+        "model": "retained",
+        "checkpoint_sha256": "2fd371dc544e4a8eda6c39c4529c6fdca1d1f31fe8b0a3ca39151b9c10cf120a",
+        "trajectory_sha256": "9fa1f43a5e9dcc0205bb8ae692b8741231f05a049b97560725fb2eada02a5cef",
+        "flight": {
+          "reference_events": 90,
+          "matched_events": 78,
+          "actual_events": 162,
+          "event_recall": 0.8666666666666667,
+          "time_precision": 0.804155444401693,
+          "reference_airtime_s": 20.42,
+          "actual_airtime_s": 12.995000000000001,
+          "airtime_ratio": 0.6363858961802155,
+          "definition": "Target: both feet collider bottoms >3 cm, >=120 ms. Actual: both feet <1 N and no nonfoot support, >=40 ms. Match tolerance +/-100 ms and >=min(60 ms,30% target duration) overlap."
+        },
+        "false_flight_s": 2.545,
+        "false_flight_categories_s": {
+          "short_reference_air": 0.135,
+          "single_foot_swing": 2.37,
+          "both_reference_feet_low": 0.04
+        },
+        "worst5s_false_flight_window_s": [
+          160,
+          165
+        ],
+        "false_flight_in_window_s": 0.68,
+        "top_false_flight_seconds": [
+          [
+            158,
+            0.215
+          ],
+          [
+            162,
+            0.19
+          ],
+          [
+            164,
+            0.185
+          ],
+          [
+            160,
+            0.155
+          ],
+          [
+            153,
+            0.15
+          ],
+          [
+            79,
+            0.145
+          ],
+          [
+            156,
+            0.135
+          ],
+          [
+            97,
+            0.11
+          ]
+        ]
+      },
+      {
+        "model": "pose100",
+        "checkpoint_sha256": "c511d5bffe21965e3ffda9680d636d4558d708b00f8c5b1795e329cb6f136494",
+        "trajectory_sha256": "608874d0df1f9e23bc9f4dcccb139c6f35f57f0b93d17ef00b6c9534415e191c",
+        "flight": {
+          "reference_events": 90,
+          "matched_events": 80,
+          "actual_events": 199,
+          "event_recall": 0.8888888888888888,
+          "time_precision": 0.7114152591729761,
+          "reference_airtime_s": 20.42,
+          "actual_airtime_s": 17.17,
+          "airtime_ratio": 0.8408423114593536,
+          "definition": "Target: both feet collider bottoms >3 cm, >=120 ms. Actual: both feet <1 N and no nonfoot support, >=40 ms. Match tolerance +/-100 ms and >=min(60 ms,30% target duration) overlap."
+        },
+        "false_flight_s": 4.955,
+        "false_flight_categories_s": {
+          "short_reference_air": 0.255,
+          "single_foot_swing": 4.595,
+          "both_reference_feet_low": 0.105
+        },
+        "worst5s_false_flight_window_s": [
+          160,
+          165
+        ],
+        "false_flight_in_window_s": 0.935,
+        "top_false_flight_seconds": [
+          [
+            164,
+            0.255
+          ],
+          [
+            160,
+            0.24
+          ],
+          [
+            162,
+            0.23500000000000001
+          ],
+          [
+            153,
+            0.23
+          ],
+          [
+            158,
+            0.20500000000000002
+          ],
+          [
+            128,
+            0.195
+          ],
+          [
+            156,
+            0.195
+          ],
+          [
+            117,
+            0.185
+          ]
+        ]
+      },
+      {
+        "model": "stance200",
+        "checkpoint_sha256": "a4db166b41d4361cd121fae3941c8ce9327d454df24d6a4154b5e8d79dccc746",
+        "trajectory_sha256": "b47ac9b403bbd19699712aaa37ae95e165241089d0b709835f564389445b2b48",
+        "flight": {
+          "reference_events": 90,
+          "matched_events": 80,
+          "actual_events": 213,
+          "event_recall": 0.8888888888888888,
+          "time_precision": 0.6917173855517332,
+          "reference_airtime_s": 20.42,
+          "actual_airtime_s": 18.895,
+          "airtime_ratio": 0.9253183153770812,
+          "definition": "Target: both feet collider bottoms >3 cm, >=120 ms. Actual: both feet <1 N and no nonfoot support, >=40 ms. Match tolerance +/-100 ms and >=min(60 ms,30% target duration) overlap."
+        },
+        "false_flight_s": 5.825,
+        "false_flight_categories_s": {
+          "short_reference_air": 0.255,
+          "single_foot_swing": 5.47,
+          "both_reference_feet_low": 0.1
+        },
+        "worst5s_false_flight_window_s": [
+          160,
+          165
+        ],
+        "false_flight_in_window_s": 0.99,
+        "top_false_flight_seconds": [
+          [
+            164,
+            0.25
+          ],
+          [
+            153,
+            0.24
+          ],
+          [
+            160,
+            0.24
+          ],
+          [
+            158,
+            0.23
+          ],
+          [
+            162,
+            0.23
+          ],
+          [
+            134,
+            0.225
+          ],
+          [
+            117,
+            0.2
+          ],
+          [
+            127,
+            0.195
+          ]
+        ]
+      }
+    ]
+  },
+  "reference_kinematic_audit": {
+    "model_sha256": "1ca1b82eed7d833a081cd5f95df580c0bc3668ee86865c88cfc4b7319e0c5ce7",
+    "scope": "All original joint targets checked against physical hard ranges;512 deterministic frames per reference compared with native MJB forward kinematics. No motion editing, training or acceptance relaxation. FK consistency is sampled, not an exhaustive guarantee.",
+    "results": [
+      {
+        "skill": "jump",
+        "motion_sha256": "0c21df779e79a8e96a5fb42f5a8a3ffe9b3cf775b883e6bf40016a67d8468878",
+        "frames": 12222,
+        "joints_outside_hard_limits_count": 0,
+        "maximum_joint_excess_rad": 0.0,
+        "hard_limit_projection_global_joint_rmse_lower_bound_rad": 0.0,
+        "sampled_frames": 512,
+        "maximum_native_reference_body_position_difference_m": 5.664337263767959e-07,
+        "sampled_body_position_rmse_m": 1.6080101373537715e-07,
+        "maximum_native_reference_body_orientation_difference_rad": 1.8371385344770487e-07,
+        "per_body_maximum_position_difference_m": {
+          "pelvis": 0.0,
+          "left_hip_pitch_link": 5.53791250712269e-07,
+          "left_hip_roll_link": 4.790310245849735e-07,
+          "left_hip_yaw_link": 5.432119058207263e-07,
+          "left_knee_link": 4.745303866422031e-07,
+          "left_ankle_pitch_link": 4.712628836230441e-07,
+          "left_ankle_roll_link": 5.318761226479857e-07,
+          "right_hip_pitch_link": 5.061541655438985e-07,
+          "right_hip_roll_link": 4.974321749163825e-07,
+          "right_hip_yaw_link": 5.251408805704331e-07,
+          "right_knee_link": 5.077197496128506e-07,
+          "right_ankle_pitch_link": 5.46586630643328e-07,
+          "right_ankle_roll_link": 5.109655132844024e-07,
+          "waist_yaw_link": 0.0,
+          "waist_roll_link": 4.830818205498153e-07,
+          "torso_link": 4.830818205498153e-07,
+          "left_shoulder_pitch_link": 5.576137144228219e-07,
+          "left_shoulder_roll_link": 5.277294260447898e-07,
+          "left_shoulder_yaw_link": 4.959181684607799e-07,
+          "left_elbow_link": 5.181727040737837e-07,
+          "left_wrist_roll_link": 4.632373683276388e-07,
+          "left_wrist_pitch_link": 5.234195143480481e-07,
+          "left_wrist_yaw_link": 4.818998356925434e-07,
+          "right_shoulder_pitch_link": 4.857649258439507e-07,
+          "right_shoulder_roll_link": 5.293148043930238e-07,
+          "right_shoulder_yaw_link": 5.664337263767959e-07,
+          "right_elbow_link": 4.811499188578119e-07,
+          "right_wrist_roll_link": 4.6490540935394084e-07,
+          "right_wrist_pitch_link": 5.049857093510959e-07,
+          "right_wrist_yaw_link": 4.980098275562618e-07
+        }
+      },
+      {
+        "skill": "dance",
+        "motion_sha256": "56e955ff22f9ea0b80b210467115d37aa095dd5d6e8aca485d0a1f2acd29c065",
+        "frames": 6574,
+        "joints_outside_hard_limits_count": 0,
+        "maximum_joint_excess_rad": 0.0,
+        "hard_limit_projection_global_joint_rmse_lower_bound_rad": 0.0,
+        "sampled_frames": 512,
+        "maximum_native_reference_body_position_difference_m": 3.0019664967934215e-07,
+        "sampled_body_position_rmse_m": 7.92067327770429e-08,
+        "maximum_native_reference_body_orientation_difference_rad": 1.5769906706002898e-07,
+        "per_body_maximum_position_difference_m": {
+          "pelvis": 0.0,
+          "left_hip_pitch_link": 2.5440355256371575e-07,
+          "left_hip_roll_link": 2.8405932692635383e-07,
+          "left_hip_yaw_link": 2.594435314903224e-07,
+          "left_knee_link": 2.1980392920229707e-07,
+          "left_ankle_pitch_link": 2.5752537340215584e-07,
+          "left_ankle_roll_link": 2.3908600452970403e-07,
+          "right_hip_pitch_link": 2.543429529228388e-07,
+          "right_hip_roll_link": 2.4302481078651244e-07,
+          "right_hip_yaw_link": 2.3613795277112186e-07,
+          "right_knee_link": 2.2809333538416054e-07,
+          "right_ankle_pitch_link": 2.2976879653305342e-07,
+          "right_ankle_roll_link": 2.6397757134565894e-07,
+          "waist_yaw_link": 0.0,
+          "waist_roll_link": 2.4666408272713855e-07,
+          "torso_link": 2.4666408272713855e-07,
+          "left_shoulder_pitch_link": 2.3530108912246373e-07,
+          "left_shoulder_roll_link": 2.2404583557017925e-07,
+          "left_shoulder_yaw_link": 2.6759611726416177e-07,
+          "left_elbow_link": 3.0019664967934215e-07,
+          "left_wrist_roll_link": 2.552571604473659e-07,
+          "left_wrist_pitch_link": 2.590069856327975e-07,
+          "left_wrist_yaw_link": 2.2654432583991131e-07,
+          "right_shoulder_pitch_link": 2.417530578176566e-07,
+          "right_shoulder_roll_link": 2.4741051541539685e-07,
+          "right_shoulder_yaw_link": 2.2441041335574237e-07,
+          "right_elbow_link": 2.25975207060209e-07,
+          "right_wrist_roll_link": 2.2848198949661757e-07,
+          "right_wrist_pitch_link": 2.521192260757758e-07,
+          "right_wrist_yaw_link": 2.3199418079799458e-07
+        }
+      },
+      {
+        "skill": "fight",
+        "motion_sha256": "02d949a6462dcaa8f69c755fe55da109edf37533b3337b0942d499185e503fa5",
+        "frames": 12244,
+        "joints_outside_hard_limits_count": 0,
+        "maximum_joint_excess_rad": 0.0,
+        "hard_limit_projection_global_joint_rmse_lower_bound_rad": 0.0,
+        "sampled_frames": 512,
+        "maximum_native_reference_body_position_difference_m": 4.938344676898269e-07,
+        "sampled_body_position_rmse_m": 1.1605938796157301e-07,
+        "maximum_native_reference_body_orientation_difference_rad": 1.7377590819732256e-07,
+        "per_body_maximum_position_difference_m": {
+          "pelvis": 0.0,
+          "left_hip_pitch_link": 4.311990896071061e-07,
+          "left_hip_roll_link": 4.1695928382675746e-07,
+          "left_hip_yaw_link": 4.193508657285473e-07,
+          "left_knee_link": 4.3863826840585333e-07,
+          "left_ankle_pitch_link": 3.992925085110429e-07,
+          "left_ankle_roll_link": 4.5219968290356996e-07,
+          "right_hip_pitch_link": 4.517964791328903e-07,
+          "right_hip_roll_link": 4.3614475911175016e-07,
+          "right_hip_yaw_link": 4.37618625077483e-07,
+          "right_knee_link": 4.4008553722253914e-07,
+          "right_ankle_pitch_link": 4.1725840623416777e-07,
+          "right_ankle_roll_link": 4.938344676898269e-07,
+          "waist_yaw_link": 0.0,
+          "waist_roll_link": 4.540938487896722e-07,
+          "torso_link": 4.540938487896722e-07,
+          "left_shoulder_pitch_link": 4.654804804550366e-07,
+          "left_shoulder_roll_link": 4.491069203493759e-07,
+          "left_shoulder_yaw_link": 4.377940070726006e-07,
+          "left_elbow_link": 4.539230470049001e-07,
+          "left_wrist_roll_link": 4.0314856294652473e-07,
+          "left_wrist_pitch_link": 4.291265819666467e-07,
+          "left_wrist_yaw_link": 4.799617894367021e-07,
+          "right_shoulder_pitch_link": 4.56709175201923e-07,
+          "right_shoulder_roll_link": 4.3420167219505246e-07,
+          "right_shoulder_yaw_link": 4.6752429395223624e-07,
+          "right_elbow_link": 4.5964421705928813e-07,
+          "right_wrist_roll_link": 3.8810989494874714e-07,
+          "right_wrist_pitch_link": 4.819888648843877e-07,
+          "right_wrist_yaw_link": 4.585629728786647e-07
+        }
+      }
+    ]
+  },
+  "shared_resource_policy": {
+    "exclusive_heavy_lock": "/home/ubuntu/.cache/codex-heavy-work.lock",
+    "max_training_tree_rss_gib": 6,
+    "max_cpu_operation_tree_rss_gib": 2,
+    "gpu_process_limit_mib": 2304,
+    "reserve_gpu_mib": 4096,
+    "reserve_system_ram_gib": 12.5,
+    "math_threads": 1,
+    "max_build_workers": 2,
+    "tests_serial": true,
+    "other_processes_or_system_limits_modified": false,
+    "other_dialogues_automatically_limited": false
+  },
+  "compact_gpu_update_parity": {
+    "passed": true,
+    "baseline_checkpoint_sha256": "1c345abac6bb057f8e526da5a761f37812d6b415d8d00b5ee43fe4ec7f344521",
+    "compact_checkpoint_sha256": "a5df478a7a90b8849ae2eeeba5a1e641dff3c0d9d6593b821da4b61785787739",
+    "sampled_start_indices_bitexact": true,
+    "sampled_starts": 256,
+    "groups": {
+      "policy": {
+        "bitexact": true,
+        "max_absolute_difference": 0,
+        "tensor_count": 22
+      },
+      "policy_opt": {
+        "bitexact": true,
+        "max_absolute_difference": 0,
+        "tensor_count": 60
+      },
+      "critic": {
+        "bitexact": true,
+        "max_absolute_difference": 0,
+        "tensor_count": 7
+      },
+      "critic_opt": {
+        "bitexact": true,
+        "max_absolute_difference": 0,
+        "tensor_count": 18
+      },
+      "wm": {
+        "bitexact": true,
+        "max_absolute_difference": 0,
+        "tensor_count": 15
+      },
+      "wm_opt": {
+        "bitexact": true,
+        "max_absolute_difference": 0,
+        "tensor_count": 42
+      },
+      "torch_rng": {
+        "bitexact": true,
+        "max_absolute_difference": 0.0,
+        "tensor_count": 1
+      },
+      "cuda_rng": {
+        "bitexact": true,
+        "max_absolute_difference": 0,
+        "tensor_count": 1
+      }
+    },
+    "physical_start_contract_audit": "runs/task-optimization-20261117b/compact-replay-physical-audit.json",
+    "scope": "Same known15293 physical starts and identical sampler, fixed RNG, one fresh actor update and96critic Adam steps. Tensor identity comparison is separate from checkpoint byte identity; metadata differs. No new skill or physical improvement claim."
+  },
+  "predeclared_prefix_extensions": {
+    "created_at_utc": "2026-11-17T09:23:10.131561+00:00",
+    "reference_source": "data/npz/validation/jumps1_subject1.npz",
+    "durations_seconds": [
+      60,
+      120
+    ],
+    "models": [
+      {
+        "id": "pose100",
+        "full_evaluation": "runs/task-optimization-20261117b/jump-full-pose100-decoder-h16-evaluations/ckpt_0005000",
+        "checkpoint": "runs/task-optimization-20261117b/jump-full-pose100-decoder-h16/training/ckpt_0005000.pt",
+        "checkpoint_sha256": "c511d5bffe21965e3ffda9680d636d4558d708b00f8c5b1795e329cb6f136494"
+      },
+      {
+        "id": "stance200",
+        "full_evaluation": "runs/task-optimization-20261117b/jump-pose100-stance200-resume-evaluations/ckpt_latest",
+        "checkpoint": "runs/task-optimization-20261117b/jump-pose100-stance200-resume/training/ckpt_latest.pt",
+        "checkpoint_sha256": "a4db166b41d4361cd121fae3941c8ce9327d454df24d6a4154b5e8d79dccc746"
+      }
+    ],
+    "selection": "Evaluate all four combinations, publish all results, preserve30s result. Any passed extension requires copied-bundle independent full recheck before delivery.",
+    "scope": "Separately named exact source prefixes, original frame clock and every original jump gate. Original244.42s task remains separate and failed; no new-motion, perturbation or hardware claim."
+  },
+  "current_ci": {
+    "head_sha": "ed0326529a809010a74ee09a967ec45939843cee",
+    "run_id": 44054875841,
+    "url": "https://github.com/chase6305/SuperMimic-Reproduced/actions/runs/44054875841",
+    "conclusion": "success",
+    "cpu_passed": 747,
+    "cpu_skipped": 42,
+    "subtests_passed": 12,
+    "ruff": "passed",
+    "wheel_and_sdist": "passed",
+    "scope": "Remote required CI for the published30s task plus packed-history/stance-height source. Subsequent experiment-only files do not change tested source; final head CI checked separately."
+  }
+}
