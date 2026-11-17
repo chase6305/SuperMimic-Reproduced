@@ -60,6 +60,8 @@ def training_config(
     its horizon, episode duration, sampling mode, update scope and reset priorities.
     Explicit overrides apply last.
     """
+    if type(seed) is not int or not 0 <= seed < 2**32:
+        raise ValueError("Seed must be an integer within [0, 2**32 - 1]")
     if transfer and resume is None:
         raise ValueError("Transfer requires a source checkpoint")
     cfg = TrainConfig(

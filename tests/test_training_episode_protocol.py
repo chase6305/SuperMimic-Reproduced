@@ -10,6 +10,19 @@ from supermimic.config import TrainConfig
 from supermimic.profiles import training_config
 
 
+@pytest.mark.parametrize("seed", [-1, 2**32, True, 1.5])
+def test_seed_rejects_values_the_environment_cannot_use_before_reading_checkpoint(tmp_path, seed):
+    with pytest.raises(ValueError, match="Seed must be an integer"):
+        training_config(
+            "smoke", tmp_path, tmp_path / "invalid-seed", seed=seed, resume=tmp_path / "missing.pt"
+        )
+
+
+@pytest.mark.parametrize("seed", [0, 2**32 - 1])
+def test_seed_accepts_environment_range_boundaries(tmp_path, seed):
+    assert training_config("smoke", tmp_path, tmp_path / "valid-seed", seed=seed).seed == seed
+
+
 def test_episode_protocol_and_pose_weight_inherit_then_accept_explicit_overrides(tmp_path):
     cfg = training_config(
         "smoke",
