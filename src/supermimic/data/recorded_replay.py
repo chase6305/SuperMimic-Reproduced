@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
+from itertools import accumulate
 from numbers import Real
 
 import torch
@@ -96,7 +97,11 @@ class RecordedStartReplay:
         state_dim, action_dim, context_dim = dimensions
         self.size = sum(counts)
         padded = self.size + len(episodes) * (history - 1)
-        estimated = 4 * (padded * (state_dim + action_dim) + self.size * context_dim)
+        dense_context_bytes = 4 * self.size * context_dim
+        shared_context_bytes = 4 * len(episodes) * context_dim + 8 * (len(episodes) - 1)
+        self._shared_context = shared_context_bytes < dense_context_bytes
+        estimated = 4 * padded * (state_dim + action_dim)
+        estimated += min(dense_context_bytes, shared_context_bytes)
         estimated += 8 * (2 * self.size + sum(resets))
         if estimated > max_storage_bytes:
             raise ValueError(f"Recorded replay needs {estimated} bytes, exceeding storage budget")
@@ -132,7 +137,7 @@ class RecordedStartReplay:
                 hs, ha = floating(episode.initial_states), floating(episode.initial_actions)
             states.extend([hs[:-1], s[:-1]])
             actions.extend([ha[:-1], ha[-1:], a[:-1]])
-            contexts.append(x.expand(count, -1))
+            contexts.append(x[None] if self._shared_context else x.expand(count, -1))
             frames.append(episode.frames.detach().to(self.device))
             rows.append(torch.arange(count, device=self.device) + offset + history - 1)
             offset += count + history - 1
@@ -140,6 +145,11 @@ class RecordedStartReplay:
         self._states = torch.cat(states)
         self._actions = torch.cat(actions)
         self._xi = torch.cat(contexts)
+        self._context_ends = torch.tensor(
+            list(accumulate(counts))[:-1] if self._shared_context else [],
+            device=self.device,
+            dtype=torch.long,
+        )
         self._frames = torch.cat(frames)
         self._rows = torch.cat(rows)
         self._reset_rows = torch.tensor(reset_rows, device=self.device, dtype=torch.long)
@@ -149,6 +159,7 @@ class RecordedStartReplay:
                 self._states,
                 self._actions,
                 self._xi,
+                self._context_ends,
                 self._frames,
                 self._rows,
                 self._reset_rows,
@@ -169,7 +180,12 @@ class RecordedStartReplay:
         current = self._rows[indices]
         past = current[None, :] + torch.arange(1 - history, 1, device=self.device)[:, None]
         hs, ha = self._states[past], self._actions[past]
-        return StartBatch(hs[-1], self._xi[indices], self._frames[indices], ha[-1], hs, ha)
+        context = (
+            torch.bucketize(indices, self._context_ends, right=True)
+            if self._shared_context
+            else indices
+        )
+        return StartBatch(hs[-1], self._xi[context], self._frames[indices], ha[-1], hs, ha)
 
     @torch.no_grad()
     def sample_starts(self, n: int, hist: int, reset_start_fraction: float = 0.0) -> StartBatch:

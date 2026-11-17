@@ -7,16 +7,27 @@
     "history": 10,
     "all_start_batch_fields_bitexact": true,
     "dense_context_storage_bytes": 61294476,
-    "compact_context_storage_bytes": 8470572,
-    "storage_reduction_fraction": 0.8618052954723032,
+    "compact_context_storage_bytes": 6455388,
+    "storage_reduction_fraction": 0.8946823854077812,
     "scope": "Retained actor context tensors only, not total process RSS or total VRAM. All15293 actual current-policy nominal/noiseTRAIN starts compared in bounded512-row batches; held noise pair2 excluded.",
     "source_manifest_sha256": "49cddad06d24e8f43f416778ff534b2213501835aa84ae6f2c57d2ab3aa36e51",
-    "implementation_sha256": "afd5b6bfea0bfb4c6546c25e4cb2d18f861c786cce17dfbe0b6480f8717af9d0"
+    "implementation_sha256": "e48ef0ff1ce50adc2929c9fa8953cb1cc46f85a9168b3698e83a0c35c594a3e0"
+  },
+  "context_sharing": {
+    "method": "Store one float32context per episode and int64cumulative episode boundaries; use dense per-control contexts when that costs less. Bucketize only sampled start indices.",
+    "prior_packed_context_storage_bytes": 8470572,
+    "current_packed_context_storage_bytes": 6455388,
+    "additional_saved_bytes": 2015184,
+    "additional_reduction_fraction": 0.2379041226495684,
+    "per_episode_context_values": 825,
+    "episode_boundary_indices": 24,
+    "small_episode_storage_nonincrease_test_cases": 4,
+    "scope": "Retained tensor storage only; no claim of lower process peakRSS, totalVRAM or faster sampling."
   },
   "gpu_update_parity": {
     "passed": true,
     "baseline_checkpoint_sha256": "1c345abac6bb057f8e526da5a761f37812d6b415d8d00b5ee43fe4ec7f344521",
-    "compact_checkpoint_sha256": "a5df478a7a90b8849ae2eeeba5a1e641dff3c0d9d6593b821da4b61785787739",
+    "compact_checkpoint_sha256": "0ef0d55d9ac1defd3064394c125de68d3f0cafa7d2ac9935990258583e0a1775",
     "sampled_start_indices_bitexact": true,
     "sampled_starts": 256,
     "groups": {
@@ -61,16 +72,16 @@
         "tensor_count": 1
       }
     },
-    "physical_start_contract_audit": "runs/task-optimization-20261117b/compact-replay-physical-audit.json",
+    "physical_start_contract_audit": "runs/task-optimization-20261117c/context-shared-replay-physical-audit.json",
     "scope": "Same known15293 physical starts and identical sampler, fixed RNG, one fresh actor update and96critic Adam steps. Tensor identity comparison is separate from checkpoint byte identity; metadata differs. No new skill or physical improvement claim."
   },
-  "local_run": "runs/task-optimization-20261117b/jump-compact-history-one-update",
+  "local_run": "runs/task-optimization-20261117c/jump-context-shared-history-one-update",
   "gpu_supervision": {
     "status": "complete",
     "exit_code": 0,
     "stop_reason": null,
-    "elapsed_s": 14.26707779802382,
-    "peak_rss_bytes": 2934829056,
-    "peak_process_gpu_mib": 1118
+    "elapsed_s": 14.27375504898373,
+    "peak_rss_bytes": 3305185280,
+    "peak_process_gpu_mib": 1160
   }
 }

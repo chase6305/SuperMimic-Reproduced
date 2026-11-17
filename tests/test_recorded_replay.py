@@ -118,6 +118,30 @@ def test_packed_storage_is_owned_and_avoids_materialized_history_copies():
         assert torch.equal(getattr(before, name), getattr(after, name))
 
 
+@pytest.mark.parametrize("controls", [(50, 3, 20), (1, 1, 1)])
+@pytest.mark.parametrize("context_dim", [1, 33])
+def test_episode_context_lookup_preserves_boundaries_order_and_storage_budget(controls, context_dim):
+    episodes = [
+        replace(episode(count), xi=torch.full((context_dim,), i + 0.25))
+        for i, count in enumerate(controls)
+    ]
+    replay = RecordedStartReplay(episodes, 4)
+    # Include both sides of every boundary, reversed and duplicated requests.
+    ends = np.cumsum(controls)
+    indices = torch.tensor([ends[-1] - 1, ends[0], ends[0] - 1, 0, ends[1], ends[0]])
+    expected = torch.cat([e.xi.expand(n, -1) for e, n in zip(episodes, controls, strict=True)])
+    assert torch.equal(replay.starts(indices, 4).xi, expected[indices])
+    total = sum(controls)
+    padded = total + len(controls) * 3
+    prior_storage = 4 * (padded * 100 + total * context_dim) + 8 * (2 * total + len(controls))
+    assert replay.storage_bytes <= prior_storage
+    if controls[0] > 1:
+        duplicated_context = 4 * (total - len(controls)) * context_dim
+        assert prior_storage - replay.storage_bytes > duplicated_context // 2
+    # A caller can retain its previous byte budget even for tiny one-step episodes.
+    RecordedStartReplay(episodes, 4, max_storage_bytes=prior_storage)
+
+
 def test_storage_budget_is_checked_before_value_scans_or_device_allocations(monkeypatch):
     data = episode()
     monkeypatch.setattr(torch, "isfinite", lambda *_: pytest.fail("scanned over-budget inputs"))
