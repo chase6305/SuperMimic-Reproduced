@@ -1,8 +1,27 @@
 # 当前可训练与部署的任务
 
-本页区分训练入口、完整仿真运行和技能质量验收。当前可交接的模型包括已通过 600 秒交付复验和 1,800 秒延长耐久验证的固定姿态保持、261.30 秒行走参考演示，以及三个未验收的动态技能预览。五类任务的推理文件、参考数据和证据在本机 `exports/g1-tasks-20261117/`，站立保留 120 秒和 600 秒两个版本，并附 1,800 秒参考与证据，详情见该目录的 `README.md` 与 `catalog.json`。
+本页区分训练入口、完整仿真运行和技能质量验收。当前可交接的模型包括已通过 600 秒交付复验和 1,800 秒延长耐久验证的固定姿态保持、新通过验收的首 30 秒跳跃参考，以及 261.30 秒行走参考演示。原始完整跳跃、舞蹈和格斗仍是未验收预览。原五类任务的推理文件、参考数据和证据在本机 `exports/g1-tasks-20261117/`；新增跳跃位于 `exports/g1-tasks-20261117b/jump30/`。数据与权重未随 Git 分发。
 
-下表是 2026-11-17 对五个原有保留模型的完整复验基线，均从参考首帧开始、全程由神经网络控制，不自动重置。数据、模型和运行记录是本机产物，未随 Git 分发。来源摘要见 [复核记录](tasks/readiness-baseline.json)，本轮新增站立的结果见下方、[120 秒证据](tasks/static-hold-20261117.json)及 [600 秒证据](tasks/static-hold-600s-20261117.json)。
+## 新增：30 秒跳跃参考
+
+从原始跳跃参考保留首 1,501 帧，另行定义完整 30 秒任务，不重采样或改变时钟。使用在原始完整参考上训练的第 5,000 次迭代模型，它在 1,500 个控制步中通过 `g1-skills-v2-full-motion` 的 23 项跳跃条件：整段回报 0.80969，关节 RMSE 0.12488 rad，最差一秒末端误差 0.16819 m；29 个参考腾空事件中匹配 25 个，时序精确率 0.99024，腾空时长比 0.60831。时长比距 0.6 门槛较近，扰动与其他起点尚需另行验证。
+
+复制后的推理包与参考文件已独立重跑完整 30 秒，状态、动作、参考帧和物理接触逐位一致。[验收证据](tasks/jump30-20261117.json)保留阈值、指纹及完整原任务的失败结果。同一模型在原始 244.42 秒任务上虽通过空间误差条件，腾空时序精确率仍只有 0.71142，低于 0.8；短任务通过不代表完整任务通过。
+
+```bash
+./supermimic deploy --bundle exports/g1-tasks-20261117b/jump30/bundle \
+  --motion exports/g1-tasks-20261117b/jump30/reference.npz --output runs/my-jump30
+.venv/bin/python -I scripts/assess_skill.py \
+  --bundle exports/g1-tasks-20261117b/jump30/bundle \
+  --motion exports/g1-tasks-20261117b/jump30/reference.npz \
+  --run runs/my-jump30 --skill jump --output runs/my-jump30-assessment.json
+```
+
+可续训检查点为 `runs/task-optimization-20261117b/jump-full-pose100-decoder-h16/training/ckpt_0005000.pt`，SHA-256 为 `c511d5bffe21965e3ffda9680d636d4558d708b00f8c5b1795e329cb6f136494`。严格续训沿用原训练数据 `data/npz/validation/jumps1_subject1.npz`；改用 30 秒参考训练时使用 `--transfer`。所有部署与验收命令仍需遵守下述共享机器资源约定。
+
+## 原完整参考的复验基线
+
+下表是 2026-11-17 对五个原有保留模型的完整复验基线，均从参考首帧开始、全程由神经网络控制，不自动重置。来源摘要见 [复核记录](tasks/readiness-baseline.json)，本轮新增站立的结果见下方、[120 秒证据](tasks/static-hold-20261117.json)及 [600 秒证据](tasks/static-hold-600s-20261117.json)。
 
 | 任务／模型 | 完整 CPU MuJoCo 运行 | 整段回报 | 平面 RMSE / m | 关节 RMSE / rad | 当前结论 |
 | --- | --- | --- | --- | --- | --- |
