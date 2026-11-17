@@ -122,6 +122,7 @@ def run_worker(config_path: Path) -> int:
                 learning_rate=options.get("learning_rate"),
                 wm_one_step_batches=options.get("wm_one_step_batches"),
                 completion_aware_sampling=options.get("completion_aware_sampling"),
+                foot_support_height_weight=options.get("foot_support_height_weight"),
                 foot_support_velocity_weight=options.get("foot_support_velocity_weight"),
                 effector_position_weight=options.get("effector_position_weight"),
                 effector_position_weights=options.get("effector_position_weights"),

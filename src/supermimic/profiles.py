@@ -39,6 +39,7 @@ def training_config(
     learning_rate: float | None = None,
     wm_one_step_batches: int | None = None,
     completion_aware_sampling: bool | None = None,
+    foot_support_height_weight: float | None = None,
     foot_support_velocity_weight: float | None = None,
     effector_position_weight: float | None = None,
     effector_position_weights: tuple[float, ...] | None = None,
@@ -198,6 +199,10 @@ def training_config(
         if not math.isfinite(effector_position_weight) or effector_position_weight < 0:
             raise ValueError("Effector position weight must be finite and nonnegative")
         cfg.policy_trainer.effector_position_weight = effector_position_weight
+    if foot_support_height_weight is not None:
+        if not math.isfinite(foot_support_height_weight) or foot_support_height_weight < 0:
+            raise ValueError("Foot support height weight must be finite and nonnegative")
+        cfg.policy_trainer.foot_support_height_weight = foot_support_height_weight
     if foot_support_velocity_weight is not None:
         if not math.isfinite(foot_support_velocity_weight) or foot_support_velocity_weight < 0:
             raise ValueError("Foot support velocity weight must be finite and nonnegative")

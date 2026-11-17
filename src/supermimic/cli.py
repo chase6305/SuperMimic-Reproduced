@@ -164,6 +164,11 @@ def parser() -> argparse.ArgumentParser:
                 help="Relative limb coefficients for the optional position objective; saved values are inherited",
             )
             q.add_argument(
+                "--foot-support-height-weight",
+                type=nonnegative_float,
+                help="Override optional stance sole-height penalty; physical evaluation unchanged",
+            )
+            q.add_argument(
                 "--foot-support-velocity-weight",
                 type=nonnegative_float,
                 help="Override optional stance-normal-velocity penalty; saved value is inherited",
