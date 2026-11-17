@@ -127,6 +127,7 @@ def run_worker(config_path: Path) -> int:
                 effector_position_weights=options.get("effector_position_weights"),
                 joint_tracking_weight=options.get("joint_tracking_weight"),
                 root_xy_tracking_weight=options.get("root_xy_tracking_weight"),
+                height_tracking_weight=options.get("height_tracking_weight"),
                 orientation_tracking_weight=options.get("orientation_tracking_weight"),
                 use_critic=options.get("critic"),
                 policy_gradient_accumulation=options.get("policy_gradient_accumulation"),

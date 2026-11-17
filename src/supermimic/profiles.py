@@ -44,6 +44,7 @@ def training_config(
     effector_position_weights: tuple[float, ...] | None = None,
     joint_tracking_weight: float | None = None,
     root_xy_tracking_weight: float | None = None,
+    height_tracking_weight: float | None = None,
     orientation_tracking_weight: float | None = None,
     use_critic: bool | None = None,
     policy_gradient_accumulation: int | None = None,
@@ -185,6 +186,10 @@ def training_config(
         if not math.isfinite(root_xy_tracking_weight) or root_xy_tracking_weight < 0:
             raise ValueError("Root XY tracking weight must be finite and nonnegative")
         cfg.policy_trainer.root_xy_tracking_weight = root_xy_tracking_weight
+    if height_tracking_weight is not None:
+        if not math.isfinite(height_tracking_weight) or height_tracking_weight < 0:
+            raise ValueError("Root height tracking weight must be finite and nonnegative")
+        cfg.policy_trainer.height_tracking_weight = height_tracking_weight
     if orientation_tracking_weight is not None:
         if not math.isfinite(orientation_tracking_weight) or orientation_tracking_weight < 0:
             raise ValueError("Root orientation tracking weight must be finite and nonnegative")

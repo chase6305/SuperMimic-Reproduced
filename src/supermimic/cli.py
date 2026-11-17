@@ -190,6 +190,12 @@ def parser() -> argparse.ArgumentParser:
                 help="Bound normalized policy actions in training and exported actor",
             )
             q.add_argument(
+                "--root-height-tracking-weight",
+                dest="height_tracking_weight",
+                type=nonnegative_float,
+                help="Override root height auxiliary loss weight; evaluation criteria unchanged",
+            )
+            q.add_argument(
                 "--root-orientation-tracking-weight",
                 dest="orientation_tracking_weight",
                 type=nonnegative_float,
