@@ -1,0 +1,2378 @@
+{
+  "generated_at_utc": "2026-11-17T18:09:52.456922+00:00",
+  "status": "validated-static-hold-with-bounded-initialization-tests",
+  "packet": "exports/g1-tasks-20261117c/stand-hold-600-reset040",
+  "checkpoint": {
+    "path": "runs/task-optimization-20261117c/stand-reset040-xy400-head-h32/training/ckpt_latest.pt",
+    "sha256": "0c96f5084c427b9c68a5c5a9d437dcc9bfae2dd905c99a0c695d1a46fab2aba3",
+    "iteration": 10538,
+    "strict_resume_training_motion": "data/npz/probes/stand120-walk-first-frame.npz",
+    "minimum_code_revision": "b18c77b24541730f91148f2b7a4ee07e58dcbcbb"
+  },
+  "training": {
+    "created_at_utc": "2026-11-17T17:31:05.712283+00:00",
+    "source_checkpoint": "runs/task-readiness-20261117/stand-height100-xy200-resume/training/ckpt_0012000.pt",
+    "source_checkpoint_sha256": "6984a9c7ea58c96834349941e986e3b28f6bddba706448c9c3f690e8f248a5f8",
+    "training_minutes": 15,
+    "hypothesis": "The accepted600s static actor drifted for negativeY20mm and positiveworldRoll30mrad in60s. Train only the actionhead from retainedweights with reset-onlyscale.4, longerH32, and XY400 while preserving pose150/height100/orientation120. Default observations, actions and domain parameters remain deterministic. Fresh standard optimizers through explicit transfer.",
+    "selection": "Evaluate every unique5000iteration checkpoint plus final against the exact same9declared60s initialization cases. Preserve everyfailure. Any proposed deployment model must also pass unchanged public600s default-initialization gates and copied independent physical replay; do not replace the old600s/1800s model without those proofs.",
+    "scope": "Known fixed-pose and bounded initial-state curriculum, no broad/hardware recovery claim. Existing accepted packages stay intact."
+  },
+  "training_command": [
+    ".venv/bin/python",
+    "-I",
+    "/tmp/sm_cli_task.py",
+    "train",
+    "--profile",
+    "g1",
+    "--checkpoint",
+    "runs/task-readiness-20261117/stand-height100-xy200-resume/training/ckpt_0012000.pt",
+    "--transfer",
+    "--motions",
+    "data/npz/probes",
+    "--clips",
+    "stand120-walk-first-frame",
+    "--num-envs",
+    "32",
+    "--wm-batches-per-update",
+    "2",
+    "--wm-batch-size",
+    "128",
+    "--wm-window",
+    "8",
+    "--wm-one-step-batches",
+    "2",
+    "--policy-batch-size",
+    "32",
+    "--policy-horizon",
+    "32",
+    "--policy-update-scope",
+    "action-head",
+    "--policy-gradient-accumulation",
+    "1",
+    "--replay-capacity",
+    "512",
+    "--learning-rate",
+    ".0000001",
+    "--tracking-objective",
+    "pose",
+    "--joint-tracking-weight",
+    "150",
+    "--root-xy-tracking-weight",
+    "400",
+    "--root-height-tracking-weight",
+    "100",
+    "--root-orientation-tracking-weight",
+    "120",
+    "--effector-position-weight",
+    "20",
+    "--effector-position-weights",
+    "1",
+    "1",
+    "4",
+    "4",
+    "--foot-support-height-weight",
+    "0",
+    "--foot-support-velocity-weight",
+    ".5",
+    "--episode-length-seconds",
+    "60",
+    "--sampling-mode",
+    "start",
+    "--priority-reset-ratio",
+    "0",
+    "--training-mode",
+    "deterministic",
+    "--reset-noise-scale",
+    ".4",
+    "--compile-policy",
+    "--compile-world-model",
+    "--iterations",
+    "100000",
+    "--hours",
+    ".25",
+    "--checkpoint-interval",
+    "5000",
+    "--seed",
+    "2026111709",
+    "--output",
+    "runs/task-optimization-20261117c/stand-reset040-xy400-head-h32"
+  ],
+  "all_retained_candidate_evaluations": {
+    "records": [
+      {
+        "checkpoint": "runs/task-optimization-20261117c/stand-reset040-xy400-head-h32/training/ckpt_0005000.pt",
+        "checkpoint_sha256": "3ccf16f978bff055e5663857f236202ad09d0d2db67c4c5aa329f30b6d47bd92",
+        "stage": "runs/task-optimization-20261117c/stand-reset040-xy400-head-h32-evaluations/ckpt_0005000",
+        "default60_passed": true,
+        "cases": 9,
+        "passes": 5,
+        "case_passes": [
+          "baseline",
+          "joint-position-noise-10mrad",
+          "root-forward-velocity-50mmps",
+          "root-roll--1-30mrad",
+          "root-y--1-20mm"
+        ],
+        "original_case_passes": [
+          "baseline",
+          "joint-position-noise-10mrad",
+          "root-forward-velocity-50mmps",
+          "root-roll--1-30mrad",
+          "root-x-+1-20mm",
+          "root-x--1-20mm",
+          "root-y-+1-20mm"
+        ],
+        "improved_without_losing_old_cases": false,
+        "no_new_failure_types": true,
+        "no_worse_failed_case_xy": false,
+        "minimum_relative_quality_margin": -1.4966666690508608,
+        "local_evidence": "runs/task-optimization-20261117c/stand-reset040-xy400-head-h32-evaluations/ckpt_0005000/initialization/result.json",
+        "all_independent_native_replays_bitexact": true
+      },
+      {
+        "checkpoint": "runs/task-optimization-20261117c/stand-reset040-xy400-head-h32/training/ckpt_0010000.pt",
+        "checkpoint_sha256": "6db7df382e7c51b3e8914056162b930059becc01b2e505852c04d619b0b65f62",
+        "stage": "runs/task-optimization-20261117c/stand-reset040-xy400-head-h32-evaluations/ckpt_0010000",
+        "default60_passed": true,
+        "cases": 9,
+        "passes": 8,
+        "case_passes": [
+          "baseline",
+          "joint-position-noise-10mrad",
+          "root-forward-velocity-50mmps",
+          "root-roll-+1-30mrad",
+          "root-roll--1-30mrad",
+          "root-x-+1-20mm",
+          "root-x--1-20mm",
+          "root-y-+1-20mm"
+        ],
+        "original_case_passes": [
+          "baseline",
+          "joint-position-noise-10mrad",
+          "root-forward-velocity-50mmps",
+          "root-roll--1-30mrad",
+          "root-x-+1-20mm",
+          "root-x--1-20mm",
+          "root-y-+1-20mm"
+        ],
+        "improved_without_losing_old_cases": true,
+        "no_new_failure_types": true,
+        "no_worse_failed_case_xy": true,
+        "minimum_relative_quality_margin": -0.07536282409362521,
+        "local_evidence": "runs/task-optimization-20261117c/stand-reset040-xy400-head-h32-evaluations/ckpt_0010000/initialization/result.json",
+        "all_independent_native_replays_bitexact": true
+      },
+      {
+        "checkpoint": "runs/task-optimization-20261117c/stand-reset040-xy400-head-h32/training/ckpt_latest.pt",
+        "checkpoint_sha256": "0c96f5084c427b9c68a5c5a9d437dcc9bfae2dd905c99a0c695d1a46fab2aba3",
+        "stage": "runs/task-optimization-20261117c/stand-reset040-xy400-head-h32-evaluations/ckpt_latest",
+        "default60_passed": true,
+        "cases": 9,
+        "passes": 9,
+        "case_passes": [
+          "baseline",
+          "joint-position-noise-10mrad",
+          "root-forward-velocity-50mmps",
+          "root-roll-+1-30mrad",
+          "root-roll--1-30mrad",
+          "root-x-+1-20mm",
+          "root-x--1-20mm",
+          "root-y-+1-20mm",
+          "root-y--1-20mm"
+        ],
+        "original_case_passes": [
+          "baseline",
+          "joint-position-noise-10mrad",
+          "root-forward-velocity-50mmps",
+          "root-roll--1-30mrad",
+          "root-x-+1-20mm",
+          "root-x--1-20mm",
+          "root-y-+1-20mm"
+        ],
+        "improved_without_losing_old_cases": true,
+        "no_new_failure_types": true,
+        "no_worse_failed_case_xy": true,
+        "minimum_relative_quality_margin": 0.47563136030820613,
+        "local_evidence": "runs/task-optimization-20261117c/stand-reset040-xy400-head-h32-evaluations/ckpt_latest/initialization/result.json",
+        "all_independent_native_replays_bitexact": true
+      }
+    ],
+    "method": "Only consider a strict superset of the baseline7passed cases, with allcasescompleted and no new nonXYfailure type or greater XYerror in previouslyfailed cases. Choose greatest case pass count, then greatest minimum relative quality margin. Every raw result remains. A candidate is not yet accepted for600s; full default and copied reruns are still required.",
+    "eligible": [
+      {
+        "checkpoint": "runs/task-optimization-20261117c/stand-reset040-xy400-head-h32/training/ckpt_0010000.pt",
+        "checkpoint_sha256": "6db7df382e7c51b3e8914056162b930059becc01b2e505852c04d619b0b65f62",
+        "stage": "runs/task-optimization-20261117c/stand-reset040-xy400-head-h32-evaluations/ckpt_0010000",
+        "default60_passed": true,
+        "cases": 9,
+        "passes": 8,
+        "case_passes": [
+          "baseline",
+          "joint-position-noise-10mrad",
+          "root-forward-velocity-50mmps",
+          "root-roll-+1-30mrad",
+          "root-roll--1-30mrad",
+          "root-x-+1-20mm",
+          "root-x--1-20mm",
+          "root-y-+1-20mm"
+        ],
+        "original_case_passes": [
+          "baseline",
+          "joint-position-noise-10mrad",
+          "root-forward-velocity-50mmps",
+          "root-roll--1-30mrad",
+          "root-x-+1-20mm",
+          "root-x--1-20mm",
+          "root-y-+1-20mm"
+        ],
+        "improved_without_losing_old_cases": true,
+        "no_new_failure_types": true,
+        "no_worse_failed_case_xy": true,
+        "minimum_relative_quality_margin": -0.07536282409362521,
+        "local_evidence": "runs/task-optimization-20261117c/stand-reset040-xy400-head-h32-evaluations/ckpt_0010000/initialization/result.json",
+        "all_independent_native_replays_bitexact": true
+      },
+      {
+        "checkpoint": "runs/task-optimization-20261117c/stand-reset040-xy400-head-h32/training/ckpt_latest.pt",
+        "checkpoint_sha256": "0c96f5084c427b9c68a5c5a9d437dcc9bfae2dd905c99a0c695d1a46fab2aba3",
+        "stage": "runs/task-optimization-20261117c/stand-reset040-xy400-head-h32-evaluations/ckpt_latest",
+        "default60_passed": true,
+        "cases": 9,
+        "passes": 9,
+        "case_passes": [
+          "baseline",
+          "joint-position-noise-10mrad",
+          "root-forward-velocity-50mmps",
+          "root-roll-+1-30mrad",
+          "root-roll--1-30mrad",
+          "root-x-+1-20mm",
+          "root-x--1-20mm",
+          "root-y-+1-20mm",
+          "root-y--1-20mm"
+        ],
+        "original_case_passes": [
+          "baseline",
+          "joint-position-noise-10mrad",
+          "root-forward-velocity-50mmps",
+          "root-roll--1-30mrad",
+          "root-x-+1-20mm",
+          "root-x--1-20mm",
+          "root-y-+1-20mm"
+        ],
+        "improved_without_losing_old_cases": true,
+        "no_new_failure_types": true,
+        "no_worse_failed_case_xy": true,
+        "minimum_relative_quality_margin": 0.47563136030820613,
+        "local_evidence": "runs/task-optimization-20261117c/stand-reset040-xy400-head-h32-evaluations/ckpt_latest/initialization/result.json",
+        "all_independent_native_replays_bitexact": true
+      }
+    ]
+  },
+  "initialization_sensitivity": {
+    "seconds_per_case": 60,
+    "cases": 9,
+    "baseline_passes": 7,
+    "selected_passes": 9,
+    "baseline_records": [
+      {
+        "case": {
+          "id": "baseline"
+        },
+        "controls": 3000,
+        "terminal_failure": null,
+        "metrics": {
+          "root_xy_rmse_m": 0.03140301789530185,
+          "joint_rmse_rad": 0.06742163879449822,
+          "root_height_rmse_m": 0.012610662329193285,
+          "root_orientation_rmse_rad": 0.04893429763728246,
+          "nonfoot_ground_force_substeps": 0,
+          "joint_velocity_rms_rad_s": 0.06686556755079193
+        },
+        "judgement": {
+          "passed": true,
+          "skill": "static-pose-hold",
+          "criteria": {
+            "version": "g1-static-pose-v1",
+            "min_duration_s": 30.0,
+            "max_root_xy_rmse_m": 0.1,
+            "max_joint_rmse_rad": 0.25,
+            "max_root_height_rmse_m": 0.05,
+            "max_root_orientation_rmse_rad": 0.15,
+            "max_nonfoot_ground_force_substeps": 0,
+            "max_joint_velocity_rms_rad_s": 0.5
+          },
+          "checks": [
+            {
+              "name": "completed_motion",
+              "value": true,
+              "passed": true
+            },
+            {
+              "name": "duration_s",
+              "value": 60.0,
+              "limit": 30.0,
+              "comparison": ">=",
+              "passed": true
+            },
+            {
+              "name": "root_xy_rmse_m",
+              "value": 0.03140301789530185,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "joint_rmse_rad",
+              "value": 0.06742163879449822,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "root_height_rmse_m",
+              "value": 0.012610662329193285,
+              "limit": 0.05,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "root_orientation_rmse_rad",
+              "value": 0.04893429763728246,
+              "limit": 0.15,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "nonfoot_ground_force_substeps",
+              "value": 0,
+              "limit": 0,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "joint_velocity_rms_rad_s",
+              "value": 0.06686556755079193,
+              "limit": 0.5,
+              "comparison": "<=",
+              "passed": true
+            }
+          ],
+          "scope": "Fixed reference pose for the recorded full duration and initialization. Separate from dynamic imitation, generalization, commanded locomotion and hardware validation."
+        },
+        "artifact": "runs/task-optimization-20261117c/static-initialization-sensitivity/baseline.npz",
+        "artifact_sha256": "5069248a6c4895e6369c607f8aea3b14d0cfbdc0bc5367e6520af3331842ed05",
+        "independent_native_replay_bitexact": {
+          "states": true,
+          "physical_contacts": true,
+          "actuator_forces": true
+        }
+      },
+      {
+        "case": {
+          "id": "root-x--1-20mm",
+          "root_translation_m": [
+            -0.02,
+            0.0,
+            0.0
+          ]
+        },
+        "controls": 3000,
+        "terminal_failure": null,
+        "metrics": {
+          "root_xy_rmse_m": 0.05262716307047195,
+          "joint_rmse_rad": 0.0681599362029084,
+          "root_height_rmse_m": 0.012566549471415505,
+          "root_orientation_rmse_rad": 0.04521142977484617,
+          "nonfoot_ground_force_substeps": 0,
+          "joint_velocity_rms_rad_s": 0.09901315060377495
+        },
+        "judgement": {
+          "passed": true,
+          "skill": "static-pose-hold",
+          "criteria": {
+            "version": "g1-static-pose-v1",
+            "min_duration_s": 30.0,
+            "max_root_xy_rmse_m": 0.1,
+            "max_joint_rmse_rad": 0.25,
+            "max_root_height_rmse_m": 0.05,
+            "max_root_orientation_rmse_rad": 0.15,
+            "max_nonfoot_ground_force_substeps": 0,
+            "max_joint_velocity_rms_rad_s": 0.5
+          },
+          "checks": [
+            {
+              "name": "completed_motion",
+              "value": true,
+              "passed": true
+            },
+            {
+              "name": "duration_s",
+              "value": 60.0,
+              "limit": 30.0,
+              "comparison": ">=",
+              "passed": true
+            },
+            {
+              "name": "root_xy_rmse_m",
+              "value": 0.05262716307047195,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "joint_rmse_rad",
+              "value": 0.0681599362029084,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "root_height_rmse_m",
+              "value": 0.012566549471415505,
+              "limit": 0.05,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "root_orientation_rmse_rad",
+              "value": 0.04521142977484617,
+              "limit": 0.15,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "nonfoot_ground_force_substeps",
+              "value": 0,
+              "limit": 0,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "joint_velocity_rms_rad_s",
+              "value": 0.09901315060377495,
+              "limit": 0.5,
+              "comparison": "<=",
+              "passed": true
+            }
+          ],
+          "scope": "Fixed reference pose for the recorded full duration and initialization. Separate from dynamic imitation, generalization, commanded locomotion and hardware validation."
+        },
+        "artifact": "runs/task-optimization-20261117c/static-initialization-sensitivity/root-x--1-20mm.npz",
+        "artifact_sha256": "8440baff18bf0a39eb00e40f742d4baa4838f3bed030589279c094e8f5f0e1ea",
+        "independent_native_replay_bitexact": {
+          "states": true,
+          "physical_contacts": true,
+          "actuator_forces": true
+        }
+      },
+      {
+        "case": {
+          "id": "root-x-+1-20mm",
+          "root_translation_m": [
+            0.02,
+            0.0,
+            0.0
+          ]
+        },
+        "controls": 3000,
+        "terminal_failure": null,
+        "metrics": {
+          "root_xy_rmse_m": 0.02440919983018114,
+          "joint_rmse_rad": 0.06765404948401212,
+          "root_height_rmse_m": 0.012696862960938022,
+          "root_orientation_rmse_rad": 0.049537785189355345,
+          "nonfoot_ground_force_substeps": 0,
+          "joint_velocity_rms_rad_s": 0.06184668168818538
+        },
+        "judgement": {
+          "passed": true,
+          "skill": "static-pose-hold",
+          "criteria": {
+            "version": "g1-static-pose-v1",
+            "min_duration_s": 30.0,
+            "max_root_xy_rmse_m": 0.1,
+            "max_joint_rmse_rad": 0.25,
+            "max_root_height_rmse_m": 0.05,
+            "max_root_orientation_rmse_rad": 0.15,
+            "max_nonfoot_ground_force_substeps": 0,
+            "max_joint_velocity_rms_rad_s": 0.5
+          },
+          "checks": [
+            {
+              "name": "completed_motion",
+              "value": true,
+              "passed": true
+            },
+            {
+              "name": "duration_s",
+              "value": 60.0,
+              "limit": 30.0,
+              "comparison": ">=",
+              "passed": true
+            },
+            {
+              "name": "root_xy_rmse_m",
+              "value": 0.02440919983018114,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "joint_rmse_rad",
+              "value": 0.06765404948401212,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "root_height_rmse_m",
+              "value": 0.012696862960938022,
+              "limit": 0.05,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "root_orientation_rmse_rad",
+              "value": 0.049537785189355345,
+              "limit": 0.15,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "nonfoot_ground_force_substeps",
+              "value": 0,
+              "limit": 0,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "joint_velocity_rms_rad_s",
+              "value": 0.06184668168818538,
+              "limit": 0.5,
+              "comparison": "<=",
+              "passed": true
+            }
+          ],
+          "scope": "Fixed reference pose for the recorded full duration and initialization. Separate from dynamic imitation, generalization, commanded locomotion and hardware validation."
+        },
+        "artifact": "runs/task-optimization-20261117c/static-initialization-sensitivity/root-x-+1-20mm.npz",
+        "artifact_sha256": "bad4fffb0fa77ab00a15dbd26f0c6aa73aee0e4e08f0dc3761583aa3cfcc3d7b",
+        "independent_native_replay_bitexact": {
+          "states": true,
+          "physical_contacts": true,
+          "actuator_forces": true
+        }
+      },
+      {
+        "case": {
+          "id": "root-y--1-20mm",
+          "root_translation_m": [
+            0.0,
+            -0.02,
+            0.0
+          ]
+        },
+        "controls": 3000,
+        "terminal_failure": null,
+        "metrics": {
+          "root_xy_rmse_m": 0.21972396942831257,
+          "joint_rmse_rad": 0.06727422049090204,
+          "root_height_rmse_m": 0.01250895087583945,
+          "root_orientation_rmse_rad": 0.04243794293625834,
+          "nonfoot_ground_force_substeps": 0,
+          "joint_velocity_rms_rad_s": 0.20421575283865903
+        },
+        "judgement": {
+          "passed": false,
+          "skill": "static-pose-hold",
+          "criteria": {
+            "version": "g1-static-pose-v1",
+            "min_duration_s": 30.0,
+            "max_root_xy_rmse_m": 0.1,
+            "max_joint_rmse_rad": 0.25,
+            "max_root_height_rmse_m": 0.05,
+            "max_root_orientation_rmse_rad": 0.15,
+            "max_nonfoot_ground_force_substeps": 0,
+            "max_joint_velocity_rms_rad_s": 0.5
+          },
+          "checks": [
+            {
+              "name": "completed_motion",
+              "value": true,
+              "passed": true
+            },
+            {
+              "name": "duration_s",
+              "value": 60.0,
+              "limit": 30.0,
+              "comparison": ">=",
+              "passed": true
+            },
+            {
+              "name": "root_xy_rmse_m",
+              "value": 0.21972396942831257,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "joint_rmse_rad",
+              "value": 0.06727422049090204,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "root_height_rmse_m",
+              "value": 0.01250895087583945,
+              "limit": 0.05,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "root_orientation_rmse_rad",
+              "value": 0.04243794293625834,
+              "limit": 0.15,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "nonfoot_ground_force_substeps",
+              "value": 0,
+              "limit": 0,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "joint_velocity_rms_rad_s",
+              "value": 0.20421575283865903,
+              "limit": 0.5,
+              "comparison": "<=",
+              "passed": true
+            }
+          ],
+          "scope": "Fixed reference pose for the recorded full duration and initialization. Separate from dynamic imitation, generalization, commanded locomotion and hardware validation."
+        },
+        "artifact": "runs/task-optimization-20261117c/static-initialization-sensitivity/root-y--1-20mm.npz",
+        "artifact_sha256": "b4ae7e3d318e28f467df92c7b2dd3e62ea5228e8297a59738ba4aea1953da858",
+        "independent_native_replay_bitexact": {
+          "states": true,
+          "physical_contacts": true,
+          "actuator_forces": true
+        }
+      },
+      {
+        "case": {
+          "id": "root-y-+1-20mm",
+          "root_translation_m": [
+            0.0,
+            0.02,
+            0.0
+          ]
+        },
+        "controls": 3000,
+        "terminal_failure": null,
+        "metrics": {
+          "root_xy_rmse_m": 0.04364702774069792,
+          "joint_rmse_rad": 0.0679577977761968,
+          "root_height_rmse_m": 0.012596662697204416,
+          "root_orientation_rmse_rad": 0.04887978514627068,
+          "nonfoot_ground_force_substeps": 0,
+          "joint_velocity_rms_rad_s": 0.06393100021908568
+        },
+        "judgement": {
+          "passed": true,
+          "skill": "static-pose-hold",
+          "criteria": {
+            "version": "g1-static-pose-v1",
+            "min_duration_s": 30.0,
+            "max_root_xy_rmse_m": 0.1,
+            "max_joint_rmse_rad": 0.25,
+            "max_root_height_rmse_m": 0.05,
+            "max_root_orientation_rmse_rad": 0.15,
+            "max_nonfoot_ground_force_substeps": 0,
+            "max_joint_velocity_rms_rad_s": 0.5
+          },
+          "checks": [
+            {
+              "name": "completed_motion",
+              "value": true,
+              "passed": true
+            },
+            {
+              "name": "duration_s",
+              "value": 60.0,
+              "limit": 30.0,
+              "comparison": ">=",
+              "passed": true
+            },
+            {
+              "name": "root_xy_rmse_m",
+              "value": 0.04364702774069792,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "joint_rmse_rad",
+              "value": 0.0679577977761968,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "root_height_rmse_m",
+              "value": 0.012596662697204416,
+              "limit": 0.05,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "root_orientation_rmse_rad",
+              "value": 0.04887978514627068,
+              "limit": 0.15,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "nonfoot_ground_force_substeps",
+              "value": 0,
+              "limit": 0,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "joint_velocity_rms_rad_s",
+              "value": 0.06393100021908568,
+              "limit": 0.5,
+              "comparison": "<=",
+              "passed": true
+            }
+          ],
+          "scope": "Fixed reference pose for the recorded full duration and initialization. Separate from dynamic imitation, generalization, commanded locomotion and hardware validation."
+        },
+        "artifact": "runs/task-optimization-20261117c/static-initialization-sensitivity/root-y-+1-20mm.npz",
+        "artifact_sha256": "922f5aa6518bfd891079eddd60e4c7f6a92fd3893411dc370bcab6301cf5b389",
+        "independent_native_replay_bitexact": {
+          "states": true,
+          "physical_contacts": true,
+          "actuator_forces": true
+        }
+      },
+      {
+        "case": {
+          "id": "root-roll--1-30mrad",
+          "root_world_roll_rad": -0.03
+        },
+        "controls": 3000,
+        "terminal_failure": null,
+        "metrics": {
+          "root_xy_rmse_m": 0.09090606081700305,
+          "joint_rmse_rad": 0.06973518062439131,
+          "root_height_rmse_m": 0.012949973869412382,
+          "root_orientation_rmse_rad": 0.05552655560701535,
+          "nonfoot_ground_force_substeps": 0,
+          "joint_velocity_rms_rad_s": 0.20789904028984738
+        },
+        "judgement": {
+          "passed": true,
+          "skill": "static-pose-hold",
+          "criteria": {
+            "version": "g1-static-pose-v1",
+            "min_duration_s": 30.0,
+            "max_root_xy_rmse_m": 0.1,
+            "max_joint_rmse_rad": 0.25,
+            "max_root_height_rmse_m": 0.05,
+            "max_root_orientation_rmse_rad": 0.15,
+            "max_nonfoot_ground_force_substeps": 0,
+            "max_joint_velocity_rms_rad_s": 0.5
+          },
+          "checks": [
+            {
+              "name": "completed_motion",
+              "value": true,
+              "passed": true
+            },
+            {
+              "name": "duration_s",
+              "value": 60.0,
+              "limit": 30.0,
+              "comparison": ">=",
+              "passed": true
+            },
+            {
+              "name": "root_xy_rmse_m",
+              "value": 0.09090606081700305,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "joint_rmse_rad",
+              "value": 0.06973518062439131,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "root_height_rmse_m",
+              "value": 0.012949973869412382,
+              "limit": 0.05,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "root_orientation_rmse_rad",
+              "value": 0.05552655560701535,
+              "limit": 0.15,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "nonfoot_ground_force_substeps",
+              "value": 0,
+              "limit": 0,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "joint_velocity_rms_rad_s",
+              "value": 0.20789904028984738,
+              "limit": 0.5,
+              "comparison": "<=",
+              "passed": true
+            }
+          ],
+          "scope": "Fixed reference pose for the recorded full duration and initialization. Separate from dynamic imitation, generalization, commanded locomotion and hardware validation."
+        },
+        "artifact": "runs/task-optimization-20261117c/static-initialization-sensitivity/root-roll--1-30mrad.npz",
+        "artifact_sha256": "63d06898758bd539971cd6006eb7ecb8dc561556394a8d78b2e36ebcde5929a5",
+        "independent_native_replay_bitexact": {
+          "states": true,
+          "physical_contacts": true,
+          "actuator_forces": true
+        }
+      },
+      {
+        "case": {
+          "id": "root-roll-+1-30mrad",
+          "root_world_roll_rad": 0.03
+        },
+        "controls": 3000,
+        "terminal_failure": null,
+        "metrics": {
+          "root_xy_rmse_m": 0.4016594568012444,
+          "joint_rmse_rad": 0.06846929181548239,
+          "root_height_rmse_m": 0.012261504043070713,
+          "root_orientation_rmse_rad": 0.05113121661869608,
+          "nonfoot_ground_force_substeps": 0,
+          "joint_velocity_rms_rad_s": 0.4485158930717903
+        },
+        "judgement": {
+          "passed": false,
+          "skill": "static-pose-hold",
+          "criteria": {
+            "version": "g1-static-pose-v1",
+            "min_duration_s": 30.0,
+            "max_root_xy_rmse_m": 0.1,
+            "max_joint_rmse_rad": 0.25,
+            "max_root_height_rmse_m": 0.05,
+            "max_root_orientation_rmse_rad": 0.15,
+            "max_nonfoot_ground_force_substeps": 0,
+            "max_joint_velocity_rms_rad_s": 0.5
+          },
+          "checks": [
+            {
+              "name": "completed_motion",
+              "value": true,
+              "passed": true
+            },
+            {
+              "name": "duration_s",
+              "value": 60.0,
+              "limit": 30.0,
+              "comparison": ">=",
+              "passed": true
+            },
+            {
+              "name": "root_xy_rmse_m",
+              "value": 0.4016594568012444,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "joint_rmse_rad",
+              "value": 0.06846929181548239,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "root_height_rmse_m",
+              "value": 0.012261504043070713,
+              "limit": 0.05,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "root_orientation_rmse_rad",
+              "value": 0.05113121661869608,
+              "limit": 0.15,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "nonfoot_ground_force_substeps",
+              "value": 0,
+              "limit": 0,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "joint_velocity_rms_rad_s",
+              "value": 0.4485158930717903,
+              "limit": 0.5,
+              "comparison": "<=",
+              "passed": true
+            }
+          ],
+          "scope": "Fixed reference pose for the recorded full duration and initialization. Separate from dynamic imitation, generalization, commanded locomotion and hardware validation."
+        },
+        "artifact": "runs/task-optimization-20261117c/static-initialization-sensitivity/root-roll-+1-30mrad.npz",
+        "artifact_sha256": "5786da2885f1159541f18601e58b9e95624e8c35260907beec5559190a391cc0",
+        "independent_native_replay_bitexact": {
+          "states": true,
+          "physical_contacts": true,
+          "actuator_forces": true
+        }
+      },
+      {
+        "case": {
+          "id": "root-forward-velocity-50mmps",
+          "root_linear_velocity_delta_m_s": [
+            0.05,
+            0.0,
+            0.0
+          ]
+        },
+        "controls": 3000,
+        "terminal_failure": null,
+        "metrics": {
+          "root_xy_rmse_m": 0.02216802849669011,
+          "joint_rmse_rad": 0.06562663554605298,
+          "root_height_rmse_m": 0.01278545932506251,
+          "root_orientation_rmse_rad": 0.046554481543908996,
+          "nonfoot_ground_force_substeps": 0,
+          "joint_velocity_rms_rad_s": 0.06380744227317472
+        },
+        "judgement": {
+          "passed": true,
+          "skill": "static-pose-hold",
+          "criteria": {
+            "version": "g1-static-pose-v1",
+            "min_duration_s": 30.0,
+            "max_root_xy_rmse_m": 0.1,
+            "max_joint_rmse_rad": 0.25,
+            "max_root_height_rmse_m": 0.05,
+            "max_root_orientation_rmse_rad": 0.15,
+            "max_nonfoot_ground_force_substeps": 0,
+            "max_joint_velocity_rms_rad_s": 0.5
+          },
+          "checks": [
+            {
+              "name": "completed_motion",
+              "value": true,
+              "passed": true
+            },
+            {
+              "name": "duration_s",
+              "value": 60.0,
+              "limit": 30.0,
+              "comparison": ">=",
+              "passed": true
+            },
+            {
+              "name": "root_xy_rmse_m",
+              "value": 0.02216802849669011,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "joint_rmse_rad",
+              "value": 0.06562663554605298,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "root_height_rmse_m",
+              "value": 0.01278545932506251,
+              "limit": 0.05,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "root_orientation_rmse_rad",
+              "value": 0.046554481543908996,
+              "limit": 0.15,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "nonfoot_ground_force_substeps",
+              "value": 0,
+              "limit": 0,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "joint_velocity_rms_rad_s",
+              "value": 0.06380744227317472,
+              "limit": 0.5,
+              "comparison": "<=",
+              "passed": true
+            }
+          ],
+          "scope": "Fixed reference pose for the recorded full duration and initialization. Separate from dynamic imitation, generalization, commanded locomotion and hardware validation."
+        },
+        "artifact": "runs/task-optimization-20261117c/static-initialization-sensitivity/root-forward-velocity-50mmps.npz",
+        "artifact_sha256": "adf012cb2509c9ba2f6df4f37abde31f9b3f3a7a94330f9d3650c6cd970593ff",
+        "independent_native_replay_bitexact": {
+          "states": true,
+          "physical_contacts": true,
+          "actuator_forces": true
+        }
+      },
+      {
+        "case": {
+          "id": "joint-position-noise-10mrad",
+          "joint_position_noise_std_rad": 0.01,
+          "seed": 2026111708
+        },
+        "controls": 3000,
+        "terminal_failure": null,
+        "metrics": {
+          "root_xy_rmse_m": 0.03272077754986735,
+          "joint_rmse_rad": 0.06622092609025226,
+          "root_height_rmse_m": 0.012803970380234156,
+          "root_orientation_rmse_rad": 0.047112143614073204,
+          "nonfoot_ground_force_substeps": 0,
+          "joint_velocity_rms_rad_s": 0.06415875130182896
+        },
+        "judgement": {
+          "passed": true,
+          "skill": "static-pose-hold",
+          "criteria": {
+            "version": "g1-static-pose-v1",
+            "min_duration_s": 30.0,
+            "max_root_xy_rmse_m": 0.1,
+            "max_joint_rmse_rad": 0.25,
+            "max_root_height_rmse_m": 0.05,
+            "max_root_orientation_rmse_rad": 0.15,
+            "max_nonfoot_ground_force_substeps": 0,
+            "max_joint_velocity_rms_rad_s": 0.5
+          },
+          "checks": [
+            {
+              "name": "completed_motion",
+              "value": true,
+              "passed": true
+            },
+            {
+              "name": "duration_s",
+              "value": 60.0,
+              "limit": 30.0,
+              "comparison": ">=",
+              "passed": true
+            },
+            {
+              "name": "root_xy_rmse_m",
+              "value": 0.03272077754986735,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "joint_rmse_rad",
+              "value": 0.06622092609025226,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "root_height_rmse_m",
+              "value": 0.012803970380234156,
+              "limit": 0.05,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "root_orientation_rmse_rad",
+              "value": 0.047112143614073204,
+              "limit": 0.15,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "nonfoot_ground_force_substeps",
+              "value": 0,
+              "limit": 0,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "joint_velocity_rms_rad_s",
+              "value": 0.06415875130182896,
+              "limit": 0.5,
+              "comparison": "<=",
+              "passed": true
+            }
+          ],
+          "scope": "Fixed reference pose for the recorded full duration and initialization. Separate from dynamic imitation, generalization, commanded locomotion and hardware validation."
+        },
+        "artifact": "runs/task-optimization-20261117c/static-initialization-sensitivity/joint-position-noise-10mrad.npz",
+        "artifact_sha256": "c5bd06a40cf363ba1a6429efb109b86776b13928f547e4805e13d9c42a81c0af",
+        "independent_native_replay_bitexact": {
+          "states": true,
+          "physical_contacts": true,
+          "actuator_forces": true
+        }
+      }
+    ],
+    "selected_records": [
+      {
+        "case": {
+          "id": "baseline"
+        },
+        "controls": 3000,
+        "terminal_failure": null,
+        "metrics": {
+          "root_xy_rmse_m": 0.009405653868320766,
+          "joint_rmse_rad": 0.07015702356258745,
+          "root_height_rmse_m": 0.012363950003809996,
+          "root_orientation_rmse_rad": 0.06175312016146299,
+          "nonfoot_ground_force_substeps": 0,
+          "joint_velocity_rms_rad_s": 0.09725919177666323
+        },
+        "judgement": {
+          "passed": true,
+          "skill": "static-pose-hold",
+          "criteria": {
+            "version": "g1-static-pose-v1",
+            "min_duration_s": 30.0,
+            "max_root_xy_rmse_m": 0.1,
+            "max_joint_rmse_rad": 0.25,
+            "max_root_height_rmse_m": 0.05,
+            "max_root_orientation_rmse_rad": 0.15,
+            "max_nonfoot_ground_force_substeps": 0,
+            "max_joint_velocity_rms_rad_s": 0.5
+          },
+          "checks": [
+            {
+              "name": "completed_motion",
+              "value": true,
+              "passed": true
+            },
+            {
+              "name": "duration_s",
+              "value": 60.0,
+              "limit": 30.0,
+              "comparison": ">=",
+              "passed": true
+            },
+            {
+              "name": "root_xy_rmse_m",
+              "value": 0.009405653868320766,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "joint_rmse_rad",
+              "value": 0.07015702356258745,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "root_height_rmse_m",
+              "value": 0.012363950003809996,
+              "limit": 0.05,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "root_orientation_rmse_rad",
+              "value": 0.06175312016146299,
+              "limit": 0.15,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "nonfoot_ground_force_substeps",
+              "value": 0,
+              "limit": 0,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "joint_velocity_rms_rad_s",
+              "value": 0.09725919177666323,
+              "limit": 0.5,
+              "comparison": "<=",
+              "passed": true
+            }
+          ],
+          "scope": "Fixed reference pose for the recorded full duration and initialization. Separate from dynamic imitation, generalization, commanded locomotion and hardware validation."
+        },
+        "artifact": "runs/task-optimization-20261117c/stand-reset040-xy400-head-h32-evaluations/ckpt_latest/initialization/baseline.npz",
+        "artifact_sha256": "bd66c0be428b77f66b9819be26f0d3cb2d5aea823c3864ff79c22a08826aa6e2",
+        "independent_native_replay_bitexact": {
+          "states": true,
+          "physical_contacts": true,
+          "actuator_forces": true
+        }
+      },
+      {
+        "case": {
+          "id": "root-x--1-20mm",
+          "root_translation_m": [
+            -0.02,
+            0.0,
+            0.0
+          ]
+        },
+        "controls": 3000,
+        "terminal_failure": null,
+        "metrics": {
+          "root_xy_rmse_m": 0.015584287718097684,
+          "joint_rmse_rad": 0.06748414061894857,
+          "root_height_rmse_m": 0.012359346780807617,
+          "root_orientation_rmse_rad": 0.05571914096958153,
+          "nonfoot_ground_force_substeps": 0,
+          "joint_velocity_rms_rad_s": 0.10823001902081016
+        },
+        "judgement": {
+          "passed": true,
+          "skill": "static-pose-hold",
+          "criteria": {
+            "version": "g1-static-pose-v1",
+            "min_duration_s": 30.0,
+            "max_root_xy_rmse_m": 0.1,
+            "max_joint_rmse_rad": 0.25,
+            "max_root_height_rmse_m": 0.05,
+            "max_root_orientation_rmse_rad": 0.15,
+            "max_nonfoot_ground_force_substeps": 0,
+            "max_joint_velocity_rms_rad_s": 0.5
+          },
+          "checks": [
+            {
+              "name": "completed_motion",
+              "value": true,
+              "passed": true
+            },
+            {
+              "name": "duration_s",
+              "value": 60.0,
+              "limit": 30.0,
+              "comparison": ">=",
+              "passed": true
+            },
+            {
+              "name": "root_xy_rmse_m",
+              "value": 0.015584287718097684,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "joint_rmse_rad",
+              "value": 0.06748414061894857,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "root_height_rmse_m",
+              "value": 0.012359346780807617,
+              "limit": 0.05,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "root_orientation_rmse_rad",
+              "value": 0.05571914096958153,
+              "limit": 0.15,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "nonfoot_ground_force_substeps",
+              "value": 0,
+              "limit": 0,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "joint_velocity_rms_rad_s",
+              "value": 0.10823001902081016,
+              "limit": 0.5,
+              "comparison": "<=",
+              "passed": true
+            }
+          ],
+          "scope": "Fixed reference pose for the recorded full duration and initialization. Separate from dynamic imitation, generalization, commanded locomotion and hardware validation."
+        },
+        "artifact": "runs/task-optimization-20261117c/stand-reset040-xy400-head-h32-evaluations/ckpt_latest/initialization/root-x--1-20mm.npz",
+        "artifact_sha256": "cb8ea7979be5c66ee95c605940ce91b27d40ae95bee23e1ab626f5f04529c2f4",
+        "independent_native_replay_bitexact": {
+          "states": true,
+          "physical_contacts": true,
+          "actuator_forces": true
+        }
+      },
+      {
+        "case": {
+          "id": "root-x-+1-20mm",
+          "root_translation_m": [
+            0.02,
+            0.0,
+            0.0
+          ]
+        },
+        "controls": 3000,
+        "terminal_failure": null,
+        "metrics": {
+          "root_xy_rmse_m": 0.023528220974504813,
+          "joint_rmse_rad": 0.06950548926792834,
+          "root_height_rmse_m": 0.012542937686077305,
+          "root_orientation_rmse_rad": 0.059293291772617995,
+          "nonfoot_ground_force_substeps": 0,
+          "joint_velocity_rms_rad_s": 0.09722678218865728
+        },
+        "judgement": {
+          "passed": true,
+          "skill": "static-pose-hold",
+          "criteria": {
+            "version": "g1-static-pose-v1",
+            "min_duration_s": 30.0,
+            "max_root_xy_rmse_m": 0.1,
+            "max_joint_rmse_rad": 0.25,
+            "max_root_height_rmse_m": 0.05,
+            "max_root_orientation_rmse_rad": 0.15,
+            "max_nonfoot_ground_force_substeps": 0,
+            "max_joint_velocity_rms_rad_s": 0.5
+          },
+          "checks": [
+            {
+              "name": "completed_motion",
+              "value": true,
+              "passed": true
+            },
+            {
+              "name": "duration_s",
+              "value": 60.0,
+              "limit": 30.0,
+              "comparison": ">=",
+              "passed": true
+            },
+            {
+              "name": "root_xy_rmse_m",
+              "value": 0.023528220974504813,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "joint_rmse_rad",
+              "value": 0.06950548926792834,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "root_height_rmse_m",
+              "value": 0.012542937686077305,
+              "limit": 0.05,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "root_orientation_rmse_rad",
+              "value": 0.059293291772617995,
+              "limit": 0.15,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "nonfoot_ground_force_substeps",
+              "value": 0,
+              "limit": 0,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "joint_velocity_rms_rad_s",
+              "value": 0.09722678218865728,
+              "limit": 0.5,
+              "comparison": "<=",
+              "passed": true
+            }
+          ],
+          "scope": "Fixed reference pose for the recorded full duration and initialization. Separate from dynamic imitation, generalization, commanded locomotion and hardware validation."
+        },
+        "artifact": "runs/task-optimization-20261117c/stand-reset040-xy400-head-h32-evaluations/ckpt_latest/initialization/root-x-+1-20mm.npz",
+        "artifact_sha256": "b445ed8fa75122e75fb952998e2f88f75e6da5e392aed0253c67b65c057c616c",
+        "independent_native_replay_bitexact": {
+          "states": true,
+          "physical_contacts": true,
+          "actuator_forces": true
+        }
+      },
+      {
+        "case": {
+          "id": "root-y--1-20mm",
+          "root_translation_m": [
+            0.0,
+            -0.02,
+            0.0
+          ]
+        },
+        "controls": 3000,
+        "terminal_failure": null,
+        "metrics": {
+          "root_xy_rmse_m": 0.017221476482995816,
+          "joint_rmse_rad": 0.06511580618620234,
+          "root_height_rmse_m": 0.012214750100813587,
+          "root_orientation_rmse_rad": 0.043115538290459034,
+          "nonfoot_ground_force_substeps": 0,
+          "joint_velocity_rms_rad_s": 0.14873918387840435
+        },
+        "judgement": {
+          "passed": true,
+          "skill": "static-pose-hold",
+          "criteria": {
+            "version": "g1-static-pose-v1",
+            "min_duration_s": 30.0,
+            "max_root_xy_rmse_m": 0.1,
+            "max_joint_rmse_rad": 0.25,
+            "max_root_height_rmse_m": 0.05,
+            "max_root_orientation_rmse_rad": 0.15,
+            "max_nonfoot_ground_force_substeps": 0,
+            "max_joint_velocity_rms_rad_s": 0.5
+          },
+          "checks": [
+            {
+              "name": "completed_motion",
+              "value": true,
+              "passed": true
+            },
+            {
+              "name": "duration_s",
+              "value": 60.0,
+              "limit": 30.0,
+              "comparison": ">=",
+              "passed": true
+            },
+            {
+              "name": "root_xy_rmse_m",
+              "value": 0.017221476482995816,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "joint_rmse_rad",
+              "value": 0.06511580618620234,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "root_height_rmse_m",
+              "value": 0.012214750100813587,
+              "limit": 0.05,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "root_orientation_rmse_rad",
+              "value": 0.043115538290459034,
+              "limit": 0.15,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "nonfoot_ground_force_substeps",
+              "value": 0,
+              "limit": 0,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "joint_velocity_rms_rad_s",
+              "value": 0.14873918387840435,
+              "limit": 0.5,
+              "comparison": "<=",
+              "passed": true
+            }
+          ],
+          "scope": "Fixed reference pose for the recorded full duration and initialization. Separate from dynamic imitation, generalization, commanded locomotion and hardware validation."
+        },
+        "artifact": "runs/task-optimization-20261117c/stand-reset040-xy400-head-h32-evaluations/ckpt_latest/initialization/root-y--1-20mm.npz",
+        "artifact_sha256": "7b1ba994d487236ea21373c6d2b9fba16b1e36f696824bd0b03b736c5c777c44",
+        "independent_native_replay_bitexact": {
+          "states": true,
+          "physical_contacts": true,
+          "actuator_forces": true
+        }
+      },
+      {
+        "case": {
+          "id": "root-y-+1-20mm",
+          "root_translation_m": [
+            0.0,
+            0.02,
+            0.0
+          ]
+        },
+        "controls": 3000,
+        "terminal_failure": null,
+        "metrics": {
+          "root_xy_rmse_m": 0.01194723736094851,
+          "joint_rmse_rad": 0.06953430723697204,
+          "root_height_rmse_m": 0.012650650181513316,
+          "root_orientation_rmse_rad": 0.058597638165493814,
+          "nonfoot_ground_force_substeps": 0,
+          "joint_velocity_rms_rad_s": 0.10327430592641075
+        },
+        "judgement": {
+          "passed": true,
+          "skill": "static-pose-hold",
+          "criteria": {
+            "version": "g1-static-pose-v1",
+            "min_duration_s": 30.0,
+            "max_root_xy_rmse_m": 0.1,
+            "max_joint_rmse_rad": 0.25,
+            "max_root_height_rmse_m": 0.05,
+            "max_root_orientation_rmse_rad": 0.15,
+            "max_nonfoot_ground_force_substeps": 0,
+            "max_joint_velocity_rms_rad_s": 0.5
+          },
+          "checks": [
+            {
+              "name": "completed_motion",
+              "value": true,
+              "passed": true
+            },
+            {
+              "name": "duration_s",
+              "value": 60.0,
+              "limit": 30.0,
+              "comparison": ">=",
+              "passed": true
+            },
+            {
+              "name": "root_xy_rmse_m",
+              "value": 0.01194723736094851,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "joint_rmse_rad",
+              "value": 0.06953430723697204,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "root_height_rmse_m",
+              "value": 0.012650650181513316,
+              "limit": 0.05,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "root_orientation_rmse_rad",
+              "value": 0.058597638165493814,
+              "limit": 0.15,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "nonfoot_ground_force_substeps",
+              "value": 0,
+              "limit": 0,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "joint_velocity_rms_rad_s",
+              "value": 0.10327430592641075,
+              "limit": 0.5,
+              "comparison": "<=",
+              "passed": true
+            }
+          ],
+          "scope": "Fixed reference pose for the recorded full duration and initialization. Separate from dynamic imitation, generalization, commanded locomotion and hardware validation."
+        },
+        "artifact": "runs/task-optimization-20261117c/stand-reset040-xy400-head-h32-evaluations/ckpt_latest/initialization/root-y-+1-20mm.npz",
+        "artifact_sha256": "f23f9a3a740bf443ee11503973a54d38507b78339a9bfc600183fc7736d21f73",
+        "independent_native_replay_bitexact": {
+          "states": true,
+          "physical_contacts": true,
+          "actuator_forces": true
+        }
+      },
+      {
+        "case": {
+          "id": "root-roll--1-30mrad",
+          "root_world_roll_rad": -0.03
+        },
+        "controls": 3000,
+        "terminal_failure": null,
+        "metrics": {
+          "root_xy_rmse_m": 0.015949007503598837,
+          "joint_rmse_rad": 0.06769357915829888,
+          "root_height_rmse_m": 0.012623294351349507,
+          "root_orientation_rmse_rad": 0.05607337335140629,
+          "nonfoot_ground_force_substeps": 0,
+          "joint_velocity_rms_rad_s": 0.10039095713656264
+        },
+        "judgement": {
+          "passed": true,
+          "skill": "static-pose-hold",
+          "criteria": {
+            "version": "g1-static-pose-v1",
+            "min_duration_s": 30.0,
+            "max_root_xy_rmse_m": 0.1,
+            "max_joint_rmse_rad": 0.25,
+            "max_root_height_rmse_m": 0.05,
+            "max_root_orientation_rmse_rad": 0.15,
+            "max_nonfoot_ground_force_substeps": 0,
+            "max_joint_velocity_rms_rad_s": 0.5
+          },
+          "checks": [
+            {
+              "name": "completed_motion",
+              "value": true,
+              "passed": true
+            },
+            {
+              "name": "duration_s",
+              "value": 60.0,
+              "limit": 30.0,
+              "comparison": ">=",
+              "passed": true
+            },
+            {
+              "name": "root_xy_rmse_m",
+              "value": 0.015949007503598837,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "joint_rmse_rad",
+              "value": 0.06769357915829888,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "root_height_rmse_m",
+              "value": 0.012623294351349507,
+              "limit": 0.05,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "root_orientation_rmse_rad",
+              "value": 0.05607337335140629,
+              "limit": 0.15,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "nonfoot_ground_force_substeps",
+              "value": 0,
+              "limit": 0,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "joint_velocity_rms_rad_s",
+              "value": 0.10039095713656264,
+              "limit": 0.5,
+              "comparison": "<=",
+              "passed": true
+            }
+          ],
+          "scope": "Fixed reference pose for the recorded full duration and initialization. Separate from dynamic imitation, generalization, commanded locomotion and hardware validation."
+        },
+        "artifact": "runs/task-optimization-20261117c/stand-reset040-xy400-head-h32-evaluations/ckpt_latest/initialization/root-roll--1-30mrad.npz",
+        "artifact_sha256": "5eb2ecc596cbda70981f5d66880be526554c3a5093777690af7f1d3366affc34",
+        "independent_native_replay_bitexact": {
+          "states": true,
+          "physical_contacts": true,
+          "actuator_forces": true
+        }
+      },
+      {
+        "case": {
+          "id": "root-roll-+1-30mrad",
+          "root_world_roll_rad": 0.03
+        },
+        "controls": 3000,
+        "terminal_failure": null,
+        "metrics": {
+          "root_xy_rmse_m": 0.05243686396917939,
+          "joint_rmse_rad": 0.06365426979077786,
+          "root_height_rmse_m": 0.012375446164077045,
+          "root_orientation_rmse_rad": 0.045071368428348635,
+          "nonfoot_ground_force_substeps": 0,
+          "joint_velocity_rms_rad_s": 0.11740564871665896
+        },
+        "judgement": {
+          "passed": true,
+          "skill": "static-pose-hold",
+          "criteria": {
+            "version": "g1-static-pose-v1",
+            "min_duration_s": 30.0,
+            "max_root_xy_rmse_m": 0.1,
+            "max_joint_rmse_rad": 0.25,
+            "max_root_height_rmse_m": 0.05,
+            "max_root_orientation_rmse_rad": 0.15,
+            "max_nonfoot_ground_force_substeps": 0,
+            "max_joint_velocity_rms_rad_s": 0.5
+          },
+          "checks": [
+            {
+              "name": "completed_motion",
+              "value": true,
+              "passed": true
+            },
+            {
+              "name": "duration_s",
+              "value": 60.0,
+              "limit": 30.0,
+              "comparison": ">=",
+              "passed": true
+            },
+            {
+              "name": "root_xy_rmse_m",
+              "value": 0.05243686396917939,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "joint_rmse_rad",
+              "value": 0.06365426979077786,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "root_height_rmse_m",
+              "value": 0.012375446164077045,
+              "limit": 0.05,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "root_orientation_rmse_rad",
+              "value": 0.045071368428348635,
+              "limit": 0.15,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "nonfoot_ground_force_substeps",
+              "value": 0,
+              "limit": 0,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "joint_velocity_rms_rad_s",
+              "value": 0.11740564871665896,
+              "limit": 0.5,
+              "comparison": "<=",
+              "passed": true
+            }
+          ],
+          "scope": "Fixed reference pose for the recorded full duration and initialization. Separate from dynamic imitation, generalization, commanded locomotion and hardware validation."
+        },
+        "artifact": "runs/task-optimization-20261117c/stand-reset040-xy400-head-h32-evaluations/ckpt_latest/initialization/root-roll-+1-30mrad.npz",
+        "artifact_sha256": "d9045288067c46890060fa9a3ebc032b07ce332a391a910511cad53a51621bb4",
+        "independent_native_replay_bitexact": {
+          "states": true,
+          "physical_contacts": true,
+          "actuator_forces": true
+        }
+      },
+      {
+        "case": {
+          "id": "root-forward-velocity-50mmps",
+          "root_linear_velocity_delta_m_s": [
+            0.05,
+            0.0,
+            0.0
+          ]
+        },
+        "controls": 3000,
+        "terminal_failure": null,
+        "metrics": {
+          "root_xy_rmse_m": 0.016941831575480768,
+          "joint_rmse_rad": 0.0679074265046993,
+          "root_height_rmse_m": 0.012478079764037016,
+          "root_orientation_rmse_rad": 0.056481032901787104,
+          "nonfoot_ground_force_substeps": 0,
+          "joint_velocity_rms_rad_s": 0.0913002302712733
+        },
+        "judgement": {
+          "passed": true,
+          "skill": "static-pose-hold",
+          "criteria": {
+            "version": "g1-static-pose-v1",
+            "min_duration_s": 30.0,
+            "max_root_xy_rmse_m": 0.1,
+            "max_joint_rmse_rad": 0.25,
+            "max_root_height_rmse_m": 0.05,
+            "max_root_orientation_rmse_rad": 0.15,
+            "max_nonfoot_ground_force_substeps": 0,
+            "max_joint_velocity_rms_rad_s": 0.5
+          },
+          "checks": [
+            {
+              "name": "completed_motion",
+              "value": true,
+              "passed": true
+            },
+            {
+              "name": "duration_s",
+              "value": 60.0,
+              "limit": 30.0,
+              "comparison": ">=",
+              "passed": true
+            },
+            {
+              "name": "root_xy_rmse_m",
+              "value": 0.016941831575480768,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "joint_rmse_rad",
+              "value": 0.0679074265046993,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "root_height_rmse_m",
+              "value": 0.012478079764037016,
+              "limit": 0.05,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "root_orientation_rmse_rad",
+              "value": 0.056481032901787104,
+              "limit": 0.15,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "nonfoot_ground_force_substeps",
+              "value": 0,
+              "limit": 0,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "joint_velocity_rms_rad_s",
+              "value": 0.0913002302712733,
+              "limit": 0.5,
+              "comparison": "<=",
+              "passed": true
+            }
+          ],
+          "scope": "Fixed reference pose for the recorded full duration and initialization. Separate from dynamic imitation, generalization, commanded locomotion and hardware validation."
+        },
+        "artifact": "runs/task-optimization-20261117c/stand-reset040-xy400-head-h32-evaluations/ckpt_latest/initialization/root-forward-velocity-50mmps.npz",
+        "artifact_sha256": "186dfff7a8b76ea67bcae80b95e325cce12bf72a0116df7e132c63ab34fc4788",
+        "independent_native_replay_bitexact": {
+          "states": true,
+          "physical_contacts": true,
+          "actuator_forces": true
+        }
+      },
+      {
+        "case": {
+          "id": "joint-position-noise-10mrad",
+          "joint_position_noise_std_rad": 0.01,
+          "seed": 2026111708
+        },
+        "controls": 3000,
+        "terminal_failure": null,
+        "metrics": {
+          "root_xy_rmse_m": 0.012168291006187097,
+          "joint_rmse_rad": 0.06799895440707143,
+          "root_height_rmse_m": 0.012530152723355214,
+          "root_orientation_rmse_rad": 0.05630436613528791,
+          "nonfoot_ground_force_substeps": 0,
+          "joint_velocity_rms_rad_s": 0.09551834428215798
+        },
+        "judgement": {
+          "passed": true,
+          "skill": "static-pose-hold",
+          "criteria": {
+            "version": "g1-static-pose-v1",
+            "min_duration_s": 30.0,
+            "max_root_xy_rmse_m": 0.1,
+            "max_joint_rmse_rad": 0.25,
+            "max_root_height_rmse_m": 0.05,
+            "max_root_orientation_rmse_rad": 0.15,
+            "max_nonfoot_ground_force_substeps": 0,
+            "max_joint_velocity_rms_rad_s": 0.5
+          },
+          "checks": [
+            {
+              "name": "completed_motion",
+              "value": true,
+              "passed": true
+            },
+            {
+              "name": "duration_s",
+              "value": 60.0,
+              "limit": 30.0,
+              "comparison": ">=",
+              "passed": true
+            },
+            {
+              "name": "root_xy_rmse_m",
+              "value": 0.012168291006187097,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "joint_rmse_rad",
+              "value": 0.06799895440707143,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "root_height_rmse_m",
+              "value": 0.012530152723355214,
+              "limit": 0.05,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "root_orientation_rmse_rad",
+              "value": 0.05630436613528791,
+              "limit": 0.15,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "nonfoot_ground_force_substeps",
+              "value": 0,
+              "limit": 0,
+              "comparison": "<=",
+              "passed": true
+            },
+            {
+              "name": "joint_velocity_rms_rad_s",
+              "value": 0.09551834428215798,
+              "limit": 0.5,
+              "comparison": "<=",
+              "passed": true
+            }
+          ],
+          "scope": "Fixed reference pose for the recorded full duration and initialization. Separate from dynamic imitation, generalization, commanded locomotion and hardware validation."
+        },
+        "artifact": "runs/task-optimization-20261117c/stand-reset040-xy400-head-h32-evaluations/ckpt_latest/initialization/joint-position-noise-10mrad.npz",
+        "artifact_sha256": "e35f94223b478fe0352b1c82a65f65e54283a0bf3a6dc117b6ce8e7b11687b9c",
+        "independent_native_replay_bitexact": {
+          "states": true,
+          "physical_contacts": true,
+          "actuator_forces": true
+        }
+      }
+    ],
+    "all_independent_native_replays_bitexact": true,
+    "scope": "Known-case model selection on the exact declared9conditions. This is not a generic robustness claim, and perturbed cases were not evaluated for600s or1800s."
+  },
+  "full_default_initialization": {
+    "600": {
+      "passed": true,
+      "reference_sha256": "d6cd16727d2c2a7ced18ff52319debbd351ad340490b1516a9c0640981e45508",
+      "trajectory_sha256": "03247152b74b0a45ca47855d8a69b05400866b6927d9a19d6c16188007d472b7",
+      "metrics": {
+        "root_xy_rmse_m": 0.004109354199888385,
+        "joint_rmse_rad": 0.07091826861052188,
+        "root_height_rmse_m": 0.012678420443272033,
+        "root_orientation_rmse_rad": 0.06393158194508641,
+        "nonfoot_ground_force_substeps": 0,
+        "joint_velocity_rms_rad_s": 0.03075605917463272
+      },
+      "judgement": {
+        "passed": true,
+        "skill": "static-pose-hold",
+        "criteria": {
+          "version": "g1-static-pose-v1",
+          "min_duration_s": 30.0,
+          "max_root_xy_rmse_m": 0.1,
+          "max_joint_rmse_rad": 0.25,
+          "max_root_height_rmse_m": 0.05,
+          "max_root_orientation_rmse_rad": 0.15,
+          "max_nonfoot_ground_force_substeps": 0,
+          "max_joint_velocity_rms_rad_s": 0.5
+        },
+        "checks": [
+          {
+            "name": "completed_motion",
+            "value": true,
+            "passed": true
+          },
+          {
+            "name": "duration_s",
+            "value": 600.0,
+            "limit": 30.0,
+            "comparison": ">=",
+            "passed": true
+          },
+          {
+            "name": "root_xy_rmse_m",
+            "value": 0.004109354199888385,
+            "limit": 0.1,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "joint_rmse_rad",
+            "value": 0.07091826861052188,
+            "limit": 0.25,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "root_height_rmse_m",
+            "value": 0.012678420443272033,
+            "limit": 0.05,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "root_orientation_rmse_rad",
+            "value": 0.06393158194508641,
+            "limit": 0.15,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "nonfoot_ground_force_substeps",
+            "value": 0,
+            "limit": 0,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "joint_velocity_rms_rad_s",
+            "value": 0.03075605917463272,
+            "limit": 0.5,
+            "comparison": "<=",
+            "passed": true
+          }
+        ],
+        "scope": "Fixed reference pose for the recorded full duration and initialization. Separate from dynamic imitation, generalization, commanded locomotion and hardware validation."
+      },
+      "baseline_metrics": {
+        "root_xy_rmse_m": 0.030147462072352353,
+        "joint_rmse_rad": 0.06657450291533189,
+        "root_height_rmse_m": 0.01294819908477808,
+        "root_orientation_rmse_rad": 0.04534647534128928,
+        "nonfoot_ground_force_substeps": 0,
+        "joint_velocity_rms_rad_s": 0.021144766365492923
+      },
+      "assessment_path": "runs/task-optimization-20261117c/stand-reset040-xy400-head-h32-evaluations/ckpt_latest/full600/assessment.json",
+      "assessment_sha256": "830bcfa6a0a8275ff5bdf2f3aa5ba56efa41cfc486ec37be2ea5ef08630e6278"
+    },
+    "1800": {
+      "passed": true,
+      "reference_sha256": "00e93c930b8ec2bc039036dc2f9b706a0820c78af34fec2417abea1e09fa1f67",
+      "trajectory_sha256": "71a064f00270986b1faa3cd4f31a3ed6eccf74c8e45a347bfc39141e3f0a97c6",
+      "metrics": {
+        "root_xy_rmse_m": 0.0032575415481597677,
+        "joint_rmse_rad": 0.07092866582640474,
+        "root_height_rmse_m": 0.01270799933270957,
+        "root_orientation_rmse_rad": 0.06387202703788228,
+        "nonfoot_ground_force_substeps": 0,
+        "joint_velocity_rms_rad_s": 0.01775701904828575
+      },
+      "judgement": {
+        "passed": true,
+        "skill": "static-pose-hold",
+        "criteria": {
+          "version": "g1-static-pose-v1",
+          "min_duration_s": 30.0,
+          "max_root_xy_rmse_m": 0.1,
+          "max_joint_rmse_rad": 0.25,
+          "max_root_height_rmse_m": 0.05,
+          "max_root_orientation_rmse_rad": 0.15,
+          "max_nonfoot_ground_force_substeps": 0,
+          "max_joint_velocity_rms_rad_s": 0.5
+        },
+        "checks": [
+          {
+            "name": "completed_motion",
+            "value": true,
+            "passed": true
+          },
+          {
+            "name": "duration_s",
+            "value": 1800.0,
+            "limit": 30.0,
+            "comparison": ">=",
+            "passed": true
+          },
+          {
+            "name": "root_xy_rmse_m",
+            "value": 0.0032575415481597677,
+            "limit": 0.1,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "joint_rmse_rad",
+            "value": 0.07092866582640474,
+            "limit": 0.25,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "root_height_rmse_m",
+            "value": 0.01270799933270957,
+            "limit": 0.05,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "root_orientation_rmse_rad",
+            "value": 0.06387202703788228,
+            "limit": 0.15,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "nonfoot_ground_force_substeps",
+            "value": 0,
+            "limit": 0,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "joint_velocity_rms_rad_s",
+            "value": 0.01775701904828575,
+            "limit": 0.5,
+            "comparison": "<=",
+            "passed": true
+          }
+        ],
+        "scope": "Fixed reference pose for the recorded full duration and initialization. Separate from dynamic imitation, generalization, commanded locomotion and hardware validation."
+      },
+      "baseline_metrics": {
+        "root_xy_rmse_m": 0.030088994248248156,
+        "joint_rmse_rad": 0.06637784542565009,
+        "root_height_rmse_m": 0.013005234140379317,
+        "root_orientation_rmse_rad": 0.044426034401243174,
+        "nonfoot_ground_force_substeps": 0,
+        "joint_velocity_rms_rad_s": 0.012207936559471942
+      },
+      "assessment_path": "runs/task-optimization-20261117c/stand-reset040-xy400-head-h32-evaluations/ckpt_latest/full1800/assessment.json",
+      "assessment_sha256": "d508ee107e83f7537df3cf9871fe3a23e85a1543735c8f6e1aad0ec389bd6bb2"
+    }
+  },
+  "copied_full600_bitexact": {
+    "states": true,
+    "actions": true,
+    "reference_frame": true,
+    "physical_contacts": true
+  },
+  "first600_of1800_bitexact": {
+    "states": true,
+    "actions": true,
+    "reference_frame": true,
+    "physical_contacts": true
+  },
+  "strict_resume_qualification": {
+    "passed": true,
+    "source_checkpoint": "runs/task-optimization-20261117c/stand-reset040-xy400-head-h32/training/ckpt_latest.pt",
+    "source_checkpoint_sha256": "0c96f5084c427b9c68a5c5a9d437dcc9bfae2dd905c99a0c695d1a46fab2aba3",
+    "source_iteration": 10538,
+    "resumed_iteration": 10602,
+    "source_updates": 4206,
+    "resumed_updates": 4222,
+    "strict_transfer_flag": false,
+    "inherited_reset_noise_scale": 0.4,
+    "other_noise_disabled": true,
+    "inherited_action_head_scope": "action-head",
+    "goal_feedback": true,
+    "source_training_reference": "data/npz/probes/stand120-walk-first-frame.npz",
+    "check_weights_adopted": false,
+    "scope": "Actual64iteration strict CLI continuation, including new optimizer updates and inherited reset-only curriculum. Check weights are not selected for deployment; the accepted original selected actor remains byte-identical."
+  },
+  "source_ci": {
+    "run_id": 44145588576,
+    "url": "https://github.com/chase6305/SuperMimic-Reproduced/actions/runs/44145588576",
+    "head_sha": "abcca82dcc4f95fcdb8f6672b475a3addcc70885",
+    "conclusion": "success",
+    "passed": 777,
+    "skipped": 42,
+    "subtests_passed": 12,
+    "ruff": "passed",
+    "wheel_and_sdist": "passed"
+  },
+  "scope": "Default-initialization600s and1800s checks, plus explicitly recorded60s initialization cases. Only the bounded case coverage is improved; no perturbed600s/1800s, generic recovery or hardware claim. Strict resume requires the reset_noise_scale-aware code and original120s training reference.",
+  "preserved_previous_packets": [
+    "exports/g1-tasks-20261117",
+    "exports/g1-tasks-20261117b"
+  ],
+  "tradeoff": "The new actor reduces XYdrift and improves the declared initialization coverage. Its default-pose joint and root-orientation errors are slightly higher than the original actor, and both remain within the same fixed limits.",
+  "handoff_integrity": {
+    "verified_at_utc": "2026-11-17T18:08:01.120876+00:00",
+    "passed": true,
+    "collections": [
+      {
+        "package": "exports/g1-tasks-20261117",
+        "catalog_sha256": "7c25b7c115ad45f477ce4ad8e50a6d0eeb0e853e38b711caa090518426db5f79",
+        "entries": [
+          {
+            "id": "walk-reference",
+            "entry_sha256": "a56e48ed8dc52da30226fb3286c11e0792ea898457025a67876f492b19cfa2b4",
+            "listed_files": 10,
+            "checkpoint_sha256": "bc95a21eb9b55ba56aafd6b5bd4dc9ba663f19f7f087d674348318243ec633c4",
+            "training_checkpoint_checked": "runs/anchor-final-20261106/training-checkpoint.pt",
+            "status": "simulation-demo"
+          },
+          {
+            "id": "stand-hold",
+            "entry_sha256": "1ae7e64a1c48442a38a78caa90d7ef16095ed55f568f9db59c8bc8738f8baa2b",
+            "listed_files": 11,
+            "checkpoint_sha256": "f47634b0c7dcf13a05788f175b40afe38f5cd7a41426c8046e0f2dce0f75238a",
+            "training_checkpoint_checked": "runs/task-readiness-20261117/stand-full30-pose-decoder-h16/training/ckpt_0028000.pt",
+            "status": "validated-static-hold"
+          },
+          {
+            "id": "jump-preview",
+            "entry_sha256": "483db89b1482ea0537abbc91dff6bd818c60c20407a2262069f7dec791bee6a6",
+            "listed_files": 11,
+            "checkpoint_sha256": "2fd371dc544e4a8eda6c39c4529c6fdca1d1f31fe8b0a3ca39151b9c10cf120a",
+            "training_checkpoint_checked": "runs/task-readiness-20261117/jump-h32-leftfoot100-all/update-0001/checkpoint.pt",
+            "status": "unaccepted-preview"
+          },
+          {
+            "id": "dance-preview",
+            "entry_sha256": "d11a86cd66faefafbfea578f12a52422eb34a05b90c9ab35644b8f85dfb8106a",
+            "listed_files": 11,
+            "checkpoint_sha256": "3735896ba6dc398c5bf36b94202b3ee7b77470f77ddad0759455bd15ea1cbf43",
+            "training_checkpoint_checked": "runs/dance-original-source0d29-WM31200-H16-actual-history-all20-fresh5-20261110/update-0003/checkpoint.pt",
+            "status": "unaccepted-preview"
+          },
+          {
+            "id": "fight-preview",
+            "entry_sha256": "8afbcb6c02ca8b06c83f5a7d804b7c77060216465c779aa3ffe6e39c47b7f80c",
+            "listed_files": 11,
+            "checkpoint_sha256": "eb9a6a00c768fb145c056cb68ac947a503bb52c8de4af5471c6b87f5ff06c5da",
+            "training_checkpoint_checked": "runs/fight-original-source110-WM25200-H32-GAE5-20261110/update-0005/checkpoint.pt",
+            "status": "unaccepted-preview"
+          },
+          {
+            "id": "stand-hold-600",
+            "entry_sha256": "d383651ea16c6daf2febb2793438330b9f29fb10bfe588eac08ce2f0e17288f1",
+            "listed_files": 18,
+            "checkpoint_sha256": "6984a9c7ea58c96834349941e986e3b28f6bddba706448c9c3f690e8f248a5f8",
+            "training_checkpoint_checked": "runs/task-readiness-20261117/stand-height100-xy200-resume/training/ckpt_0012000.pt",
+            "status": "validated-static-hold"
+          }
+        ],
+        "entry_count": 6,
+        "listed_files_verified": 72
+      },
+      {
+        "package": "exports/g1-tasks-20261117b",
+        "catalog_sha256": "6e0439eb75ae538aaff8b35b24dfd3cda7aeef8b429061593220b7ea95d0befd",
+        "entries": [
+          {
+            "id": "jump30",
+            "entry_sha256": "2b844fbf8827b3d9f278f8aa9869a3ad7285f3825c84ac0f2df3d94d262ebeeb",
+            "listed_files": 11,
+            "checkpoint_sha256": "c511d5bffe21965e3ffda9680d636d4558d708b00f8c5b1795e329cb6f136494",
+            "training_checkpoint_checked": "runs/task-optimization-20261117b/jump-full-pose100-decoder-h16/training/ckpt_0005000.pt",
+            "status": "strict-skill-pass"
+          },
+          {
+            "id": "jump120",
+            "entry_sha256": "7d718f98e62e0450377f81357e47b50775e9ac831ff0e2a30c73930f5c2f75b8",
+            "listed_files": 11,
+            "checkpoint_sha256": "a4db166b41d4361cd121fae3941c8ce9327d454df24d6a4154b5e8d79dccc746",
+            "training_checkpoint_checked": "runs/task-optimization-20261117b/jump-pose100-stance200-resume/training/ckpt_latest.pt",
+            "status": "strict-skill-pass"
+          }
+        ],
+        "entry_count": 2,
+        "listed_files_verified": 22
+      },
+      {
+        "package": "exports/g1-tasks-20261117c",
+        "catalog_sha256": "992a0ab3f8764fa742f31bcea29afab6328a20b0e940d1f6e5bd9c9cb67e60a2",
+        "entries": [
+          {
+            "id": "stand-hold-600-reset040",
+            "entry_sha256": "236e0304fa7fbd0deaeb63a6793bc7fe63c2c6ecba0537f6e243766f0acc9a3a",
+            "listed_files": 33,
+            "checkpoint_sha256": "0c96f5084c427b9c68a5c5a9d437dcc9bfae2dd905c99a0c695d1a46fab2aba3",
+            "training_checkpoint_checked": "runs/task-optimization-20261117c/stand-reset040-xy400-head-h32/training/ckpt_latest.pt",
+            "status": "validated-static-hold"
+          }
+        ],
+        "entry_count": 1,
+        "listed_files_verified": 33
+      }
+    ],
+    "total_entries": 9,
+    "total_listed_files_verified": 127,
+    "all_source_training_checkpoints_verified": true,
+    "previews": [
+      {
+        "manifest": "exports/g1-tasks-20261117b/previews/jump120-manifest.json",
+        "manifest_sha256": "7fc7459d6f2dd5431dbf3d3e19de545431fe67e14b7ae1d9c1c190c7a90e9675",
+        "video_sha256": "755a04a390ebcd12ebf389b6944f903c0ef400b1d577a85bb632e835b85ee8d5",
+        "seconds": 120,
+        "segments_checked": 2
+      }
+    ],
+    "scope": "File identity, catalog consistency and existing recorded physical evidence only; this does not introduce an additional physical quality claim."
+  },
+  "frozen_policy_audit": {
+    "passed": true,
+    "source_checkpoint": "runs/task-readiness-20261117/stand-height100-xy200-resume/training/ckpt_0012000.pt",
+    "selected_checkpoint_sha256": "0c96f5084c427b9c68a5c5a9d437dcc9bfae2dd905c99a0c695d1a46fab2aba3",
+    "frozen_tensor_count": 20,
+    "only_changed_tensor_keys": [
+      "decoder.mlp.net.8.bias",
+      "decoder.mlp.net.8.weight"
+    ],
+    "all_other_actor_tensors_bitexact": true
+  }
+}

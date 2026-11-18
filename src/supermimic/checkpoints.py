@@ -30,6 +30,60 @@ class CheckpointRead:
     sha256: str | None
 
 
+def validate_optimizer_resume(checkpoint: Mapping[str, Any]) -> None:
+    """Reject explicitly stale or unverified optimizer state before strict restore.
+
+    Some experimental artifacts materialize new weights while retaining their
+    source Adam history for forensics. Only the latest declarations apply;
+    historical parent provenance must not invalidate a fresh optimizer chain.
+    Legacy archives with the standard optimizer layout retain their behavior.
+    """
+    invalid = []
+    for block, field, label in (
+        ("native_policy_improvement", "policy_optimizer_resume_valid", "policy"),
+        ("native_policy_improvement", "critic_optimizer_resume_valid", "critic"),
+        ("native_dynamics_calibration", "optimizer_resume_valid", "world model"),
+    ):
+        metadata = checkpoint.get(block)
+        if not isinstance(metadata, Mapping) or field not in metadata:
+            continue
+        value = metadata[field]
+        if type(value) is not bool:
+            raise ValueError(f"Checkpoint {block}.{field} must be boolean")
+        if not value:
+            invalid.append(label)
+    metadata = checkpoint.get("native_dynamics_calibration")
+    if isinstance(metadata, Mapping) and "optimizer_correspondence_not_proved" in metadata:
+        value = metadata["optimizer_correspondence_not_proved"]
+        if type(value) is not bool:
+            raise ValueError("Checkpoint optimizer_correspondence_not_proved must be boolean")
+        if value and "world model" not in invalid:
+            invalid.append("world model")
+    if invalid:
+        raise ValueError(
+            "Checkpoint declares stale or unverified "
+            + ", ".join(invalid)
+            + " optimizer state; use --transfer for weights with fresh optimizers"
+        )
+    # Standard trainers construct one Adam group each. A calibrated checkpoint
+    # may have valid moments but a different grouping, which Adam cannot load.
+    # Diagnose that before allocating the simulator or changing any weights.
+    for key, label in (
+        ("wm_opt", "world model"),
+        ("policy_opt", "policy"),
+        ("critic_opt", "critic"),
+    ):
+        state = checkpoint.get(key)
+        if not isinstance(state, Mapping) or "param_groups" not in state:
+            continue
+        groups = state["param_groups"]
+        if not isinstance(groups, (list, tuple)) or len(groups) != 1:
+            raise ValueError(
+                f"Checkpoint {label} optimizer parameter groups differ from the single group "
+                "required by the standard trainer; use --transfer for weights with fresh optimizers"
+            )
+
+
 @dataclass(frozen=True)
 class ActorCheckpointRead:
     actor: Policy
@@ -44,14 +98,19 @@ def read_actor_checkpoint(path: Path | str, *, fingerprint: bool = False) -> Act
     weights and metadata own their storage, so subsequent source changes cannot
     alter the actor or its provenance after the reader's final verification.
     """
+
     def restore(data):
         if not isinstance(data, dict):
             raise ValueError("Expected a checkpoint dictionary")
         metadata = {
             key: deepcopy(data[key])
             for key in (
-                "config", "iteration", "control_contract", "motion_files",
-                "anchor_adaptation", "transfer_provenance",
+                "config",
+                "iteration",
+                "control_contract",
+                "motion_files",
+                "anchor_adaptation",
+                "transfer_provenance",
             )
             if key in data
         }
@@ -83,9 +142,7 @@ def read_checkpoint(
     Pickle loading remains enabled for existing training checkpoints: inputs must
     be trusted, as at the training, migration and export entry points.
     """
-    loaded = read_torch_archive(
-        path, mmap=mmap, fingerprint=fingerprint, max_bytes=max_bytes
-    )
+    loaded = read_torch_archive(path, mmap=mmap, fingerprint=fingerprint, max_bytes=max_bytes)
     if not isinstance(loaded.data, dict):
         raise ValueError("Expected a checkpoint dictionary")
     return CheckpointRead(loaded.data, loaded.sha256)

@@ -1,0 +1,28 @@
+{
+  "source_head_before_fix": "e99d00e9c43fb374a8bb0d290bcd95bd1dfb5d81",
+  "target": "tests/test_training_episode_protocol.py::test_restored_anchor_feedback_is_in_the_planned_training_config",
+  "before": {
+    "failed": 2,
+    "passed": 2,
+    "deselected": 17,
+    "seconds": 0.68,
+    "failure": "anchored strict resume and transfer serialize policy_trainer.anchor_obs=False although the inherited env interface isTrue; unanchored cases pass."
+  },
+  "fix": "Restore policy_trainer.anchor_obs from the already inherited env.anchor_obs before publishing the planned training configuration. Trainer already did this later; actor/control numerics are unchanged.",
+  "after": {
+    "local_related_tests_passed": 26,
+    "seconds": 0.68,
+    "ruff": "passed",
+    "CI": {
+      "head": "f8a917a",
+      "run_id": 44107567092,
+      "url": "https://github.com/chase6305/SuperMimic-Reproduced/actions/runs/44107567092",
+      "passed": 751,
+      "skipped": 42,
+      "subtests": 12,
+      "seconds": 46.96,
+      "ruff": "passed",
+      "wheel_and_sdist": "passed"
+    }
+  }
+}

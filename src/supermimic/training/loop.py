@@ -98,6 +98,7 @@ class Trainer:
                 action_noise_std=cfg.env.action_noise_std,
                 obs_noise=cfg.env.obs_noise,
                 reset_noise=cfg.env.reset_noise,
+                reset_noise_scale=cfg.env.reset_noise_scale,
                 domain_randomization=cfg.env.domain_randomization,
                 sampling_mode=cfg.env.sampling_mode,
                 replay_capacity=cfg.env.replay_capacity,
@@ -213,6 +214,10 @@ class Trainer:
         # materializing every optimizer tensor before moving the needed state to CUDA.
         loaded = read_checkpoint(path, mmap=True, fingerprint=transfer)
         ck = loaded.data
+        if not transfer:
+            from supermimic.checkpoints import validate_optimizer_resume
+
+            validate_optimizer_resume(ck)
         if (
             not transfer
             and ck.get("motion_files") is not None

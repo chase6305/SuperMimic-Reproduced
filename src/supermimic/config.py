@@ -138,6 +138,7 @@ class EnvCfg:
     completion_aware_sampling: bool = False
     priority_windows_s: tuple[tuple[float, float], ...] = ()
     priority_reset_ratio: float = 0.0
+    reset_noise_scale: float = 1.0
 
 
 @dataclass
