@@ -22,6 +22,7 @@ from supermimic.deployment.evidence import (
     verify_artifact_identity,
     verify_control_dt,
 )
+from supermimic.deployment.initialization import InitialPerturbation
 from supermimic.deployment.trajectory import (
     Trajectory,
     open_trajectory,
@@ -95,6 +96,29 @@ def open_assessment_inputs(
         model_sha = snapshot_file(
             bundle / "model.mjb", pinned_model, expected_sha256=contract["files"]["model.mjb"]
         )
+        initial_evidence = {}
+        initial_fields = ("initialization", "initialization_sha256", "actuator_forces_sha256")
+        if any(field in result for field in initial_fields):
+            if any(field not in result for field in initial_fields):
+                raise ValueError(
+                    "Initial-state evidence requires a declaration and both fingerprints"
+                )
+            declared = InitialPerturbation.from_mapping(result["initialization"])
+            for filename, field in (
+                ("initialization.npz", "initialization_sha256"),
+                ("actuator-forces.npz", "actuator_forces_sha256"),
+            ):
+                if not isinstance(result[field], str):
+                    raise ValueError("Initial-state evidence requires string fingerprints")
+                snapshot_file(
+                    run / filename, Path(temporary) / filename, expected_sha256=result[field]
+                )
+            initial_evidence["initial_state_evidence"] = {
+                "declaration": declared.as_dict(),
+                "integration_state_sha256": result["initialization_sha256"],
+                "actuator_forces_sha256": result["actuator_forces_sha256"],
+                "scope": "Files match recorded hashes; native replay is a separate check.",
+            }
         with open_motion(pinned_motion) as (data, info):
             names = tuple(data["body_names"].tolist())
             positions, quaternions = data["body_pos_w"], data["body_quat_w"]
@@ -129,6 +153,7 @@ def open_assessment_inputs(
                 quaternions=quaternions,
                 motion_frames=motion_frames,
                 evidence={
+                    **initial_evidence,
                     "artifact_identity": identity,
                     "contract_sha256": contract_sha,
                     "result_sha256": result_sha,

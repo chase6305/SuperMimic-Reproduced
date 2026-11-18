@@ -1,0 +1,235 @@
+{
+  "schema": "g1-static-initialization-v1",
+  "cases": [
+    {
+      "id": "baseline",
+      "perturbation": {}
+    },
+    {
+      "id": "rotation-1-minus",
+      "perturbation": {
+        "root_world_rotation_vector_rad": [
+          0,
+          -0.03,
+          0
+        ]
+      }
+    },
+    {
+      "id": "rotation-1-plus",
+      "perturbation": {
+        "root_world_rotation_vector_rad": [
+          0,
+          0.03,
+          0
+        ]
+      }
+    },
+    {
+      "id": "rotation-2-minus",
+      "perturbation": {
+        "root_world_rotation_vector_rad": [
+          0,
+          0,
+          -0.05
+        ]
+      }
+    },
+    {
+      "id": "rotation-2-plus",
+      "perturbation": {
+        "root_world_rotation_vector_rad": [
+          0,
+          0,
+          0.05
+        ]
+      }
+    },
+    {
+      "id": "velocity-0-minus",
+      "perturbation": {
+        "root_linear_velocity_delta_m_s": [
+          -0.05,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "velocity-1-minus",
+      "perturbation": {
+        "root_linear_velocity_delta_m_s": [
+          0,
+          -0.05,
+          0
+        ]
+      }
+    },
+    {
+      "id": "velocity-1-plus",
+      "perturbation": {
+        "root_linear_velocity_delta_m_s": [
+          0,
+          0.05,
+          0
+        ]
+      }
+    },
+    {
+      "id": "body-roll-velocity-minus",
+      "perturbation": {
+        "root_body_angular_velocity_delta_rad_s": [
+          -0.05,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "body-roll-velocity-plus",
+      "perturbation": {
+        "root_body_angular_velocity_delta_rad_s": [
+          0.05,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "joint-seed-2026111801",
+      "perturbation": {
+        "joint_position_noise_std_rad": 0.01,
+        "seed": 2026111801
+      }
+    },
+    {
+      "id": "joint-seed-2026111802",
+      "perturbation": {
+        "joint_position_noise_std_rad": 0.01,
+        "seed": 2026111802
+      }
+    },
+    {
+      "id": "joint-seed-2026111803",
+      "perturbation": {
+        "joint_position_noise_std_rad": 0.01,
+        "seed": 2026111803
+      }
+    },
+    {
+      "id": "joint-seed-2026111804",
+      "perturbation": {
+        "joint_position_noise_std_rad": 0.01,
+        "seed": 2026111804
+      }
+    },
+    {
+      "id": "combined-0-0",
+      "perturbation": {
+        "root_translation_m": [
+          -0.015,
+          -0.015,
+          0
+        ],
+        "root_world_rotation_vector_rad": [
+          -0.02,
+          -0.015,
+          0
+        ],
+        "root_linear_velocity_delta_m_s": [
+          -0.025,
+          -0.025,
+          0
+        ],
+        "joint_position_noise_std_rad": 0.005,
+        "seed": 2026111805
+      }
+    },
+    {
+      "id": "combined-0-2",
+      "perturbation": {
+        "root_translation_m": [
+          -0.015,
+          0.015,
+          0
+        ],
+        "root_world_rotation_vector_rad": [
+          0.02,
+          -0.015,
+          0
+        ],
+        "root_linear_velocity_delta_m_s": [
+          -0.025,
+          0.025,
+          0
+        ],
+        "joint_position_noise_std_rad": 0.005,
+        "seed": 2026111805
+      }
+    },
+    {
+      "id": "combined-2-0",
+      "perturbation": {
+        "root_translation_m": [
+          0.015,
+          -0.015,
+          0
+        ],
+        "root_world_rotation_vector_rad": [
+          -0.02,
+          0.015,
+          0
+        ],
+        "root_linear_velocity_delta_m_s": [
+          0.025,
+          -0.025,
+          0
+        ],
+        "joint_position_noise_std_rad": 0.005,
+        "seed": 2026111805
+      }
+    },
+    {
+      "id": "combined-2-2",
+      "perturbation": {
+        "root_translation_m": [
+          0.015,
+          0.015,
+          0
+        ],
+        "root_world_rotation_vector_rad": [
+          0.02,
+          0.015,
+          0
+        ],
+        "root_linear_velocity_delta_m_s": [
+          0.025,
+          0.025,
+          0
+        ],
+        "joint_position_noise_std_rad": 0.005,
+        "seed": 2026111805
+      }
+    },
+    {
+      "id": "height-minus",
+      "perturbation": {
+        "root_translation_m": [
+          0,
+          0,
+          -0.005
+        ]
+      }
+    },
+    {
+      "id": "height-plus",
+      "perturbation": {
+        "root_translation_m": [
+          0,
+          0,
+          0.005
+        ]
+      }
+    }
+  ]
+}

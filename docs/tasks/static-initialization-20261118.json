@@ -1,0 +1,2695 @@
+{
+  "status": "baseline_comparison_complete_optimization_in_progress",
+  "window": {
+    "start_utc": "2026-11-18T10:46:53Z",
+    "deadline_utc": "2026-11-18T14:46:53Z",
+    "branch": "feat/reproducible-static-initialization",
+    "base": "perf/runtime-memory-lifecycle",
+    "base_sha": "35cbc85",
+    "objective": "New PR; reproducible static initialization evidence and further evidence-directed optimization",
+    "status": "active"
+  },
+  "evaluation_scope": "Each condition runs the full60s static reference with the same actor/PD/model and unchangedg1-static-pose-v1 thresholds, no autoreset. Before any new training: original6984 actor18/20, reset040 actor15/20; reset040 also reproduces its original9/9 selected cases. All completed; failures are XY quality failures. The20case plan was fixed before both first evaluations. It becomes a development plan once these results guide selection; no later heldout claim for candidate selection.",
+  "plans": [
+    {
+      "path": "experiments/static-initialization/heldout-20261118.json",
+      "sha256": "d2a95e7cddc72c4b1f843527060f937404569039f76573a0bf1c13931f42003e"
+    },
+    {
+      "path": "experiments/static-initialization/selected-20261117c.json",
+      "sha256": "2533c92800bf0e69510194a6472fd78f171585b9b6668c41cb90b55214399197"
+    }
+  ],
+  "baselines": [
+    {
+      "name": "static-reset040-selected-reproduction",
+      "checkpoint_sha256": "0c96f5084c427b9c68a5c5a9d437dcc9bfae2dd905c99a0c695d1a46fab2aba3",
+      "contract_sha256": "8d266a6e14b3bcdafcd8990602d1201092b187e0746a349e88a616522f59f522",
+      "motion_sha256": "6c411dde2268808e842245af3334eff6232f8e18b9035fa93d2c47b70ff0913a",
+      "plan_sha256": "2533c92800bf0e69510194a6472fd78f171585b9b6668c41cb90b55214399197",
+      "seconds_per_case": 60.0,
+      "cases": 9,
+      "passes": 9,
+      "criteria": {
+        "version": "g1-static-pose-v1",
+        "min_duration_s": 30.0,
+        "max_root_xy_rmse_m": 0.1,
+        "max_joint_rmse_rad": 0.25,
+        "max_root_height_rmse_m": 0.05,
+        "max_root_orientation_rmse_rad": 0.15,
+        "max_nonfoot_ground_force_substeps": 0,
+        "max_joint_velocity_rms_rad_s": 0.5
+      },
+      "records": [
+        {
+          "id": "baseline",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.0,
+            "seed": 0
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.009405653868320766,
+            "joint_rmse_rad": 0.07015702356258745,
+            "root_height_rmse_m": 0.012363950003809996,
+            "root_orientation_rmse_rad": 0.06175312016146299,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.09725919177666323
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "baead3c4f33f1388ace42efa035dee0b0f97d35db32f0aeb7f38d56a5e007f2b",
+          "initialization_sha256": "805fb04cfb4a6d0f774edd99c1f65c2801045e2e94ee94a336919ee04354e751",
+          "actuator_forces_sha256": "144785f7b831998aa87c65b56edd584cdbd82dc0021c5217f3a1f72951663662",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "693cc17a837d5a1cd7f5efbe1ec3f6612f7cf9de9b2b942a388fcd2ebe0d06a1"
+        },
+        {
+          "id": "root-x--1-20mm",
+          "initialization": {
+            "root_translation_m": [
+              -0.02,
+              0.0,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.0,
+            "seed": 0
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.015584287718097684,
+            "joint_rmse_rad": 0.06748414061894857,
+            "root_height_rmse_m": 0.012359346780807617,
+            "root_orientation_rmse_rad": 0.05571914096958153,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.10823001902081016
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "f27944beba10808f1716cc11a327d40ce3a1c3fd2cfbed3c169ec79fb2dc2acc",
+          "initialization_sha256": "324b0d99092ecbe5f6a6bdcb67eb7c693a5badb5f1f18800be0ede6157ced9a8",
+          "actuator_forces_sha256": "d04e8485394bb8dae7d42a03ccae0ccdec62f566e96e4d9dd2ec2c0d44590c09",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "5850ea4d53810e00bc77e3707164031b6ff8293355b11c2008b6c23aa42d4cd3"
+        },
+        {
+          "id": "root-x-p1-20mm",
+          "initialization": {
+            "root_translation_m": [
+              0.02,
+              0.0,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.0,
+            "seed": 0
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.023528220974504813,
+            "joint_rmse_rad": 0.06950548926792834,
+            "root_height_rmse_m": 0.012542937686077305,
+            "root_orientation_rmse_rad": 0.059293291772617995,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.09722678218865728
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "7c56cd033bf37f5b64f904c76fcc67d9b6d944685927447428b4067a76df86d4",
+          "initialization_sha256": "27c3392a991669660611c613723b6701a034ac8ce6ee3b60fb7e8cf28aa1798a",
+          "actuator_forces_sha256": "1a8a7067995f8b3900fda04de274f5ffe4cf07933ca60eb4759f96b0909b79cc",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "59e7fbc3d0768d19b3da9a7e3d230ec511b3d6cbee013a683e3b7e9286f4e5fb"
+        },
+        {
+          "id": "root-y--1-20mm",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              -0.02,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.0,
+            "seed": 0
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.017221476482995816,
+            "joint_rmse_rad": 0.06511580618620234,
+            "root_height_rmse_m": 0.012214750100813587,
+            "root_orientation_rmse_rad": 0.043115538290459034,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.14873918387840435
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "9242de0e01a87b7c7b43ee69842c389b5a1b9c8e50fcfd56dc53ed778d13ff1e",
+          "initialization_sha256": "ec554b6d165dc049a903bbd3ff4804b855a5fe404519cfe974d43a9e8cead947",
+          "actuator_forces_sha256": "b5c4ece93f57dbebd7f53d9df41109b15538d395ee12fba88f4c713231b5c9d5",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "bb0d5e65a5529478315a7aeed96a2e32cfd0e48d26736bc4641f74fed5596c3e"
+        },
+        {
+          "id": "root-y-p1-20mm",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.02,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.0,
+            "seed": 0
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.01194723736094851,
+            "joint_rmse_rad": 0.06953430723697204,
+            "root_height_rmse_m": 0.012650650181513316,
+            "root_orientation_rmse_rad": 0.058597638165493814,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.10327430592641075
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "2cef8e862f6898622b192fa5acb574db06d2eb1544686e3740905dadfa024733",
+          "initialization_sha256": "752b66fdd940ad86a7aae22569ab5fe4aac04c1e92d4a1781df0b2d05372ba16",
+          "actuator_forces_sha256": "97367817263a9e56e1922c8a3ce2ffad8b978bb8472773a720c1c6405c2a41ce",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "7edbbbc100f8b5536316e0997d160a1be3d2f4b1cffefaf2ddfae5838ae45227"
+        },
+        {
+          "id": "root-roll--1-30mrad",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              -0.03,
+              0.0,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.0,
+            "seed": 0
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.015949007503598837,
+            "joint_rmse_rad": 0.06769357915829888,
+            "root_height_rmse_m": 0.012623294351349507,
+            "root_orientation_rmse_rad": 0.05607337335140629,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.10039095713656264
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "e3d5ab0c96e0f2c7d4b006c7bb9227bbda4c07bfafd010f51fcfd92464a2d81e",
+          "initialization_sha256": "2cef41a13314a805c76427dc160277618c94aa219c1556dad4fc739b43e98174",
+          "actuator_forces_sha256": "be111257d0429eaa72ab1d8ae59c6aed4dabdadcf2e85f1bebf98ec6c9bd2f56",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "9ced5f75ab509c57211f9ed3427c1b59afed5eef040245f7dcc8f70329f1fcbe"
+        },
+        {
+          "id": "root-roll-p1-30mrad",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.03,
+              0.0,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.0,
+            "seed": 0
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.05243686396917939,
+            "joint_rmse_rad": 0.06365426979077786,
+            "root_height_rmse_m": 0.012375446164077045,
+            "root_orientation_rmse_rad": 0.045071368428348635,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.11740564871665896
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "0a7805c169e12577d2106d7c8a4f5381405fb4ce5856e4fa46f4beb286fd8b04",
+          "initialization_sha256": "bf890eee9899450744efa6bca3d4c8030eef03bfc88c375f50cf8990fc6dc6cd",
+          "actuator_forces_sha256": "c76292faae15ed3ac164125e62d3cf4bc48280a3b24a333274c7c516096aa870",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "f24aabc5f646f887adf8f1a3d8f48db4a14b930813e8df55197e9ce7c164e921"
+        },
+        {
+          "id": "root-forward-velocity-50mmps",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.05,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.0,
+            "seed": 0
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.016941831575480768,
+            "joint_rmse_rad": 0.0679074265046993,
+            "root_height_rmse_m": 0.012478079764037016,
+            "root_orientation_rmse_rad": 0.056481032901787104,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.0913002302712733
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "566a589723a527090b2f4ba2c0520f93c3284f3932d7d468983218012945749d",
+          "initialization_sha256": "c1f4b71a1da6e1ee8fe01cfa463c01676eed8473037b772edf309f49f7eb04d2",
+          "actuator_forces_sha256": "91536631b22faa962463a2dff18ee69e4240ec951cc048d28cb22a7192bed8f0",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "e3ecd1f09ca0e2bb2b1a41892e3f5f6c2b1dee2083b1a75db061ff220d20b561"
+        },
+        {
+          "id": "joint-position-noise-10mrad",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.01,
+            "seed": 2026111708
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.012168291006187097,
+            "joint_rmse_rad": 0.06799895440707143,
+            "root_height_rmse_m": 0.012530152723355214,
+            "root_orientation_rmse_rad": 0.05630436613528791,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.09551834428215798
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "d942bf142ccbbd421e9452e73ee90525221b238c92b4e8464a0d5aa7bd8157f9",
+          "initialization_sha256": "01d839a277ccb7d29f883b35340fd7a29540d928fdad095c62909c456c24979d",
+          "actuator_forces_sha256": "ecdeb313b87b794e231f9900de1400302331e968b4d9eabf73a89dc31ca3ab2f",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "90b892db70318f3e66154fdcc7d87cb7c827ba4c61939845cb2e5be23e404ca6"
+        }
+      ],
+      "local_complete_report": "runs/task-optimization-20261118/static-reset040-selected-reproduction/result.json",
+      "local_complete_report_sha256": "7dcc34888d77196c51feaed0bc63b9feb8e35b4638c422469ffccdaa6006f4c2",
+      "implementation_package_sha256": {
+        "__init__.py": "125f22c257d97507d23ebfb893b5afc51031273f46c9dbbc079800df93064111",
+        "__main__.py": "ac0f44f47d38cac6daa194e73602db7db034c728c2f360d669c67e6a6ec3f8be",
+        "artifacts.py": "5aa508b4f7355f89904934129100b17731baab39098221bdecacbd674eb28349",
+        "checkpoints.py": "990a98a70cac1513287b4cd4fab2ba1e2ec966ce2e981c25c0841f0c71d18102",
+        "cli.py": "eb97f5c580ed5c20b13b332a844cdcb39b6b87ce88324f1cebc7897218d40518",
+        "config.py": "47e8f13e14dcac7cafbfa1e1c17e8acd953daa703c7c72fe396e202652b36b89",
+        "cpu_resources.py": "ac986e3406b1e9b5d4659a5b5868b3d20f88d31af029fedfd8d6b4eb7bd83c64",
+        "data/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "data/discovery.py": "ea2d16c4048501a2b32b6f2ced6c695a09e12ddad479fab68688d30adbe6c055",
+        "data/loading.py": "ed79289c90e7e9b30363d29ab9ba144521a564f878d1e02d83e6d7e95bbadb8d",
+        "data/motion_convert.py": "2c92ea0b20aea428c0d12df30a357a94971b7c98ad791b6b725e720b95ce096a",
+        "data/motion_library.py": "26f7193c2ee35a32abff657ea9d3c4287f79f915533b813ce1c00401f8e4482f",
+        "data/packed.py": "510f3449207ff2e708c102ab32917de9b4361fe40688f0fc9bf06c616a515689",
+        "data/packing.py": "7495a73bfe50903a07857eb99613d4a0607b2a4084f769bcd152d7f81cf4b24e",
+        "data/preparation.py": "6141bd34f161d7173e89aa45cf521385e60176d84a968c39ef70bf48e3c73ed2",
+        "data/recorded_replay.py": "e48ef0ff1ce50adc2929c9fa8953cb1cc46f85a9168b3698e83a0c35c594a3e0",
+        "data/recorder.py": "f6d178e071598347c79905d1421394f1581aacb33f121968afcb8b39677d9a8c",
+        "data/reference.py": "522d632c06916f292f41d4319ab1e73446038aaf2eb922d9e3e5b384ba2d85f8",
+        "data/replay_buffer.py": "ad3a7acd4d1016bd9a931b68b8eec9b00716ffe2c3d0ba9874f9373f59232a6a",
+        "data/schema.py": "b89df1028a5f447ea7b3626447974b38e8dba447da8965eb62a751e22a9773ff",
+        "deployment/__init__.py": "68dd3e550f8ced1c99b9207e614c54c2f96f400b0b7010ac33aaeed3fff2a0e5",
+        "deployment/action_replay.py": "b0d4c293604d23fb48026c96893a626cac826951577dcca7f4dc479163610738",
+        "deployment/assessment.py": "4fa35f266290f1e82d4b30540f10055772f8f97a9ec5d5ae3548cae47eb9923c",
+        "deployment/contract.py": "752dbeec7977700921845fc062621a57e6a8b171b5d59a1c412bf5147ebe3442",
+        "deployment/core.py": "6ac85c65b771f180f994ff163c66017f4a135cabab714ac4c3512a26c373201a",
+        "deployment/evidence.py": "9c0c90efb49dc2f533c13d8799f16bed5f926214d8f4109de179902fe01e0f34",
+        "deployment/export.py": "174b0130bfebe38f1b8962f84c72cc8d4188370f9a07dba5e7a2b8dcffbbdeb7",
+        "deployment/initialization.py": "481b8e48ea7782e75c3fd366debf93a308c33d7a492b664be54addcd2c9382d1",
+        "deployment/metrics.py": "5af6f3ff9e43a25cd249ae2f457782459a5efe660abeb5e6488bf59bcb35c62d",
+        "deployment/mujoco.py": "ee2ef79ae8b601335ae0053f11bc68fed674ec7cf4cd1734f77e68fcfffad1c7",
+        "deployment/play.py": "952b3cebf05bb7f6a4797b3ba818ba6580d1a3b19f67d6168eb7ccb5d4fb5bc7",
+        "deployment/reference.py": "957feae98242f965547f232c14a8e89311b7da8026958dde3384074ff5922f59",
+        "deployment/render.py": "766d90f00398ceee3734be30131ef12dea484482ef6f3d6370654657fa177fe0",
+        "deployment/tracking_metrics.py": "8e7ccba3cfe7256e721bf9a4721807e9c4ba694cd0eb0cd93dea56e9eec6ab72",
+        "deployment/trajectory.py": "d35e5e0c760548f4ac4823ceef9a141bee141163c11505b4d603566a8fc0f184",
+        "deployment/validation.py": "2b1b8c4c6973f6ecbdce176029741669d7d658d79f328dd19d2be18f188bdfc2",
+        "envs/__init__.py": "404a78d581d3ef593bdcd2d44a27da80f05078c58ed7d3e4835517c0a3d20414",
+        "envs/actions.py": "531ec95fdcda4f98c50a16fa4dd9c448ef645b10753f595d95e95decf220216c",
+        "envs/mdp/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "envs/mdp/commands.py": "cab877da3ba3e2614d31356bb0f8dc3fbfab9660959bb7ee8faa644b70277e60",
+        "envs/mdp/motion_library.py": "d06c3117339847dad09cd78306a3df47ddc68f2ad5aa1e9e3aa78a6f71166306",
+        "envs/mdp/observations.py": "7783bc1715269b4c011a2492557716e2ed59a7de7869452a64d748c6e1e94cea",
+        "envs/mdp/rewards.py": "d5c2edc671f1ab16c563942f2a5cf27175d3f76475e2bbaff1ba09aa48b642da",
+        "envs/mdp/sampling.py": "00bd42a172a78a75b8094c04c0adbbcbbdce5b8570e2bebde02d9b7ef1234fb9",
+        "envs/mdp/terminations.py": "e16ee034c3509a5f66984804a9daca658d5203ba0dfff4b712204392ff0fd6c0",
+        "envs/physics_audit.py": "115508a59cea024297a367d0a6357f1f3d031ee513a5191831568f2a4ba2df5c",
+        "envs/sim_context.py": "f4625f44be7fbf492499dad811f6b964ce67864ef20b0547a9de86354f97581f",
+        "envs/state_io.py": "59d119ec4c7bee6403d0f8dddc4237c8d8a32cc6054711afbb3ae7ff683fb4b6",
+        "envs/tracking_env_cfg.py": "70cf1d5a029da25b25a92cf38599984c7907dd4eb0eb5ff6ebc2c6711ca21e21",
+        "eval/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "eval/acceptance.py": "c1432354083bf95ac063c91e39a02f06fb10446d0bf20c263b16841931bdfe1c",
+        "eval/benchmark.py": "f870fa9bcb19b9b738e3521992f6f202245b6797a60c2f92be13f812296b02fb",
+        "eval/quality.py": "a6b5c11dc7f8f7a897be9e054ba92f49f6b2c8395ef3ffe4f7b59dde8bbf16a6",
+        "eval/static_hold.py": "e49bca273ad944ba375eebb4fb3718ec4fce97bbaf8653c8e5f455e673d4de9c",
+        "eval/static_initialization.py": "caf9c2934c0573777ddcb8f2bdf22faf1a0e95ae17631dfa6d43dbfdec9e4c70",
+        "imagination/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "imagination/compiled.py": "d28e79db68d4381f6a06cd0972e7c1de7215d5db5d68a2d01241adf135ab4d6c",
+        "imagination/foot_support.py": "8746378b0bdcdcb087e8578f081f87b0d573dbf985390dbf5f2eadf52c56c8d5",
+        "imagination/objective.py": "00d1cf396943cc169183ac7642f5742f2cfd5f054d0128c84b93cb3eed7bb3e3",
+        "imagination/policy_trainer.py": "7f4d126a7d84171adf5101c8183206bc44aa5e4f53059f63784f5b520c354438",
+        "imagination/rollout.py": "8c56fce22f41c260cd0d479a85a05312e8c58968a91887615eca205f8d9557fd",
+        "imagination/tracking.py": "35ed07f2833dfbbecce0a25f4bad48061f5d09cf81212a9dced7659159203b69",
+        "interfaces.py": "5f15734d0d4502877d5912d856d5bc1d205b7fba211e8bdcefd350d233f283db",
+        "kinematics/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "kinematics/g1_fk.py": "712f500323942a2c115b97dd10cc826be6746cf26c8ac253d3dede54354638f5",
+        "kinematics/rotations.py": "927b4227b790e70f91e6c5b871a0022cb0e9a88fbcacabcfd9247a3b4bd991b4",
+        "memory.py": "bc51fc63a8f8b875caab94e95d90c0e8de5e4c01c53d430de94be5445b294eee",
+        "numpy_io.py": "4ad5ee43bbf0d5c94953b6ab63a3d5619b523843b6f6f5eebc6477cd1e706253",
+        "policy/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "policy/nets.py": "69d4b43f5b71b0f15f82e7b1144d2556cf7781398fa3e4c0a3ad91310deb5706",
+        "profiles.py": "5fab9ac0721e54565435727c6732ad791c6da4a77f1cc3a01befe394ab65414c",
+        "resources.py": "7a974620a22c45ab340a39db2d1c64c04ea30731ee1b2f9c2cd28c24128653ad",
+        "runtime.py": "41394b0a6e1c6a681a3efa53f9fdc477ea852f7f37dce164c25f0f354393bb0b",
+        "scripts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "scripts/train.py": "0571c73de2683e242de73845be125f780fe79b1e12225d95cfdaf82a4be0fc86",
+        "supervisor.py": "e9efdb03028950fdf99d45749d6c738308eb2db525420afe4982a1bc71164b40",
+        "torch_io.py": "fa9c4d78e7a6bf1d51fa1f6932377c1dbe07aabbb48fc4e390fa494608bdea3b",
+        "training/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "training/anchor.py": "2fadfa0b4212a724bbab84a9f99d0e5359d3b46a7319064050c07dfbac8e6eb2",
+        "training/distributed.py": "040d192d0374aea2e803b1ec2f071f689a610f41e5ccb57ad9624c5a95848277",
+        "training/loop.py": "0c4b1b1696e232ce9320be137a6b239be7e8547cd060f59279cd794f63cb7e55",
+        "training/schedule.py": "f345886d2ed860fd35293a6f75a669059eb68049c27557efab510b40f9073e24",
+        "worker.py": "1bc18b781ced92ca1283ea0580afe28abca87277090a0f7f9c5b0655f82597b0",
+        "world_model/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "world_model/dynamics.py": "7653e339a25e95092a7990aa98a1c0e0655edf8d44a4ea793b63dd889699a8bf",
+        "world_model/heads.py": "4f4f8cab6e6ff4ea12409fb5916c1bafc7f310d83542abbed7f05f25b9e93819",
+        "world_model/reference.py": "9908b2838e0b239afabd7b66c6ae55caf3329d9b8ca4001f902bdcf0234d5759",
+        "world_model/state_spec.py": "3d07830482f1d14864253d2a6731cea6fe38d5430950583f8a161dee416c26fd",
+        "world_model/wm_trainer.py": "9aa1017b71c4d85219ac75fb736baff8ba6e6b068416d015d1c410ef024d2570",
+        "world_model/world_model.py": "a411025317457d5ba14325ed2990db63a7678e7dacc0e65f1883cab4307f91c0"
+      }
+    },
+    {
+      "name": "static-original-heldout",
+      "checkpoint_sha256": "6984a9c7ea58c96834349941e986e3b28f6bddba706448c9c3f690e8f248a5f8",
+      "contract_sha256": "dac67913e2f4c5c33f550ad0c5f21206abef044d860f0bb5b2900180b4908989",
+      "motion_sha256": "6c411dde2268808e842245af3334eff6232f8e18b9035fa93d2c47b70ff0913a",
+      "plan_sha256": "d2a95e7cddc72c4b1f843527060f937404569039f76573a0bf1c13931f42003e",
+      "seconds_per_case": 60.0,
+      "cases": 20,
+      "passes": 18,
+      "criteria": {
+        "version": "g1-static-pose-v1",
+        "min_duration_s": 30.0,
+        "max_root_xy_rmse_m": 0.1,
+        "max_joint_rmse_rad": 0.25,
+        "max_root_height_rmse_m": 0.05,
+        "max_root_orientation_rmse_rad": 0.15,
+        "max_nonfoot_ground_force_substeps": 0,
+        "max_joint_velocity_rms_rad_s": 0.5
+      },
+      "records": [
+        {
+          "id": "baseline",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.0,
+            "seed": 0
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.03140301789530185,
+            "joint_rmse_rad": 0.06742163879449822,
+            "root_height_rmse_m": 0.012610662329193285,
+            "root_orientation_rmse_rad": 0.04893429763728246,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.06686556755079193
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "9ec610350b163ea1858756606838335e1c20f3d53fe5d4737cc6abe3f66f1574",
+          "initialization_sha256": "805fb04cfb4a6d0f774edd99c1f65c2801045e2e94ee94a336919ee04354e751",
+          "actuator_forces_sha256": "8d0ca304acd800586031c5121a255458ae6b4d2625e960c974276d31d41a393d",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "96477a0a2153cc797f497c92886a23f43760d018bc15db1e8f4f8d3b99b8202e"
+        },
+        {
+          "id": "rotation-1-minus",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              -0.03,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.0,
+            "seed": 0
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.037441826739885206,
+            "joint_rmse_rad": 0.06723357002541228,
+            "root_height_rmse_m": 0.01276849338278729,
+            "root_orientation_rmse_rad": 0.047956674930394017,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.06506050207929472
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "fef9d5857b1d03271c093206715f37d2b2dfce37ef946412bda52d920ba2f651",
+          "initialization_sha256": "19b2afe3b4d2b7c349222fe76d6cb2cbc0dbaf602bb1333d2f3e09ab0985c422",
+          "actuator_forces_sha256": "107a3ffb31b7925c92e406bf7b7a542d77a112dacfd2014b81e27b1c6d332adb",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "fff2776a34a184198c1005fa287f0e95a753015c14aa615c18a7f3d5dfe48d1b"
+        },
+        {
+          "id": "rotation-1-plus",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.03,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.0,
+            "seed": 0
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.02406284368704843,
+            "joint_rmse_rad": 0.06614683189924242,
+            "root_height_rmse_m": 0.012784708121203634,
+            "root_orientation_rmse_rad": 0.04907953382406525,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.06843818154850079
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "87aa933514040caad75547091c677004f2cfb46809762aad7aa89fe0b3cb7347",
+          "initialization_sha256": "f377c0329778674e9989b7cda30dd6423c9bf8e7d66545d0842db8889c809b06",
+          "actuator_forces_sha256": "45347498fcd34cda7a096948920b46881afc28bfcc68f091e3edfa14a246d315",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "b22686c901378a0fdb0dda46a4eae8ad06ad4a506dbf611220b003f85540fd52"
+        },
+        {
+          "id": "rotation-2-minus",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.0,
+              -0.05
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.0,
+            "seed": 0
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.029005717901439857,
+            "joint_rmse_rad": 0.064683552001931,
+            "root_height_rmse_m": 0.012825298517312358,
+            "root_orientation_rmse_rad": 0.04387084965902783,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.06134714733572063
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "f2ce3e89032ba94183a9c2e177c96621f5d8372137fee565af4006b8b5795bf4",
+          "initialization_sha256": "f71fcaa9d392f5159d5dcb4b6cbe741f4560f8abaa7d02d2eda786fc08fbcb8c",
+          "actuator_forces_sha256": "de5fee640d992255b10041bb16e208f878d31361b086746539ebf1ef0b719697",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "e82dd4e764b99e4ed0234d4c33865c0c533034b4af6c6d9c253457f4e6f3bb27"
+        },
+        {
+          "id": "rotation-2-plus",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.0,
+              0.05
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.0,
+            "seed": 0
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.03317022845145049,
+            "joint_rmse_rad": 0.071012335510788,
+            "root_height_rmse_m": 0.012511966457399763,
+            "root_orientation_rmse_rad": 0.05424278087238326,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.07242562460333804
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "976b19017505d002a394b6f0df1325e828616b395cfdb9e316f31ed15557a1c2",
+          "initialization_sha256": "634c395b5a2c0bc445ac59ee7c37a954b79e92bbaee20737f8801e75fe392808",
+          "actuator_forces_sha256": "0a573651e56307d481241a388b5964781f361e34691496ec067c8d86a681b87c",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "ccead10870085d69645d21b311c96a860513440bef020ca5b4f73bee7e00bb60"
+        },
+        {
+          "id": "velocity-0-minus",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              -0.05,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.0,
+            "seed": 0
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.040097239454032804,
+            "joint_rmse_rad": 0.06923231367933501,
+            "root_height_rmse_m": 0.012518375633136734,
+            "root_orientation_rmse_rad": 0.05129900916459012,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.06859546518889217
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "96d59104c516143dd5d5a0536b5513761409a2f9be25bfb8fd066a6c4865f6cb",
+          "initialization_sha256": "81b962a2bc2522ffd3eb9dc660f986458f54ed6fc0aeb4637d7d1d1a937eca36",
+          "actuator_forces_sha256": "ed3b7f43f446409d4383e1819419938a927634ae561a3a19f1a7d69ad81251b0",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "1411fbb6cbc2159d385f1be28d2b016ca8bcb7560536d688d1425ffcf41dcb56"
+        },
+        {
+          "id": "velocity-1-minus",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              -0.05,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.0,
+            "seed": 0
+          },
+          "passed": false,
+          "metrics": {
+            "root_xy_rmse_m": 0.42089874443131686,
+            "joint_rmse_rad": 0.07232382012790722,
+            "root_height_rmse_m": 0.01263284763855203,
+            "root_orientation_rmse_rad": 0.05813883938223795,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.4393810291189307
+          },
+          "failed_checks": [
+            {
+              "name": "root_xy_rmse_m",
+              "value": 0.42089874443131686,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "e9a1a01ec082d479774a9bce8fcfba6d7549d8e4a096e386d2f308c2d248a263",
+          "initialization_sha256": "4d4b31e175401ed7c61ae0089aa28e5c69239db4e0c3730a012a6e2ac0e62382",
+          "actuator_forces_sha256": "3a98dffabf123c092886c87673c608dcc9aa1525b7922721111d503e43285b8e",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "72a54f939b6c98adc784f45b0cefccfca71443daaf72c5448e0cd32b1bb7f6bf"
+        },
+        {
+          "id": "velocity-1-plus",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              0.05,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.0,
+            "seed": 0
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.09725642232641339,
+            "joint_rmse_rad": 0.07030536561803497,
+            "root_height_rmse_m": 0.013568736328371338,
+            "root_orientation_rmse_rad": 0.05371975028293964,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.08613032213560064
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "1831c2331ab5d1598afc494149b0a13f150cd98e384b81e84a57b099281b38fd",
+          "initialization_sha256": "844e7d399fdbe56de98bde488e5b9d95c19bd6f2af408bfc2c44e238c182d36a",
+          "actuator_forces_sha256": "840417d057146b4c31f3be29529d8e8d9c5ec08681d332e9ecf5330d351d982d",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "afd5ef997197b6bf555afe920ce9af7d13dd3255a52132e48342839d28c35c76"
+        },
+        {
+          "id": "body-roll-velocity-minus",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              -0.05,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.0,
+            "seed": 0
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.037252475474870435,
+            "joint_rmse_rad": 0.06814412234622286,
+            "root_height_rmse_m": 0.012574000789422562,
+            "root_orientation_rmse_rad": 0.04993577133445308,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.06845605190223053
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "21d3ccbb153f9722007ce6c0f1dfa00b97a5f121dfcc4042b09e20e674fbd8ed",
+          "initialization_sha256": "856a4a7a1332dea22f5dbf9dc03969ddccde3c81b14e0ab00707ffe07c29719e",
+          "actuator_forces_sha256": "a989ff07c43a19e9c6a62576bce9cfa65679e0d95c9377b3717e6577c02f0d87",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "980b4a2ba3d32443b19cd31b85b63024c4e7b50c0b4034e7959d6d6531c8632c"
+        },
+        {
+          "id": "body-roll-velocity-plus",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.05,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.0,
+            "seed": 0
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.02546573904840326,
+            "joint_rmse_rad": 0.06678089516858829,
+            "root_height_rmse_m": 0.012709320302114717,
+            "root_orientation_rmse_rad": 0.04814661745850815,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.06317500246120104
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "2e4fdee5a878ea94063c04eccb0ef5721005e14447fa84e3a7253361726eb098",
+          "initialization_sha256": "b30a08d60fa3a095689969a714197f8508114c35ea0acd34f1b2c36b8502e02c",
+          "actuator_forces_sha256": "e1d050d4662505e99297549e8758f3d36fb17397c90eb3e2d4e123316fc457d3",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "8e8ccdbb929f953302b691638a6ea27cab06153865e08121cfa7723226107986"
+        },
+        {
+          "id": "joint-seed-2026111801",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.01,
+            "seed": 2026111801
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.026496457915748128,
+            "joint_rmse_rad": 0.0665640017047645,
+            "root_height_rmse_m": 0.012683199170547856,
+            "root_orientation_rmse_rad": 0.047696188268792926,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.06608434771836684
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "24d85fbf1e6a6c6a6179e587d8f8b0a3b06046828f6ccb9123ddbeaaaf3e52e9",
+          "initialization_sha256": "90fe52dfc297f927a05b728c8e8718786b74d7dc0b2a6a63583c2187c0d2df0f",
+          "actuator_forces_sha256": "ad1d1829d937ff669e9cfafc2fe130fa3998de12ddf6253d489ac76f9319318b",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "42f6eab86cdf8e29b1cbc1b3df759e8aae2d0473947690138d98969a6c5700e8"
+        },
+        {
+          "id": "joint-seed-2026111802",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.01,
+            "seed": 2026111802
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.030490869216559264,
+            "joint_rmse_rad": 0.06553921721352418,
+            "root_height_rmse_m": 0.012740090056827975,
+            "root_orientation_rmse_rad": 0.04535285972947692,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.06248015322363555
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "505cf85c1df093af9d496915f2635433b0f46a2b2bf9eaa420eb0fd2786f5bd2",
+          "initialization_sha256": "1261e2c577031fc3b165c14efcbbd397fd83b2892c846de9cf5abfd8e1244852",
+          "actuator_forces_sha256": "427d60a8592a5a29e415b5940fda8c166466d5eea895523379caf84836f731a8",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "b6bcd927ff0b9babe21f60de5b4a0a69b441b501c72edf3b9ed9d7e4ca45f2d7"
+        },
+        {
+          "id": "joint-seed-2026111803",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.01,
+            "seed": 2026111803
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.03374188456440763,
+            "joint_rmse_rad": 0.06904210251656726,
+            "root_height_rmse_m": 0.012679844607428617,
+            "root_orientation_rmse_rad": 0.0504297759479614,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.09193919787948651
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "bc77ea9209906723c5e2042c99039b19d293f85cb76cb4f775a619313e0799d8",
+          "initialization_sha256": "744ade5c693782f4b51efdb317def6fb607105e80c046777c4f7e2cd2ea8b7a0",
+          "actuator_forces_sha256": "2010437ce568dcc15648920ffafb1692696c4918fbe43ba8909a2a99a81b238b",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "3ce413cfdd6d1acaac5a50ebbe2f383669f022106fa8eacb0c291149859f4a69"
+        },
+        {
+          "id": "joint-seed-2026111804",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.01,
+            "seed": 2026111804
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.027911435766048646,
+            "joint_rmse_rad": 0.06659778428599533,
+            "root_height_rmse_m": 0.012810807242340598,
+            "root_orientation_rmse_rad": 0.04834801896580797,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.063505861051972
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "503db511b9713a9b6b61a2964594ec8561f354a1df70671fc29ca951dcd30826",
+          "initialization_sha256": "0591796f05fb1bdafda82188f1c5f87bfc1e3d6d27218a242565b4fca0bc7720",
+          "actuator_forces_sha256": "f6bef7d7a01e0b61fe8c15939fa2f66c6421397786319d192d8af25797eafbba",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "8150dcb4f6eae8c162fb14096411d9bdf44da835b129ab7aff7cb69284879b5b"
+        },
+        {
+          "id": "combined-0-0",
+          "initialization": {
+            "root_translation_m": [
+              -0.015,
+              -0.015,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              -0.02,
+              -0.015,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              -0.025,
+              -0.025,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.005,
+            "seed": 2026111805
+          },
+          "passed": false,
+          "metrics": {
+            "root_xy_rmse_m": 0.1187915884779263,
+            "joint_rmse_rad": 0.06886018730863032,
+            "root_height_rmse_m": 0.012441726477048675,
+            "root_orientation_rmse_rad": 0.045601141654704774,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.216664315203815
+          },
+          "failed_checks": [
+            {
+              "name": "root_xy_rmse_m",
+              "value": 0.1187915884779263,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "4e51281be222600feb7936d49ca0d1326f0e7963244b185a66bdbdb1ef11bdfc",
+          "initialization_sha256": "2e722a842892859dabc38670b982a1a39e907bf2b353bf20cb1d73b5953290d3",
+          "actuator_forces_sha256": "6cb86b87add01aaa1a547d611d33275d49301c00cccc94b5c17f5a687d86c5a5",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "3b9ebde5721992b8968102497a26704c5703eaeb6c9a92094f0e28f5272d6b72"
+        },
+        {
+          "id": "combined-0-2",
+          "initialization": {
+            "root_translation_m": [
+              -0.015,
+              0.015,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.02,
+              -0.015,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              -0.025,
+              0.025,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.005,
+            "seed": 2026111805
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.06871406765677059,
+            "joint_rmse_rad": 0.06639235142978131,
+            "root_height_rmse_m": 0.012898461679832043,
+            "root_orientation_rmse_rad": 0.04716339137682436,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.06918787454652627
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "f51264ca172b2240f302fb26145b4a29fc037d4f58851819f75fa6ef12e5d606",
+          "initialization_sha256": "4e9e81949c22909653cf8c6ab1fb33b74594e2e48ca6b3d3792c7d93e8945335",
+          "actuator_forces_sha256": "e32910809525f4c4722fdb0709812c47a0ba5de75592b9e636dfb71bb877ba3b",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "7d1f64a7aaefec85024cada502b247d8ddb75c35b360d0a02505d8f70b3bb9b5"
+        },
+        {
+          "id": "combined-2-0",
+          "initialization": {
+            "root_translation_m": [
+              0.015,
+              -0.015,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              -0.02,
+              0.015,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.025,
+              -0.025,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.005,
+            "seed": 2026111805
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.017317422175189803,
+            "joint_rmse_rad": 0.0680449203339921,
+            "root_height_rmse_m": 0.012694220457617767,
+            "root_orientation_rmse_rad": 0.05095912110436478,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.06709697232890684
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "c917462c0107ef940e833fd132a8ba08a3720fef66c9e898afe1177d28f1c701",
+          "initialization_sha256": "6db026e4541fffbce8b4680bd7827ea8a032f16cf0ea29466944ad9b302ce912",
+          "actuator_forces_sha256": "6eaada1fb85cc8de0c1ba7a5072400400d31a05703c23c0f1ad7451b9bb8b62b",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "e1a736c6d92a6e8a3a314c92d37132467264577d9b9e0445a51a0528d447312f"
+        },
+        {
+          "id": "combined-2-2",
+          "initialization": {
+            "root_translation_m": [
+              0.015,
+              0.015,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.02,
+              0.015,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.025,
+              0.025,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.005,
+            "seed": 2026111805
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.04985081780863622,
+            "joint_rmse_rad": 0.06559296968544338,
+            "root_height_rmse_m": 0.013447026729184708,
+            "root_orientation_rmse_rad": 0.047012446952733475,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.06942913087192527
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "c6d19ce74d3f232d6b9d9afac529c1cfbed5d82bc77dbac0fd060e818211ca0c",
+          "initialization_sha256": "e94370dc7c59cfc151b661ff1bc231014aae5ec8f4d23d9671064afbad25fddb",
+          "actuator_forces_sha256": "f63bfc64ceeb9cb56441d0d7e4c1d6dc2962ea8e5398879ed3ef1ff08914c6e8",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "f61290d284badc0fdf20d19737087dbc3bb635919fc384fbb91d908471fb7e54"
+        },
+        {
+          "id": "height-minus",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              -0.005
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.0,
+            "seed": 0
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.026643979538434174,
+            "joint_rmse_rad": 0.06661283330174567,
+            "root_height_rmse_m": 0.012709716784139787,
+            "root_orientation_rmse_rad": 0.047948810688724884,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.06009857001969638
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "a8a2b47edf9c5c457f267f6f70ce74036338721bf0234522afcb0e2f30845ae3",
+          "initialization_sha256": "e4c449a35370fd4b684a21ed8019f8f79e06600313ec379f77e45891d31d2ba0",
+          "actuator_forces_sha256": "6aa39a72766bc7807fd3d5ef491372431ad860c3b7391fc4508016a4410b2fd6",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "4cb6c1e625c6cdfc53b62904359adba384e8251e3eb054aba52af79e1346cf69"
+        },
+        {
+          "id": "height-plus",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              0.005
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.0,
+            "seed": 0
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.03017080487802541,
+            "joint_rmse_rad": 0.06636001400638492,
+            "root_height_rmse_m": 0.012661880109559879,
+            "root_orientation_rmse_rad": 0.046633891905848955,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.07000246358222353
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "0eb874b860650586bd9c76313678c40043721bd38484c8f65ca47ab667bded39",
+          "initialization_sha256": "61eff173aaf7d7dd58437a33db7a867563c4ef9d3fe252835a9f40e1b0c5a019",
+          "actuator_forces_sha256": "2a123eeb34e4b6a47769f633fb1c451dcb3666fa9926cda02fda84b7b8ec3e89",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "171adc5cbf5b46335dbdaaf5a3d12355b494566f961a2b6ba2aceca8e0168c11"
+        }
+      ],
+      "local_complete_report": "runs/task-optimization-20261118/static-original-heldout/result.json",
+      "local_complete_report_sha256": "f866fb9c7f93e84920a4f7b8d841b7fd3f8b529d086b80bf8d61ba068db041fb",
+      "implementation_package_sha256": {
+        "__init__.py": "125f22c257d97507d23ebfb893b5afc51031273f46c9dbbc079800df93064111",
+        "__main__.py": "ac0f44f47d38cac6daa194e73602db7db034c728c2f360d669c67e6a6ec3f8be",
+        "artifacts.py": "5aa508b4f7355f89904934129100b17731baab39098221bdecacbd674eb28349",
+        "checkpoints.py": "990a98a70cac1513287b4cd4fab2ba1e2ec966ce2e981c25c0841f0c71d18102",
+        "cli.py": "eb97f5c580ed5c20b13b332a844cdcb39b6b87ce88324f1cebc7897218d40518",
+        "config.py": "47e8f13e14dcac7cafbfa1e1c17e8acd953daa703c7c72fe396e202652b36b89",
+        "cpu_resources.py": "ac986e3406b1e9b5d4659a5b5868b3d20f88d31af029fedfd8d6b4eb7bd83c64",
+        "data/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "data/discovery.py": "ea2d16c4048501a2b32b6f2ced6c695a09e12ddad479fab68688d30adbe6c055",
+        "data/loading.py": "ed79289c90e7e9b30363d29ab9ba144521a564f878d1e02d83e6d7e95bbadb8d",
+        "data/motion_convert.py": "2c92ea0b20aea428c0d12df30a357a94971b7c98ad791b6b725e720b95ce096a",
+        "data/motion_library.py": "26f7193c2ee35a32abff657ea9d3c4287f79f915533b813ce1c00401f8e4482f",
+        "data/packed.py": "510f3449207ff2e708c102ab32917de9b4361fe40688f0fc9bf06c616a515689",
+        "data/packing.py": "7495a73bfe50903a07857eb99613d4a0607b2a4084f769bcd152d7f81cf4b24e",
+        "data/preparation.py": "6141bd34f161d7173e89aa45cf521385e60176d84a968c39ef70bf48e3c73ed2",
+        "data/recorded_replay.py": "e48ef0ff1ce50adc2929c9fa8953cb1cc46f85a9168b3698e83a0c35c594a3e0",
+        "data/recorder.py": "f6d178e071598347c79905d1421394f1581aacb33f121968afcb8b39677d9a8c",
+        "data/reference.py": "522d632c06916f292f41d4319ab1e73446038aaf2eb922d9e3e5b384ba2d85f8",
+        "data/replay_buffer.py": "ad3a7acd4d1016bd9a931b68b8eec9b00716ffe2c3d0ba9874f9373f59232a6a",
+        "data/schema.py": "b89df1028a5f447ea7b3626447974b38e8dba447da8965eb62a751e22a9773ff",
+        "deployment/__init__.py": "68dd3e550f8ced1c99b9207e614c54c2f96f400b0b7010ac33aaeed3fff2a0e5",
+        "deployment/action_replay.py": "b0d4c293604d23fb48026c96893a626cac826951577dcca7f4dc479163610738",
+        "deployment/assessment.py": "4fa35f266290f1e82d4b30540f10055772f8f97a9ec5d5ae3548cae47eb9923c",
+        "deployment/contract.py": "752dbeec7977700921845fc062621a57e6a8b171b5d59a1c412bf5147ebe3442",
+        "deployment/core.py": "6ac85c65b771f180f994ff163c66017f4a135cabab714ac4c3512a26c373201a",
+        "deployment/evidence.py": "9c0c90efb49dc2f533c13d8799f16bed5f926214d8f4109de179902fe01e0f34",
+        "deployment/export.py": "174b0130bfebe38f1b8962f84c72cc8d4188370f9a07dba5e7a2b8dcffbbdeb7",
+        "deployment/initialization.py": "481b8e48ea7782e75c3fd366debf93a308c33d7a492b664be54addcd2c9382d1",
+        "deployment/metrics.py": "5af6f3ff9e43a25cd249ae2f457782459a5efe660abeb5e6488bf59bcb35c62d",
+        "deployment/mujoco.py": "ee2ef79ae8b601335ae0053f11bc68fed674ec7cf4cd1734f77e68fcfffad1c7",
+        "deployment/play.py": "952b3cebf05bb7f6a4797b3ba818ba6580d1a3b19f67d6168eb7ccb5d4fb5bc7",
+        "deployment/reference.py": "957feae98242f965547f232c14a8e89311b7da8026958dde3384074ff5922f59",
+        "deployment/render.py": "766d90f00398ceee3734be30131ef12dea484482ef6f3d6370654657fa177fe0",
+        "deployment/tracking_metrics.py": "8e7ccba3cfe7256e721bf9a4721807e9c4ba694cd0eb0cd93dea56e9eec6ab72",
+        "deployment/trajectory.py": "d35e5e0c760548f4ac4823ceef9a141bee141163c11505b4d603566a8fc0f184",
+        "deployment/validation.py": "2b1b8c4c6973f6ecbdce176029741669d7d658d79f328dd19d2be18f188bdfc2",
+        "envs/__init__.py": "404a78d581d3ef593bdcd2d44a27da80f05078c58ed7d3e4835517c0a3d20414",
+        "envs/actions.py": "531ec95fdcda4f98c50a16fa4dd9c448ef645b10753f595d95e95decf220216c",
+        "envs/mdp/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "envs/mdp/commands.py": "cab877da3ba3e2614d31356bb0f8dc3fbfab9660959bb7ee8faa644b70277e60",
+        "envs/mdp/motion_library.py": "d06c3117339847dad09cd78306a3df47ddc68f2ad5aa1e9e3aa78a6f71166306",
+        "envs/mdp/observations.py": "7783bc1715269b4c011a2492557716e2ed59a7de7869452a64d748c6e1e94cea",
+        "envs/mdp/rewards.py": "d5c2edc671f1ab16c563942f2a5cf27175d3f76475e2bbaff1ba09aa48b642da",
+        "envs/mdp/sampling.py": "00bd42a172a78a75b8094c04c0adbbcbbdce5b8570e2bebde02d9b7ef1234fb9",
+        "envs/mdp/terminations.py": "e16ee034c3509a5f66984804a9daca658d5203ba0dfff4b712204392ff0fd6c0",
+        "envs/physics_audit.py": "115508a59cea024297a367d0a6357f1f3d031ee513a5191831568f2a4ba2df5c",
+        "envs/sim_context.py": "f4625f44be7fbf492499dad811f6b964ce67864ef20b0547a9de86354f97581f",
+        "envs/state_io.py": "59d119ec4c7bee6403d0f8dddc4237c8d8a32cc6054711afbb3ae7ff683fb4b6",
+        "envs/tracking_env_cfg.py": "70cf1d5a029da25b25a92cf38599984c7907dd4eb0eb5ff6ebc2c6711ca21e21",
+        "eval/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "eval/acceptance.py": "c1432354083bf95ac063c91e39a02f06fb10446d0bf20c263b16841931bdfe1c",
+        "eval/benchmark.py": "f870fa9bcb19b9b738e3521992f6f202245b6797a60c2f92be13f812296b02fb",
+        "eval/quality.py": "a6b5c11dc7f8f7a897be9e054ba92f49f6b2c8395ef3ffe4f7b59dde8bbf16a6",
+        "eval/static_hold.py": "e49bca273ad944ba375eebb4fb3718ec4fce97bbaf8653c8e5f455e673d4de9c",
+        "eval/static_initialization.py": "caf9c2934c0573777ddcb8f2bdf22faf1a0e95ae17631dfa6d43dbfdec9e4c70",
+        "imagination/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "imagination/compiled.py": "d28e79db68d4381f6a06cd0972e7c1de7215d5db5d68a2d01241adf135ab4d6c",
+        "imagination/foot_support.py": "8746378b0bdcdcb087e8578f081f87b0d573dbf985390dbf5f2eadf52c56c8d5",
+        "imagination/objective.py": "00d1cf396943cc169183ac7642f5742f2cfd5f054d0128c84b93cb3eed7bb3e3",
+        "imagination/policy_trainer.py": "7f4d126a7d84171adf5101c8183206bc44aa5e4f53059f63784f5b520c354438",
+        "imagination/rollout.py": "8c56fce22f41c260cd0d479a85a05312e8c58968a91887615eca205f8d9557fd",
+        "imagination/tracking.py": "35ed07f2833dfbbecce0a25f4bad48061f5d09cf81212a9dced7659159203b69",
+        "interfaces.py": "5f15734d0d4502877d5912d856d5bc1d205b7fba211e8bdcefd350d233f283db",
+        "kinematics/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "kinematics/g1_fk.py": "712f500323942a2c115b97dd10cc826be6746cf26c8ac253d3dede54354638f5",
+        "kinematics/rotations.py": "927b4227b790e70f91e6c5b871a0022cb0e9a88fbcacabcfd9247a3b4bd991b4",
+        "memory.py": "bc51fc63a8f8b875caab94e95d90c0e8de5e4c01c53d430de94be5445b294eee",
+        "numpy_io.py": "4ad5ee43bbf0d5c94953b6ab63a3d5619b523843b6f6f5eebc6477cd1e706253",
+        "policy/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "policy/nets.py": "69d4b43f5b71b0f15f82e7b1144d2556cf7781398fa3e4c0a3ad91310deb5706",
+        "profiles.py": "5fab9ac0721e54565435727c6732ad791c6da4a77f1cc3a01befe394ab65414c",
+        "resources.py": "7a974620a22c45ab340a39db2d1c64c04ea30731ee1b2f9c2cd28c24128653ad",
+        "runtime.py": "41394b0a6e1c6a681a3efa53f9fdc477ea852f7f37dce164c25f0f354393bb0b",
+        "scripts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "scripts/train.py": "0571c73de2683e242de73845be125f780fe79b1e12225d95cfdaf82a4be0fc86",
+        "supervisor.py": "e9efdb03028950fdf99d45749d6c738308eb2db525420afe4982a1bc71164b40",
+        "torch_io.py": "fa9c4d78e7a6bf1d51fa1f6932377c1dbe07aabbb48fc4e390fa494608bdea3b",
+        "training/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "training/anchor.py": "2fadfa0b4212a724bbab84a9f99d0e5359d3b46a7319064050c07dfbac8e6eb2",
+        "training/distributed.py": "040d192d0374aea2e803b1ec2f071f689a610f41e5ccb57ad9624c5a95848277",
+        "training/loop.py": "0c4b1b1696e232ce9320be137a6b239be7e8547cd060f59279cd794f63cb7e55",
+        "training/schedule.py": "f345886d2ed860fd35293a6f75a669059eb68049c27557efab510b40f9073e24",
+        "worker.py": "1bc18b781ced92ca1283ea0580afe28abca87277090a0f7f9c5b0655f82597b0",
+        "world_model/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "world_model/dynamics.py": "7653e339a25e95092a7990aa98a1c0e0655edf8d44a4ea793b63dd889699a8bf",
+        "world_model/heads.py": "4f4f8cab6e6ff4ea12409fb5916c1bafc7f310d83542abbed7f05f25b9e93819",
+        "world_model/reference.py": "9908b2838e0b239afabd7b66c6ae55caf3329d9b8ca4001f902bdcf0234d5759",
+        "world_model/state_spec.py": "3d07830482f1d14864253d2a6731cea6fe38d5430950583f8a161dee416c26fd",
+        "world_model/wm_trainer.py": "9aa1017b71c4d85219ac75fb736baff8ba6e6b068416d015d1c410ef024d2570",
+        "world_model/world_model.py": "a411025317457d5ba14325ed2990db63a7678e7dacc0e65f1883cab4307f91c0"
+      }
+    },
+    {
+      "name": "static-reset040-heldout",
+      "checkpoint_sha256": "0c96f5084c427b9c68a5c5a9d437dcc9bfae2dd905c99a0c695d1a46fab2aba3",
+      "contract_sha256": "8d266a6e14b3bcdafcd8990602d1201092b187e0746a349e88a616522f59f522",
+      "motion_sha256": "6c411dde2268808e842245af3334eff6232f8e18b9035fa93d2c47b70ff0913a",
+      "plan_sha256": "d2a95e7cddc72c4b1f843527060f937404569039f76573a0bf1c13931f42003e",
+      "seconds_per_case": 60.0,
+      "cases": 20,
+      "passes": 15,
+      "criteria": {
+        "version": "g1-static-pose-v1",
+        "min_duration_s": 30.0,
+        "max_root_xy_rmse_m": 0.1,
+        "max_joint_rmse_rad": 0.25,
+        "max_root_height_rmse_m": 0.05,
+        "max_root_orientation_rmse_rad": 0.15,
+        "max_nonfoot_ground_force_substeps": 0,
+        "max_joint_velocity_rms_rad_s": 0.5
+      },
+      "records": [
+        {
+          "id": "baseline",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.0,
+            "seed": 0
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.009405653868320766,
+            "joint_rmse_rad": 0.07015702356258745,
+            "root_height_rmse_m": 0.012363950003809996,
+            "root_orientation_rmse_rad": 0.06175312016146299,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.09725919177666323
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "baead3c4f33f1388ace42efa035dee0b0f97d35db32f0aeb7f38d56a5e007f2b",
+          "initialization_sha256": "805fb04cfb4a6d0f774edd99c1f65c2801045e2e94ee94a336919ee04354e751",
+          "actuator_forces_sha256": "144785f7b831998aa87c65b56edd584cdbd82dc0021c5217f3a1f72951663662",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "00d422325b8b7b4eb3ca0bbcc8308406197ee99df51257e3bfbd55fbb3ea7874"
+        },
+        {
+          "id": "rotation-1-minus",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              -0.03,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.0,
+            "seed": 0
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.017380246200294346,
+            "joint_rmse_rad": 0.06849089672388133,
+            "root_height_rmse_m": 0.012874723984789477,
+            "root_orientation_rmse_rad": 0.054491964453447624,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.10401224380410147
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "8145433df7cc15ce133cb85e4b238366fe20179d843e86cb214870b34cd27e57",
+          "initialization_sha256": "19b2afe3b4d2b7c349222fe76d6cb2cbc0dbaf602bb1333d2f3e09ab0985c422",
+          "actuator_forces_sha256": "de8635d6bd70ad9b3da0236ee54026e8b63507b4f01bf03c334172676228ce25",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "c7e1769333f64d07c08183de3a68cb6bd2e413652e6be520ccf57823a7afac36"
+        },
+        {
+          "id": "rotation-1-plus",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.03,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.0,
+            "seed": 0
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.08083470279890682,
+            "joint_rmse_rad": 0.0620084600427856,
+            "root_height_rmse_m": 0.011681364523976744,
+            "root_orientation_rmse_rad": 0.033032908441877715,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.21131255921669823
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "e312353288357d8050b2cee3519c29fc7ce89eea3ce9990eec5c413fbeb290c8",
+          "initialization_sha256": "f377c0329778674e9989b7cda30dd6423c9bf8e7d66545d0842db8889c809b06",
+          "actuator_forces_sha256": "df8c8560290ab71c7a70681a98f9e9f155ae5d9d6f91d655e02143da45c0fea9",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "1ecf42899484c52b833152e58eb5d3dd96a57983362348fe990cbe5c93d70a82"
+        },
+        {
+          "id": "rotation-2-minus",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.0,
+              -0.05
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.0,
+            "seed": 0
+          },
+          "passed": false,
+          "metrics": {
+            "root_xy_rmse_m": 0.10751265232323061,
+            "joint_rmse_rad": 0.06156454699158881,
+            "root_height_rmse_m": 0.012141189831883722,
+            "root_orientation_rmse_rad": 0.040902774336323465,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.12265194031558707
+          },
+          "failed_checks": [
+            {
+              "name": "root_xy_rmse_m",
+              "value": 0.10751265232323061,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "277cbcbff9039419b86b451523172ef3d9756608eb07048df38aa8bfdae1d492",
+          "initialization_sha256": "f71fcaa9d392f5159d5dcb4b6cbe741f4560f8abaa7d02d2eda786fc08fbcb8c",
+          "actuator_forces_sha256": "bfb2529779c0252883c48eee84f877f96dbc0d28db2ce3a1a6902f24b960e4d6",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "60b947d18d461da30405753c23b593c3844b05990d1099d6bcbe8e9021c9954f"
+        },
+        {
+          "id": "rotation-2-plus",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.0,
+              0.05
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.0,
+            "seed": 0
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.08862869464868768,
+            "joint_rmse_rad": 0.06253004510174771,
+            "root_height_rmse_m": 0.012085774640290608,
+            "root_orientation_rmse_rad": 0.03511573664027104,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.19508412062732025
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "d36d4680d50eb27e9568cba4aa898cb68bc238e049a429d862c2a048b8c11c6b",
+          "initialization_sha256": "634c395b5a2c0bc445ac59ee7c37a954b79e92bbaee20737f8801e75fe392808",
+          "actuator_forces_sha256": "8b74210d3205042b2d10dcfc16edce0742e1e023dde81310f0a48e0be73eeb07",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "6c2e57f9f065bfcdb717ef13ebfee54ed6a3c9988345ed52b6bcaf73111362ca"
+        },
+        {
+          "id": "velocity-0-minus",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              -0.05,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.0,
+            "seed": 0
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.010470420122372268,
+            "joint_rmse_rad": 0.06930051197022485,
+            "root_height_rmse_m": 0.012365434898962644,
+            "root_orientation_rmse_rad": 0.059781657079459524,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.10437496731246013
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "9f253dd6c51e2b994754cf71cd98d60bec1d143231889b0d2659eed00e3db7f0",
+          "initialization_sha256": "81b962a2bc2522ffd3eb9dc660f986458f54ed6fc0aeb4637d7d1d1a937eca36",
+          "actuator_forces_sha256": "fe5c4686aadb246cff20127527d7ef44176fb96e28998e27eafaba358066d26b",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "7ca95e300bd9407c9620344e3fedea416f3ea94567816b26fdb450af8b65f169"
+        },
+        {
+          "id": "velocity-1-minus",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              -0.05,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.0,
+            "seed": 0
+          },
+          "passed": false,
+          "metrics": {
+            "root_xy_rmse_m": 0.18266807307692912,
+            "joint_rmse_rad": 0.06699844721799189,
+            "root_height_rmse_m": 0.011993431792093223,
+            "root_orientation_rmse_rad": 0.04991868626395025,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.3756485461859376
+          },
+          "failed_checks": [
+            {
+              "name": "root_xy_rmse_m",
+              "value": 0.18266807307692912,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "e0442e8a6cd0528b91a72a515702ee005c27b7ce6d4d8fc76cafee7cbaad77bb",
+          "initialization_sha256": "4d4b31e175401ed7c61ae0089aa28e5c69239db4e0c3730a012a6e2ac0e62382",
+          "actuator_forces_sha256": "1962ef28594d4f4cf2ee9a95214c9a0fa34762eb88746bcd0a6dcd0f36c73401",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "8bebe865d2996d02e6437ff4877dae1eb70c89c38014eaf89fe713e859582e39"
+        },
+        {
+          "id": "velocity-1-plus",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              0.05,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.0,
+            "seed": 0
+          },
+          "passed": false,
+          "metrics": {
+            "root_xy_rmse_m": 0.16466048721153626,
+            "joint_rmse_rad": 0.06920721772286098,
+            "root_height_rmse_m": 0.012205669961647675,
+            "root_orientation_rmse_rad": 0.060478717310402164,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.35977946230192903
+          },
+          "failed_checks": [
+            {
+              "name": "root_xy_rmse_m",
+              "value": 0.16466048721153626,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "57505604f31124c97ab55a605c022ef25065b47b4e707c5468ef1d72c5aca92f",
+          "initialization_sha256": "844e7d399fdbe56de98bde488e5b9d95c19bd6f2af408bfc2c44e238c182d36a",
+          "actuator_forces_sha256": "d875571e71fd54166759023337e8fc2b0bbd3f4fc3fd9faaf582744616b4c081",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "69001812624d93f8b5ebd5e9cbfd01dfb0951d543e6fd743827df69adc8dcb44"
+        },
+        {
+          "id": "body-roll-velocity-minus",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              -0.05,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.0,
+            "seed": 0
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.053148017972590327,
+            "joint_rmse_rad": 0.06197628740985779,
+            "root_height_rmse_m": 0.011470486075009704,
+            "root_orientation_rmse_rad": 0.03458471913346341,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.23235722913872517
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "c20de26ea003c06a0529eef71ae6dd07d0d96d13f58e571e30c1283fdf355c7a",
+          "initialization_sha256": "856a4a7a1332dea22f5dbf9dc03969ddccde3c81b14e0ab00707ffe07c29719e",
+          "actuator_forces_sha256": "abb85bfd4a240c33d4fb3a53a7185cdbc59f151161415902ff759a831fedaa8a",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "a1b719c99615554ce9e3af4d5ed05dc73291889aa30e47504661ecfc21153757"
+        },
+        {
+          "id": "body-roll-velocity-plus",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.05,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.0,
+            "seed": 0
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.03769814390144848,
+            "joint_rmse_rad": 0.06492766414937376,
+            "root_height_rmse_m": 0.012840630874795091,
+            "root_orientation_rmse_rad": 0.0441856986199752,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.11185965404062578
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "b668b94dc574458db75a70c5b7062f5dfcf44b01b3a919e6f0cf608062b686e8",
+          "initialization_sha256": "b30a08d60fa3a095689969a714197f8508114c35ea0acd34f1b2c36b8502e02c",
+          "actuator_forces_sha256": "5188e2abbdc8d6697dd7085cbad2217666939f36b422f2f8db9bf00228b70a02",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "0d3a9b0c1320846beb125d1fce673ca12e2260c81238edf707dcf7a76b662c0e"
+        },
+        {
+          "id": "joint-seed-2026111801",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.01,
+            "seed": 2026111801
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.01774488511628483,
+            "joint_rmse_rad": 0.06653342933280003,
+            "root_height_rmse_m": 0.01243927222988849,
+            "root_orientation_rmse_rad": 0.05039989041544397,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.1501882618456812
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "7e9086fb21fe76c71c9fc3176e7fd646e1006fda1d11adc2919b8f9e824604b9",
+          "initialization_sha256": "90fe52dfc297f927a05b728c8e8718786b74d7dc0b2a6a63583c2187c0d2df0f",
+          "actuator_forces_sha256": "3cc45d3748bad3cb6ccadc40064d0e7f2ab10c92fcdaafd6008dba9bbc3cb7f4",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "0dd3b84e6e5c7a9bdaa7ad1c4fb5205584106e14098a1e4d9db9a2b908d13e7d"
+        },
+        {
+          "id": "joint-seed-2026111802",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.01,
+            "seed": 2026111802
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.05300879008368145,
+            "joint_rmse_rad": 0.06401359889456527,
+            "root_height_rmse_m": 0.01267394387743044,
+            "root_orientation_rmse_rad": 0.04154556264347754,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.13500326965740922
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "6efa2025d1d040bce4989110e6539904924f66136cdac4cfd8ba2f474574b865",
+          "initialization_sha256": "1261e2c577031fc3b165c14efcbbd397fd83b2892c846de9cf5abfd8e1244852",
+          "actuator_forces_sha256": "93ec37ee42c2a47ce379d8aeba151980d47cb5bdc48e2480cb3fc5e3650e6988",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "bda911120f6ab4e3aa09983ce21beec281dcb47193eab6aee1c69224db3e65db"
+        },
+        {
+          "id": "joint-seed-2026111803",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.01,
+            "seed": 2026111803
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.020996277807343144,
+            "joint_rmse_rad": 0.06613177842853912,
+            "root_height_rmse_m": 0.012441797296422289,
+            "root_orientation_rmse_rad": 0.052117714738684096,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.10605533607991523
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "838fbe4ee2a80cb056832ae53d65ce42ecd7dab24693d9f3e1cf926a0ef894c9",
+          "initialization_sha256": "744ade5c693782f4b51efdb317def6fb607105e80c046777c4f7e2cd2ea8b7a0",
+          "actuator_forces_sha256": "966a414aa48fe3993a7d335eafcf59019c11d06e5d14c519d0c40d660af08124",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "3e435542d06170b3f65c9e3cb8451a78a574c44c675ccc28c11e423ecee00a82"
+        },
+        {
+          "id": "joint-seed-2026111804",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.01,
+            "seed": 2026111804
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.06912084969396755,
+            "joint_rmse_rad": 0.06323941585358037,
+            "root_height_rmse_m": 0.012502531824703586,
+            "root_orientation_rmse_rad": 0.04242861713563923,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.1217057461013061
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "80d3a90e6611df1e1d7d4c60707795c27c0f610c35aa3075c4cb6972c966c1d2",
+          "initialization_sha256": "0591796f05fb1bdafda82188f1c5f87bfc1e3d6d27218a242565b4fca0bc7720",
+          "actuator_forces_sha256": "beed1d5eba016cdee41dcfbf566d2af7ad03d15d9a8678e5c914a95a9a47d1b8",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "abe9c74cb387a9c2d8c2a5752b22677f0286f1d5209345d59b9b43bbe088b20a"
+        },
+        {
+          "id": "combined-0-0",
+          "initialization": {
+            "root_translation_m": [
+              -0.015,
+              -0.015,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              -0.02,
+              -0.015,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              -0.025,
+              -0.025,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.005,
+            "seed": 2026111805
+          },
+          "passed": false,
+          "metrics": {
+            "root_xy_rmse_m": 0.21245191118283527,
+            "joint_rmse_rad": 0.06930311536413478,
+            "root_height_rmse_m": 0.01197459216776155,
+            "root_orientation_rmse_rad": 0.06040926114801776,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.4218740666084316
+          },
+          "failed_checks": [
+            {
+              "name": "root_xy_rmse_m",
+              "value": 0.21245191118283527,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "61c05ab214446125e142387f5781f81bc7b4a991413aff677fb86e6bebc40b3d",
+          "initialization_sha256": "2e722a842892859dabc38670b982a1a39e907bf2b353bf20cb1d73b5953290d3",
+          "actuator_forces_sha256": "3185cd7054832af0f3f57da332aa78a12f8a34f026f00fb0a28a420d93f3180f",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "5bfeef653d07e4c4fa318d84919334734579c6c1cabbbf4120d782c79dfa286a"
+        },
+        {
+          "id": "combined-0-2",
+          "initialization": {
+            "root_translation_m": [
+              -0.015,
+              0.015,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.02,
+              -0.015,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              -0.025,
+              0.025,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.005,
+            "seed": 2026111805
+          },
+          "passed": false,
+          "metrics": {
+            "root_xy_rmse_m": 0.16015135834023417,
+            "joint_rmse_rad": 0.06823543871901229,
+            "root_height_rmse_m": 0.011881921705711226,
+            "root_orientation_rmse_rad": 0.059810084732601035,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.387184821249248
+          },
+          "failed_checks": [
+            {
+              "name": "root_xy_rmse_m",
+              "value": 0.16015135834023417,
+              "limit": 0.1,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "trajectory_sha256": "35df6674b0366cd1c47ae750bafc0dc422bedac9ff13166b5a8335babd7a5cd0",
+          "initialization_sha256": "4e9e81949c22909653cf8c6ab1fb33b74594e2e48ca6b3d3792c7d93e8945335",
+          "actuator_forces_sha256": "103f9608be39f92a2221e0c23830022a37084aaa3e39ac4d67c5558b94d658fc",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "1b633208c9b487ec309aa5b6166e4eaf3c93d5126efe121e7090cd04b7c81da1"
+        },
+        {
+          "id": "combined-2-0",
+          "initialization": {
+            "root_translation_m": [
+              0.015,
+              -0.015,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              -0.02,
+              0.015,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.025,
+              -0.025,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.005,
+            "seed": 2026111805
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.042731089522324406,
+            "joint_rmse_rad": 0.06464971141353365,
+            "root_height_rmse_m": 0.012709372251213333,
+            "root_orientation_rmse_rad": 0.046801918341473,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.09963658238791186
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "bb088467d40cfdaab866e3e057ee87d88ef3880656f7bed41e8290702ffb2bb9",
+          "initialization_sha256": "6db026e4541fffbce8b4680bd7827ea8a032f16cf0ea29466944ad9b302ce912",
+          "actuator_forces_sha256": "c54d06813ab8bc19b2e06998fb35064f91661fd5ccf670ed65e2b298dc084b73",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "7b5658b6bd3f91729957697cb1b24bc724d425337e55ad158ccf3df43ec1a69a"
+        },
+        {
+          "id": "combined-2-2",
+          "initialization": {
+            "root_translation_m": [
+              0.015,
+              0.015,
+              0.0
+            ],
+            "root_world_rotation_vector_rad": [
+              0.02,
+              0.015,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.025,
+              0.025,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.005,
+            "seed": 2026111805
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.06953301705902043,
+            "joint_rmse_rad": 0.06369599203181965,
+            "root_height_rmse_m": 0.012166616326291452,
+            "root_orientation_rmse_rad": 0.03326968616194427,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.2225529935522567
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "17b634bea7a1d738586a92b0512a141eae93f3bf77518350398b4998b475c37a",
+          "initialization_sha256": "e94370dc7c59cfc151b661ff1bc231014aae5ec8f4d23d9671064afbad25fddb",
+          "actuator_forces_sha256": "625222a4530614cbc254e202be346331c56088b111dee3778294506d4066237d",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "f6c59a387bee6121ee78297d6fad66875a6dc9fba9e5f29a2a44382e828dc3ba"
+        },
+        {
+          "id": "height-minus",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              -0.005
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.0,
+            "seed": 0
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.011944481566379906,
+            "joint_rmse_rad": 0.06612694061638547,
+            "root_height_rmse_m": 0.012659068618019303,
+            "root_orientation_rmse_rad": 0.05093054197440625,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.09797544614773437
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "a9db8f7f0b36244cefec37cdea580c0d3a94f0db2834e74777745941204877cb",
+          "initialization_sha256": "e4c449a35370fd4b684a21ed8019f8f79e06600313ec379f77e45891d31d2ba0",
+          "actuator_forces_sha256": "642a4ac3bf2162c1059ff1655e90eb46f1e9230997e293381e3dcc2ff5d9622b",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "400bf83b0dda481f431ccc6f94c83994cab1e7b8aa6da92639d88b1a51265203"
+        },
+        {
+          "id": "height-plus",
+          "initialization": {
+            "root_translation_m": [
+              0.0,
+              0.0,
+              0.005
+            ],
+            "root_world_rotation_vector_rad": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_linear_velocity_delta_m_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "root_body_angular_velocity_delta_rad_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "joint_position_noise_std_rad": 0.0,
+            "seed": 0
+          },
+          "passed": true,
+          "metrics": {
+            "root_xy_rmse_m": 0.04839717570071919,
+            "joint_rmse_rad": 0.06351726780131692,
+            "root_height_rmse_m": 0.01263075192663466,
+            "root_orientation_rmse_rad": 0.04334886556725773,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_velocity_rms_rad_s": 0.13530517790921257
+          },
+          "failed_checks": [],
+          "trajectory_sha256": "9e7b971984c0817fbb325a0947f99cec7561b52f68362a36ae22a4dc59b5527a",
+          "initialization_sha256": "61eff173aaf7d7dd58437a33db7a867563c4ef9d3fe252835a9f40e1b0c5a019",
+          "actuator_forces_sha256": "592606506f4da551e6e189a441ea3316f922bfd92c50b5b63a4edd59b0a9c318",
+          "independent_native_replay_fields_bitexact": {
+            "states": true,
+            "physical_contacts": true,
+            "actuator_forces": true
+          },
+          "result_sha256": "a624e255b2cfe43d388eebd8825ae2ffa1ee5d13c7b31978b7f9997f2ed581de"
+        }
+      ],
+      "local_complete_report": "runs/task-optimization-20261118/static-reset040-heldout/result.json",
+      "local_complete_report_sha256": "35bc730cded886c80c0cf2f193c325e322ed8baea9e8fdbe976cd74cb69a1608",
+      "implementation_package_sha256": {
+        "__init__.py": "125f22c257d97507d23ebfb893b5afc51031273f46c9dbbc079800df93064111",
+        "__main__.py": "ac0f44f47d38cac6daa194e73602db7db034c728c2f360d669c67e6a6ec3f8be",
+        "artifacts.py": "5aa508b4f7355f89904934129100b17731baab39098221bdecacbd674eb28349",
+        "checkpoints.py": "990a98a70cac1513287b4cd4fab2ba1e2ec966ce2e981c25c0841f0c71d18102",
+        "cli.py": "eb97f5c580ed5c20b13b332a844cdcb39b6b87ce88324f1cebc7897218d40518",
+        "config.py": "47e8f13e14dcac7cafbfa1e1c17e8acd953daa703c7c72fe396e202652b36b89",
+        "cpu_resources.py": "ac986e3406b1e9b5d4659a5b5868b3d20f88d31af029fedfd8d6b4eb7bd83c64",
+        "data/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "data/discovery.py": "ea2d16c4048501a2b32b6f2ced6c695a09e12ddad479fab68688d30adbe6c055",
+        "data/loading.py": "ed79289c90e7e9b30363d29ab9ba144521a564f878d1e02d83e6d7e95bbadb8d",
+        "data/motion_convert.py": "2c92ea0b20aea428c0d12df30a357a94971b7c98ad791b6b725e720b95ce096a",
+        "data/motion_library.py": "26f7193c2ee35a32abff657ea9d3c4287f79f915533b813ce1c00401f8e4482f",
+        "data/packed.py": "510f3449207ff2e708c102ab32917de9b4361fe40688f0fc9bf06c616a515689",
+        "data/packing.py": "7495a73bfe50903a07857eb99613d4a0607b2a4084f769bcd152d7f81cf4b24e",
+        "data/preparation.py": "6141bd34f161d7173e89aa45cf521385e60176d84a968c39ef70bf48e3c73ed2",
+        "data/recorded_replay.py": "e48ef0ff1ce50adc2929c9fa8953cb1cc46f85a9168b3698e83a0c35c594a3e0",
+        "data/recorder.py": "f6d178e071598347c79905d1421394f1581aacb33f121968afcb8b39677d9a8c",
+        "data/reference.py": "522d632c06916f292f41d4319ab1e73446038aaf2eb922d9e3e5b384ba2d85f8",
+        "data/replay_buffer.py": "ad3a7acd4d1016bd9a931b68b8eec9b00716ffe2c3d0ba9874f9373f59232a6a",
+        "data/schema.py": "b89df1028a5f447ea7b3626447974b38e8dba447da8965eb62a751e22a9773ff",
+        "deployment/__init__.py": "68dd3e550f8ced1c99b9207e614c54c2f96f400b0b7010ac33aaeed3fff2a0e5",
+        "deployment/action_replay.py": "b0d4c293604d23fb48026c96893a626cac826951577dcca7f4dc479163610738",
+        "deployment/assessment.py": "4fa35f266290f1e82d4b30540f10055772f8f97a9ec5d5ae3548cae47eb9923c",
+        "deployment/contract.py": "752dbeec7977700921845fc062621a57e6a8b171b5d59a1c412bf5147ebe3442",
+        "deployment/core.py": "6ac85c65b771f180f994ff163c66017f4a135cabab714ac4c3512a26c373201a",
+        "deployment/evidence.py": "9c0c90efb49dc2f533c13d8799f16bed5f926214d8f4109de179902fe01e0f34",
+        "deployment/export.py": "174b0130bfebe38f1b8962f84c72cc8d4188370f9a07dba5e7a2b8dcffbbdeb7",
+        "deployment/initialization.py": "481b8e48ea7782e75c3fd366debf93a308c33d7a492b664be54addcd2c9382d1",
+        "deployment/metrics.py": "5af6f3ff9e43a25cd249ae2f457782459a5efe660abeb5e6488bf59bcb35c62d",
+        "deployment/mujoco.py": "ee2ef79ae8b601335ae0053f11bc68fed674ec7cf4cd1734f77e68fcfffad1c7",
+        "deployment/play.py": "952b3cebf05bb7f6a4797b3ba818ba6580d1a3b19f67d6168eb7ccb5d4fb5bc7",
+        "deployment/reference.py": "957feae98242f965547f232c14a8e89311b7da8026958dde3384074ff5922f59",
+        "deployment/render.py": "766d90f00398ceee3734be30131ef12dea484482ef6f3d6370654657fa177fe0",
+        "deployment/tracking_metrics.py": "8e7ccba3cfe7256e721bf9a4721807e9c4ba694cd0eb0cd93dea56e9eec6ab72",
+        "deployment/trajectory.py": "d35e5e0c760548f4ac4823ceef9a141bee141163c11505b4d603566a8fc0f184",
+        "deployment/validation.py": "2b1b8c4c6973f6ecbdce176029741669d7d658d79f328dd19d2be18f188bdfc2",
+        "envs/__init__.py": "404a78d581d3ef593bdcd2d44a27da80f05078c58ed7d3e4835517c0a3d20414",
+        "envs/actions.py": "531ec95fdcda4f98c50a16fa4dd9c448ef645b10753f595d95e95decf220216c",
+        "envs/mdp/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "envs/mdp/commands.py": "cab877da3ba3e2614d31356bb0f8dc3fbfab9660959bb7ee8faa644b70277e60",
+        "envs/mdp/motion_library.py": "d06c3117339847dad09cd78306a3df47ddc68f2ad5aa1e9e3aa78a6f71166306",
+        "envs/mdp/observations.py": "7783bc1715269b4c011a2492557716e2ed59a7de7869452a64d748c6e1e94cea",
+        "envs/mdp/rewards.py": "d5c2edc671f1ab16c563942f2a5cf27175d3f76475e2bbaff1ba09aa48b642da",
+        "envs/mdp/sampling.py": "00bd42a172a78a75b8094c04c0adbbcbbdce5b8570e2bebde02d9b7ef1234fb9",
+        "envs/mdp/terminations.py": "e16ee034c3509a5f66984804a9daca658d5203ba0dfff4b712204392ff0fd6c0",
+        "envs/physics_audit.py": "115508a59cea024297a367d0a6357f1f3d031ee513a5191831568f2a4ba2df5c",
+        "envs/sim_context.py": "f4625f44be7fbf492499dad811f6b964ce67864ef20b0547a9de86354f97581f",
+        "envs/state_io.py": "59d119ec4c7bee6403d0f8dddc4237c8d8a32cc6054711afbb3ae7ff683fb4b6",
+        "envs/tracking_env_cfg.py": "70cf1d5a029da25b25a92cf38599984c7907dd4eb0eb5ff6ebc2c6711ca21e21",
+        "eval/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "eval/acceptance.py": "c1432354083bf95ac063c91e39a02f06fb10446d0bf20c263b16841931bdfe1c",
+        "eval/benchmark.py": "f870fa9bcb19b9b738e3521992f6f202245b6797a60c2f92be13f812296b02fb",
+        "eval/quality.py": "a6b5c11dc7f8f7a897be9e054ba92f49f6b2c8395ef3ffe4f7b59dde8bbf16a6",
+        "eval/static_hold.py": "e49bca273ad944ba375eebb4fb3718ec4fce97bbaf8653c8e5f455e673d4de9c",
+        "eval/static_initialization.py": "caf9c2934c0573777ddcb8f2bdf22faf1a0e95ae17631dfa6d43dbfdec9e4c70",
+        "imagination/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "imagination/compiled.py": "d28e79db68d4381f6a06cd0972e7c1de7215d5db5d68a2d01241adf135ab4d6c",
+        "imagination/foot_support.py": "8746378b0bdcdcb087e8578f081f87b0d573dbf985390dbf5f2eadf52c56c8d5",
+        "imagination/objective.py": "00d1cf396943cc169183ac7642f5742f2cfd5f054d0128c84b93cb3eed7bb3e3",
+        "imagination/policy_trainer.py": "7f4d126a7d84171adf5101c8183206bc44aa5e4f53059f63784f5b520c354438",
+        "imagination/rollout.py": "8c56fce22f41c260cd0d479a85a05312e8c58968a91887615eca205f8d9557fd",
+        "imagination/tracking.py": "35ed07f2833dfbbecce0a25f4bad48061f5d09cf81212a9dced7659159203b69",
+        "interfaces.py": "5f15734d0d4502877d5912d856d5bc1d205b7fba211e8bdcefd350d233f283db",
+        "kinematics/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "kinematics/g1_fk.py": "712f500323942a2c115b97dd10cc826be6746cf26c8ac253d3dede54354638f5",
+        "kinematics/rotations.py": "927b4227b790e70f91e6c5b871a0022cb0e9a88fbcacabcfd9247a3b4bd991b4",
+        "memory.py": "bc51fc63a8f8b875caab94e95d90c0e8de5e4c01c53d430de94be5445b294eee",
+        "numpy_io.py": "4ad5ee43bbf0d5c94953b6ab63a3d5619b523843b6f6f5eebc6477cd1e706253",
+        "policy/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "policy/nets.py": "69d4b43f5b71b0f15f82e7b1144d2556cf7781398fa3e4c0a3ad91310deb5706",
+        "profiles.py": "5fab9ac0721e54565435727c6732ad791c6da4a77f1cc3a01befe394ab65414c",
+        "resources.py": "7a974620a22c45ab340a39db2d1c64c04ea30731ee1b2f9c2cd28c24128653ad",
+        "runtime.py": "41394b0a6e1c6a681a3efa53f9fdc477ea852f7f37dce164c25f0f354393bb0b",
+        "scripts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "scripts/train.py": "0571c73de2683e242de73845be125f780fe79b1e12225d95cfdaf82a4be0fc86",
+        "supervisor.py": "e9efdb03028950fdf99d45749d6c738308eb2db525420afe4982a1bc71164b40",
+        "torch_io.py": "fa9c4d78e7a6bf1d51fa1f6932377c1dbe07aabbb48fc4e390fa494608bdea3b",
+        "training/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "training/anchor.py": "2fadfa0b4212a724bbab84a9f99d0e5359d3b46a7319064050c07dfbac8e6eb2",
+        "training/distributed.py": "040d192d0374aea2e803b1ec2f071f689a610f41e5ccb57ad9624c5a95848277",
+        "training/loop.py": "0c4b1b1696e232ce9320be137a6b239be7e8547cd060f59279cd794f63cb7e55",
+        "training/schedule.py": "f345886d2ed860fd35293a6f75a669059eb68049c27557efab510b40f9073e24",
+        "worker.py": "1bc18b781ced92ca1283ea0580afe28abca87277090a0f7f9c5b0655f82597b0",
+        "world_model/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "world_model/dynamics.py": "7653e339a25e95092a7990aa98a1c0e0655edf8d44a4ea793b63dd889699a8bf",
+        "world_model/heads.py": "4f4f8cab6e6ff4ea12409fb5916c1bafc7f310d83542abbed7f05f25b9e93819",
+        "world_model/reference.py": "9908b2838e0b239afabd7b66c6ae55caf3329d9b8ca4001f902bdcf0234d5759",
+        "world_model/state_spec.py": "3d07830482f1d14864253d2a6731cea6fe38d5430950583f8a161dee416c26fd",
+        "world_model/wm_trainer.py": "9aa1017b71c4d85219ac75fb736baff8ba6e6b068416d015d1c410ef024d2570",
+        "world_model/world_model.py": "a411025317457d5ba14325ed2990db63a7678e7dacc0e65f1883cab4307f91c0"
+      }
+    }
+  ],
+  "public_tool": "scripts/assess_static_initialization.py",
+  "protocol_guide": "docs/STATIC_INITIALIZATION.md",
+  "resource_rules": "Every heavy command holds /home/ubuntu/.cache/codex-heavy-work.lock; numeric libraries single-threaded, builds<=2workers, testsserial; trainingtree<=6GiB/GPU2304MiB, systemRAMreserve>=12.5GiB. First baseline suites used20percent systemRAMreserve(~12.08GiB); current publicCLI reserves>=12.5GiB. Actual availableRAM stayed>30GiB. Other sessions were not throttled.",
+  "validation": {
+    "cpu_tests_passed": 803,
+    "cpu_tests_skipped": 42,
+    "subtests_passed": 12,
+    "seconds": 27.15,
+    "lint": "passed",
+    "status": "source_validation_complete"
+  },
+  "scope": "Specified CPU MuJoCo reference/initializations only. The19new conditions expose a regression despite earlier9case improvement. Both accepted handoffs remain intact; no perturbed600/1800s or hardware/general recovery claim."
+}
