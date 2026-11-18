@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import argparse
+import os
+import tempfile
 from pathlib import Path
 
 
@@ -15,11 +17,20 @@ def main():
     from supermimic.eval.initialization_comparison import compare_initialization_suites
 
     try:
+        if args.output and (args.output.exists() or args.output.is_symlink()):
+            raise FileExistsError(f"Comparison output already exists: {args.output}")
         result = compare_initialization_suites(args.reports)
+        if args.output:
+            args.output.parent.mkdir(parents=True, exist_ok=True)
+            with tempfile.TemporaryDirectory(
+                prefix=".supermimic-comparison-", dir=args.output.parent
+            ) as directory:
+                staged = Path(directory) / "comparison.json"
+                write_json(staged, result)
+                # Exclusive publication also preserves a racing writer's output.
+                os.link(staged, args.output)
     except (OSError, ValueError) as error:
         parser.error(str(error))
-    if args.output:
-        write_json(args.output, result)
     for row in result["reports"]:
         print(f"{row['checkpoint_sha256'][:12]}: {row['passes']}/{row['cases']} reported passes")
         print("  Newly passed: " + (", ".join(row["new_passes_vs_baseline"]) or "none"))

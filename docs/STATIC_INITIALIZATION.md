@@ -73,7 +73,7 @@ flock -n -E 75 /home/ubuntu/.cache/codex-heavy-work.lock \
 
 对已有输出单独复核，可在相同锁和线程限制下运行 `scripts/verify_action_replay.py --bundle runs/my-static-initialization/bundle --motion runs/my-static-initialization/reference.npz --run runs/my-static-initialization/cases/baseline --output runs/my-baseline-replay.json`。状态或声明不一致时保存失败报告并返回非零退出码。
 
-比较两个使用相同条件、参考、模型和完整时长的结果，可运行 `.venv/bin/python -I scripts/compare_static_initialization.py --reports runs/my-baseline-suite/result.json runs/my-candidate-suite/result.json --output runs/my-comparison.json`。这是轻量的报告比较，会核对保存的条件文件、固定判据和记录中的回放状态，列出新增通过及退化条件；不会重新加载物理轨迹或替代独立回放。例如总数从 18/20 升到 19/20，但丢失原来通过的一组，仍不属于通过条件集合的严格扩大。
+比较两个使用相同条件、参考、模型和完整时长的结果，可运行 `.venv/bin/python -I scripts/compare_static_initialization.py --reports runs/my-baseline-suite/result.json runs/my-candidate-suite/result.json --output runs/my-comparison.json`。输出文件必须不存在；命令使用原子且排他的发布方式，同路径误填或并发写入均不会覆盖已有证据。这是轻量的报告比较，会核对保存的条件文件、固定判据和记录中的回放状态，列出新增通过及退化条件；不会重新加载物理轨迹或替代独立回放。例如总数从 18/20 升到 19/20，但丢失原来通过的一组，仍不属于通过条件集合的严格扩大。
 
 `selected-20261117c.json` 对应上轮用于选型的九组条件。`heldout-20261118.json` 在本轮运行前固定，含基线和十九组新条件；首次对照之后用于进一步选型时，须称为开发条件。另行预先固定的 `final-20261118.json` 含十五组条件，本轮在全部训练和模型选型结束后首次运行，之后未继续调参或选择替代权重。
 

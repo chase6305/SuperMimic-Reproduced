@@ -2,6 +2,10 @@
 
 import hashlib
 import json
+import os
+import runpy
+import sys
+from pathlib import Path
 
 import pytest
 
@@ -106,3 +110,44 @@ def test_inconsistent_or_incomparable_reports_are_rejected(reports, change):
     path.write_text(json.dumps(report))
     with pytest.raises(ValueError):
         compare_initialization_suites(reports)
+
+
+def run_comparison_cli(monkeypatch, reports, output):
+    script = Path(__file__).resolve().parents[1] / "scripts/compare_static_initialization.py"
+    monkeypatch.setattr(
+        sys, "argv", [str(script), "--reports", *map(str, reports), "--output", str(output)]
+    )
+    runpy.run_path(str(script), run_name="__main__")
+
+
+@pytest.mark.parametrize("filename", ["result.json", "plan.json"])
+def test_cli_output_cannot_overwrite_input_evidence(reports, monkeypatch, filename):
+    output = reports[0].with_name(filename)
+    before = output.read_bytes()
+    with pytest.raises(SystemExit) as error:
+        run_comparison_cli(monkeypatch, reports, output)
+    assert error.value.code == 2
+    assert output.read_bytes() == before
+
+
+def test_cli_publishes_a_new_report_and_removes_staging(reports, monkeypatch, tmp_path):
+    output = tmp_path / "new/comparison.json"
+    run_comparison_cli(monkeypatch, reports, output)
+    assert json.loads(output.read_text()) == compare_initialization_suites(reports)
+    assert not list(output.parent.glob(".supermimic-comparison-*"))
+
+
+def test_cli_preserves_a_racing_writers_report(reports, monkeypatch, tmp_path):
+    output = tmp_path / "comparison.json"
+    link = os.link
+
+    def publish_first(source, destination):
+        destination.write_bytes(b"another writer's evidence")
+        link(source, destination)
+
+    monkeypatch.setattr(os, "link", publish_first)
+    with pytest.raises(SystemExit) as error:
+        run_comparison_cli(monkeypatch, reports, output)
+    assert error.value.code == 2
+    assert output.read_bytes() == b"another writer's evidence"
+    assert not list(tmp_path.glob(".supermimic-comparison-*"))
