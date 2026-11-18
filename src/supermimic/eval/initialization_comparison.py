@@ -72,7 +72,7 @@ def _suite(path: Path):
         if (
             type(complete) is not bool
             or type(duration) not in (int, float)
-            or not 0 <= duration <= seconds
+            or not 0 <= duration <= seconds + 1e-6
         ):
             raise ValueError("Comparison completion or reached duration is invalid")
         expected = judge_static_hold(metrics, complete, duration)
@@ -86,7 +86,7 @@ def _suite(path: Path):
             or any(v is not True for v in fields.values())
         ):
             raise ValueError("Comparison requires successful recorded native replay checks")
-        if complete and duration != seconds:
+        if complete and not math.isclose(duration, seconds, rel_tol=0, abs_tol=1e-6):
             raise ValueError("Comparison completed case did not reach the declared full duration")
         passes.append(judgement["passed"])
     if type(report.get("passes")) is not int or report["passes"] != sum(passes):

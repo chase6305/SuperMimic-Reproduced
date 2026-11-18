@@ -56,8 +56,13 @@ def make_static_reference(source: Path, output: Path, *, frame: int, seconds: fl
             ):
                 row = np.zeros(arrays[pose].shape[1:], dtype=arrays[pose].dtype)
                 arrays[name] = np.broadcast_to(row, (controls + 1, *row.shape))
-            for name in ("joint_names", "body_names", "fps"):
+            for name in ("joint_names", "body_names"):
                 arrays[name] = reference[name].copy()
+            # The input ABI permits tiny FPS serialization roundoff. This new
+            # task uses the contract's exact 50 Hz clock, retaining the source
+            # value separately rather than shortening a nominal 30-second task.
+            arrays["fps"] = np.array([50.0], dtype=np.float64)
+            arrays["source_fps"] = np.array(info["fps"], dtype=np.float64)
         arrays.update(
             source=np.array(
                 "Separate fixed-pose task, not acceptance of the source dynamic motion"

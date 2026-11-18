@@ -26,7 +26,7 @@ def run_static_initialization_suite(bundle: Path, motion: Path, plan: Path, outp
         static_hold_metrics,
         validate_static_reference,
     )
-    from supermimic.interfaces import ROOT_BODY
+    from supermimic.interfaces import CONTROL_DT, ROOT_BODY
     from supermimic.runtime import freeze_implementation
 
     bundle, motion, plan, output = map(Path, (bundle, motion, plan, output))
@@ -35,7 +35,7 @@ def run_static_initialization_suite(bundle: Path, motion: Path, plan: Path, outp
     # Resource estimates and schema admission precede publication and inference.
     with open_motion(motion) as (reference, info):
         validate_static_reference(reference)
-        seconds = (info["frames"] - 1) / info["fps"]
+        seconds = (info["frames"] - 1) * CONTROL_DT
         if not 30 <= seconds <= 600 or seconds * len(cases) > 3600:
             raise ValueError("Static suite needs 30..600 seconds per case and at most 3600 total")
     output.mkdir(parents=True, exist_ok=False)
@@ -65,7 +65,7 @@ def run_static_initialization_suite(bundle: Path, motion: Path, plan: Path, outp
     with open_motion(pinned_motion) as (reference, info):
         validate_static_reference(reference)
         # Re-admit the pinned publication if the source pathname changed.
-        seconds = (info["frames"] - 1) / info["fps"]
+        seconds = (info["frames"] - 1) * CONTROL_DT
         if not 30 <= seconds <= 600 or seconds * len(cases) > 3600:
             raise ValueError("Pinned reference exceeds the static suite duration budget")
     implementation = freeze_implementation(output / "implementation")

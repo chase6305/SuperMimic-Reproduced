@@ -32,6 +32,19 @@ def test_selected_frame_is_frozen_at_original_fifty_hz_with_source_identity(tmp_
             np.testing.assert_array_equal(actual[name], expected[name])
 
 
+def test_allowed_source_fps_roundoff_is_recorded_with_an_exact_new_task_clock(tmp_path):
+    source, output = tmp_path / "source.npz", tmp_path / "static.npz"
+    make_motion(source)
+    with np.load(source) as archive:
+        arrays = {key: archive[key] for key in archive.files}
+    arrays["fps"] = np.array([50.00003])
+    np.savez(source, **arrays)
+    result = make_static_reference(source, output, frame=0, seconds=30)
+    assert result["duration_s"] == 30.0 and result["fps"] == 50.0
+    with np.load(output) as archive:
+        assert archive["source_fps"].item() == 50.00003
+
+
 @pytest.mark.parametrize("seconds", [True, float("nan"), float("inf"), 29.99, 1800.1, 30.001])
 def test_invalid_duration_rejected_without_opening_source(tmp_path, seconds):
     with pytest.raises(ValueError, match="seconds|duration"):

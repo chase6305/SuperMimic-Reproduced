@@ -180,14 +180,16 @@ def test_replay_detects_wrong_force_even_if_record_hash_is_updated(physical_case
     assert replay["first_mismatch"] == {"field": "actuator_forces", "index": 0}
 
 
+@pytest.mark.parametrize("fps", [50.0, 50.00003])
 def test_suite_preserves_quality_failures_and_continues_other_declared_cases(
-    physical_case, monkeypatch
+    physical_case, monkeypatch, fps
 ):
     from supermimic.eval.static_initialization import run_static_initialization_suite
 
     bundle, motion, run, _ = physical_case
     with np.load(motion) as z:
         arrays = {key: z[key] for key in z.files}
+    arrays["fps"] = np.array([fps])
     for name in ("joint_pos", "body_pos_w", "body_quat_w"):
         arrays[name] = np.repeat(arrays[name][:1], 1501, axis=0)
     for name in ("joint_vel", "body_lin_vel_w", "body_ang_vel_w"):
@@ -214,6 +216,7 @@ def test_suite_preserves_quality_failures_and_continues_other_declared_cases(
     monkeypatch.setattr("supermimic.deployment.mujoco.deploy", incomplete)
     result = run_static_initialization_suite(bundle, static, plan, run.parent / "suite")
     assert result["status"] == "complete" and result["evaluated_cases"] == 2
+    assert result["seconds_per_case"] == 30.0
     assert result["passes"] == 0 and result["all_replays_bitexact"]
     assert [row["id"] for row in result["records"]] == ["baseline", "shift"]
     for row in result["records"]:
