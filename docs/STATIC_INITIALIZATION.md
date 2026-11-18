@@ -8,6 +8,8 @@
 
 先检查整机内存、负载和相关进程。沿用项目的跨对话排他锁，计算库保持单线程；资源忙时稍后重试，不绕过锁。以下路径使用本机已有交付文件，数据和权重未随 Git 分发。
 
+如果尚无静态参考，可用 `scripts/make_static_reference.py --source data/npz/validation/walk1_subject1.npz --frame 0 --seconds 60 --output data/npz/probes/my-static60.npz`，同样放在下述锁、线程限制和超时之内执行。它固定指定帧的关节与身体姿态，将全部速度设为零，保留 50 Hz 时钟和源文件指纹；通过广播视图分块写入 30 至 1,800 秒参考，并拒绝覆盖已有文件。这定义了一个独立固定姿态任务，不是对源动态动作的验收。新姿态仍需重新训练和验证，不能假定已有模型适用。
+
 ```bash
 flock -n -E 75 /home/ubuntu/.cache/codex-heavy-work.lock \
   env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 \
@@ -59,7 +61,7 @@ flock -n -E 75 /home/ubuntu/.cache/codex-heavy-work.lock \
 
 ## 证据
 
-输出先固定条件文件、推理包和参考副本，之后各组运行只读取这些副本。每组保存：
+命令先固定代码快照，在隔离的 Python 子进程中执行，并将同一套代码保存在输出的 `implementation/`。评测固定条件文件、推理包和参考副本，之后各组运行只读取这些副本。每组保存：
 
 - `result.json`、`trajectory.npz`：实际神经网络命令、状态、参考帧、每个物理子步的已求解接触力及原终止原因。
 - `initialization.npz`：`mjSTATE_INTEGRATION` 完整状态，包括求解器热启动状态；只保存位置和速度不足以保证复现。
@@ -69,4 +71,6 @@ flock -n -E 75 /home/ubuntu/.cache/codex-heavy-work.lock \
 
 顶层 `result.json` 保留所有条件的结果和输入指纹。独立回放校验的是已记录命令对应的物理过程，不进行第二次策略推理，也不单独证明技能质量。某组 60 秒通过，仅支持该条件和该时长；不能据此宣称带扰动的 600／1,800 秒、任意扰动恢复或实机验证。
 
-`selected-20261117c.json` 对应上轮用于选型的九组条件。`heldout-20261118.json` 在本轮运行前固定，含基线和十九组新条件；它们的结果应与原九组结果分别报告。
+对已有输出单独复核，可在相同锁和线程限制下运行 `scripts/verify_action_replay.py --bundle runs/my-static-initialization/bundle --motion runs/my-static-initialization/reference.npz --run runs/my-static-initialization/cases/baseline --output runs/my-baseline-replay.json`。状态或声明不一致时保存失败报告并返回非零退出码。
+
+`selected-20261117c.json` 对应上轮用于选型的九组条件。`heldout-20261118.json` 在本轮运行前固定，含基线和十九组新条件；首次对照之后用于进一步选型时，须称为开发条件。另行预先固定的 `final-20261118.json` 含十五组条件，在模型选型结束后再运行，并保留全部结果。

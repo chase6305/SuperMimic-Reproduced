@@ -27,7 +27,7 @@ def run_static_initialization_suite(bundle: Path, motion: Path, plan: Path, outp
         validate_static_reference,
     )
     from supermimic.interfaces import ROOT_BODY
-    from supermimic.runtime import source_manifest
+    from supermimic.runtime import freeze_implementation
 
     bundle, motion, plan, output = map(Path, (bundle, motion, plan, output))
     declared, plan_sha = read_json_evidence(plan)
@@ -68,6 +68,7 @@ def run_static_initialization_suite(bundle: Path, motion: Path, plan: Path, outp
         seconds = (info["frames"] - 1) / info["fps"]
         if not 30 <= seconds <= 600 or seconds * len(cases) > 3600:
             raise ValueError("Pinned reference exceeds the static suite duration budget")
+    implementation = freeze_implementation(output / "implementation")
     report = {
         "status": "running",
         "schema": declared["schema"],
@@ -78,7 +79,8 @@ def run_static_initialization_suite(bundle: Path, motion: Path, plan: Path, outp
         "seconds_per_case": seconds,
         "declared_cases": len(cases),
         "records": [],
-        "implementation_package_sha256": source_manifest(),
+        "implementation_package_sha256": implementation,
+        "implementation_snapshot": str(output / "implementation"),
         "scope": "Only the declared initial conditions and full supplied reference in CPU MuJoCo. No guarantee for untested perturbations, longer durations or hardware.",
     }
     write_json(output / "result.json", report)

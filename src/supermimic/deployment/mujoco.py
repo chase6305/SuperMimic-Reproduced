@@ -70,7 +70,10 @@ def _deploy(
     if requested < 1 or requested > 10_000_000:
         raise ValueError("Deployment step budget must be within [1, 10000000]")
     force_columns = c["decimation"] * model.nu if initialization is not None else 0
-    if requested * (model.nq + model.nv + 29 + 4 * 13 + force_columns) * 8 > 512 * 1024**2:
+    if (
+        requested * (model.nq + model.nv + 29 + c["decimation"] * 13 + force_columns) * 8
+        > 512 * 1024**2
+    ):
         raise ValueError("Trajectory exceeds the 512 MiB recording budget")
     record = {
         "status": "running",
