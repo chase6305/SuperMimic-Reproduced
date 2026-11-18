@@ -12,6 +12,10 @@
   "evaluation_scope": "Each condition runs the full60s static reference with the same actor/PD/model and unchangedg1-static-pose-v1 thresholds, no autoreset. Before any new training: original6984 actor18/20, reset040 actor15/20; reset040 also reproduces its original9/9 selected cases. All completed; failures are XY quality failures. The20case plan was fixed before both first evaluations. It becomes a development plan once these results guide selection; no later heldout claim for candidate selection.",
   "plans": [
     {
+      "path": "experiments/static-initialization/final-20261118.json",
+      "sha256": "27731bb90868ad6c791965d591bdbb1f4c655e127672827cf6f3a1aed9ab168c"
+    },
+    {
       "path": "experiments/static-initialization/heldout-20261118.json",
       "sha256": "d2a95e7cddc72c4b1f843527060f937404569039f76573a0bf1c13931f42003e"
     },
@@ -2684,12 +2688,254 @@
   "protocol_guide": "docs/STATIC_INITIALIZATION.md",
   "resource_rules": "Every heavy command holds /home/ubuntu/.cache/codex-heavy-work.lock; numeric libraries single-threaded, builds<=2workers, testsserial; trainingtree<=6GiB/GPU2304MiB, systemRAMreserve>=12.5GiB. First baseline suites used20percent systemRAMreserve(~12.08GiB); current publicCLI reserves>=12.5GiB. Actual availableRAM stayed>30GiB. Other sessions were not throttled.",
   "validation": {
-    "cpu_tests_passed": 803,
+    "cpu_tests_passed": 817,
     "cpu_tests_skipped": 42,
     "subtests_passed": 12,
-    "seconds": 27.15,
+    "ci_run": "https://github.com/chase6305/SuperMimic-Reproduced/actions/runs/44294511228",
+    "ci_source_revision": "e98b1acad9f9d8a0991d79a03741b6364a937238",
+    "seconds": 58.2,
+    "local_related_tests_passed": 43,
+    "local_related_seconds": 8.13,
     "lint": "passed",
     "status": "source_validation_complete"
   },
-  "scope": "Specified CPU MuJoCo reference/initializations only. The19new conditions expose a regression despite earlier9case improvement. Both accepted handoffs remain intact; no perturbed600/1800s or hardware/general recovery claim."
+  "scope": "Specified CPU MuJoCo reference/initializations only. The19new conditions expose a regression despite earlier9case improvement. Both accepted handoffs remain intact; no perturbed600/1800s or hardware/general recovery claim.",
+  "final_protocol_validation": {
+    "local_report": "runs/task-optimization-20261118/static-protocol-verification/result.json",
+    "sha256": "e9865968abf6764176139a952ffb38660d394f7a4cdcc681f381f10b05d96e5a",
+    "native_replays": 49,
+    "all_declared_initializations_and_physics_bitexact": true,
+    "private9case_arrays_bitexact": [
+      {
+        "id": "baseline",
+        "fields_bitexact": {
+          "states": true,
+          "actions": true,
+          "physical_contacts": true,
+          "actuator_force": true
+        }
+      },
+      {
+        "id": "root-x--1-20mm",
+        "fields_bitexact": {
+          "states": true,
+          "actions": true,
+          "physical_contacts": true,
+          "actuator_force": true
+        }
+      },
+      {
+        "id": "root-x-+1-20mm",
+        "fields_bitexact": {
+          "states": true,
+          "actions": true,
+          "physical_contacts": true,
+          "actuator_force": true
+        }
+      },
+      {
+        "id": "root-y--1-20mm",
+        "fields_bitexact": {
+          "states": true,
+          "actions": true,
+          "physical_contacts": true,
+          "actuator_force": true
+        }
+      },
+      {
+        "id": "root-y-+1-20mm",
+        "fields_bitexact": {
+          "states": true,
+          "actions": true,
+          "physical_contacts": true,
+          "actuator_force": true
+        }
+      },
+      {
+        "id": "root-roll--1-30mrad",
+        "fields_bitexact": {
+          "states": true,
+          "actions": true,
+          "physical_contacts": true,
+          "actuator_force": true
+        }
+      },
+      {
+        "id": "root-roll-+1-30mrad",
+        "fields_bitexact": {
+          "states": true,
+          "actions": true,
+          "physical_contacts": true,
+          "actuator_force": true
+        }
+      },
+      {
+        "id": "root-forward-velocity-50mmps",
+        "fields_bitexact": {
+          "states": true,
+          "actions": true,
+          "physical_contacts": true,
+          "actuator_force": true
+        }
+      },
+      {
+        "id": "joint-position-noise-10mrad",
+        "fields_bitexact": {
+          "states": true,
+          "actions": true,
+          "physical_contacts": true,
+          "actuator_force": true
+        }
+      }
+    ],
+    "accepted_full600_prefix_bitexact": {
+      "states": true,
+      "actions": true,
+      "reference_frame": true,
+      "physical_contacts": true
+    }
+  },
+  "public_reference_generation": {
+    "local_report": "runs/task-optimization-20261118/public-reference-qualification/result.json",
+    "sha256": "b9a09b8c0c0acad3ad30578f44c379f1729efae3a917b28dcd3780598bd66351",
+    "records": [
+      {
+        "seconds": 60,
+        "reference": "runs/task-optimization-20261118/public-reference-qualification/static60.npz",
+        "reference_sha256": "b6b920e2510dc7873d62d7a5d1d092132d06818bb8a98011ed4e6124432a71db",
+        "source": "data/npz/probes/stand60-initialization-20261117c.npz",
+        "source_sha256": "6c411dde2268808e842245af3334eff6232f8e18b9035fa93d2c47b70ff0913a",
+        "fields_bitexact": {
+          "joint_names": true,
+          "body_names": true,
+          "joint_pos": true,
+          "joint_vel": true,
+          "body_pos_w": true,
+          "body_quat_w": true,
+          "body_lin_vel_w": true,
+          "body_ang_vel_w": true
+        },
+        "info": {
+          "source_motion_sha256": "4598698aa035c52ba160986e05796cb525df557d1879266e933c40a65994c041",
+          "source_frame": 0,
+          "name": "static60",
+          "frames": 3001,
+          "fps": 50.0,
+          "duration_s": 60.0,
+          "body_names": [
+            "pelvis",
+            "left_hip_pitch_link",
+            "left_hip_roll_link",
+            "left_hip_yaw_link",
+            "left_knee_link",
+            "left_ankle_pitch_link",
+            "left_ankle_roll_link",
+            "right_hip_pitch_link",
+            "right_hip_roll_link",
+            "right_hip_yaw_link",
+            "right_knee_link",
+            "right_ankle_pitch_link",
+            "right_ankle_roll_link",
+            "waist_yaw_link",
+            "waist_roll_link",
+            "torso_link",
+            "left_shoulder_pitch_link",
+            "left_shoulder_roll_link",
+            "left_shoulder_yaw_link",
+            "left_elbow_link",
+            "left_wrist_roll_link",
+            "left_wrist_pitch_link",
+            "left_wrist_yaw_link",
+            "right_shoulder_pitch_link",
+            "right_shoulder_roll_link",
+            "right_shoulder_yaw_link",
+            "right_elbow_link",
+            "right_wrist_roll_link",
+            "right_wrist_pitch_link",
+            "right_wrist_yaw_link"
+          ]
+        }
+      },
+      {
+        "seconds": 1800,
+        "reference": "runs/task-optimization-20261118/public-reference-qualification/static1800.npz",
+        "reference_sha256": "34ac52867eb56e7890577166868affffba1e455b6e57de485e7767d91c9ea19f",
+        "source": "exports/g1-tasks-20261117/stand-hold-600/extended-1800/reference.npz",
+        "source_sha256": "00e93c930b8ec2bc039036dc2f9b706a0820c78af34fec2417abea1e09fa1f67",
+        "fields_bitexact": {
+          "joint_names": true,
+          "body_names": true,
+          "joint_pos": true,
+          "joint_vel": true,
+          "body_pos_w": true,
+          "body_quat_w": true,
+          "body_lin_vel_w": true,
+          "body_ang_vel_w": true
+        },
+        "info": {
+          "source_motion_sha256": "4598698aa035c52ba160986e05796cb525df557d1879266e933c40a65994c041",
+          "source_frame": 0,
+          "name": "static1800",
+          "frames": 90001,
+          "fps": 50.0,
+          "duration_s": 1800.0,
+          "body_names": [
+            "pelvis",
+            "left_hip_pitch_link",
+            "left_hip_roll_link",
+            "left_hip_yaw_link",
+            "left_knee_link",
+            "left_ankle_pitch_link",
+            "left_ankle_roll_link",
+            "right_hip_pitch_link",
+            "right_hip_roll_link",
+            "right_hip_yaw_link",
+            "right_knee_link",
+            "right_ankle_pitch_link",
+            "right_ankle_roll_link",
+            "waist_yaw_link",
+            "waist_roll_link",
+            "torso_link",
+            "left_shoulder_pitch_link",
+            "left_shoulder_roll_link",
+            "left_shoulder_yaw_link",
+            "left_elbow_link",
+            "left_wrist_roll_link",
+            "left_wrist_pitch_link",
+            "left_wrist_yaw_link",
+            "right_shoulder_pitch_link",
+            "right_shoulder_roll_link",
+            "right_shoulder_yaw_link",
+            "right_elbow_link",
+            "right_wrist_roll_link",
+            "right_wrist_pitch_link",
+            "right_wrist_yaw_link"
+          ]
+        }
+      }
+    ],
+    "scope": "Public builder reproduces exact physical ABI arrays from the original walk firstframe for60and1800seconds; metadata differs intentionally to retain explicit provenance. No new pose or dynamic-motion acceptance."
+  },
+  "training_runs": [
+    {
+      "name": "static-reset050-xy600-ori160",
+      "audit": "runs/task-optimization-20261118/static-reset050-xy600-ori160-audit/result.json",
+      "audit_sha256": "0d6730d9bd0a43912100d3fd095415bbeb7da97624654e9c4c52eebabe9323c0",
+      "plan": "runs/task-optimization-20261118/static-reset050-xy600-ori160-plan.json",
+      "plan_sha256": "bd318f8ab161c4c19d444db778c28d3c24d4f92ba43c370614912a550db6876f",
+      "source_checkpoint_sha256": "0c96f5084c427b9c68a5c5a9d437dcc9bfae2dd905c99a0c695d1a46fab2aba3",
+      "final_checkpoint_sha256": "af454f47c8ca4815114a392222a0b20d37dad7a00081a610e557dfd8a0b91250",
+      "new_optimizer_updates": 5479,
+      "final_iteration": 24259,
+      "final_updates": 9685,
+      "changed_actor_tensors": [
+        "decoder.mlp.net.8.weight",
+        "decoder.mlp.net.8.bias"
+      ],
+      "other_actor_tensors_bitexact": 20,
+      "peak_rss_bytes": 4076949504,
+      "peak_process_gpu_mib": 1108,
+      "quality_evaluation": "See later complete physical evaluation records; training audit alone is not acceptance."
+    }
+  ]
 }
