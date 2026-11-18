@@ -150,9 +150,9 @@ uv lock --check --offline
 uv build
 ```
 
-当前 CPU 验证为 **777 项通过、42 项跳过**（另有 12 个 subtests 通过）。跳过项受 CUDA、动作数据或显式编译开关限制。本机另通过 14 项 CUDA 集成检查、8 项固定输入／梯度对照及 1 项编译反馈检查，条件和资源峰值见 [验证记录](docs/performance/cuda-integration.json)。世界模型两种编译路径的 6 个组合及真实 CLI 续训见 [窗口编译记录](docs/performance/world-window-compilation.json)。
+本轮最新源代码已通过 [CPU CI](https://github.com/chase6305/SuperMimic-Reproduced/actions/runs/44326455081)，包括 lint、完整测试、CLI 和 wheel 构建；本地初始化与进程清理相关的 34 项、报告比较的 11 项测试通过。部分集成测试受 CUDA、动作数据或显式编译开关限制。本机此前另通过 14 项 CUDA 集成检查、8 项固定输入／梯度对照及 1 项编译反馈检查，条件和资源峰值见 [验证记录](docs/performance/cuda-integration.json)。世界模型两种编译路径的 6 个组合及真实 CLI 续训见 [窗口编译记录](docs/performance/world-window-compilation.json)。
 
-CPU 测试覆盖 G1 FK、状态表示、训练／部署历史和目标特征一致性、PD／执行器映射、动作数据检查及资源监督。依赖真实 CUDA 和动作数据的上游集成测试会在条件不足时跳过。CPU CI 使用同一锁文件和上述测试入口，不需要本机数据或训练权重。CUDA 集成与编译测试须在具备相应数据和 GPU 的环境另行运行；CPU CI 通过不代表技能验收通过。
+CPU 测试覆盖 G1 FK、状态表示、训练／部署历史和目标特征一致性、PD／执行器映射、动作数据检查及资源监督。依赖真实 CUDA 和动作数据的上游集成测试会在条件不足时跳过。CPU CI 使用依赖锁文件 `uv.lock` 和上述测试入口，不需要本机数据或训练权重。CUDA 集成与编译测试须在具备相应数据和 GPU 的环境另行运行；CPU CI 通过不代表技能验收通过。
 
 保存轨迹后可用 CPU 软件渲染生成回放，避免占用训练显存：
 

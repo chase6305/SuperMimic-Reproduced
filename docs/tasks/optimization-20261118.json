@@ -7,7 +7,11 @@
     "base": "perf/runtime-memory-lifecycle",
     "base_sha": "35cbc85",
     "objective": "New PR; reproducible static initialization evidence and further evidence-directed optimization",
-    "status": "active"
+    "status": "complete",
+    "actual_end_utc": "2026-11-18T14:47:12.102186+00:00",
+    "elapsed_seconds": 14419.102186,
+    "new_models_adopted": 0,
+    "all_requested_checks_complete": true
   },
   "source_checkpoint_sha256": "83d1e3ce3317346681e4f56ea3dec178459124494e8a7c2d8dbb4c7e964ce647",
   "source_motion_sha256": "0c21df779e79a8e96a5fb42f5a8a3ffe9b3cf775b883e6bf40016a67d8468878",
@@ -1986,15 +1990,19 @@
   "new_models_adopted": 0,
   "source_validation": {
     "conclusion": "success",
-    "ci_run": "https://github.com/chase6305/SuperMimic-Reproduced/actions/runs/44321291824",
-    "ci_source_revision": "1d07aca50a0e39d8014af1e3ce56977674ba3f03",
+    "ci_run": "https://github.com/chase6305/SuperMimic-Reproduced/actions/runs/44326455081",
+    "ci_source_revision": "a9922ef83582262c7b258bfcce1bc5ff3383dd13",
     "cpu_baseline": "passed",
     "lint": "passed",
     "cli_and_distribution_build": "passed",
-    "completed_at_utc": "2026-11-18T14:12:17Z",
-    "run_metadata_sha256": "cab5d2df3533046fd3fe7ac359e6621f8fd5568668d4ec838466c5a92f4f61e2",
-    "job_metadata_sha256": "fbe2e22f0c58403a0e2e5d5fe6c9eba385d06e686b080c31a521bbdbe0ef9a13",
-    "scope": "Full CPU baseline on the last changed source revision; later commits only curate documentation and experiment evidence. Individual test count is not inferred from source collection."
+    "completed_at_utc": "2026-11-18T14:40:23Z",
+    "job_metadata_file": "runs/task-optimization-20261118/source-ci-jobs-output-fix.json",
+    "job_metadata_sha256": "d9049a661bbc7ab8d64fe36f1db8d39b5dfd61b19f38b8d3128556df4b97aea4",
+    "local_comparison_cli_tests_passed": 11,
+    "local_comparison_cli_seconds": 0.09,
+    "comparison_cli_validation": "runs/task-optimization-20261118/comparison-cli-validation.json",
+    "comparison_cli_validation_sha256": "c4bf61203fe732c8f647e55a9f0f16e4fe3c9c1f94522bdaab09db6b53a8c924",
+    "scope": "Full CPU baseline and every job/step passed on the last changed source revision; later commits only curate documentation and experiment evidence. Local related34and report-comparison11tests are recorded separately. Individual CI test count is not inferred."
   },
   "reproduction_helpers": {
     "manifest": "runs/task-optimization-20261118/reproduction-tools-final/manifest.json",
@@ -2076,6 +2084,17 @@
         }
       ],
       "scope": "Catalog/entry agreement and actual listed artifact/checkpoint hashes; no new quality or hardware claim."
+    }
+  },
+  "window_closure": {
+    "local_report": "runs/task-optimization-20261118/window-closure.json",
+    "sha256": "196a8561715ddc0019c6a1a704ff37bb8ff39b288c7990dce95f7439a4e833c6",
+    "result": {
+      "status": "complete",
+      "actual_end_utc": "2026-11-18T14:47:12.102186+00:00",
+      "elapsed_seconds": 14419.102186,
+      "new_models_adopted": 0,
+      "all_requested_checks_complete": true
     }
   }
 }

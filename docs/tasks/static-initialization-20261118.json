@@ -7,7 +7,11 @@
     "base": "perf/runtime-memory-lifecycle",
     "base_sha": "35cbc85",
     "objective": "New PR; reproducible static initialization evidence and further evidence-directed optimization",
-    "status": "active"
+    "status": "complete",
+    "actual_end_utc": "2026-11-18T14:47:12.102186+00:00",
+    "elapsed_seconds": 14419.102186,
+    "new_models_adopted": 0,
+    "all_requested_checks_complete": true
   },
   "evaluation_scope": "Each condition runs the full60s static reference with the same actor/PD/model and unchangedg1-static-pose-v1 thresholds, no autoreset. Before any new training: original6984 actor18/20, reset040 actor15/20; reset040 also reproduces its original9/9 selected cases. All completed; failures are XY quality failures. The20case plan was fixed before both first evaluations. It becomes a development plan once these results guide selection; no later heldout claim for candidate selection.",
   "plans": [
@@ -2693,15 +2697,19 @@
   "resource_rules": "Every heavy command holds /home/ubuntu/.cache/codex-heavy-work.lock; numeric libraries single-threaded, builds<=2workers, testsserial; trainingtree<=6GiB/GPU2304MiB, systemRAMreserve>=12.5GiB. First baseline suites used20percent systemRAMreserve(~12.08GiB); current publicCLI reserves>=12.5GiB. Actual availableRAM stayed>30GiB. Other sessions were not throttled.",
   "validation": {
     "conclusion": "success",
-    "ci_run": "https://github.com/chase6305/SuperMimic-Reproduced/actions/runs/44321291824",
-    "ci_source_revision": "1d07aca50a0e39d8014af1e3ce56977674ba3f03",
+    "ci_run": "https://github.com/chase6305/SuperMimic-Reproduced/actions/runs/44326455081",
+    "ci_source_revision": "a9922ef83582262c7b258bfcce1bc5ff3383dd13",
     "cpu_baseline": "passed",
     "lint": "passed",
     "cli_and_distribution_build": "passed",
-    "completed_at_utc": "2026-11-18T14:12:17Z",
-    "run_metadata_sha256": "cab5d2df3533046fd3fe7ac359e6621f8fd5568668d4ec838466c5a92f4f61e2",
-    "job_metadata_sha256": "fbe2e22f0c58403a0e2e5d5fe6c9eba385d06e686b080c31a521bbdbe0ef9a13",
-    "scope": "Full CPU baseline on the last changed source revision; later commits only curate documentation and experiment evidence. Individual test count is not inferred from source collection.",
+    "completed_at_utc": "2026-11-18T14:40:23Z",
+    "job_metadata_file": "runs/task-optimization-20261118/source-ci-jobs-output-fix.json",
+    "job_metadata_sha256": "d9049a661bbc7ab8d64fe36f1db8d39b5dfd61b19f38b8d3128556df4b97aea4",
+    "local_comparison_cli_tests_passed": 11,
+    "local_comparison_cli_seconds": 0.09,
+    "comparison_cli_validation": "runs/task-optimization-20261118/comparison-cli-validation.json",
+    "comparison_cli_validation_sha256": "c4bf61203fe732c8f647e55a9f0f16e4fe3c9c1f94522bdaab09db6b53a8c924",
+    "scope": "Full CPU baseline and every job/step passed on the last changed source revision; later commits only curate documentation and experiment evidence. Local related34and report-comparison11tests are recorded separately. Individual CI test count is not inferred.",
     "local_related_tests_passed": 34,
     "local_related_seconds": 11.6,
     "local_report": "runs/task-optimization-20261118/closing-checks/related-tests.log",
@@ -11169,5 +11177,16 @@
       "joint_velocity_rms_rad_s": 2
     },
     "scope": "Counts include retained controls and repeated conditions across distinct checkpoints; they are not independent motion examples. The first49baseline cases additionally passed the later declared-initialization verifier."
+  },
+  "window_closure": {
+    "local_report": "runs/task-optimization-20261118/window-closure.json",
+    "sha256": "196a8561715ddc0019c6a1a704ff37bb8ff39b288c7990dce95f7439a4e833c6",
+    "result": {
+      "status": "complete",
+      "actual_end_utc": "2026-11-18T14:47:12.102186+00:00",
+      "elapsed_seconds": 14419.102186,
+      "new_models_adopted": 0,
+      "all_requested_checks_complete": true
+    }
   }
 }
