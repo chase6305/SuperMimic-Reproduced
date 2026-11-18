@@ -1,5 +1,5 @@
 {
-  "status": "research_in_progress",
+  "status": "complete_no_new_full_jump_model",
   "window": {
     "start_utc": "2026-11-18T10:46:53Z",
     "deadline_utc": "2026-11-18T14:46:53Z",
@@ -12,7 +12,7 @@
   "source_checkpoint_sha256": "83d1e3ce3317346681e4f56ea3dec178459124494e8a7c2d8dbb4c7e964ce647",
   "source_motion_sha256": "0c21df779e79a8e96a5fb42f5a8a3ffe9b3cf775b883e6bf40016a67d8468878",
   "source_full_trajectory_sha256": "10934b90bc572042d6fb3ea075bfc1e61d80a602d814cfd330298641f93b7c18",
-  "completed_full_physical_evaluations": 33,
+  "completed_full_physical_evaluations": 37,
   "strict_passes": 0,
   "phases": [
     {
@@ -1489,6 +1489,175 @@
           "assessment_sha256": "a1469bb23672b72b8b0657dabb9fc5f6f374f9986f337562ffd967ebc0fe9053"
         }
       ]
+    },
+    {
+      "name": "local-ridge",
+      "completed_physical_evaluations": 4,
+      "strict_passes": 0,
+      "local_results": "runs/task-optimization-20261118/jump-native-head-search/local-ridge/physical-results.json",
+      "local_results_sha256": "448ce69a6adaf98af4c82f15728e39b8fece5249eeff18a67a85d6a5df518bca",
+      "plan_sha256": "57579513ff202300b889acbfff087535c85525adfffed2e6ef1a62d60459f480",
+      "records": [
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/local-ridge/candidate-000",
+          "phase": "local-ridge",
+          "candidate": 0,
+          "gain": 0.0,
+          "source_control": true,
+          "checkpoint_sha256": "83d1e3ce3317346681e4f56ea3dec178459124494e8a7c2d8dbb4c7e964ce647",
+          "method": "Native-kinematic diagnostic plus ridge fit on existing frozen decoder features; no new architecture or runtime frame gate.",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.81149589994927,
+          "worst_effector_m": 0.25225533386523663,
+          "flight_precision": 0.8034188034188035,
+          "flight_recall": 0.9,
+          "airtime_ratio": 0.7735063663075415,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25225533386523663,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.009021587716280388,
+          "trajectory_sha256": "10934b90bc572042d6fb3ea075bfc1e61d80a602d814cfd330298641f93b7c18",
+          "assessment_sha256": "8eee7be6bbdd3fc8b356a7ec5f1c4c7d95d77d287932e5fa6b5e41e77e3fd126"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/local-ridge/candidate-001",
+          "phase": "local-ridge",
+          "candidate": 1,
+          "gain": -0.01,
+          "source_control": false,
+          "checkpoint_sha256": "3f3153214e8d852693f302de1b3aa0199e0468b91d5246d850ad389d31165e96",
+          "method": "Native-kinematic diagnostic plus ridge fit on existing frozen decoder features; no new architecture or runtime frame gate.",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.8139229121238234,
+          "worst_effector_m": 0.2543692610210286,
+          "flight_precision": 0.770820481184454,
+          "flight_recall": 0.8777777777777778,
+          "airtime_ratio": 0.7938295788442703,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2543692610210286,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.770820481184454,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.16337489253110551,
+          "trajectory_sha256": "a76b7142e26a9280ee626447c0b6f046664c6f8a8f4fb018c109ff8e8801becb",
+          "assessment_sha256": "3a25ad0586d3ccc83179b608a392c6c550a78217a8cc523f7c21f771ba51cd97"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/local-ridge/candidate-002",
+          "phase": "local-ridge",
+          "candidate": 2,
+          "gain": 0.01,
+          "source_control": false,
+          "checkpoint_sha256": "af96baaa045bd2ead5ac607e47f3a4ba13dfac4546737af69edf1587ef1201c1",
+          "method": "Native-kinematic diagnostic plus ridge fit on existing frozen decoder features; no new architecture or runtime frame gate.",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.8090827465252461,
+          "worst_effector_m": 0.35689475796690806,
+          "flight_precision": 0.7886876390212901,
+          "flight_recall": 0.8666666666666667,
+          "airtime_ratio": 0.7705680705190989,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.35689475796690806,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7886876390212901,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.48414119365593977,
+          "trajectory_sha256": "9878afb271d5d819e1575c3c7775beb66095c72082372cfec1fd867b2901ad39",
+          "assessment_sha256": "6112cfad7e6ed99a66b8cc0ebf8926f8e15014fe15c2a200e73efed5f24a534c"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/local-ridge/candidate-003",
+          "phase": "local-ridge",
+          "candidate": 3,
+          "gain": 0.025,
+          "source_control": false,
+          "checkpoint_sha256": "667a177f4c8918deed0ec21c72d9f6697f8d456c620cec96c525de5c5c897ba9",
+          "method": "Native-kinematic diagnostic plus ridge fit on existing frozen decoder features; no new architecture or runtime frame gate.",
+          "strict_passed": false,
+          "completed_motion": false,
+          "steps": 11269,
+          "normalized_return": 0.7368654803766984,
+          "worst_effector_m": 0.33579406467518974,
+          "flight_precision": 0.7619499841722064,
+          "flight_recall": 0.8555555555555555,
+          "airtime_ratio": 0.7735063663075415,
+          "failed_checks": [
+            {
+              "name": "completed_motion",
+              "value": false,
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_orientation_rmse_rad",
+              "value": 0.8143762322304723,
+              "limit": 0.4,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.33579406467518974,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7619499841722064,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 101.56936725420998,
+          "trajectory_sha256": "da19994ae3946c9ab709fa8abfabad0b6b2ecbcd7c2a18eea6f07e437b6b7dbd",
+          "assessment_sha256": "5a592fb76839612b5513208628ab1bda5095fa813ac4e7d3d912937351031fc4"
+        }
+      ],
+      "zero_source_control": {
+        "passed": true,
+        "fields_bitexact": {
+          "states": true,
+          "actions": true,
+          "reference_frame": true,
+          "physical_contacts": true
+        },
+        "source_trajectory_sha256": "10934b90bc572042d6fb3ea075bfc1e61d80a602d814cfd330298641f93b7c18"
+      }
     }
   ],
   "plan_versions": [
@@ -1611,6 +1780,302 @@
     }
   ],
   "selection_rule": "Each candidate must run the entire original244.42s reference from the original first state with one unchanged neural actor and all23originalg1-skills-v2-full-motion gates. Baselinezero must reproduce original arrays bitexact before any candidate evaluation. Score summed normalized gate violation (4xflight-precision violation), full duration mandatory. Failed trials and partial trajectories retained; no threshold change. A passing candidate still needs copied independent full NN replay, native command/state/contact/force replay and actual transfer-training qualification. Known-reference optimization only, no new-motion/hardware claim.",
-  "controller_scope": "Same neural architecture, only8declared final-layer bias entries searched. Original PD/model/reference clock and all23g1-skills-v2-full-motion conditions unchanged. No runtime controller switching or external action correction. New SGDupdates0; unmatched Adam states marked invalid, continuation requires explicittransfer.",
-  "scope": "Known original244.42s reference and initialization, complete reached-state/contact scoring. No training-loss, short-prefix, general skill or hardware acceptance claim. Retained120s/30s handoffs stay intact."
+  "controller_scope": "Same neural architecture, only the declared final action-head parameters searched; each phase retains its exact proposal method. Original PD/model/reference clock and all23g1-skills-v2-full-motion conditions unchanged. No runtime controller switching or external action correction. New SGDupdates0; unmatched Adam states marked invalid, continuation requires explicittransfer.",
+  "scope": "Known original244.42s reference and initialization, complete reached-state/contact scoring. No training-loss, short-prefix, general skill or hardware acceptance claim. Retained120s/30s handoffs stay intact.",
+  "delivery_decision": {
+    "local_report": "runs/task-optimization-20261118/jump-selected-full-verification.json",
+    "sha256": "cf9f7c871f7466410a8069be5c5121c1e1703b4dbb492f1460c4fe80cf08add0",
+    "result": {
+      "status": "no_qualified_new_full_jump",
+      "physical_evaluations": 37,
+      "strict_passes": 0,
+      "retained_120s_and30s_handoffs_unchanged": true
+    }
+  },
+  "global_bias_stop": {
+    "local_report": "runs/task-optimization-20261118/jump-global-bias-stop.json",
+    "sha256": "8cc4ff1f8d81ec37093b74a6b0239b07d25d7a628d193638a103811d0c9dcba7",
+    "result": {
+      "reason": "The original actor remains best on fixed-gate fitness after17coordinate and the first fine16population trials. Do not execute the second planned global population; further work will target different model directions.",
+      "original_maximum_proposals": 49,
+      "global_bias_phases_to_complete": [
+        "coordinate",
+        "population-1"
+      ],
+      "population2_executed": false,
+      "original_gates_unchanged": true
+    }
+  },
+  "local_ridge_execution_issue": {
+    "description": "The private proposal generator wrote all four files, then aborted during interpreter finalization in PyTorch Dispatcher deregistration. The error and original log remain preserved. A fresh independent process verified file hashes, shapes, finiteness and frozen parameters before full physical evaluation. No generator exit was reclassified as success.",
+    "generator_log": "runs/task-optimization-20261118/jump-local-ridge-pipeline/generate.log",
+    "generator_log_sha256": "0222b537b4ecab9a2a2af04aaabc2150f9f52b43ab3b4c1c52fbd405c4cc1711",
+    "independent_file_validation": {
+      "local_report": "runs/task-optimization-20261118/jump-native-head-search/local-ridge/independent-file-validation.json",
+      "sha256": "790ac996b2dc9902ebc921bbc2358727356ad33de112ae5e3b6e9b6758285666",
+      "result": {
+        "status": "passed",
+        "source_checkpoint_sha256": "83d1e3ce3317346681e4f56ea3dec178459124494e8a7c2d8dbb4c7e964ce647",
+        "records": [
+          {
+            "stage": "runs/task-optimization-20261118/jump-native-head-search/local-ridge/candidate-000",
+            "phase": "local-ridge",
+            "candidate": 0,
+            "gain": 0.0,
+            "source_control": true,
+            "checkpoint_sha256": "83d1e3ce3317346681e4f56ea3dec178459124494e8a7c2d8dbb4c7e964ce647",
+            "method": "Native-kinematic diagnostic plus ridge fit on existing frozen decoder features; no new architecture or runtime frame gate.",
+            "changed_tensors": [],
+            "all_other_actor_tensors_bitexact": true,
+            "file_verified": true
+          },
+          {
+            "stage": "runs/task-optimization-20261118/jump-native-head-search/local-ridge/candidate-001",
+            "phase": "local-ridge",
+            "candidate": 1,
+            "gain": -0.01,
+            "source_control": false,
+            "checkpoint_sha256": "3f3153214e8d852693f302de1b3aa0199e0468b91d5246d850ad389d31165e96",
+            "method": "Native-kinematic diagnostic plus ridge fit on existing frozen decoder features; no new architecture or runtime frame gate.",
+            "changed_tensors": [
+              "decoder.mlp.net.8.weight",
+              "decoder.mlp.net.8.bias"
+            ],
+            "all_other_actor_tensors_bitexact": true,
+            "file_verified": true
+          },
+          {
+            "stage": "runs/task-optimization-20261118/jump-native-head-search/local-ridge/candidate-002",
+            "phase": "local-ridge",
+            "candidate": 2,
+            "gain": 0.01,
+            "source_control": false,
+            "checkpoint_sha256": "af96baaa045bd2ead5ac607e47f3a4ba13dfac4546737af69edf1587ef1201c1",
+            "method": "Native-kinematic diagnostic plus ridge fit on existing frozen decoder features; no new architecture or runtime frame gate.",
+            "changed_tensors": [
+              "decoder.mlp.net.8.weight",
+              "decoder.mlp.net.8.bias"
+            ],
+            "all_other_actor_tensors_bitexact": true,
+            "file_verified": true
+          },
+          {
+            "stage": "runs/task-optimization-20261118/jump-native-head-search/local-ridge/candidate-003",
+            "phase": "local-ridge",
+            "candidate": 3,
+            "gain": 0.025,
+            "source_control": false,
+            "checkpoint_sha256": "667a177f4c8918deed0ec21c72d9f6697f8d456c620cec96c525de5c5c897ba9",
+            "method": "Native-kinematic diagnostic plus ridge fit on existing frozen decoder features; no new architecture or runtime frame gate.",
+            "changed_tensors": [
+              "decoder.mlp.net.8.weight",
+              "decoder.mlp.net.8.bias"
+            ],
+            "all_other_actor_tensors_bitexact": true,
+            "file_verified": true
+          }
+        ],
+        "generator_process_exit_anomaly_preserved": true,
+        "scope": "Independent file/shape/finiteness/frozen-parameter validation. No physical quality claim; full neural zero control and original23gates are still required."
+      }
+    },
+    "recovery_steps": {
+      "local_report": "runs/task-optimization-20261118/jump-local-ridge-recovery/results.json",
+      "sha256": "479efa4e706483dd98c48cea65e6dc850dff523ad7cf3d1b809ce204b9c8d7f3",
+      "result": [
+        {
+          "step": "validate-files",
+          "returncode": 0
+        },
+        {
+          "step": "evaluate",
+          "returncode": 0
+        }
+      ]
+    }
+  },
+  "full_reference_completions": 35,
+  "early_terminations": [
+    {
+      "phase": "population-1",
+      "candidate": 15,
+      "steps": 8728,
+      "duration_s": 174.56,
+      "stage": "runs/task-optimization-20261118/jump-native-head-search/population-1/candidate-015",
+      "failed_checks": [
+        {
+          "name": "completed_motion",
+          "value": false,
+          "passed": false
+        },
+        {
+          "name": "full_clip_return",
+          "value": 0.5649969779840809,
+          "limit": 0.7,
+          "comparison": ">=",
+          "passed": false
+        },
+        {
+          "name": "worst_1s_root_orientation_rmse_rad",
+          "value": 0.5961210682707756,
+          "limit": 0.4,
+          "comparison": "<=",
+          "passed": false
+        },
+        {
+          "name": "worst_1s_effector_rmse_m",
+          "value": 0.3749910476728602,
+          "limit": 0.25,
+          "comparison": "<=",
+          "passed": false
+        },
+        {
+          "name": "jump_event_recall",
+          "value": 0.7888888888888889,
+          "limit": 0.8,
+          "comparison": ">=",
+          "passed": false
+        },
+        {
+          "name": "jump_time_precision",
+          "value": 0.7500838644750084,
+          "limit": 0.8,
+          "comparison": ">=",
+          "passed": false
+        }
+      ]
+    },
+    {
+      "phase": "local-ridge",
+      "candidate": 3,
+      "steps": 11269,
+      "duration_s": 225.38,
+      "stage": "runs/task-optimization-20261118/jump-native-head-search/local-ridge/candidate-003",
+      "failed_checks": [
+        {
+          "name": "completed_motion",
+          "value": false,
+          "passed": false
+        },
+        {
+          "name": "worst_1s_root_orientation_rmse_rad",
+          "value": 0.8143762322304723,
+          "limit": 0.4,
+          "comparison": "<=",
+          "passed": false
+        },
+        {
+          "name": "worst_1s_effector_rmse_m",
+          "value": 0.33579406467518974,
+          "limit": 0.25,
+          "comparison": "<=",
+          "passed": false
+        },
+        {
+          "name": "jump_time_precision",
+          "value": 0.7619499841722064,
+          "limit": 0.8,
+          "comparison": ">=",
+          "passed": false
+        }
+      ]
+    }
+  ],
+  "evaluation_count_scope": "Thirty-seven evaluations targeting the original244.42s reference;35reached the end and2stopped early under original termination conditions. All37completed evaluations are counted, including those two failed partial trajectories. None passed all23gates.",
+  "new_sgd_updates": 0,
+  "new_models_adopted": 0,
+  "source_validation": {
+    "conclusion": "success",
+    "ci_run": "https://github.com/chase6305/SuperMimic-Reproduced/actions/runs/44321291824",
+    "ci_source_revision": "1d07aca50a0e39d8014af1e3ce56977674ba3f03",
+    "cpu_baseline": "passed",
+    "lint": "passed",
+    "cli_and_distribution_build": "passed",
+    "completed_at_utc": "2026-11-18T14:12:17Z",
+    "run_metadata_sha256": "cab5d2df3533046fd3fe7ac359e6621f8fd5568668d4ec838466c5a92f4f61e2",
+    "job_metadata_sha256": "fbe2e22f0c58403a0e2e5d5fe6c9eba385d06e686b080c31a521bbdbe0ef9a13",
+    "scope": "Full CPU baseline on the last changed source revision; later commits only curate documentation and experiment evidence. Individual test count is not inferred from source collection."
+  },
+  "reproduction_helpers": {
+    "manifest": "runs/task-optimization-20261118/reproduction-tools-final/manifest.json",
+    "manifest_sha256": "4d816c1472fab72cd4ae618c048599d273321099df14217aee61fcb2ff3f93e8",
+    "scope": "Final versions of private orchestration helpers and shared wrappers. Each run retains its actual executing worker/package snapshot; these final versions do not replace earlier snapshots or failed logs."
+  },
+  "retained_delivery_integrity": {
+    "local_report": "runs/task-optimization-20261118/delivery-integrity/result.json",
+    "sha256": "5f9034531dac3445c2cf98e7b4e8c3e8aa663a1db3cce5c34ea1dcce6f94fe21",
+    "result": {
+      "status": "passed",
+      "packets": 9,
+      "listed_files_verified": 127,
+      "referenced_checkpoints_verified": 9,
+      "bytes_hashed": 1427365463,
+      "records": [
+        {
+          "packet": "exports/g1-tasks-20261117/walk-reference",
+          "entry_sha256": "a56e48ed8dc52da30226fb3286c11e0792ea898457025a67876f492b19cfa2b4",
+          "files": 10,
+          "checkpoint_sha256": "bc95a21eb9b55ba56aafd6b5bd4dc9ba663f19f7f087d674348318243ec633c4",
+          "status": "simulation-demo"
+        },
+        {
+          "packet": "exports/g1-tasks-20261117/stand-hold",
+          "entry_sha256": "1ae7e64a1c48442a38a78caa90d7ef16095ed55f568f9db59c8bc8738f8baa2b",
+          "files": 11,
+          "checkpoint_sha256": "f47634b0c7dcf13a05788f175b40afe38f5cd7a41426c8046e0f2dce0f75238a",
+          "status": "validated-static-hold"
+        },
+        {
+          "packet": "exports/g1-tasks-20261117/jump-preview",
+          "entry_sha256": "483db89b1482ea0537abbc91dff6bd818c60c20407a2262069f7dec791bee6a6",
+          "files": 11,
+          "checkpoint_sha256": "2fd371dc544e4a8eda6c39c4529c6fdca1d1f31fe8b0a3ca39151b9c10cf120a",
+          "status": "unaccepted-preview"
+        },
+        {
+          "packet": "exports/g1-tasks-20261117/dance-preview",
+          "entry_sha256": "d11a86cd66faefafbfea578f12a52422eb34a05b90c9ab35644b8f85dfb8106a",
+          "files": 11,
+          "checkpoint_sha256": "3735896ba6dc398c5bf36b94202b3ee7b77470f77ddad0759455bd15ea1cbf43",
+          "status": "unaccepted-preview"
+        },
+        {
+          "packet": "exports/g1-tasks-20261117/fight-preview",
+          "entry_sha256": "8afbcb6c02ca8b06c83f5a7d804b7c77060216465c779aa3ffe6e39c47b7f80c",
+          "files": 11,
+          "checkpoint_sha256": "eb9a6a00c768fb145c056cb68ac947a503bb52c8de4af5471c6b87f5ff06c5da",
+          "status": "unaccepted-preview"
+        },
+        {
+          "packet": "exports/g1-tasks-20261117/stand-hold-600",
+          "entry_sha256": "d383651ea16c6daf2febb2793438330b9f29fb10bfe588eac08ce2f0e17288f1",
+          "files": 18,
+          "checkpoint_sha256": "6984a9c7ea58c96834349941e986e3b28f6bddba706448c9c3f690e8f248a5f8",
+          "status": "validated-static-hold"
+        },
+        {
+          "packet": "exports/g1-tasks-20261117b/jump30",
+          "entry_sha256": "2b844fbf8827b3d9f278f8aa9869a3ad7285f3825c84ac0f2df3d94d262ebeeb",
+          "files": 11,
+          "checkpoint_sha256": "c511d5bffe21965e3ffda9680d636d4558d708b00f8c5b1795e329cb6f136494",
+          "status": "strict-skill-pass"
+        },
+        {
+          "packet": "exports/g1-tasks-20261117b/jump120",
+          "entry_sha256": "7d718f98e62e0450377f81357e47b50775e9ac831ff0e2a30c73930f5c2f75b8",
+          "files": 11,
+          "checkpoint_sha256": "a4db166b41d4361cd121fae3941c8ce9327d454df24d6a4154b5e8d79dccc746",
+          "status": "strict-skill-pass"
+        },
+        {
+          "packet": "exports/g1-tasks-20261117c/stand-hold-600-reset040",
+          "entry_sha256": "236e0304fa7fbd0deaeb63a6793bc7fe63c2c6ecba0537f6e243766f0acc9a3a",
+          "files": 33,
+          "checkpoint_sha256": "0c96f5084c427b9c68a5c5a9d437dcc9bfae2dd905c99a0c695d1a46fab2aba3",
+          "status": "validated-static-hold"
+        }
+      ],
+      "scope": "Catalog/entry agreement and actual listed artifact/checkpoint hashes; no new quality or hardware claim."
+    }
+  }
 }
