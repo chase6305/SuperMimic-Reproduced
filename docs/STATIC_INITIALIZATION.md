@@ -8,7 +8,7 @@
 
 先检查整机内存、负载和相关进程。沿用项目的跨对话排他锁，计算库保持单线程；资源忙时稍后重试，不绕过锁。以下路径使用本机已有交付文件，数据和权重未随 Git 分发。
 
-如果尚无静态参考，可用 `scripts/make_static_reference.py --source data/npz/validation/walk1_subject1.npz --frame 0 --seconds 60 --output data/npz/probes/my-static60.npz`，同样放在下述锁、线程限制和超时之内执行。它固定指定帧的关节与身体姿态，将全部速度设为零，保留 50 Hz 时钟和源文件指纹；通过广播视图分块写入 30 至 1,800 秒参考，并拒绝覆盖已有文件。这定义了一个独立固定姿态任务，不是对源动态动作的验收。新姿态仍需重新训练和验证，不能假定已有模型适用。
+如果尚无静态参考，可用 `scripts/make_static_reference.py --source data/npz/validation/walk1_subject1.npz --frame 0 --seconds 60 --output data/npz/probes/my-static60.npz`，同样放在下述锁、线程限制和超时之内执行。它固定指定帧的关节与身体姿态，将全部速度设为零，使用契约的精确 50 Hz 时钟，并保留源文件指纹和 `source_fps`；通过广播视图分块写入 30 至 1,800 秒参考，并拒绝覆盖已有文件。这定义了一个独立固定姿态任务，不是对源动态动作的验收。新姿态仍需重新训练和验证，不能假定已有模型适用。
 
 ```bash
 flock -n -E 75 /home/ubuntu/.cache/codex-heavy-work.lock \

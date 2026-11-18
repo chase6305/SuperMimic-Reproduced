@@ -12,6 +12,10 @@
   "evaluation_scope": "Each condition runs the full60s static reference with the same actor/PD/model and unchangedg1-static-pose-v1 thresholds, no autoreset. Before any new training: original6984 actor18/20, reset040 actor15/20; reset040 also reproduces its original9/9 selected cases. All completed; failures are XY quality failures. The20case plan was fixed before both first evaluations. It becomes a development plan once these results guide selection; no later heldout claim for candidate selection.",
   "plans": [
     {
+      "path": "experiments/static-initialization/extended600-20261118.json",
+      "sha256": "71c26b86a288bdc4961103dd170fa30673eb3eddaa7ee8b55dbbcee3335cb857"
+    },
+    {
       "path": "experiments/static-initialization/final-20261118.json",
       "sha256": "27731bb90868ad6c791965d591bdbb1f4c655e127672827cf6f3a1aed9ab168c"
     },
@@ -2936,6 +2940,26 @@
       "peak_rss_bytes": 4076949504,
       "peak_process_gpu_mib": 1108,
       "quality_evaluation": "See later complete physical evaluation records; training audit alone is not acceptance."
+    },
+    {
+      "name": "static-reset060-xy800-ori200",
+      "audit": "runs/task-optimization-20261118/static-reset060-xy800-ori200-audit/result.json",
+      "audit_sha256": "121ea83771440559cfdc8f0294fa226cff97ec020b6fc2f039ac0cc674f0fc6f",
+      "plan": "runs/task-optimization-20261118/static-reset060-xy800-ori200-plan.json",
+      "plan_sha256": "2e8128251e8ee805dc71beb9a57d184851d0e1a1426bc796736c24ead2f428a6",
+      "source_checkpoint_sha256": "0c96f5084c427b9c68a5c5a9d437dcc9bfae2dd905c99a0c695d1a46fab2aba3",
+      "final_checkpoint_sha256": "85e392cdd9c48329d07d8fb8af3070b704480332f611bfee33257cc9c17bd03f",
+      "new_optimizer_updates": 5539,
+      "final_iteration": 24409,
+      "final_updates": 9745,
+      "changed_actor_tensors": [
+        "decoder.mlp.net.8.weight",
+        "decoder.mlp.net.8.bias"
+      ],
+      "other_actor_tensors_bitexact": 20,
+      "peak_rss_bytes": 4095426560,
+      "peak_process_gpu_mib": 1108,
+      "quality_evaluation": "See later complete physical evaluation records; training audit alone is not acceptance."
     }
   ],
   "curriculum_candidate_evaluations": [
@@ -3771,6 +3795,1247 @@
             }
           ]
         }
+      ]
+    },
+    {
+      "checkpoint": "runs/task-optimization-20261118/static-reset060-xy800-ori200/training/ckpt_0015000.pt",
+      "checkpoint_sha256": "796323724d1579a4113df48d4e06054510557d5d8a4f6b951dc64e921a607ca9",
+      "stage": "runs/task-optimization-20261118/static-reset060-xy800-ori200-evaluations/ckpt_0015000",
+      "eligible": false,
+      "selected": {
+        "cases": 9,
+        "passes": 9,
+        "passed_ids": [
+          "baseline",
+          "joint-position-noise-10mrad",
+          "root-forward-velocity-50mmps",
+          "root-roll--1-30mrad",
+          "root-roll-p1-30mrad",
+          "root-x--1-20mm",
+          "root-x-p1-20mm",
+          "root-y--1-20mm",
+          "root-y-p1-20mm"
+        ],
+        "result": "runs/task-optimization-20261118/static-reset060-xy800-ori200-evaluations/ckpt_0015000/selected/result.json",
+        "result_sha256": "57d55f500990986fb0a6799cee0c5097dabf9473b1ed5b5cb110c36a610bf115",
+        "all_replays_bitexact": true
+      },
+      "development": {
+        "cases": 20,
+        "passes": 15,
+        "passed_ids": [
+          "baseline",
+          "body-roll-velocity-minus",
+          "body-roll-velocity-plus",
+          "combined-0-0",
+          "combined-2-0",
+          "joint-seed-2026111801",
+          "joint-seed-2026111802",
+          "joint-seed-2026111803",
+          "joint-seed-2026111804",
+          "rotation-1-minus",
+          "rotation-1-plus",
+          "rotation-2-minus",
+          "rotation-2-plus",
+          "velocity-0-minus",
+          "velocity-1-minus"
+        ],
+        "result": "runs/task-optimization-20261118/static-reset060-xy800-ori200-evaluations/ckpt_0015000/development/result.json",
+        "result_sha256": "596f8edd8ac339732ef7650f60789ee69779d6d7f63bb6db390ffb1d920845ce",
+        "all_replays_bitexact": true
+      },
+      "no_new_failure_types": false,
+      "minimum_relative_margin": -1.7002056889472075,
+      "condition_results": [
+        {
+          "set": "selected",
+          "plan_sha256": "2533c92800bf0e69510194a6472fd78f171585b9b6668c41cb90b55214399197",
+          "local_report": "runs/task-optimization-20261118/static-reset060-xy800-ori200-evaluations/ckpt_0015000/selected/result.json",
+          "local_report_sha256": "57d55f500990986fb0a6799cee0c5097dabf9473b1ed5b5cb110c36a610bf115",
+          "records": [
+            {
+              "id": "baseline",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.020380369688013197,
+                "joint_rmse_rad": 0.06849728599673051,
+                "root_height_rmse_m": 0.012623701263892983,
+                "root_orientation_rmse_rad": 0.05442648777384463,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.10350539599833057
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-x--1-20mm",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.034258193058660805,
+                "joint_rmse_rad": 0.0645359205027799,
+                "root_height_rmse_m": 0.01258214045361112,
+                "root_orientation_rmse_rad": 0.04514967423447101,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.11367140712905589
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-x-p1-20mm",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.037780893628752796,
+                "joint_rmse_rad": 0.06779140214140819,
+                "root_height_rmse_m": 0.012728103880846746,
+                "root_orientation_rmse_rad": 0.05287924837160276,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.10431315438375384
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-y--1-20mm",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.029975390922395786,
+                "joint_rmse_rad": 0.06892311998062717,
+                "root_height_rmse_m": 0.012406459076643846,
+                "root_orientation_rmse_rad": 0.056693292399568745,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.0934351611047608
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-y-p1-20mm",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.018590498237097866,
+                "joint_rmse_rad": 0.06806833662044759,
+                "root_height_rmse_m": 0.01276323209250503,
+                "root_orientation_rmse_rad": 0.05328724733075865,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.1057618539994003
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-roll--1-30mrad",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.02144926251043752,
+                "joint_rmse_rad": 0.06749974832400284,
+                "root_height_rmse_m": 0.012641310085551489,
+                "root_orientation_rmse_rad": 0.05405361812386705,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.09923011187866056
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-roll-p1-30mrad",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.05113652572186262,
+                "joint_rmse_rad": 0.06437634319621213,
+                "root_height_rmse_m": 0.012551773023459707,
+                "root_orientation_rmse_rad": 0.046162290072786466,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.2184540946995519
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-forward-velocity-50mmps",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.02622363494838135,
+                "joint_rmse_rad": 0.06671426996820662,
+                "root_height_rmse_m": 0.012618401307753007,
+                "root_orientation_rmse_rad": 0.05235959139152612,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.09860733443217914
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "joint-position-noise-10mrad",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.03788032967098584,
+                "joint_rmse_rad": 0.06503166200138184,
+                "root_height_rmse_m": 0.012845735584455497,
+                "root_orientation_rmse_rad": 0.04571804981262229,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.10786502296444898
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            }
+          ]
+        },
+        {
+          "set": "development",
+          "plan_sha256": "d2a95e7cddc72c4b1f843527060f937404569039f76573a0bf1c13931f42003e",
+          "local_report": "runs/task-optimization-20261118/static-reset060-xy800-ori200-evaluations/ckpt_0015000/development/result.json",
+          "local_report_sha256": "596f8edd8ac339732ef7650f60789ee69779d6d7f63bb6db390ffb1d920845ce",
+          "records": [
+            {
+              "id": "baseline",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.020380369688013197,
+                "joint_rmse_rad": 0.06849728599673051,
+                "root_height_rmse_m": 0.012623701263892983,
+                "root_orientation_rmse_rad": 0.05442648777384463,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.10350539599833057
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "rotation-1-minus",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.02340996441248397,
+                "joint_rmse_rad": 0.06720697499102198,
+                "root_height_rmse_m": 0.01304599832611952,
+                "root_orientation_rmse_rad": 0.048745343726585275,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.10672618465927129
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "rotation-1-plus",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.02665052091623679,
+                "joint_rmse_rad": 0.06775440751320759,
+                "root_height_rmse_m": 0.012462378463929724,
+                "root_orientation_rmse_rad": 0.055290580650108466,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.10505416821609712
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "rotation-2-minus",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.01527957117128665,
+                "joint_rmse_rad": 0.06747329673190432,
+                "root_height_rmse_m": 0.012570247863855065,
+                "root_orientation_rmse_rad": 0.0528321952532801,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.09489151290148211
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "rotation-2-plus",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.01918755668441371,
+                "joint_rmse_rad": 0.07046452745407117,
+                "root_height_rmse_m": 0.01245924919668375,
+                "root_orientation_rmse_rad": 0.06074057935106098,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.10418611201603338
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "velocity-0-minus",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.01731329548893553,
+                "joint_rmse_rad": 0.06556602867470658,
+                "root_height_rmse_m": 0.012435477295681664,
+                "root_orientation_rmse_rad": 0.04691995911262835,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.14305878769549896
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "velocity-1-minus",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.03641570088731463,
+                "joint_rmse_rad": 0.06536475979897,
+                "root_height_rmse_m": 0.012371097532193048,
+                "root_orientation_rmse_rad": 0.04842349362547701,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.10808946370799603
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "velocity-1-plus",
+              "passed": false,
+              "metrics": {
+                "root_xy_rmse_m": 0.20714495623538115,
+                "joint_rmse_rad": 0.06413954961786278,
+                "root_height_rmse_m": 0.012385605995404315,
+                "root_orientation_rmse_rad": 0.04674275630219797,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.22247300244039525
+              },
+              "failed_checks": [
+                {
+                  "name": "root_xy_rmse_m",
+                  "value": 0.20714495623538115,
+                  "limit": 0.1,
+                  "comparison": "<=",
+                  "passed": false
+                }
+              ],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "body-roll-velocity-minus",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.021018570235797972,
+                "joint_rmse_rad": 0.06679754867234537,
+                "root_height_rmse_m": 0.01251136892887292,
+                "root_orientation_rmse_rad": 0.05255684504129266,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.11289791231788673
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "body-roll-velocity-plus",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.017474207185545453,
+                "joint_rmse_rad": 0.06922632590369418,
+                "root_height_rmse_m": 0.012460828861901512,
+                "root_orientation_rmse_rad": 0.05768059758078179,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.09346872299820023
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "joint-seed-2026111801",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.05205714653624998,
+                "joint_rmse_rad": 0.06260712156375647,
+                "root_height_rmse_m": 0.011927813391462594,
+                "root_orientation_rmse_rad": 0.035825168212541725,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.17391131897702294
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "joint-seed-2026111802",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.07902402224932326,
+                "joint_rmse_rad": 0.062295276429479095,
+                "root_height_rmse_m": 0.011704080866150098,
+                "root_orientation_rmse_rad": 0.03936801572460343,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.17315464238482875
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "joint-seed-2026111803",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.01977253681136808,
+                "joint_rmse_rad": 0.06882380057135981,
+                "root_height_rmse_m": 0.012378072764419936,
+                "root_orientation_rmse_rad": 0.057119151827956766,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.09760623511001293
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "joint-seed-2026111804",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.022067279989285878,
+                "joint_rmse_rad": 0.06727656986650801,
+                "root_height_rmse_m": 0.012654397480467297,
+                "root_orientation_rmse_rad": 0.0532678140026804,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.0979215316117728
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "combined-0-0",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.08352431564269003,
+                "joint_rmse_rad": 0.06271555628321938,
+                "root_height_rmse_m": 0.011860174485678056,
+                "root_orientation_rmse_rad": 0.036451816296661825,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.28284788857133847
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "combined-0-2",
+              "passed": false,
+              "metrics": {
+                "root_xy_rmse_m": 0.27002056889472076,
+                "joint_rmse_rad": 0.07009934395490923,
+                "root_height_rmse_m": 0.010958911770660077,
+                "root_orientation_rmse_rad": 0.06374099106356593,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.5592461658569321
+              },
+              "failed_checks": [
+                {
+                  "name": "root_xy_rmse_m",
+                  "value": 0.27002056889472076,
+                  "limit": 0.1,
+                  "comparison": "<=",
+                  "passed": false
+                },
+                {
+                  "name": "joint_velocity_rms_rad_s",
+                  "value": 0.5592461658569321,
+                  "limit": 0.5,
+                  "comparison": "<=",
+                  "passed": false
+                }
+              ],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "combined-2-0",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.03863356985293846,
+                "joint_rmse_rad": 0.06929556697546703,
+                "root_height_rmse_m": 0.01232451204513811,
+                "root_orientation_rmse_rad": 0.05882710862288353,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.09332537373982548
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "combined-2-2",
+              "passed": false,
+              "metrics": {
+                "root_xy_rmse_m": 0.18179597515923054,
+                "joint_rmse_rad": 0.06630675683259472,
+                "root_height_rmse_m": 0.011411790120219912,
+                "root_orientation_rmse_rad": 0.055239448393779284,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.4429905960804382
+              },
+              "failed_checks": [
+                {
+                  "name": "root_xy_rmse_m",
+                  "value": 0.18179597515923054,
+                  "limit": 0.1,
+                  "comparison": "<=",
+                  "passed": false
+                }
+              ],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "height-minus",
+              "passed": false,
+              "metrics": {
+                "root_xy_rmse_m": 0.11475870409733996,
+                "joint_rmse_rad": 0.06333554105246127,
+                "root_height_rmse_m": 0.011437677452060117,
+                "root_orientation_rmse_rad": 0.04742782733470533,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.33903746277059654
+              },
+              "failed_checks": [
+                {
+                  "name": "root_xy_rmse_m",
+                  "value": 0.11475870409733996,
+                  "limit": 0.1,
+                  "comparison": "<=",
+                  "passed": false
+                }
+              ],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "height-plus",
+              "passed": false,
+              "metrics": {
+                "root_xy_rmse_m": 0.20173998094687504,
+                "joint_rmse_rad": 0.0671288910992137,
+                "root_height_rmse_m": 0.01148763440138032,
+                "root_orientation_rmse_rad": 0.05636786528308786,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.4280331529402644
+              },
+              "failed_checks": [
+                {
+                  "name": "root_xy_rmse_m",
+                  "value": 0.20173998094687504,
+                  "limit": 0.1,
+                  "comparison": "<=",
+                  "passed": false
+                }
+              ],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            }
+          ]
+        }
+      ],
+      "new_development_passes_vs_union18": [
+        "combined-0-0",
+        "velocity-1-minus"
+      ],
+      "development_regressions_vs_union18": [
+        "combined-0-2",
+        "combined-2-2",
+        "height-minus",
+        "height-plus",
+        "velocity-1-plus"
+      ]
+    },
+    {
+      "checkpoint": "runs/task-optimization-20261118/static-reset060-xy800-ori200/training/ckpt_0020000.pt",
+      "checkpoint_sha256": "9537d4c08db2457d3c8305dfe377f8d6300236668223ee201ea31c834e8d1ffe",
+      "stage": "runs/task-optimization-20261118/static-reset060-xy800-ori200-evaluations/ckpt_0020000",
+      "eligible": false,
+      "selected": {
+        "cases": 9,
+        "passes": 4,
+        "passed_ids": [
+          "baseline",
+          "joint-position-noise-10mrad",
+          "root-y--1-20mm",
+          "root-y-p1-20mm"
+        ],
+        "result": "runs/task-optimization-20261118/static-reset060-xy800-ori200-evaluations/ckpt_0020000/selected/result.json",
+        "result_sha256": "98bd29b30b22a7528e586996dfeb8347686a0a960d842f1dfba85dd517a4a868",
+        "all_replays_bitexact": true
+      },
+      "condition_results": [
+        {
+          "set": "selected",
+          "plan_sha256": "2533c92800bf0e69510194a6472fd78f171585b9b6668c41cb90b55214399197",
+          "local_report": "runs/task-optimization-20261118/static-reset060-xy800-ori200-evaluations/ckpt_0020000/selected/result.json",
+          "local_report_sha256": "98bd29b30b22a7528e586996dfeb8347686a0a960d842f1dfba85dd517a4a868",
+          "records": [
+            {
+              "id": "baseline",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.07589750570030061,
+                "joint_rmse_rad": 0.06566064492572508,
+                "root_height_rmse_m": 0.01230134095712349,
+                "root_orientation_rmse_rad": 0.050618390210823726,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.18025621303741243
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-x--1-20mm",
+              "passed": false,
+              "metrics": {
+                "root_xy_rmse_m": 0.10100237738566142,
+                "joint_rmse_rad": 0.06407218089796347,
+                "root_height_rmse_m": 0.01128522849227563,
+                "root_orientation_rmse_rad": 0.0492671667387038,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.35236259499058525
+              },
+              "failed_checks": [
+                {
+                  "name": "root_xy_rmse_m",
+                  "value": 0.10100237738566142,
+                  "limit": 0.1,
+                  "comparison": "<=",
+                  "passed": false
+                }
+              ],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-x-p1-20mm",
+              "passed": false,
+              "metrics": {
+                "root_xy_rmse_m": 0.14021731876038876,
+                "joint_rmse_rad": 0.06323845794563009,
+                "root_height_rmse_m": 0.011921018203199747,
+                "root_orientation_rmse_rad": 0.03725910426737842,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.20570461764178283
+              },
+              "failed_checks": [
+                {
+                  "name": "root_xy_rmse_m",
+                  "value": 0.14021731876038876,
+                  "limit": 0.1,
+                  "comparison": "<=",
+                  "passed": false
+                }
+              ],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-y--1-20mm",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.05459480068872053,
+                "joint_rmse_rad": 0.0673678778475139,
+                "root_height_rmse_m": 0.01288552570274596,
+                "root_orientation_rmse_rad": 0.05335777995497318,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.10714075085507432
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-y-p1-20mm",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.02673733574015848,
+                "joint_rmse_rad": 0.06865892817937193,
+                "root_height_rmse_m": 0.012899293369642087,
+                "root_orientation_rmse_rad": 0.05785639359450202,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.11285535254111946
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-roll--1-30mrad",
+              "passed": false,
+              "metrics": {
+                "root_xy_rmse_m": 0.13887834301761742,
+                "joint_rmse_rad": 0.06497195317800512,
+                "root_height_rmse_m": 0.011785677597504374,
+                "root_orientation_rmse_rad": 0.04210659351876767,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.36516216851897626
+              },
+              "failed_checks": [
+                {
+                  "name": "root_xy_rmse_m",
+                  "value": 0.13887834301761742,
+                  "limit": 0.1,
+                  "comparison": "<=",
+                  "passed": false
+                }
+              ],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-roll-p1-30mrad",
+              "passed": false,
+              "metrics": {
+                "root_xy_rmse_m": 0.1228089170213056,
+                "joint_rmse_rad": 0.06345174921200573,
+                "root_height_rmse_m": 0.012696056557254393,
+                "root_orientation_rmse_rad": 0.04234102819741616,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.13196976414730446
+              },
+              "failed_checks": [
+                {
+                  "name": "root_xy_rmse_m",
+                  "value": 0.1228089170213056,
+                  "limit": 0.1,
+                  "comparison": "<=",
+                  "passed": false
+                }
+              ],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-forward-velocity-50mmps",
+              "passed": false,
+              "metrics": {
+                "root_xy_rmse_m": 0.15661905997774347,
+                "joint_rmse_rad": 0.06225979080124303,
+                "root_height_rmse_m": 0.01203597269345339,
+                "root_orientation_rmse_rad": 0.04217762226077277,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.15223528304998638
+              },
+              "failed_checks": [
+                {
+                  "name": "root_xy_rmse_m",
+                  "value": 0.15661905997774347,
+                  "limit": 0.1,
+                  "comparison": "<=",
+                  "passed": false
+                }
+              ],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "joint-position-noise-10mrad",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.06569980725551217,
+                "joint_rmse_rad": 0.06543973096365872,
+                "root_height_rmse_m": 0.012322434696868884,
+                "root_orientation_rmse_rad": 0.04311698444945817,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.18159625239007715
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "runs/task-optimization-20261118/static-reset060-xy800-ori200/training/ckpt_latest.pt",
+      "checkpoint_sha256": "85e392cdd9c48329d07d8fb8af3070b704480332f611bfee33257cc9c17bd03f",
+      "stage": "runs/task-optimization-20261118/static-reset060-xy800-ori200-evaluations/ckpt_latest",
+      "eligible": false,
+      "selected": {
+        "cases": 9,
+        "passes": 9,
+        "passed_ids": [
+          "baseline",
+          "joint-position-noise-10mrad",
+          "root-forward-velocity-50mmps",
+          "root-roll--1-30mrad",
+          "root-roll-p1-30mrad",
+          "root-x--1-20mm",
+          "root-x-p1-20mm",
+          "root-y--1-20mm",
+          "root-y-p1-20mm"
+        ],
+        "result": "runs/task-optimization-20261118/static-reset060-xy800-ori200-evaluations/ckpt_latest/selected/result.json",
+        "result_sha256": "b998f07dd593be1758ce90b87322615760eb02ff9b4e6ead9dd90df992d4896e",
+        "all_replays_bitexact": true
+      },
+      "development": {
+        "cases": 20,
+        "passes": 17,
+        "passed_ids": [
+          "baseline",
+          "body-roll-velocity-minus",
+          "body-roll-velocity-plus",
+          "combined-0-2",
+          "combined-2-0",
+          "height-minus",
+          "height-plus",
+          "joint-seed-2026111801",
+          "joint-seed-2026111802",
+          "joint-seed-2026111803",
+          "joint-seed-2026111804",
+          "rotation-1-minus",
+          "rotation-1-plus",
+          "rotation-2-minus",
+          "rotation-2-plus",
+          "velocity-0-minus",
+          "velocity-1-minus"
+        ],
+        "result": "runs/task-optimization-20261118/static-reset060-xy800-ori200-evaluations/ckpt_latest/development/result.json",
+        "result_sha256": "01e4bc83de058ea0be69d9ea615343a1faeb8cafb48c87d1d6e357e8d2366655",
+        "all_replays_bitexact": true
+      },
+      "no_new_failure_types": false,
+      "minimum_relative_margin": -1.103898229417702,
+      "condition_results": [
+        {
+          "set": "selected",
+          "plan_sha256": "2533c92800bf0e69510194a6472fd78f171585b9b6668c41cb90b55214399197",
+          "local_report": "runs/task-optimization-20261118/static-reset060-xy800-ori200-evaluations/ckpt_latest/selected/result.json",
+          "local_report_sha256": "b998f07dd593be1758ce90b87322615760eb02ff9b4e6ead9dd90df992d4896e",
+          "records": [
+            {
+              "id": "baseline",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.019444137859279627,
+                "joint_rmse_rad": 0.06720156046637452,
+                "root_height_rmse_m": 0.012493676642633029,
+                "root_orientation_rmse_rad": 0.05039214049936885,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.10162304690622345
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-x--1-20mm",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.01835450934751283,
+                "joint_rmse_rad": 0.06728889997670187,
+                "root_height_rmse_m": 0.01241026869026616,
+                "root_orientation_rmse_rad": 0.050985802382404855,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.10026693767709753
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-x-p1-20mm",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.03690568014164324,
+                "joint_rmse_rad": 0.0672358323344559,
+                "root_height_rmse_m": 0.012595324895177323,
+                "root_orientation_rmse_rad": 0.050368355030936104,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.10637268897703003
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-y--1-20mm",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.0318580087376469,
+                "joint_rmse_rad": 0.06799092288304746,
+                "root_height_rmse_m": 0.01230541038162065,
+                "root_orientation_rmse_rad": 0.0534228923626085,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.09578910290363646
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-y-p1-20mm",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.019357721117099286,
+                "joint_rmse_rad": 0.06572702524423764,
+                "root_height_rmse_m": 0.0127374266380499,
+                "root_orientation_rmse_rad": 0.04575128294446526,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.10583282499742543
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-roll--1-30mrad",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.018744293898588317,
+                "joint_rmse_rad": 0.06801210779737943,
+                "root_height_rmse_m": 0.012421881618939338,
+                "root_orientation_rmse_rad": 0.05425247796406582,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.09662349242572445
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-roll-p1-30mrad",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.08388411492750916,
+                "joint_rmse_rad": 0.06162394517511059,
+                "root_height_rmse_m": 0.012144535853179872,
+                "root_orientation_rmse_rad": 0.037897128394281616,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.22196832909378442
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-forward-velocity-50mmps",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.05314497875730552,
+                "joint_rmse_rad": 0.06380835222453587,
+                "root_height_rmse_m": 0.012403870475144642,
+                "root_orientation_rmse_rad": 0.04466753856302519,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.10520611618963689
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "joint-position-noise-10mrad",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.036365051365595334,
+                "joint_rmse_rad": 0.06432581584952851,
+                "root_height_rmse_m": 0.012699800695795386,
+                "root_orientation_rmse_rad": 0.04273627739644139,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.10824526662702982
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            }
+          ]
+        },
+        {
+          "set": "development",
+          "plan_sha256": "d2a95e7cddc72c4b1f843527060f937404569039f76573a0bf1c13931f42003e",
+          "local_report": "runs/task-optimization-20261118/static-reset060-xy800-ori200-evaluations/ckpt_latest/development/result.json",
+          "local_report_sha256": "01e4bc83de058ea0be69d9ea615343a1faeb8cafb48c87d1d6e357e8d2366655",
+          "records": [
+            {
+              "id": "baseline",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.019444137859279627,
+                "joint_rmse_rad": 0.06720156046637452,
+                "root_height_rmse_m": 0.012493676642633029,
+                "root_orientation_rmse_rad": 0.05039214049936885,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.10162304690622345
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "rotation-1-minus",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.025568802964401775,
+                "joint_rmse_rad": 0.06642108097711649,
+                "root_height_rmse_m": 0.01286281894653265,
+                "root_orientation_rmse_rad": 0.04610268835347753,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.10574948526602658
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "rotation-1-plus",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.021171952858500223,
+                "joint_rmse_rad": 0.06878767416213435,
+                "root_height_rmse_m": 0.012277807516806663,
+                "root_orientation_rmse_rad": 0.05636590545833474,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.09767748936327939
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "rotation-2-minus",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.0163927917197888,
+                "joint_rmse_rad": 0.0670016587719624,
+                "root_height_rmse_m": 0.012432411850411764,
+                "root_orientation_rmse_rad": 0.05083593420019622,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.09788518161222719
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "rotation-2-plus",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.02336371139793124,
+                "joint_rmse_rad": 0.06907874933710383,
+                "root_height_rmse_m": 0.01237210486034325,
+                "root_orientation_rmse_rad": 0.056598101743414446,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.10653544060930457
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "velocity-0-minus",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.02347712982574743,
+                "joint_rmse_rad": 0.06376217487966858,
+                "root_height_rmse_m": 0.012496030772351481,
+                "root_orientation_rmse_rad": 0.04074245858756435,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.1407536577170987
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "velocity-1-minus",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.076798210332276,
+                "joint_rmse_rad": 0.06226783326359504,
+                "root_height_rmse_m": 0.01266827074403692,
+                "root_orientation_rmse_rad": 0.03418826701939523,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.14568392617919027
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "velocity-1-plus",
+              "passed": false,
+              "metrics": {
+                "root_xy_rmse_m": 0.1870260260852806,
+                "joint_rmse_rad": 0.06505871932538992,
+                "root_height_rmse_m": 0.012330885122882626,
+                "root_orientation_rmse_rad": 0.04651264051528591,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.3149775671311105
+              },
+              "failed_checks": [
+                {
+                  "name": "root_xy_rmse_m",
+                  "value": 0.1870260260852806,
+                  "limit": 0.1,
+                  "comparison": "<=",
+                  "passed": false
+                }
+              ],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "body-roll-velocity-minus",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.02879470050673113,
+                "joint_rmse_rad": 0.06502060094661316,
+                "root_height_rmse_m": 0.012446944186364446,
+                "root_orientation_rmse_rad": 0.04751234465785284,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.1122107312786439
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "body-roll-velocity-plus",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.025581509502904422,
+                "joint_rmse_rad": 0.06698435951671104,
+                "root_height_rmse_m": 0.012401238166528444,
+                "root_orientation_rmse_rad": 0.05154107250811257,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.1032443430786651
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "joint-seed-2026111801",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.017693136047957622,
+                "joint_rmse_rad": 0.06927000321668242,
+                "root_height_rmse_m": 0.012252472866677595,
+                "root_orientation_rmse_rad": 0.05687281062799,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.10904972012516426
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "joint-seed-2026111802",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.019958813110809073,
+                "joint_rmse_rad": 0.06391655494684358,
+                "root_height_rmse_m": 0.012629011871125813,
+                "root_orientation_rmse_rad": 0.04231001630792351,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.10986891033995985
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "joint-seed-2026111803",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.028208643138081153,
+                "joint_rmse_rad": 0.06549396468994688,
+                "root_height_rmse_m": 0.012370220476025496,
+                "root_orientation_rmse_rad": 0.048787107388636744,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.10391029632548496
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "joint-seed-2026111804",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.023961241406530248,
+                "joint_rmse_rad": 0.06584331588134645,
+                "root_height_rmse_m": 0.01252796777378485,
+                "root_orientation_rmse_rad": 0.04884889809704455,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.09951922223032109
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "combined-0-0",
+              "passed": false,
+              "metrics": {
+                "root_xy_rmse_m": 0.16991267576830413,
+                "joint_rmse_rad": 0.06520096678346728,
+                "root_height_rmse_m": 0.010236774089228379,
+                "root_orientation_rmse_rad": 0.05881513910904629,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.505249566052624
+              },
+              "failed_checks": [
+                {
+                  "name": "root_xy_rmse_m",
+                  "value": 0.16991267576830413,
+                  "limit": 0.1,
+                  "comparison": "<=",
+                  "passed": false
+                },
+                {
+                  "name": "joint_velocity_rms_rad_s",
+                  "value": 0.505249566052624,
+                  "limit": 0.5,
+                  "comparison": "<=",
+                  "passed": false
+                }
+              ],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "combined-0-2",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.015969101199843152,
+                "joint_rmse_rad": 0.06660315553108188,
+                "root_height_rmse_m": 0.01260021684396334,
+                "root_orientation_rmse_rad": 0.05016176100476069,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.1072246533924237
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "combined-2-0",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.0529248473086561,
+                "joint_rmse_rad": 0.06480776412827736,
+                "root_height_rmse_m": 0.012458728983295303,
+                "root_orientation_rmse_rad": 0.04700092043288561,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.09913850035979228
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "combined-2-2",
+              "passed": false,
+              "metrics": {
+                "root_xy_rmse_m": 0.21038982294177022,
+                "joint_rmse_rad": 0.06709309675487124,
+                "root_height_rmse_m": 0.011821275201593765,
+                "root_orientation_rmse_rad": 0.0491937453469439,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.4802212028964949
+              },
+              "failed_checks": [
+                {
+                  "name": "root_xy_rmse_m",
+                  "value": 0.21038982294177022,
+                  "limit": 0.1,
+                  "comparison": "<=",
+                  "passed": false
+                }
+              ],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "height-minus",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.017495093685604313,
+                "joint_rmse_rad": 0.06709257049272993,
+                "root_height_rmse_m": 0.01236317586486659,
+                "root_orientation_rmse_rad": 0.05235504425180949,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.0965572249974118
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "height-plus",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.07386977531433392,
+                "joint_rmse_rad": 0.06164201893483534,
+                "root_height_rmse_m": 0.012376531599730888,
+                "root_orientation_rmse_rad": 0.035266309726491446,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.18856473175903682
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            }
+          ]
+        }
+      ],
+      "new_development_passes_vs_union18": [
+        "velocity-1-minus"
+      ],
+      "development_regressions_vs_union18": [
+        "combined-2-2",
+        "velocity-1-plus"
       ]
     }
   ],
