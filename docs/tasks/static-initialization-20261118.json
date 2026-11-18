@@ -2692,12 +2692,12 @@
   "protocol_guide": "docs/STATIC_INITIALIZATION.md",
   "resource_rules": "Every heavy command holds /home/ubuntu/.cache/codex-heavy-work.lock; numeric libraries single-threaded, builds<=2workers, testsserial; trainingtree<=6GiB/GPU2304MiB, systemRAMreserve>=12.5GiB. First baseline suites used20percent systemRAMreserve(~12.08GiB); current publicCLI reserves>=12.5GiB. Actual availableRAM stayed>30GiB. Other sessions were not throttled.",
   "validation": {
-    "cpu_tests_passed": 817,
+    "cpu_tests_passed": 826,
     "cpu_tests_skipped": 42,
     "subtests_passed": 12,
-    "ci_run": "https://github.com/chase6305/SuperMimic-Reproduced/actions/runs/44294511228",
-    "ci_source_revision": "e98b1acad9f9d8a0991d79a03741b6364a937238",
-    "seconds": 58.2,
+    "ci_run": "https://github.com/chase6305/SuperMimic-Reproduced/actions/runs/44298267449",
+    "ci_source_revision": "ce03471da0851414c3ec572e659c4d406dd16c8c",
+    "seconds": 61.7,
     "local_related_tests_passed": 43,
     "local_related_seconds": 8.13,
     "lint": "passed",
@@ -2958,6 +2958,26 @@
       ],
       "other_actor_tensors_bitexact": 20,
       "peak_rss_bytes": 4095426560,
+      "peak_process_gpu_mib": 1108,
+      "quality_evaluation": "See later complete physical evaluation records; training audit alone is not acceptance."
+    },
+    {
+      "name": "static-reset040-episode8-xy400",
+      "audit": "runs/task-optimization-20261118/static-reset040-episode8-xy400-audit/result.json",
+      "audit_sha256": "faf593d465044805fb2806751bfee43ef9d059701ed27e2734f672fcad0ef41e",
+      "plan": "runs/task-optimization-20261118/static-reset040-episode8-xy400-plan.json",
+      "plan_sha256": "da1f0a253ee4bd6bb905a545203252161b75b95982a853248054db934c11e455",
+      "source_checkpoint_sha256": "6984a9c7ea58c96834349941e986e3b28f6bddba706448c9c3f690e8f248a5f8",
+      "final_checkpoint_sha256": "e333783675b8f2b9ad0c7f99c2665043e08f0150c1695ea561dca3fcdefc2a7a",
+      "new_optimizer_updates": 4630,
+      "final_iteration": 11598,
+      "final_updates": 4630,
+      "changed_actor_tensors": [
+        "decoder.mlp.net.8.weight",
+        "decoder.mlp.net.8.bias"
+      ],
+      "other_actor_tensors_bitexact": 20,
+      "peak_rss_bytes": 4014931968,
       "peak_process_gpu_mib": 1108,
       "quality_evaluation": "See later complete physical evaluation records; training audit alone is not acceptance."
     }
@@ -5037,11 +5057,533 @@
         "combined-2-2",
         "velocity-1-plus"
       ]
+    },
+    {
+      "checkpoint": "runs/task-optimization-20261118/static-reset040-episode8-xy400/training/ckpt_0005000.pt",
+      "checkpoint_sha256": "dd8d71cdc8c6cec1d50483e9fb150c135eed7d2e561a90fa6099bff1f8f344fd",
+      "stage": "runs/task-optimization-20261118/static-reset040-episode8-xy400-evaluations/ckpt_0005000",
+      "eligible": false,
+      "selected": {
+        "cases": 9,
+        "passes": 7,
+        "passed_ids": [
+          "baseline",
+          "joint-position-noise-10mrad",
+          "root-forward-velocity-50mmps",
+          "root-x--1-20mm",
+          "root-x-p1-20mm",
+          "root-y--1-20mm",
+          "root-y-p1-20mm"
+        ],
+        "result": "runs/task-optimization-20261118/static-reset040-episode8-xy400-evaluations/ckpt_0005000/selected/result.json",
+        "result_sha256": "7cf8355710f913f2559e2249d54814dcc18413c4174c79093ac40db8dd024bfe",
+        "all_replays_bitexact": true
+      },
+      "condition_results": [
+        {
+          "set": "selected",
+          "plan_sha256": "2533c92800bf0e69510194a6472fd78f171585b9b6668c41cb90b55214399197",
+          "local_report": "runs/task-optimization-20261118/static-reset040-episode8-xy400-evaluations/ckpt_0005000/selected/result.json",
+          "local_report_sha256": "7cf8355710f913f2559e2249d54814dcc18413c4174c79093ac40db8dd024bfe",
+          "records": [
+            {
+              "id": "baseline",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.019980436168013066,
+                "joint_rmse_rad": 0.07821848043673796,
+                "root_height_rmse_m": 0.013190474724623152,
+                "root_orientation_rmse_rad": 0.07897177348528665,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.10296340409388813
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-x--1-20mm",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.036087091139548944,
+                "joint_rmse_rad": 0.07752908128056478,
+                "root_height_rmse_m": 0.013084741618966078,
+                "root_orientation_rmse_rad": 0.07707923900411658,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.10985103539297682
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-x-p1-20mm",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.009990695710802452,
+                "joint_rmse_rad": 0.07862176966296866,
+                "root_height_rmse_m": 0.013307769753964551,
+                "root_orientation_rmse_rad": 0.07982617926514389,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.10685604687578293
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-y--1-20mm",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.02655080799724264,
+                "joint_rmse_rad": 0.07757419710599286,
+                "root_height_rmse_m": 0.013047313624384561,
+                "root_orientation_rmse_rad": 0.07791822024807595,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.0921012164770227
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-y-p1-20mm",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.07609879191472006,
+                "joint_rmse_rad": 0.06583768635495746,
+                "root_height_rmse_m": 0.012884718075558807,
+                "root_orientation_rmse_rad": 0.04665657756874693,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.1339403729730351
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-roll--1-30mrad",
+              "passed": false,
+              "metrics": {
+                "root_xy_rmse_m": 0.14782064168973572,
+                "joint_rmse_rad": 0.0669010439185808,
+                "root_height_rmse_m": 0.0123527458696541,
+                "root_orientation_rmse_rad": 0.05129643878294235,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.2861411031236383
+              },
+              "failed_checks": [
+                {
+                  "name": "root_xy_rmse_m",
+                  "value": 0.14782064168973572,
+                  "limit": 0.1,
+                  "comparison": "<=",
+                  "passed": false
+                }
+              ],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-roll-p1-30mrad",
+              "passed": false,
+              "metrics": {
+                "root_xy_rmse_m": 0.156136585112386,
+                "joint_rmse_rad": 0.06818412593294766,
+                "root_height_rmse_m": 0.012862950856456104,
+                "root_orientation_rmse_rad": 0.0509375836336449,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.1683792120906764
+              },
+              "failed_checks": [
+                {
+                  "name": "root_xy_rmse_m",
+                  "value": 0.156136585112386,
+                  "limit": 0.1,
+                  "comparison": "<=",
+                  "passed": false
+                }
+              ],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-forward-velocity-50mmps",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.014471347345337603,
+                "joint_rmse_rad": 0.07752872422559731,
+                "root_height_rmse_m": 0.013288254079786167,
+                "root_orientation_rmse_rad": 0.0777551286120594,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.09244481725266938
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "joint-position-noise-10mrad",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.016126606186145233,
+                "joint_rmse_rad": 0.07665567957783118,
+                "root_height_rmse_m": 0.01338677371288659,
+                "root_orientation_rmse_rad": 0.07493300155123732,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.09156524796876432
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "runs/task-optimization-20261118/static-reset040-episode8-xy400/training/ckpt_0010000.pt",
+      "checkpoint_sha256": "24b1f5f9677c3b604669e9c4685a8f0a7b801704b815927d63ec50173d4f574f",
+      "stage": "runs/task-optimization-20261118/static-reset040-episode8-xy400-evaluations/ckpt_0010000",
+      "eligible": false,
+      "selected": {
+        "cases": 9,
+        "passes": 8,
+        "passed_ids": [
+          "baseline",
+          "joint-position-noise-10mrad",
+          "root-forward-velocity-50mmps",
+          "root-roll--1-30mrad",
+          "root-x--1-20mm",
+          "root-x-p1-20mm",
+          "root-y--1-20mm",
+          "root-y-p1-20mm"
+        ],
+        "result": "runs/task-optimization-20261118/static-reset040-episode8-xy400-evaluations/ckpt_0010000/selected/result.json",
+        "result_sha256": "cb4f36eb0f863e75beef8f51baa1fc2a83fa5a45655fa2497acdc22c9b2282bc",
+        "all_replays_bitexact": true
+      },
+      "condition_results": [
+        {
+          "set": "selected",
+          "plan_sha256": "2533c92800bf0e69510194a6472fd78f171585b9b6668c41cb90b55214399197",
+          "local_report": "runs/task-optimization-20261118/static-reset040-episode8-xy400-evaluations/ckpt_0010000/selected/result.json",
+          "local_report_sha256": "cb4f36eb0f863e75beef8f51baa1fc2a83fa5a45655fa2497acdc22c9b2282bc",
+          "records": [
+            {
+              "id": "baseline",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.023313617551036007,
+                "joint_rmse_rad": 0.06613362132152098,
+                "root_height_rmse_m": 0.012914543590551691,
+                "root_orientation_rmse_rad": 0.04611255679309262,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.11440434385720519
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-x--1-20mm",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.07949728042922506,
+                "joint_rmse_rad": 0.06394181034022949,
+                "root_height_rmse_m": 0.012858921911265057,
+                "root_orientation_rmse_rad": 0.03541482299431314,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.1610375221086409
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-x-p1-20mm",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.02436536469732588,
+                "joint_rmse_rad": 0.06762702773529798,
+                "root_height_rmse_m": 0.013041544761107186,
+                "root_orientation_rmse_rad": 0.05155393602648616,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.10281552545128486
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-y--1-20mm",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.028352242621534515,
+                "joint_rmse_rad": 0.06975610608985712,
+                "root_height_rmse_m": 0.012683437116254146,
+                "root_orientation_rmse_rad": 0.06139214859924393,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.09174528228103296
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-y-p1-20mm",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.009856450777278024,
+                "joint_rmse_rad": 0.0691532841303441,
+                "root_height_rmse_m": 0.013062767755001986,
+                "root_orientation_rmse_rad": 0.05867095205867021,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.0933705745514097
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-roll--1-30mrad",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.0626188633414942,
+                "joint_rmse_rad": 0.06844769212944904,
+                "root_height_rmse_m": 0.013853558840678983,
+                "root_orientation_rmse_rad": 0.05423447318994209,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.1317535052802972
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-roll-p1-30mrad",
+              "passed": false,
+              "metrics": {
+                "root_xy_rmse_m": 0.1912992169199651,
+                "joint_rmse_rad": 0.06662943103291623,
+                "root_height_rmse_m": 0.012922058026104499,
+                "root_orientation_rmse_rad": 0.04917635272089859,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.331091516161287
+              },
+              "failed_checks": [
+                {
+                  "name": "root_xy_rmse_m",
+                  "value": 0.1912992169199651,
+                  "limit": 0.1,
+                  "comparison": "<=",
+                  "passed": false
+                }
+              ],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-forward-velocity-50mmps",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.0186572899296436,
+                "joint_rmse_rad": 0.06901711358303805,
+                "root_height_rmse_m": 0.012931945955214777,
+                "root_orientation_rmse_rad": 0.05452423851530164,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.1164829027194806
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "joint-position-noise-10mrad",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.07194617508415808,
+                "joint_rmse_rad": 0.06425036184020427,
+                "root_height_rmse_m": 0.012739490811850492,
+                "root_orientation_rmse_rad": 0.04515166700934829,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.12062017505777399
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "runs/task-optimization-20261118/static-reset040-episode8-xy400/training/ckpt_latest.pt",
+      "checkpoint_sha256": "e333783675b8f2b9ad0c7f99c2665043e08f0150c1695ea561dca3fcdefc2a7a",
+      "stage": "runs/task-optimization-20261118/static-reset040-episode8-xy400-evaluations/ckpt_latest",
+      "eligible": false,
+      "selected": {
+        "cases": 9,
+        "passes": 6,
+        "passed_ids": [
+          "baseline",
+          "joint-position-noise-10mrad",
+          "root-forward-velocity-50mmps",
+          "root-x--1-20mm",
+          "root-y--1-20mm",
+          "root-y-p1-20mm"
+        ],
+        "result": "runs/task-optimization-20261118/static-reset040-episode8-xy400-evaluations/ckpt_latest/selected/result.json",
+        "result_sha256": "d56ce915c06b7249e20cfbda54a0c3445de05623ebdf61e9df43ecfa79c4fcc5",
+        "all_replays_bitexact": true
+      },
+      "condition_results": [
+        {
+          "set": "selected",
+          "plan_sha256": "2533c92800bf0e69510194a6472fd78f171585b9b6668c41cb90b55214399197",
+          "local_report": "runs/task-optimization-20261118/static-reset040-episode8-xy400-evaluations/ckpt_latest/selected/result.json",
+          "local_report_sha256": "d56ce915c06b7249e20cfbda54a0c3445de05623ebdf61e9df43ecfa79c4fcc5",
+          "records": [
+            {
+              "id": "baseline",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.020957067901135447,
+                "joint_rmse_rad": 0.06500261147464285,
+                "root_height_rmse_m": 0.012893033296795042,
+                "root_orientation_rmse_rad": 0.04688823360721635,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.09183543984144961
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-x--1-20mm",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.0353210842552963,
+                "joint_rmse_rad": 0.0649316163671287,
+                "root_height_rmse_m": 0.012702504093684524,
+                "root_orientation_rmse_rad": 0.04765626116754443,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.09304847130850644
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-x-p1-20mm",
+              "passed": false,
+              "metrics": {
+                "root_xy_rmse_m": 0.24674616027219576,
+                "joint_rmse_rad": 0.06817522491191581,
+                "root_height_rmse_m": 0.012572094608032602,
+                "root_orientation_rmse_rad": 0.05153646340411929,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.3866164127966454
+              },
+              "failed_checks": [
+                {
+                  "name": "root_xy_rmse_m",
+                  "value": 0.24674616027219576,
+                  "limit": 0.1,
+                  "comparison": "<=",
+                  "passed": false
+                }
+              ],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-y--1-20mm",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.03015548734973049,
+                "joint_rmse_rad": 0.0661203114016985,
+                "root_height_rmse_m": 0.012547533677081082,
+                "root_orientation_rmse_rad": 0.05183248054950035,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.09015145629898585
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-y-p1-20mm",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.00908046501367306,
+                "joint_rmse_rad": 0.06891178359205889,
+                "root_height_rmse_m": 0.012662417803937401,
+                "root_orientation_rmse_rad": 0.058191681085337336,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.09091544494870198
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-roll--1-30mrad",
+              "passed": false,
+              "metrics": {
+                "root_xy_rmse_m": 0.14063472978299815,
+                "joint_rmse_rad": 0.07325960979496576,
+                "root_height_rmse_m": 0.014368992134852996,
+                "root_orientation_rmse_rad": 0.062336789231403955,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.1268180791644441
+              },
+              "failed_checks": [
+                {
+                  "name": "root_xy_rmse_m",
+                  "value": 0.14063472978299815,
+                  "limit": 0.1,
+                  "comparison": "<=",
+                  "passed": false
+                }
+              ],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-roll-p1-30mrad",
+              "passed": false,
+              "metrics": {
+                "root_xy_rmse_m": 0.18112790707325904,
+                "joint_rmse_rad": 0.06367856694848079,
+                "root_height_rmse_m": 0.012174419147554958,
+                "root_orientation_rmse_rad": 0.037285533811647446,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.3091459373592098
+              },
+              "failed_checks": [
+                {
+                  "name": "root_xy_rmse_m",
+                  "value": 0.18112790707325904,
+                  "limit": 0.1,
+                  "comparison": "<=",
+                  "passed": false
+                }
+              ],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "root-forward-velocity-50mmps",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.010995032735408108,
+                "joint_rmse_rad": 0.06975142721778266,
+                "root_height_rmse_m": 0.012617444791600044,
+                "root_orientation_rmse_rad": 0.061537014992172415,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.09952185572019863
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            },
+            {
+              "id": "joint-position-noise-10mrad",
+              "passed": true,
+              "metrics": {
+                "root_xy_rmse_m": 0.010311543231485943,
+                "joint_rmse_rad": 0.06798284065602957,
+                "root_height_rmse_m": 0.012800692936395833,
+                "root_orientation_rmse_rad": 0.05202962375669793,
+                "nonfoot_ground_force_substeps": 0,
+                "joint_velocity_rms_rad_s": 0.12011652276188614
+              },
+              "failed_checks": [],
+              "all_physics_and_declared_initialization_replay_bitexact": true
+            }
+          ]
+        }
+      ]
     }
   ],
   "reported_case_comparison": {
     "local_report": "runs/task-optimization-20261118/baseline-recovery-comparison.json",
-    "sha256": "40534a20ff68f0863f0345c3ff0d9bae8ac5881f472807730be968dc224ec687",
+    "sha256": "c8d5e0e4a30f6e3b09979e69c9ab641f8549b74e65595756762d846882102b98",
     "comparison": {
       "scope": "Reported suite metadata and fixed-gate consistency only; no new physics validation or generalization claim.",
       "plan_sha256": "d2a95e7cddc72c4b1f843527060f937404569039f76573a0bf1c13931f42003e",
@@ -5086,12 +5628,48 @@
             "rotation-1-minus"
           ],
           "strict_case_coverage_improvement": false
+        },
+        {
+          "report": "runs/task-optimization-20261118/static-reset060-xy800-ori200-evaluations/ckpt_0015000/development/result.json",
+          "report_sha256": "596f8edd8ac339732ef7650f60789ee69779d6d7f63bb6db390ffb1d920845ce",
+          "checkpoint_sha256": "796323724d1579a4113df48d4e06054510557d5d8a4f6b951dc64e921a607ca9",
+          "cases": 20,
+          "passes": 15,
+          "new_passes_vs_baseline": [
+            "combined-0-0",
+            "velocity-1-minus"
+          ],
+          "regressions_vs_baseline": [
+            "combined-0-2",
+            "combined-2-2",
+            "height-minus",
+            "height-plus",
+            "velocity-1-plus"
+          ],
+          "strict_case_coverage_improvement": false
+        },
+        {
+          "report": "runs/task-optimization-20261118/static-reset060-xy800-ori200-evaluations/ckpt_latest/development/result.json",
+          "report_sha256": "01e4bc83de058ea0be69d9ea615343a1faeb8cafb48c87d1d6e357e8d2366655",
+          "checkpoint_sha256": "85e392cdd9c48329d07d8fb8af3070b704480332f611bfee33257cc9c17bd03f",
+          "cases": 20,
+          "passes": 17,
+          "new_passes_vs_baseline": [
+            "velocity-1-minus"
+          ],
+          "regressions_vs_baseline": [
+            "combined-2-2",
+            "velocity-1-plus"
+          ],
+          "strict_case_coverage_improvement": false
         }
       ],
       "case_matrix": [
         {
           "id": "baseline",
           "passes": [
+            true,
+            true,
             true,
             true,
             true
@@ -5102,12 +5680,16 @@
           "passes": [
             true,
             true,
-            false
+            false,
+            true,
+            true
           ]
         },
         {
           "id": "rotation-1-plus",
           "passes": [
+            true,
+            true,
             true,
             true,
             true
@@ -5118,12 +5700,16 @@
           "passes": [
             true,
             false,
+            true,
+            true,
             true
           ]
         },
         {
           "id": "rotation-2-plus",
           "passes": [
+            true,
+            true,
             true,
             true,
             true
@@ -5134,6 +5720,8 @@
           "passes": [
             true,
             true,
+            true,
+            true,
             true
           ]
         },
@@ -5142,6 +5730,8 @@
           "passes": [
             false,
             false,
+            true,
+            true,
             true
           ]
         },
@@ -5150,12 +5740,16 @@
           "passes": [
             true,
             false,
-            true
+            true,
+            false,
+            false
           ]
         },
         {
           "id": "body-roll-velocity-minus",
           "passes": [
+            true,
+            true,
             true,
             true,
             true
@@ -5166,12 +5760,16 @@
           "passes": [
             true,
             true,
+            true,
+            true,
             true
           ]
         },
         {
           "id": "joint-seed-2026111801",
           "passes": [
+            true,
+            true,
             true,
             true,
             true
@@ -5182,12 +5780,16 @@
           "passes": [
             true,
             true,
+            true,
+            true,
             true
           ]
         },
         {
           "id": "joint-seed-2026111803",
           "passes": [
+            true,
+            true,
             true,
             true,
             true
@@ -5198,6 +5800,8 @@
           "passes": [
             true,
             true,
+            true,
+            true,
             true
           ]
         },
@@ -5206,12 +5810,16 @@
           "passes": [
             false,
             false,
-            true
+            true,
+            true,
+            false
           ]
         },
         {
           "id": "combined-0-2",
           "passes": [
+            true,
+            false,
             true,
             false,
             true
@@ -5222,6 +5830,8 @@
           "passes": [
             true,
             true,
+            true,
+            true,
             true
           ]
         },
@@ -5230,7 +5840,9 @@
           "passes": [
             true,
             true,
-            true
+            true,
+            false,
+            false
           ]
         },
         {
@@ -5238,6 +5850,8 @@
           "passes": [
             true,
             true,
+            true,
+            false,
             true
           ]
         },
@@ -5246,11 +5860,153 @@
           "passes": [
             true,
             true,
+            true,
+            false,
             true
           ]
         }
       ]
     },
     "public_command": "scripts/compare_static_initialization.py"
+  },
+  "public_reference_clock_validation": {
+    "local_report": "runs/task-optimization-20261118/public-reference-clock-qualification/result.json",
+    "sha256": "8a7bf329452e4c080da6d2a2e67423686071c7d66134376c57e22c4d773ce8f5",
+    "result": {
+      "status": "passed",
+      "builder_implementation_sha256": "9ea51dbe9102d4e84cc1120bf3917fcd1b7f5a3352d5620085608b12ed194119",
+      "records": [
+        {
+          "seconds": 60,
+          "reference": "runs/task-optimization-20261118/public-reference-clock-qualification/static60.npz",
+          "reference_sha256": "85bd9acc7c29a22eecea23f4c5620767a8b720a44377945d21a10724e35d1fd5",
+          "source": "data/npz/probes/stand60-initialization-20261117c.npz",
+          "source_sha256": "6c411dde2268808e842245af3334eff6232f8e18b9035fa93d2c47b70ff0913a",
+          "fields_bitexact": {
+            "joint_names": true,
+            "body_names": true,
+            "joint_pos": true,
+            "joint_vel": true,
+            "body_pos_w": true,
+            "body_quat_w": true,
+            "body_lin_vel_w": true,
+            "body_ang_vel_w": true
+          },
+          "info": {
+            "source_motion_sha256": "4598698aa035c52ba160986e05796cb525df557d1879266e933c40a65994c041",
+            "source_frame": 0,
+            "name": "static60",
+            "frames": 3001,
+            "fps": 50.0,
+            "duration_s": 60.0,
+            "body_names": [
+              "pelvis",
+              "left_hip_pitch_link",
+              "left_hip_roll_link",
+              "left_hip_yaw_link",
+              "left_knee_link",
+              "left_ankle_pitch_link",
+              "left_ankle_roll_link",
+              "right_hip_pitch_link",
+              "right_hip_roll_link",
+              "right_hip_yaw_link",
+              "right_knee_link",
+              "right_ankle_pitch_link",
+              "right_ankle_roll_link",
+              "waist_yaw_link",
+              "waist_roll_link",
+              "torso_link",
+              "left_shoulder_pitch_link",
+              "left_shoulder_roll_link",
+              "left_shoulder_yaw_link",
+              "left_elbow_link",
+              "left_wrist_roll_link",
+              "left_wrist_pitch_link",
+              "left_wrist_yaw_link",
+              "right_shoulder_pitch_link",
+              "right_shoulder_roll_link",
+              "right_shoulder_yaw_link",
+              "right_elbow_link",
+              "right_wrist_roll_link",
+              "right_wrist_pitch_link",
+              "right_wrist_yaw_link"
+            ]
+          }
+        },
+        {
+          "seconds": 1800,
+          "reference": "runs/task-optimization-20261118/public-reference-clock-qualification/static1800.npz",
+          "reference_sha256": "391c4289fcaa95e1ad8d3979a2b736c14083667ba085d67495337a2fa3403027",
+          "source": "exports/g1-tasks-20261117/stand-hold-600/extended-1800/reference.npz",
+          "source_sha256": "00e93c930b8ec2bc039036dc2f9b706a0820c78af34fec2417abea1e09fa1f67",
+          "fields_bitexact": {
+            "joint_names": true,
+            "body_names": true,
+            "joint_pos": true,
+            "joint_vel": true,
+            "body_pos_w": true,
+            "body_quat_w": true,
+            "body_lin_vel_w": true,
+            "body_ang_vel_w": true
+          },
+          "info": {
+            "source_motion_sha256": "4598698aa035c52ba160986e05796cb525df557d1879266e933c40a65994c041",
+            "source_frame": 0,
+            "name": "static1800",
+            "frames": 90001,
+            "fps": 50.0,
+            "duration_s": 1800.0,
+            "body_names": [
+              "pelvis",
+              "left_hip_pitch_link",
+              "left_hip_roll_link",
+              "left_hip_yaw_link",
+              "left_knee_link",
+              "left_ankle_pitch_link",
+              "left_ankle_roll_link",
+              "right_hip_pitch_link",
+              "right_hip_roll_link",
+              "right_hip_yaw_link",
+              "right_knee_link",
+              "right_ankle_pitch_link",
+              "right_ankle_roll_link",
+              "waist_yaw_link",
+              "waist_roll_link",
+              "torso_link",
+              "left_shoulder_pitch_link",
+              "left_shoulder_roll_link",
+              "left_shoulder_yaw_link",
+              "left_elbow_link",
+              "left_wrist_roll_link",
+              "left_wrist_pitch_link",
+              "left_wrist_yaw_link",
+              "right_shoulder_pitch_link",
+              "right_shoulder_roll_link",
+              "right_shoulder_yaw_link",
+              "right_elbow_link",
+              "right_wrist_roll_link",
+              "right_wrist_pitch_link",
+              "right_wrist_yaw_link"
+            ]
+          }
+        }
+      ],
+      "scope": "Public builder reproduces exact physical ABI arrays from the original walk firstframe for60and1800seconds; metadata differs intentionally to retain explicit provenance. No new pose or dynamic-motion acceptance.",
+      "roundoff_fixture": {
+        "source_fps": 50.00003,
+        "new_task_fps": 50.0,
+        "seconds": 30.0,
+        "frames": 1501,
+        "reference_sha256": "b016c5b61b27978c5d3b66c26f707336f5afeabca07b065093dc507d8f8eb22c",
+        "source_sha256": "52451a5574125caddca9498605bcff4173fb4cd0f138ed5d5c7622b82e6a63db"
+      }
+    }
+  },
+  "execution_issue_preserved": {
+    "description": "Private auditor initially compared explicit-transfer counters against inherited strict-resume counters. Training was valid; corrected audit checks transfer0/0 starts and genuine new updates. No candidate was physically accepted from the failed audit.",
+    "recovery_plan": "runs/task-optimization-20261118/audit-recovery-plan.json",
+    "recovery_plan_sha256": "280fd49861b22ac85aaaae0ba64d0502e4c525ec57e9d057a3f04bf841c7ade2",
+    "failed_logs": "runs/task-optimization-20261118/post-c-pipeline",
+    "preserved_failed_audit": "runs/task-optimization-20261118/static-reset040-episode8-xy400-audit-strict-counter-error"
   }
 }
