@@ -47,7 +47,7 @@ def run_owned_worker(
     stdout=None,
     stderr=None,
 ) -> int:
-    """Wait synchronously and reap our isolated process group before returning.
+    """Reap the worker and kill remaining members of its isolated process group.
 
     A surrounding CPU guard signals its own parent on a resource limit. Forward
     that interruption to the worker, allowing it to publish partial evidence,
@@ -78,7 +78,10 @@ def run_owned_worker(
             child.wait()
             raise
         finally:
-            send(signal.SIGTERM)
+            # The direct worker has exited and had its interruption grace period.
+            # Orphaned descendants may ignore SIGTERM; they must not keep doing
+            # heavy work after the caller releases its lock.
+            send(signal.SIGKILL)
 
 
 @contextmanager

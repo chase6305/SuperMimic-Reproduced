@@ -98,6 +98,68 @@ def test_owned_worker_returns_real_exit_status():
     assert run_owned_worker([sys.executable, "-I", "-c", "raise SystemExit(7)"]) == 7
 
 
+@pytest.mark.parametrize("timeout", [None, 2.0])
+def test_owned_descendant_cannot_survive_its_parent_exit_or_timeout(tmp_path, timeout):
+    import signal
+
+    import psutil
+
+    ready = tmp_path / "descendant-pid"
+    descendant = (
+        "import os,signal,sys,time; from pathlib import Path; "
+        "signal.signal(signal.SIGINT, signal.SIG_IGN); "
+        "signal.signal(signal.SIGTERM, signal.SIG_IGN); "
+        "Path(sys.argv[1]).write_text(str(os.getpid())); time.sleep(60)"
+    )
+    parent = (
+        "import subprocess,sys,time; from pathlib import Path; "
+        "subprocess.Popen([sys.executable, '-I', '-c', sys.argv[1], sys.argv[2]]); "
+        "ready=Path(sys.argv[2]); deadline=time.monotonic()+5\n"
+        "while not ready.exists() and time.monotonic()<deadline: time.sleep(0.01)\n"
+        "assert ready.exists(), 'Descendant never became ready'\n"
+        "time.sleep(60) if sys.argv[3]=='timeout' else None\n"
+        "raise SystemExit(7)"
+    )
+    command = [
+        sys.executable,
+        "-I",
+        "-c",
+        parent,
+        descendant,
+        str(ready),
+        "timeout" if timeout else "exit",
+    ]
+    process = None
+    try:
+        if timeout:
+            with pytest.raises(subprocess.TimeoutExpired):
+                run_owned_worker(command, timeout=timeout, grace_seconds=0.05)
+        else:
+            assert run_owned_worker(command, grace_seconds=0.05) == 7
+        assert ready.exists()
+        try:
+            process = psutil.Process(int(ready.read_text()))
+        except psutil.NoSuchProcess:
+            return
+        deadline = time.monotonic() + 2
+        while process.is_running() and process.status() != psutil.STATUS_ZOMBIE:
+            assert time.monotonic() < deadline, "Owned descendant survived cleanup"
+            time.sleep(0.01)
+    except psutil.NoSuchProcess:
+        pass
+    finally:
+        if process is None and ready.exists():
+            try:
+                process = psutil.Process(int(ready.read_text()))
+            except psutil.NoSuchProcess:
+                pass
+        if process is not None and process.is_running():
+            try:
+                process.send_signal(signal.SIGKILL)
+            except psutil.NoSuchProcess:
+                pass
+
+
 def test_parent_interruption_reaps_an_owned_worker_that_ignores_sigint(tmp_path, monkeypatch):
     import signal
 
