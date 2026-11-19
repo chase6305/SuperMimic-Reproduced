@@ -42,6 +42,20 @@ def nonnegative_int(value: str) -> int:
     return result
 
 
+def environment_seed(value: str) -> int:
+    result = int(value)
+    if not 0 <= result < 2**32:
+        raise argparse.ArgumentTypeError("must be within [0, 2**32 - 1]")
+    return result
+
+
+def unit_float(value: str) -> float:
+    result = float(value)
+    if not math.isfinite(result) or not 0 <= result <= 1:
+        raise argparse.ArgumentTypeError("must be finite and within [0, 1]")
+    return result
+
+
 def parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(description=__doc__)
     sub = p.add_subparsers(dest="command", required=True)
@@ -82,7 +96,23 @@ def parser() -> argparse.ArgumentParser:
                 help="Correct successful clip-end returns before choosing difficult reset bins",
             )
             q.add_argument("--iterations", type=positive_int, default=100000)
-            q.add_argument("--seed", type=int, default=0)
+            q.add_argument(
+                "--episode-length-seconds",
+                dest="episode_length_s",
+                type=positive_float,
+                help="Maximum training episode duration; inherited on strict resume",
+            )
+            q.add_argument(
+                "--sampling-mode",
+                choices=("return", "uniform", "start"),
+                help="Reference reset sampling; inherited on strict resume, priorities require return",
+            )
+            q.add_argument("--seed", type=environment_seed, default=0)
+            q.add_argument(
+                "--reset-noise-scale",
+                type=unit_float,
+                help="Override reset perturbations (0-1) independently of observation/action/domain noise; zero disables reset noise",
+            )
             q.add_argument(
                 "--priority-window",
                 action="append",
@@ -153,6 +183,11 @@ def parser() -> argparse.ArgumentParser:
                 help="Relative limb coefficients for the optional position objective; saved values are inherited",
             )
             q.add_argument(
+                "--foot-support-height-weight",
+                type=nonnegative_float,
+                help="Override optional stance sole-height penalty; physical evaluation unchanged",
+            )
+            q.add_argument(
                 "--foot-support-velocity-weight",
                 type=nonnegative_float,
                 help="Override optional stance-normal-velocity penalty; saved value is inherited",
@@ -179,14 +214,34 @@ def parser() -> argparse.ArgumentParser:
                 help="Bound normalized policy actions in training and exported actor",
             )
             q.add_argument(
+                "--root-height-tracking-weight",
+                dest="height_tracking_weight",
+                type=nonnegative_float,
+                help="Override root height auxiliary loss weight; evaluation criteria unchanged",
+            )
+            q.add_argument(
+                "--root-orientation-tracking-weight",
+                dest="orientation_tracking_weight",
+                type=nonnegative_float,
+                help="Override root orientation auxiliary loss weight; evaluation criteria unchanged",
+            )
+            q.add_argument(
                 "--compile-policy",
-                action="store_true",
-                help="Compile imagined physics steps inside the same resource limits",
+                nargs="?",
+                const="default",
+                default=False,
+                choices=("default", "reduce-overhead"),
+                help="Compile imagined steps; reduce-overhead uses CUDA graphs with extra warmup and memory",
             )
             q.add_argument(
                 "--compile-world-model",
                 action="store_true",
                 help="Compile world-model fitting inside the same resource limits",
+            )
+            q.add_argument(
+                "--compile-world-model-window",
+                action="store_true",
+                help="Compile fitting windows up to eight steps together; implies world-model compilation, with a larger first-call cost",
             )
         if action == "play":
             q.add_argument("--viewer", choices=("native", "viser"), default="viser")
@@ -316,9 +371,7 @@ def main(argv: list[str] | None = None) -> int:
                 output, dict(options=options, limits=asdict(limits))
             ) as config_path:
                 code = supervise(
-                    isolated_cli_command(
-                        output / "implementation", ["_worker", str(config_path)]
-                    ),
+                    isolated_cli_command(output / "implementation", ["_worker", str(config_path)]),
                     output,
                     limits,
                     max_seconds=args.hours * 3600 + 180,

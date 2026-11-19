@@ -9,9 +9,10 @@ not modify their contents in place while mapped tensors remain in use.
 from __future__ import annotations
 
 from collections.abc import Mapping
+from copy import deepcopy
 from dataclasses import dataclass
 from pathlib import Path
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, Literal
 
 import torch
 
@@ -29,10 +30,102 @@ class CheckpointRead:
     sha256: str | None
 
 
+def validate_optimizer_resume(checkpoint: Mapping[str, Any]) -> None:
+    """Reject explicitly stale or unverified optimizer state before strict restore.
+
+    Some experimental artifacts materialize new weights while retaining their
+    source Adam history for forensics. Only the latest declarations apply;
+    historical parent provenance must not invalidate a fresh optimizer chain.
+    Legacy archives with the standard optimizer layout retain their behavior.
+    """
+    invalid = []
+    for block, field, label in (
+        ("native_policy_improvement", "policy_optimizer_resume_valid", "policy"),
+        ("native_policy_improvement", "critic_optimizer_resume_valid", "critic"),
+        ("native_dynamics_calibration", "optimizer_resume_valid", "world model"),
+    ):
+        metadata = checkpoint.get(block)
+        if not isinstance(metadata, Mapping) or field not in metadata:
+            continue
+        value = metadata[field]
+        if type(value) is not bool:
+            raise ValueError(f"Checkpoint {block}.{field} must be boolean")
+        if not value:
+            invalid.append(label)
+    metadata = checkpoint.get("native_dynamics_calibration")
+    if isinstance(metadata, Mapping) and "optimizer_correspondence_not_proved" in metadata:
+        value = metadata["optimizer_correspondence_not_proved"]
+        if type(value) is not bool:
+            raise ValueError("Checkpoint optimizer_correspondence_not_proved must be boolean")
+        if value and "world model" not in invalid:
+            invalid.append("world model")
+    if invalid:
+        raise ValueError(
+            "Checkpoint declares stale or unverified "
+            + ", ".join(invalid)
+            + " optimizer state; use --transfer for weights with fresh optimizers"
+        )
+    # Standard trainers construct one Adam group each. A calibrated checkpoint
+    # may have valid moments but a different grouping, which Adam cannot load.
+    # Diagnose that before allocating the simulator or changing any weights.
+    for key, label in (
+        ("wm_opt", "world model"),
+        ("policy_opt", "policy"),
+        ("critic_opt", "critic"),
+    ):
+        state = checkpoint.get(key)
+        if not isinstance(state, Mapping) or "param_groups" not in state:
+            continue
+        groups = state["param_groups"]
+        if not isinstance(groups, (list, tuple)) or len(groups) != 1:
+            raise ValueError(
+                f"Checkpoint {label} optimizer parameter groups differ from the single group "
+                "required by the standard trainer; use --transfer for weights with fresh optimizers"
+            )
+
+
+@dataclass(frozen=True)
+class ActorCheckpointRead:
+    actor: Policy
+    metadata: dict[str, Any]
+    sha256: str | None
+
+
+def read_actor_checkpoint(path: Path | str, *, fingerprint: bool = False) -> ActorCheckpointRead:
+    """Copy the actor and its metadata while the source inode remains checked.
+
+    Modern checkpoints can map unused optimizer/world-model storage. Returned
+    weights and metadata own their storage, so subsequent source changes cannot
+    alter the actor or its provenance after the reader's final verification.
+    """
+
+    def restore(data):
+        if not isinstance(data, dict):
+            raise ValueError("Expected a checkpoint dictionary")
+        metadata = {
+            key: deepcopy(data[key])
+            for key in (
+                "config",
+                "iteration",
+                "control_contract",
+                "motion_files",
+                "anchor_adaptation",
+                "transfer_provenance",
+            )
+            if key in data
+        }
+        actor = policy_from_checkpoint({"config": metadata["config"], "policy": data["policy"]})
+        return actor, metadata
+
+    loaded = read_torch_archive(path, mmap="auto", fingerprint=fingerprint, consume=restore)
+    actor, metadata = loaded.data
+    return ActorCheckpointRead(actor, metadata, loaded.sha256)
+
+
 def read_checkpoint(
     path: Path | str,
     *,
-    mmap: bool = False,
+    mmap: bool | Literal["auto"] = False,
     fingerprint: bool = False,
     max_bytes: int | None = None,
 ) -> CheckpointRead:
@@ -40,16 +133,16 @@ def read_checkpoint(
 
     PyTorch accepts mmap only for a pathname. On Linux, /proc/self/fd exposes the
     open descriptor as a pathname, so an atomic replacement of ``path`` cannot
-    redirect the mapping. The mapping outlives the descriptor after return. There
-    is no eager fallback: mmap callers explicitly choose the Linux file mapping
-    requirement to avoid unexpectedly materializing optimizer tensors.
+    redirect the mapping. The mapping outlives the descriptor after return.
+    Explicit ``True`` has no eager fallback: callers choose the Linux mapping
+    requirement to avoid unexpectedly materializing optimizer tensors. ``auto``
+    maps modern ZIP checkpoints when descriptor paths are available and keeps
+    the eager reader for legacy archives and other platforms.
 
     Pickle loading remains enabled for existing training checkpoints: inputs must
     be trusted, as at the training, migration and export entry points.
     """
-    loaded = read_torch_archive(
-        path, mmap=mmap, fingerprint=fingerprint, max_bytes=max_bytes
-    )
+    loaded = read_torch_archive(path, mmap=mmap, fingerprint=fingerprint, max_bytes=max_bytes)
     if not isinstance(loaded.data, dict):
         raise ValueError("Expected a checkpoint dictionary")
     return CheckpointRead(loaded.data, loaded.sha256)
@@ -89,7 +182,7 @@ def policy_from_checkpoint(checkpoint: Mapping[str, Any]) -> Policy:
     pcfg = policy_config_from_checkpoint(checkpoint)
     with torch.device("cpu"):
         actor = Policy(pcfg)
-    actor.load_state_dict(checkpoint["policy"], strict=True)
+    actor.load_state_dict(checkpoint["policy"], strict=True, assign=False)
     if not all(torch.isfinite(value).all() for value in actor.state_dict().values()):
         raise ValueError("Checkpoint contains non-finite actor parameters or buffers")
     return actor.eval()

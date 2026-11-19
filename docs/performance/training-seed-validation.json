@@ -1,0 +1,55 @@
+{
+  "generated_at_utc": "2026-11-17T16:40:11.180181+00:00",
+  "problem": "A requested training seed outside the environment NumPy legacy32-bit range reached simulator initialization and failed before any training update.",
+  "preserved_failure": "runs/task-optimization-20261117c/jump-distilled-dynamic40-eff300-head-h32-seed-error",
+  "failed_seed": 20261117105,
+  "correction_seed": 2026111705,
+  "public_behavior": "training_config rejects non-integers, booleans and values outside0..2**32-1 before checkpoint reading or environment allocation. Supported boundary seeds remain accepted.",
+  "regressions": {
+    "invalid_seed_cases": [
+      -1,
+      4294967296,
+      true,
+      1.5
+    ],
+    "accepted_boundary_cases": [
+      0,
+      4294967295
+    ],
+    "checkpoint_read_on_invalid_seed": false
+  },
+  "source_validation": {
+    "run_id": 44145588576,
+    "url": "https://github.com/chase6305/SuperMimic-Reproduced/actions/runs/44145588576",
+    "head_sha": "abcca82dcc4f95fcdb8f6672b475a3addcc70885",
+    "conclusion": "success",
+    "passed": 777,
+    "skipped": 42,
+    "subtests_passed": 12,
+    "ruff": "passed",
+    "wheel_and_sdist": "passed"
+  },
+  "successful_relaunch_planned_config": {
+    "seed": 2026111705,
+    "transfer": true,
+    "env_anchor_obs": true,
+    "policy_trainer_anchor_obs": true,
+    "goal_dim": 689,
+    "policy_horizon": 32,
+    "update_scope": "action-head"
+  },
+  "scope": "Input-validation and configuration evidence only. Ongoing model training and physical acceptance are recorded separately.",
+  "command_line_early_rejection": {
+    "invalid_cases": [
+      -1,
+      4294967296
+    ],
+    "before_host_resource_probe": true,
+    "before_worker_launch": true,
+    "output_directory_not_created": true,
+    "accepted_boundary_cases": [
+      0,
+      4294967295
+    ]
+  }
+}

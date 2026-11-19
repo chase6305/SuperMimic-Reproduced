@@ -1,0 +1,371 @@
+{
+  "device": "NVIDIA GeForce RTX 5090 D v2",
+  "torch_version": "2.14.1+cu130",
+  "scope": "Complete PolicyTrainer.update: BPTT, actor clipping/Adam and critic fitting. Excludes physical simulation, replay sampling and world-model fitting. Does not measure imitation quality.",
+  "method": "Single CPU thread, TF32 disabled, fixed real-motion starts and fixed initialized networks. First update (including compilation) recorded separately; two further warmups; seven samples of three updates, CUDA synchronized after every sample. Medians retain all samples including outliers.",
+  "baseline_numerical_revision": "b0a1f0d",
+  "input_and_frame_reuse_revision": "858ec159d85f4f601c97dbd2e2bb47804ef4a596",
+  "common_data_code_revision": "943d76acf03e8a5548a0eed0994e91751a6b3f43",
+  "baseline_loading": "Both variants use the merged main motion/reference/FK code; the baseline restores the four numerical modules (rollout, policy trainer, state spec and world model) from b0a1f0d. The source hashes were checked against git show.",
+  "initialization": {
+    "module_seed": 824,
+    "update_seed": 847,
+    "last_dynamics_weight_std": 0.001,
+    "world_hidden": [
+      512,
+      512,
+      512
+    ],
+    "actor_encoder_hidden": [
+      512,
+      256,
+      128
+    ],
+    "actor_decoder_hidden": [
+      512,
+      256,
+      128
+    ],
+    "batch_size": 64,
+    "horizon": 32,
+    "history": 10,
+    "future_frames": 10,
+    "noise": true,
+    "critic_epochs": 3,
+    "critic_minibatches": 4,
+    "start_frame_formula": "50 + 10*i for i in [0,64); first state history comprises the next ten frames"
+  },
+  "cases": [
+    {
+      "mode": "eager",
+      "storage": "full",
+      "before": {
+        "median_ms": 620.0753486676452,
+        "samples_ms": [
+          620.0753486676452,
+          626.7365129897371,
+          614.2744179815054,
+          615.5038176608892,
+          626.2204573334506,
+          624.8495666659437,
+          619.9998263424883
+        ],
+        "first_update_elapsed_s": 2.440854720014613,
+        "peak_torch_bytes": 212074496,
+        "status": "complete",
+        "exit_code": 0,
+        "peak_rss_bytes": 2957033472,
+        "peak_process_gpu_mib": 864
+      },
+      "after": {
+        "median_ms": 591.7234033307371,
+        "samples_ms": [
+          591.7234033307371,
+          591.8099320066782,
+          593.0581043357961,
+          589.8555730042668,
+          589.5173843212737,
+          595.3767139969083,
+          591.2583303482583
+        ],
+        "first_update_elapsed_s": 2.3601724409963936,
+        "peak_torch_bytes": 208374784,
+        "status": "complete",
+        "exit_code": 0,
+        "peak_rss_bytes": 2960711680,
+        "peak_process_gpu_mib": 860
+      },
+      "first_update_comparison": {
+        "mode": "eager",
+        "storage": "full",
+        "cuda_rng_equal": true,
+        "policy": {
+          "max_abs_difference": 1.862645149230957e-09,
+          "relative_l2_error": 5.694219095956696e-11,
+          "different_tensors": 3
+        },
+        "critic": {
+          "max_abs_difference": 3.725290298461914e-09,
+          "relative_l2_error": 3.602672256928188e-10,
+          "different_tensors": 1
+        },
+        "policy_grads": {
+          "max_abs_difference": 3.552713678800501e-15,
+          "relative_l2_error": 3.822722957537295e-08,
+          "different_tensors": 16
+        },
+        "initial_hashes_equal": true,
+        "max_first_metric_difference": 0.0
+      }
+    },
+    {
+      "mode": "eager",
+      "storage": "compact",
+      "before": {
+        "median_ms": 629.5770056700954,
+        "samples_ms": [
+          635.6411916785873,
+          627.4792406669197,
+          629.5673303344907,
+          630.9980733203702,
+          629.5770056700954,
+          625.6951786732922,
+          639.2539166651355
+        ],
+        "first_update_elapsed_s": 2.897342493000906,
+        "peak_torch_bytes": 195794432,
+        "status": "complete",
+        "exit_code": 0,
+        "peak_rss_bytes": 3065585664,
+        "peak_process_gpu_mib": 864
+      },
+      "after": {
+        "median_ms": 596.2278116688443,
+        "samples_ms": [
+          599.4713873369619,
+          593.8673123212842,
+          599.8858483314203,
+          595.2768576680683,
+          596.9593346623393,
+          592.76380999169,
+          596.2278116688443
+        ],
+        "first_update_elapsed_s": 2.6960420290124603,
+        "peak_torch_bytes": 192353280,
+        "status": "complete",
+        "exit_code": 0,
+        "peak_rss_bytes": 3061424128,
+        "peak_process_gpu_mib": 858
+      },
+      "first_update_comparison": {
+        "mode": "eager",
+        "storage": "compact",
+        "cuda_rng_equal": true,
+        "policy": {
+          "max_abs_difference": 1.862645149230957e-09,
+          "relative_l2_error": 4.63359119922032e-11,
+          "different_tensors": 3
+        },
+        "critic": {
+          "max_abs_difference": 1.862645149230957e-09,
+          "relative_l2_error": 1.5929254186575444e-10,
+          "different_tensors": 1
+        },
+        "policy_grads": {
+          "max_abs_difference": 1.7763568394002505e-15,
+          "relative_l2_error": 2.0215590452754055e-08,
+          "different_tensors": 16
+        },
+        "initial_hashes_equal": true,
+        "max_first_metric_difference": 0.0
+      }
+    },
+    {
+      "mode": "compiled",
+      "storage": "full",
+      "before": {
+        "median_ms": 155.39470567212751,
+        "samples_ms": [
+          655.483107334779,
+          156.33604933585352,
+          154.91053465909013,
+          155.39470567212751,
+          156.3207523431629,
+          155.32141200189167,
+          154.53101966219643
+        ],
+        "first_update_elapsed_s": 140.84954975103028,
+        "peak_torch_bytes": 212585984,
+        "status": "complete",
+        "exit_code": 0,
+        "peak_rss_bytes": 3791364096,
+        "peak_process_gpu_mib": 990
+      },
+      "after": {
+        "median_ms": 125.89881466313575,
+        "samples_ms": [
+          125.89881466313575,
+          584.9048769838797,
+          126.55047767718013,
+          124.81577300544207,
+          125.80314598744735,
+          125.37323400223006,
+          127.10264199025308
+        ],
+        "first_update_elapsed_s": 67.00891325500561,
+        "peak_torch_bytes": 209463296,
+        "status": "complete",
+        "exit_code": 0,
+        "peak_rss_bytes": 3520311296,
+        "peak_process_gpu_mib": 938
+      },
+      "first_update_comparison": {
+        "mode": "compiled",
+        "storage": "full",
+        "cuda_rng_equal": true,
+        "policy": {
+          "max_abs_difference": 1.1641532182693481e-10,
+          "relative_l2_error": 4.494418034090667e-12,
+          "different_tensors": 3
+        },
+        "critic": {
+          "max_abs_difference": 3.725290298461914e-09,
+          "relative_l2_error": 2.4505470245289e-09,
+          "different_tensors": 4
+        },
+        "policy_grads": {
+          "max_abs_difference": 1.7763568394002505e-15,
+          "relative_l2_error": 2.7570553786960877e-08,
+          "different_tensors": 16
+        },
+        "initial_hashes_equal": true,
+        "max_first_metric_difference": 0.0
+      }
+    },
+    {
+      "mode": "compiled",
+      "storage": "compact",
+      "before": {
+        "median_ms": 148.57910233937824,
+        "samples_ms": [
+          147.43519465749463,
+          147.76493201497942,
+          149.05548999862125,
+          148.626872668198,
+          233.7538476761741,
+          147.88358666313192,
+          148.57910233937824
+        ],
+        "first_update_elapsed_s": 3.812830588023644,
+        "peak_torch_bytes": 196305408,
+        "status": "complete",
+        "exit_code": 0,
+        "peak_rss_bytes": 3398758400,
+        "peak_process_gpu_mib": 870
+      },
+      "after": {
+        "median_ms": 123.29319499743481,
+        "samples_ms": [
+          122.66295866963144,
+          123.29319499743481,
+          123.17121865150209,
+          123.34282067604363,
+          206.50273198649907,
+          123.05022799409926,
+          123.61576466355473
+        ],
+        "first_update_elapsed_s": 3.3440640249755234,
+        "peak_torch_bytes": 193441280,
+        "status": "complete",
+        "exit_code": 0,
+        "peak_rss_bytes": 3252727808,
+        "peak_process_gpu_mib": 864
+      },
+      "first_update_comparison": {
+        "mode": "compiled",
+        "storage": "compact",
+        "cuda_rng_equal": true,
+        "policy": {
+          "max_abs_difference": 1.862645149230957e-09,
+          "relative_l2_error": 4.670202618304526e-11,
+          "different_tensors": 3
+        },
+        "critic": {
+          "max_abs_difference": 1.862645149230957e-09,
+          "relative_l2_error": 1.5342608272274297e-10,
+          "different_tensors": 1
+        },
+        "policy_grads": {
+          "max_abs_difference": 1.7763568394002505e-15,
+          "relative_l2_error": 2.3178502277968852e-08,
+          "different_tensors": 16
+        },
+        "initial_hashes_equal": true,
+        "max_first_metric_difference": 0.0
+      }
+    }
+  ],
+  "additional_goal_encoding_experiment": {
+    "implementation": "Independent prototype batches the pointwise motion encoder and uses the same decoder and clipping. The production implementation at 140d5ac adds a pre-encoded-goal keyword to Policy.forward and is separately covered by CPU/CUDA derivative tests.",
+    "production_revision": "140d5ac8adfb7cb5085f42c91e17ce75ddcbffcd",
+    "adjacent_control_median_ms": 121.24739866703749,
+    "adjacent_control_samples_ms": [
+      122.10635967009391,
+      121.24739866703749,
+      122.59147733372326,
+      120.4290256719105,
+      204.35611300248033,
+      121.1395946641763,
+      121.01702399862309
+    ],
+    "prototype_median_ms": 115.1816596587499,
+    "prototype_samples_ms": [
+      114.43517766504858,
+      114.58482434197019,
+      114.48125733295456,
+      116.95734167005867,
+      115.65618799068034,
+      200.24288533022627,
+      115.1816596587499
+    ],
+    "first_update_comparison": {
+      "mode": "compiled",
+      "storage": "full",
+      "cuda_rng_equal": true,
+      "policy": {
+        "max_abs_difference": 1.1641532182693481e-10,
+        "relative_l2_error": 5.080318638481783e-12,
+        "different_tensors": 2
+      },
+      "critic": {
+        "max_abs_difference": 7.450580596923828e-09,
+        "relative_l2_error": 4.8490578257746935e-09,
+        "different_tensors": 5
+      },
+      "policy_grads": {
+        "max_abs_difference": 3.552713678800501e-15,
+        "relative_l2_error": 4.720133368226351e-08,
+        "different_tensors": 16
+      },
+      "initial_hashes_equal": true,
+      "max_first_metric_difference": 0.0
+    }
+  },
+  "source_sha256": {
+    "b0a1f0d": {
+      "src/supermimic/world_model/state_spec.py": "2d368c5a6a1c8fdc6f67f71abba4a39831c4b004209c02e7eb48663c9928e0c3",
+      "src/supermimic/world_model/world_model.py": "86e26d7939114ef3727d810ec2fa28175a0f0fd9d122096281f6fd0608102255",
+      "src/supermimic/imagination/rollout.py": "adced6f0cf406fae0b7f8b0f588e095023dd22ae728dbd793dc723b41c301497",
+      "src/supermimic/imagination/policy_trainer.py": "6be912fff22924561ccae822dae660b6ca0aab939af80a252a6503fefe193af1",
+      "src/supermimic/policy/nets.py": "3bccb3ed2e05eead07b0808ca937d67361b4b8e75d0320559f1f3d7e64fe7574"
+    },
+    "858ec15": {
+      "src/supermimic/world_model/state_spec.py": "3d07830482f1d14864253d2a6731cea6fe38d5430950583f8a161dee416c26fd",
+      "src/supermimic/world_model/world_model.py": "43503c1676aa4dbce4036ab75208c0e9d2d276abc612d125601af26a82ffd298",
+      "src/supermimic/imagination/rollout.py": "d39bd0094aa057f3bb71dbebc777d8e53222e23a0ed36b772e81e301cf312bf3",
+      "src/supermimic/imagination/policy_trainer.py": "7f4d126a7d84171adf5101c8183206bc44aa5e4f53059f63784f5b520c354438",
+      "src/supermimic/policy/nets.py": "3bccb3ed2e05eead07b0808ca937d67361b4b8e75d0320559f1f3d7e64fe7574"
+    },
+    "140d5ac": {
+      "src/supermimic/world_model/state_spec.py": "3d07830482f1d14864253d2a6731cea6fe38d5430950583f8a161dee416c26fd",
+      "src/supermimic/world_model/world_model.py": "43503c1676aa4dbce4036ab75208c0e9d2d276abc612d125601af26a82ffd298",
+      "src/supermimic/imagination/rollout.py": "8c56fce22f41c260cd0d479a85a05312e8c58968a91887615eca205f8d9557fd",
+      "src/supermimic/imagination/policy_trainer.py": "7f4d126a7d84171adf5101c8183206bc44aa5e4f53059f63784f5b520c354438",
+      "src/supermimic/policy/nets.py": "69d4b43f5b71b0f15f82e7b1144d2556cf7781398fa3e4c0a3ad91310deb5706"
+    }
+  },
+  "public_benchmark_script_smoke": {
+    "checks": {
+      "initial_policy_sha256": true,
+      "initial_world_sha256": true,
+      "initial_critic_sha256": true,
+      "script_hash_matches": true,
+      "motion_hash_matches": true,
+      "source_manifest_present": true,
+      "first_metrics_equal_in_eager_mode": true
+    },
+    "updates": 6,
+    "timing_repeats": 1,
+    "purpose": "Execution and snapshot parity check against the same eager mode; one timing sample is not used for performance claims."
+  }
+}

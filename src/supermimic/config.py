@@ -49,6 +49,7 @@ class WMTrainerCfg:
     weight_decay: float = 0.0
     compile: str | None = "default"
     one_step_batches_per_update: int = 0
+    compile_window: bool = False
 
 
 @dataclass
@@ -137,6 +138,7 @@ class EnvCfg:
     completion_aware_sampling: bool = False
     priority_windows_s: tuple[tuple[float, float], ...] = ()
     priority_reset_ratio: float = 0.0
+    reset_noise_scale: float = 1.0
 
 
 @dataclass

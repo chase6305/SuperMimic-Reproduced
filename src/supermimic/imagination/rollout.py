@@ -9,18 +9,34 @@ import torch
 from supermimic.data.motion_library import MotionLibrary
 from supermimic.data.replay_buffer import StartBatch
 from supermimic.imagination.compiled import REWARD_TERM_NAMES, ImagStep
+from supermimic.interfaces import OBS_DIM, OBS_OFFSETS
 from supermimic.policy.nets import Policy
 from supermimic.world_model.heads import (
     analytic_observation,
     anchor_relative_obs,
-    flatten_history_term_major,
 )
+from supermimic.world_model.heads import flatten_history_term_major as flatten_history_term_major
 from supermimic.world_model.reference import ReferenceFrame, reference_at
 from supermimic.world_model.world_model import WorldModel
 
 # Paper Table A.1 sensor noise (uniform half-widths) in the 93-d observation order.
 OBS_NOISE_HALF = torch.tensor([0.01] * 29 + [0.5] * 29 + [0.2] * 3 + [0.05] * 3 + [0.0] * 29)
 ANCHOR_NOISE_HALF = torch.tensor([0.25] * 3 + [0.05] * 6)
+
+
+def _history_order(length: int, device) -> torch.Tensor:
+    """Indices from frame-major storage to the shared term-major policy layout."""
+    indices = [
+        frame * OBS_DIM + column
+        for begin, end in zip(OBS_OFFSETS[:-1], OBS_OFFSETS[1:], strict=True)
+        for frame in range(length)
+        for column in range(begin, end)
+    ]
+    return torch.tensor(indices, device=device, dtype=torch.long)
+
+
+def _flatten_history_frames(frames: list[torch.Tensor], order: torch.Tensor) -> torch.Tensor:
+    return torch.stack(frames, dim=1).flatten(1).index_select(1, order)
 
 
 @dataclass
@@ -63,8 +79,8 @@ def imagine(
             return o + (torch.rand_like(o) * 2 - 1) * noise_half
         return o
 
-    def make_goal(frame_t, ref_t, anchor_pose):
-        g = lib.goal_window(frame_t, future_frames)
+    def make_goal(t, ref_t, anchor_pose):
+        g = goals_all[t]
         if not anchor_obs:
             return g
         rel = anchor_relative_obs(
@@ -78,11 +94,12 @@ def imagine(
         return torch.cat([g, rel], dim=-1)
 
     # Initial observation history from the logged states/actions (noise re-sampled per frame).
-    hist = [
-        add_noise(analytic_observation(start.hist_states[i], start.hist_actions[i], start.xi, q0))
-        for i in range(start.hist_states.shape[0])
-    ]
-    initial_history = flatten_history_term_major(torch.stack(hist, 0))
+    history = analytic_observation(start.hist_states, start.hist_actions, start.xi, q0)
+    # Keep one noise draw per history frame: batching the random draw would
+    # consume a different CUDA Philox sequence even for the same seed.
+    hist = [add_noise(observation) for observation in history.unbind(0)]
+    history_order = _history_order(len(hist), device)
+    initial_history = _flatten_history_frames(hist, history_order)
     initial_observation = hist[-1]
     s = start.state
     frame = start.frame.clone()
@@ -99,6 +116,16 @@ def imagine(
         frame[None, :] + torch.arange(horizon + 1, device=device)[:, None], last[None, :]
     )  # (H+1, n)
     ref_all = reference_at(lib, frames_all.reshape(-1))
+    # Goal lookahead depends only on reference frames. Compute it once for all
+    # steps; relative anchor feedback is still appended from each reached state.
+    goals_all = lib.goal_window(frames_all.reshape(-1), future_frames).reshape(horizon + 1, n, -1)
+    # Without anchor feedback the pointwise goal encoder has no state inputs.
+    # Keep custom policies on their existing forward contract.
+    goal_latents = (
+        policy.encoders["motion"](goals_all[:-1])
+        if not anchor_obs and type(policy) is Policy
+        else None
+    )
 
     def ref_at(t):
         sl = slice(t * n, (t + 1) * n)
@@ -117,18 +144,21 @@ def imagine(
         anchor_pose = torch.cat([b0["pos"][..., ai, :], b0["quat"][..., ai, :]], dim=-1)
     else:
         anchor_pose = None
-    goals = [make_goal(frame, ref, anchor_pose)]
-    e_roots = [wm.heads.root_error_features(s, ref)]
+    goals = [make_goal(0, ref, anchor_pose)]
     term_sum = torch.zeros(len(REWARD_TERM_NAMES), device=device)
 
     for t in range(horizon):
         alive = c.detach() > min_survival
-        obs_flat = flatten_history_term_major(torch.stack(hist, 0))
+        obs_flat = initial_history if t == 0 else _flatten_history_frames(hist, history_order)
         # A dead branch is absorbing. Do not extrapolate its feedback dynamics:
         # even zero survival times an overflowing reward would otherwise be NaN.
         obs_flat = torch.where(alive[:, None], obs_flat, initial_history)
         policy_goal = torch.where(alive[:, None], goals[-1], goals[0])
-        a = policy(obs_flat, policy_goal)
+        if goal_latents is None:
+            a = policy(obs_flat, policy_goal)
+        else:
+            latent = torch.where(alive[:, None], goal_latents[t], goal_latents[0])
+            a = policy(obs_flat, policy_goal, goal_latent=latent)
         a = torch.where(alive[:, None], a, torch.zeros_like(a))
         s_input = torch.where(alive[:, None], s, start.state)
         previous = torch.where(alive[:, None], a_prev, start.prev_action)
@@ -154,18 +184,21 @@ def imagine(
         rewards.append(r)
         dhats.append(d)
         survivals.append(c)
-        goals.append(make_goal(frame, ref, anchor_pose))
-        e_roots.append(wm.heads.root_error_features(s, ref))
+        goals.append(make_goal(t + 1, ref, anchor_pose))
         frames.append(frame)
 
+    states_all = torch.stack(states)
+    # Drift features are consumed only after the rollout, so compute their
+    # pointwise transforms together while preserving bootstrap derivatives.
+    e_roots = wm.heads.root_error_features(states_all.reshape(-1, states_all.shape[-1]), ref_all)
     return ImagRollout(
-        states=torch.stack(states),
+        states=states_all,
         actions=torch.stack(actions),
         rewards=torch.stack(rewards),
         dhat=torch.stack(dhats),
         survival=torch.stack(survivals),
-        goals=torch.stack(goals),
-        e_root=torch.stack(e_roots),
+        goals=torch.stack(goals) if anchor_obs else goals_all,
+        e_root=e_roots.reshape(horizon + 1, n, 4),
         frames=torch.stack(frames),
         reward_terms={
             k: float(v / horizon)

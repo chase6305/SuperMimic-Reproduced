@@ -185,8 +185,8 @@ class PolicyTrainer:
             anchor_obs=cfg.anchor_obs,
             min_survival=cfg.min_survival,
         )
-        feat, goals, e_root = self._critic_inputs(ro)
         if cfg.use_critic:
+            feat, goals, e_root = self._critic_inputs(ro)
             final_alive = ro.survival[-1].detach() > cfg.min_survival
             final_feat = torch.where(final_alive[:, None], feat[-1], torch.zeros_like(feat[-1]))
             final_error = torch.where(
@@ -273,8 +273,8 @@ class PolicyTrainer:
             if len(support_terms) > 2:
                 metrics["tracking_aux/effector_position_mse"] = float(support_terms[2].detach())
 
-        batch = (
-            CriticBatch(
+        if cfg.use_critic:
+            batch = CriticBatch(
                 feat.detach(),
                 goals.detach(),
                 e_root.detach(),
@@ -283,9 +283,8 @@ class PolicyTrainer:
                 ro.dhat.detach(),
                 ro.survival.detach(),
             )
-            if cfg.use_critic
-            else None
-        )
+        else:
+            batch = None
         return metrics, batch
 
     def _fit_critic(self, batch: CriticBatch) -> dict[str, float]:

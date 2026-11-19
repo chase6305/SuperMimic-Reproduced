@@ -43,9 +43,29 @@ def estimate_training_memory(cfg, reference_frames: int) -> dict:
         "parameters_gradients_adam": parameters * 16 / MIB,
         "simulation_worlds": float(cfg.env.num_envs),
         "replay": cfg.env.num_envs * cfg.env.replay_capacity * 683 / MIB,
+        # Two flattened int64 candidate arrays and one shared time axis.
+        "replay_sampling_indices": cfg.env.replay_capacity * (2 * cfg.env.num_envs + 1) * 8 / MIB,
+        "history_layout_indices": observation_dim(cfg.policy.history) * 8 / MIB,
+        "encoded_goals": (
+            cfg.policy_trainer.horizon
+            * cfg.policy_trainer.batch_size
+            * cfg.policy.latent_dim
+            * 4
+            / MIB
+            if not cfg.env.anchor_obs
+            else 0.0
+        ),
+        "gae_scan_workspace": (
+            cfg.policy_trainer.horizon * cfg.policy_trainer.batch_size * 4 * 6 / MIB
+            if cfg.policy_trainer.use_critic and cfg.policy_trainer.horizon >= 8
+            else 0.0
+        ),
         "reference_library": reference_frames * (292 if cfg.env.compact_library else 1292) / MIB,
         "compilation_workspace": 256.0
         * (bool(cfg.policy_trainer.compile) + bool(cfg.wm_trainer.compile)),
+        "policy_cudagraph_workspace": (
+            256.0 if cfg.policy_trainer.compile == "reduce-overhead" else 0.0
+        ),
     }
     actor = (
         cfg.policy_trainer.horizon
@@ -68,6 +88,15 @@ def estimate_training_memory(cfg, reference_frames: int) -> dict:
         / MIB
     )
     components["activation_workspace"] = max(actor, fitting)
+    # Batched goal lookahead keeps a frame-index grid. Compact libraries also
+    # expand reference states and temporary goal features for that entire grid.
+    components["lookahead_workspace"] = (
+        (cfg.policy_trainer.horizon + 1)
+        * cfg.policy_trainer.batch_size
+        * cfg.env.future_frames
+        * (8 + (71 + 68 + 13) * 4 if cfg.env.compact_library else 8)
+        / MIB
+    )
     components["priority_sampling"] = (
         ((reference_frames + 49) // 50) * 16 / MIB if cfg.env.priority_reset_ratio else 0.0
     )

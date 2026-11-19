@@ -41,6 +41,22 @@ def policy_objective(
 
 
 @torch.no_grad()
+def _gae_targets_scan(
+    rewards: torch.Tensor, dhat_next: torch.Tensor, values: torch.Tensor, gamma: float, lam: float
+) -> torch.Tensor:
+    """Compose suffix affine maps a + b*x by doubling, without division at terminals."""
+    discount = gamma * (1.0 - dhat_next)
+    a = rewards + discount * (1.0 - lam) * values[1:]
+    b = discount * lam
+    offset = 1
+    while offset < rewards.shape[0]:
+        a = torch.cat((a[:-offset] + b[:-offset] * a[offset:], a[-offset:]), dim=0)
+        b = torch.cat((b[:-offset] * b[offset:], b[-offset:]), dim=0)
+        offset *= 2
+    return a + b * values[-1]
+
+
+@torch.no_grad()
 def gae_targets(
     rewards: torch.Tensor, dhat_next: torch.Tensor, values: torch.Tensor, gamma: float, lam: float
 ) -> torch.Tensor:
@@ -49,6 +65,12 @@ def gae_targets(
     rewards (H, n), dhat_next (H, n) = d_{t+1}, values (H+1, n) = V_0..V_H. Returns (H, n) targets.
     """
     H = rewards.shape[0]
+    if (
+        rewards.is_cuda
+        and H >= 8
+        and rewards.dtype == dhat_next.dtype == values.dtype == torch.float32
+    ):
+        return _gae_targets_scan(rewards, dhat_next, values, gamma, lam)
     R = values[H].clone()
     out = torch.empty_like(rewards)
     for t in range(H - 1, -1, -1):

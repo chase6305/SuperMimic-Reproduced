@@ -144,6 +144,16 @@ def test_failed_microbatch_cannot_apply_partial_actor_update(monkeypatch):
     assert all(p.requires_grad for p in model.critic.parameters())
 
 
+def test_terminal_bootstrap_gradient_matches_analytic_objective(monkeypatch):
+    monkeypatch.setattr(module, "imagine", synthetic_rollout)
+    model = trainer(2, use_critic=True)
+    model.update(Buffer())
+    # Reward at t=0,1 and terminal V=0.1+0.1*action all contribute to BPTT.
+    expected = -2.5 * (1 + 0.99 + 0.1 * 0.99**2) / 2
+    torch.testing.assert_close(model.policy.weight.grad, torch.tensor([[expected]]))
+    torch.testing.assert_close(model.policy.weight, torch.tensor([[0.2 - 0.1 * expected]]))
+
+
 def test_accumulation_count_rejects_invalid_work_budgets(tmp_path):
     from supermimic.profiles import training_config
 

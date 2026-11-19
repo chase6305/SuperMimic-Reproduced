@@ -1,9 +1,11 @@
 """Checkpoint provenance and CPU-only actor restoration share one read boundary."""
 
+import io
 import json
 import os
 import subprocess
 import sys
+from copy import deepcopy
 from dataclasses import asdict
 from pathlib import Path
 
@@ -14,6 +16,7 @@ from supermimic.artifacts import sha256
 from supermimic.checkpoints import (
     policy_config_from_checkpoint,
     policy_from_checkpoint,
+    read_actor_checkpoint,
     read_checkpoint,
     write_checkpoint,
 )
@@ -46,7 +49,7 @@ assert 'supermimic.envs.tracking_env_cfg' not in sys.modules
     )
 
 
-@pytest.mark.parametrize("mmap", [False, True])
+@pytest.mark.parametrize("mmap", [False, True, "auto"])
 def test_read_keeps_original_inode_and_tensors_after_descriptor_closes(tmp_path, monkeypatch, mmap):
     checkpoint = tmp_path / "latest.pt"
     replacement = tmp_path / "replacement.pt"
@@ -59,8 +62,8 @@ def test_read_keeps_original_inode_and_tensors_after_descriptor_closes(tmp_path,
     def publish_before_loading(source, **kwargs):
         assert kwargs["map_location"] == "cpu"
         assert kwargs["weights_only"] is False
-        assert kwargs["mmap"] is mmap
-        descriptors.append(int(source.rsplit("/", 1)[-1]) if mmap else source.fileno())
+        assert kwargs["mmap"] is (mmap is not False)
+        descriptors.append(int(source.rsplit("/", 1)[-1]) if kwargs["mmap"] else source.fileno())
         replacement.replace(checkpoint)
         return original_load(source, **kwargs)
 
@@ -75,7 +78,7 @@ def test_read_keeps_original_inode_and_tensors_after_descriptor_closes(tmp_path,
     assert loaded.data["value"].device.type == "cpu"
 
 
-@pytest.mark.parametrize("mmap", [False, True])
+@pytest.mark.parametrize("mmap", [False, True, "auto"])
 def test_fingerprint_detects_same_size_in_place_change(tmp_path, monkeypatch, mmap):
     checkpoint = tmp_path / "source.pt"
     torch.save({"value": torch.arange(4)}, checkpoint)
@@ -109,10 +112,11 @@ def test_input_budget_is_checked_before_deserialization(tmp_path, monkeypatch):
         read_checkpoint(checkpoint, max_bytes=1)
 
 
-def test_eager_reader_keeps_legacy_checkpoint_support(tmp_path):
+@pytest.mark.parametrize("mmap", [False, "auto"])
+def test_reader_keeps_legacy_checkpoint_support(tmp_path, mmap):
     checkpoint = tmp_path / "legacy.pt"
     torch.save({"value": torch.arange(4)}, checkpoint, _use_new_zipfile_serialization=False)
-    loaded = read_checkpoint(checkpoint)
+    loaded = read_checkpoint(checkpoint, mmap=mmap)
     assert loaded.sha256 is None
     torch.testing.assert_close(loaded.data["value"], torch.arange(4))
 
@@ -137,6 +141,58 @@ def test_actor_restore_preserves_json_config_and_output():
     assert all(value.device.type == "cpu" for value in restored.state_dict().values())
     observation, goal = torch.randn(2, 186), torch.randn(2, 680)
     torch.testing.assert_close(restored(observation, goal), actor(observation, goal))
+
+
+def test_actor_reader_owns_weights_and_metadata_after_source_is_rewritten(tmp_path):
+    actor, checkpoint = _actor_checkpoint()
+    checkpoint["anchor_adaptation"] = {"probe": torch.arange(3.0)}
+    checkpoint["wm_opt"] = {"unused": torch.arange(4096)}
+
+    def archive(data):
+        stream = io.BytesIO()
+        torch.save(data, stream)
+        return stream.getvalue()
+
+    source = tmp_path / "actor.pt"
+    original = archive(checkpoint)
+    source.write_bytes(original)
+    restored = read_actor_checkpoint(source, fingerprint=True)
+    expected_hash = sha256(source)
+    replacement = deepcopy(checkpoint)
+    replacement["policy"]["decoder.mlp.net.2.bias"].fill_(7)
+    replacement["anchor_adaptation"]["probe"].add_(10)
+    changed = archive(replacement)
+    assert len(changed) == len(original)
+    source.write_bytes(changed)  # The returned actor must no longer depend on this inode's pages.
+    assert restored.sha256 == expected_hash != sha256(source)
+    assert "wm_opt" not in restored.metadata
+    torch.testing.assert_close(restored.metadata["anchor_adaptation"]["probe"], torch.arange(3.0))
+    obs, goal = torch.randn(2, 186), torch.randn(2, 680)
+    torch.testing.assert_close(restored.actor(obs, goal), actor(obs, goal), atol=0, rtol=0)
+
+
+def test_actor_copy_is_inside_final_checkpoint_fingerprint_check(tmp_path, monkeypatch):
+    import supermimic.checkpoints as module
+
+    _, checkpoint = _actor_checkpoint()
+    source = tmp_path / "actor.pt"
+    torch.save(checkpoint, source)
+    original_restore = module.policy_from_checkpoint
+
+    def restore_then_change(data):
+        actor = original_restore(data)
+        stat = source.stat()
+        with source.open("r+b") as stream:
+            stream.seek(-1, os.SEEK_END)
+            byte = stream.read(1)
+            stream.seek(-1, os.SEEK_END)
+            stream.write(bytes([byte[0] ^ 1]))
+        os.utime(source, ns=(stat.st_atime_ns, stat.st_mtime_ns))
+        return actor
+
+    monkeypatch.setattr(module, "policy_from_checkpoint", restore_then_change)
+    with pytest.raises(RuntimeError, match="changed in place"):
+        read_actor_checkpoint(source, fingerprint=True)
 
 
 @pytest.mark.parametrize("field,value", [("future_frames", 9), ("anchor_obs", True)])

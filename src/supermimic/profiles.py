@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import math
+from numbers import Real
 from pathlib import Path
 
 from supermimic.config import CriticCfg, PolicyCfg, StateSpecCfg, TrainConfig, WorldModelCfg
@@ -14,14 +15,17 @@ def training_config(
     output: Path,
     *,
     num_envs: int | None = None,
+    episode_length_s: float | None = None,
+    sampling_mode: str | None = None,
     iterations: int = 100000,
     checkpoint_interval: int | None = None,
     hours: float = 1.0,
     seed: int = 0,
     clips: list[str] | None = None,
     resume: Path | None = None,
-    compile_policy: bool = False,
+    compile_policy: bool | str = False,
     compile_world_model: bool = False,
+    compile_world_model_window: bool = False,
     wm_batches_per_update: int | None = None,
     policy_batch_size: int | None = None,
     policy_horizon: int | None = None,
@@ -32,14 +36,18 @@ def training_config(
     action_clip: float | None = None,
     tracking_objective: str | None = None,
     training_mode: str | None = None,
+    reset_noise_scale: float | None = None,
     learning_rate: float | None = None,
     wm_one_step_batches: int | None = None,
     completion_aware_sampling: bool | None = None,
+    foot_support_height_weight: float | None = None,
     foot_support_velocity_weight: float | None = None,
     effector_position_weight: float | None = None,
     effector_position_weights: tuple[float, ...] | None = None,
     joint_tracking_weight: float | None = None,
     root_xy_tracking_weight: float | None = None,
+    height_tracking_weight: float | None = None,
+    orientation_tracking_weight: float | None = None,
     use_critic: bool | None = None,
     policy_gradient_accumulation: int | None = None,
     wm_window: int | None = None,
@@ -50,8 +58,11 @@ def training_config(
 
     Architecture and data interfaces are inherited for both resume modes. Runtime
     budgets remain selected for this run; strict continuation additionally restores
-    its horizon, update scope and reset priorities. Explicit overrides apply last.
+    its horizon, episode duration, sampling mode, update scope and reset priorities.
+    Explicit overrides apply last.
     """
+    if type(seed) is not int or not 0 <= seed < 2**32:
+        raise ValueError("Seed must be an integer within [0, 2**32 - 1]")
     if transfer and resume is None:
         raise ValueError("Transfer requires a source checkpoint")
     cfg = TrainConfig(
@@ -74,9 +85,13 @@ def training_config(
     if cfg.env.num_envs < 1 or iterations < 1 or hours <= 0:
         raise ValueError("Environment count, iterations and hours must be positive")
     if compile_policy:
-        cfg.policy_trainer.compile = "default"
-    if compile_world_model:
+        mode = compile_policy if isinstance(compile_policy, str) else "default"
+        if mode not in ("default", "reduce-overhead"):
+            raise ValueError("Policy compile mode must be default or reduce-overhead")
+        cfg.policy_trainer.compile = mode
+    if compile_world_model or compile_world_model_window:
         cfg.wm_trainer.compile = "default"
+    cfg.wm_trainer.compile_window = compile_world_model_window
     if wm_batches_per_update is not None:
         if wm_batches_per_update < 1:
             raise ValueError("World-model batches per update must be positive")
@@ -95,12 +110,29 @@ def training_config(
         cfg.env.replay_capacity = replay_capacity
     if resume is not None:
         # Keep checkpoint I/O behind the resume boundary; new profiles stay SDK-free.
-        from supermimic.checkpoints import read_checkpoint
+        from supermimic.checkpoints import read_checkpoint, validate_optimizer_resume
 
         checkpoint = read_checkpoint(resume, mmap=True).data
+        if not transfer:
+            validate_optimizer_resume(checkpoint)
         if not transfer and checkpoint["iteration"] >= iterations:
             raise ValueError("--iterations must exceed the checkpoint's cumulative iteration")
         _restore_checkpoint_config(cfg, checkpoint["config"], transfer=transfer)
+    if episode_length_s is not None:
+        cfg.env.episode_length_s = episode_length_s
+    duration = cfg.env.episode_length_s
+    if (
+        isinstance(duration, bool)
+        or not isinstance(duration, Real)
+        or not math.isfinite(duration)
+        or duration <= 0
+    ):
+        raise ValueError("Episode length must be finite and positive")
+    cfg.env.episode_length_s = float(duration)
+    if sampling_mode is not None:
+        cfg.env.sampling_mode = sampling_mode
+    if cfg.env.sampling_mode not in ("return", "uniform", "start"):
+        raise ValueError("Sampling mode must be return, uniform or start")
     if priority_windows_s is not None:
         cfg.env.priority_windows_s = priority_windows_s
         if priority_reset_ratio is None:
@@ -112,6 +144,8 @@ def training_config(
     cfg.env.priority_windows_s = validate_priorities(
         cfg.env.priority_windows_s, cfg.env.priority_reset_ratio
     )
+    if cfg.env.priority_reset_ratio and cfg.env.sampling_mode != "return":
+        raise ValueError("Reset priorities require return-based sampling")
     if completion_aware_sampling is not None:
         cfg.env.completion_aware_sampling = completion_aware_sampling
     if action_clip is not None:
@@ -156,10 +190,22 @@ def training_config(
         if not math.isfinite(root_xy_tracking_weight) or root_xy_tracking_weight < 0:
             raise ValueError("Root XY tracking weight must be finite and nonnegative")
         cfg.policy_trainer.root_xy_tracking_weight = root_xy_tracking_weight
+    if height_tracking_weight is not None:
+        if not math.isfinite(height_tracking_weight) or height_tracking_weight < 0:
+            raise ValueError("Root height tracking weight must be finite and nonnegative")
+        cfg.policy_trainer.height_tracking_weight = height_tracking_weight
+    if orientation_tracking_weight is not None:
+        if not math.isfinite(orientation_tracking_weight) or orientation_tracking_weight < 0:
+            raise ValueError("Root orientation tracking weight must be finite and nonnegative")
+        cfg.policy_trainer.orientation_tracking_weight = orientation_tracking_weight
     if effector_position_weight is not None:
         if not math.isfinite(effector_position_weight) or effector_position_weight < 0:
             raise ValueError("Effector position weight must be finite and nonnegative")
         cfg.policy_trainer.effector_position_weight = effector_position_weight
+    if foot_support_height_weight is not None:
+        if not math.isfinite(foot_support_height_weight) or foot_support_height_weight < 0:
+            raise ValueError("Foot support height weight must be finite and nonnegative")
+        cfg.policy_trainer.foot_support_height_weight = foot_support_height_weight
     if foot_support_velocity_weight is not None:
         if not math.isfinite(foot_support_velocity_weight) or foot_support_velocity_weight < 0:
             raise ValueError("Foot support velocity weight must be finite and nonnegative")
@@ -177,6 +223,19 @@ def training_config(
         cfg.env.obs_noise = cfg.env.reset_noise = cfg.env.domain_randomization = randomized
         cfg.env.action_noise_std = 0.1 if randomized else 0.0
         cfg.policy_trainer.obs_noise = randomized
+    if reset_noise_scale is not None:
+        cfg.env.reset_noise_scale = reset_noise_scale
+    scale = cfg.env.reset_noise_scale
+    if (
+        isinstance(scale, bool)
+        or not isinstance(scale, Real)
+        or not math.isfinite(scale)
+        or not 0 <= scale <= 1
+    ):
+        raise ValueError("Reset noise scale must be finite and within [0, 1]")
+    cfg.env.reset_noise_scale = float(scale)
+    if reset_noise_scale is not None:
+        cfg.env.reset_noise = scale > 0
     if learning_rate is not None:
         if not math.isfinite(learning_rate) or learning_rate <= 0:
             raise ValueError("Learning rate must be finite and positive")
@@ -230,7 +289,7 @@ def _apply_profile(cfg: TrainConfig, profile: str) -> None:
 
 
 def _restore_checkpoint_config(cfg: TrainConfig, saved: dict, *, transfer: bool) -> None:
-    """Restore the legacy field selection while leaving this run's budgets intact."""
+    """Restore architecture and training protocol while retaining this run's budgets."""
     cfg.policy = PolicyCfg(**saved["policy"])
     cfg.critic = CriticCfg(**saved["critic"])
     wm = dict(saved["world_model"])
@@ -239,10 +298,13 @@ def _restore_checkpoint_config(cfg: TrainConfig, saved: dict, *, transfer: bool)
     cfg.env.anchor_obs = saved["env"].get("anchor_obs", False)
     cfg.env.completion_aware_sampling = saved["env"].get("completion_aware_sampling", False)
     if not transfer:
+        cfg.env.episode_length_s = saved["env"].get("episode_length_s", cfg.env.episode_length_s)
+        cfg.env.sampling_mode = saved["env"].get("sampling_mode", cfg.env.sampling_mode)
         cfg.env.priority_windows_s = saved["env"].get("priority_windows_s", ())
         cfg.env.priority_reset_ratio = saved["env"].get("priority_reset_ratio", 0.0)
     cfg.env.future_frames = saved["env"]["future_frames"]
     cfg.policy_trainer.future_frames = cfg.env.future_frames
+    cfg.policy_trainer.anchor_obs = cfg.env.anchor_obs
     cfg.policy_trainer.history = cfg.policy.history
     if not transfer:
         cfg.policy_trainer.horizon = saved["policy_trainer"].get(
@@ -250,7 +312,13 @@ def _restore_checkpoint_config(cfg: TrainConfig, saved: dict, *, transfer: bool)
         )
     if not transfer:
         cfg.policy_trainer.update_scope = saved["policy_trainer"].get("update_scope", "all")
-    for name in ("obs_noise", "reset_noise", "domain_randomization", "action_noise_std"):
+    for name in (
+        "obs_noise",
+        "reset_noise",
+        "reset_noise_scale",
+        "domain_randomization",
+        "action_noise_std",
+    ):
         if name in saved["env"]:
             setattr(cfg.env, name, saved["env"][name])
     cfg.policy_trainer.obs_noise = saved["policy_trainer"].get("obs_noise", cfg.env.obs_noise)

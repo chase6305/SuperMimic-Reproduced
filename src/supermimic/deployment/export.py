@@ -12,17 +12,17 @@ import numpy as np
 import torch
 
 from supermimic.artifacts import sha256, write_json
-from supermimic.checkpoints import policy_from_checkpoint, read_checkpoint
+from supermimic.checkpoints import read_actor_checkpoint
 from supermimic.deployment.contract import build_model_and_contract
 from supermimic.interfaces import observation_dim
 
 
 def export_policy(checkpoint: Path, output: Path) -> dict:
     torch.set_num_threads(1)
-    loaded = read_checkpoint(checkpoint, fingerprint=True)
-    ck = loaded.data
+    loaded = read_actor_checkpoint(checkpoint, fingerprint=True)
+    ck = loaded.metadata
     cfg = ck["config"]
-    actor = policy_from_checkpoint(ck)
+    actor = loaded.actor
     pcfg = actor.cfg
     model, contract = build_model_and_contract(
         pcfg.history, cfg["env"]["future_frames"], cfg["env"].get("anchor_obs", False)
@@ -106,8 +106,16 @@ def export_policy(checkpoint: Path, output: Path) -> dict:
             "imagination_use_critic": cfg.get("policy_trainer", {}).get("use_critic", True),
             "imagination_horizon": cfg.get("policy_trainer", {}).get("horizon"),
             "training_environment": {
-                name: cfg.get("env", {}).get(name)
-                for name in ("obs_noise", "reset_noise", "domain_randomization", "action_noise_std")
+                name: cfg.get("env", {}).get(name, 1.0 if name == "reset_noise_scale" else None)
+                for name in (
+                    "obs_noise",
+                    "reset_noise",
+                    "reset_noise_scale",
+                    "domain_randomization",
+                    "action_noise_std",
+                    "episode_length_s",
+                    "sampling_mode",
+                )
             },
             "tracking_auxiliary": {
                 name: cfg.get("policy_trainer", {}).get(

@@ -1,0 +1,147 @@
+{
+  "device": "NVIDIA GeForce RTX 5090 D v2",
+  "torch_version": "2.14.1+cu130",
+  "optimized_revision": "088d17639ae9e572d11ba888ad9977a7b9256935",
+  "baseline_revision": "5270d50",
+  "scope": "Eager world-model step and 8-step loss forward/backward with fixed inputs and weights. No optimizer update or physics in timings.",
+  "method": "Three warmups, seven samples of five operations each, CUDA synchronized after each sample; TF32 disabled.",
+  "timings": [
+    {
+      "batch_size": 32,
+      "implementation": "before",
+      "operation": "step_forward",
+      "median_ms": 0.5548132001422346,
+      "samples_ms": [
+        0.5871223984286189,
+        0.558600400108844,
+        0.5548132001422346,
+        0.5496795987710357,
+        0.551046000327915,
+        0.5784180015325546,
+        0.5490844021551311
+      ],
+      "loss_difference": 0.0,
+      "max_parameter_gradient_difference": 4.76837158203125e-07
+    },
+    {
+      "batch_size": 32,
+      "implementation": "before",
+      "operation": "window8_forward_backward",
+      "median_ms": 26.402809796854854,
+      "samples_ms": [
+        27.37933760508895,
+        27.453472197521478,
+        26.605244004167616,
+        26.402809796854854,
+        26.343032193835825,
+        26.352997205685824,
+        26.312720600981265
+      ],
+      "loss_difference": 0.0,
+      "max_parameter_gradient_difference": 4.76837158203125e-07
+    },
+    {
+      "batch_size": 32,
+      "implementation": "after",
+      "operation": "step_forward",
+      "median_ms": 0.47208620235323906,
+      "samples_ms": [
+        0.4804219934158027,
+        0.47751240199431777,
+        0.4751219996251166,
+        0.4720199969597161,
+        0.47208620235323906,
+        0.4683392005972564,
+        0.4696575924754143
+      ],
+      "loss_difference": 0.0,
+      "max_parameter_gradient_difference": 4.76837158203125e-07
+    },
+    {
+      "batch_size": 32,
+      "implementation": "after",
+      "operation": "window8_forward_backward",
+      "median_ms": 25.030156003776938,
+      "samples_ms": [
+        24.451206997036934,
+        24.68378859339282,
+        25.55483200121671,
+        25.155608193017542,
+        25.540358608122915,
+        25.030156003776938,
+        24.573917989619076
+      ],
+      "loss_difference": 0.0,
+      "max_parameter_gradient_difference": 4.76837158203125e-07
+    },
+    {
+      "batch_size": 128,
+      "implementation": "before",
+      "operation": "step_forward",
+      "median_ms": 0.5701982066966593,
+      "samples_ms": [
+        0.5792758078314364,
+        0.5701982066966593,
+        0.5700460053049028,
+        0.5906271981075406,
+        0.5703208036720753,
+        0.5690802005119622,
+        0.5663792020641267
+      ],
+      "loss_difference": 0.0,
+      "max_parameter_gradient_difference": 6.556510925292969e-07
+    },
+    {
+      "batch_size": 128,
+      "implementation": "before",
+      "operation": "window8_forward_backward",
+      "median_ms": 27.559964393731207,
+      "samples_ms": [
+        27.48467120109126,
+        27.576990600209683,
+        27.45431560324505,
+        27.559964393731207,
+        27.58491380373016,
+        28.26352579286322,
+        27.474912791512907
+      ],
+      "loss_difference": 0.0,
+      "max_parameter_gradient_difference": 6.556510925292969e-07
+    },
+    {
+      "batch_size": 128,
+      "implementation": "after",
+      "operation": "step_forward",
+      "median_ms": 0.49873479874804616,
+      "samples_ms": [
+        0.5073931999504566,
+        0.5257499986328185,
+        0.49873479874804616,
+        0.4978089942596853,
+        0.5311361979693174,
+        0.49457880668342113,
+        0.49638840137049556
+      ],
+      "loss_difference": 0.0,
+      "max_parameter_gradient_difference": 6.556510925292969e-07
+    },
+    {
+      "batch_size": 128,
+      "implementation": "after",
+      "operation": "window8_forward_backward",
+      "median_ms": 25.803141191136092,
+      "samples_ms": [
+        25.382148195058107,
+        25.761977198999375,
+        25.803141191136092,
+        25.506662600673735,
+        26.89349700231105,
+        26.68731960002333,
+        26.240589807275683
+      ],
+      "loss_difference": 0.0,
+      "max_parameter_gradient_difference": 6.556510925292969e-07
+    }
+  ],
+  "cpu_precision": "Float64 outputs exact; input and dynamics-parameter adjoints compared at 1e-10 absolute/relative tolerance, with both integration modes."
+}

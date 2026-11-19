@@ -2,6 +2,7 @@ from pathlib import Path
 
 import pytest
 
+from supermimic.config import WMTrainerCfg
 from supermimic.memory import validate_training_budget
 from supermimic.profiles import training_config
 
@@ -32,9 +33,26 @@ def test_additional_compiler_has_its_own_workspace_allowance():
         wm_batches_per_update=10,
     )
     assert cfg.wm_trainer.compile == "default"
+    assert not cfg.wm_trainer.compile_window
     assert cfg.wm_trainer.batches_per_update == 10
     estimate = validate_training_budget(cfg, 13066, 2304)
     assert estimate["components_mib"]["compilation_workspace"] == 512
+    assert estimate["components_mib"]["gae_scan_workspace"] > 0
+    cfg.policy_trainer.use_critic = False
+    without_critic = validate_training_budget(cfg, 13066, 2304)
+    assert without_critic["components_mib"]["gae_scan_workspace"] == 0
+
+
+def test_whole_window_compilation_requires_its_explicit_runtime_choice():
+    legacy = WMTrainerCfg(8, 10, 2048, 2e-4, 1.0, 0.0, "default", 2)
+    assert legacy.one_step_batches_per_update == 2
+    assert not legacy.compile_window
+    cfg = training_config("smoke", Path("data"), Path("run"), compile_world_model_window=True)
+    assert cfg.wm_trainer.compile == "default"
+    assert cfg.wm_trainer.compile_window
+    assert cfg.policy_trainer.compile is None
+    estimate = validate_training_budget(cfg, 13066, 2304)
+    assert estimate["components_mib"]["compilation_workspace"] == 256
 
 
 def test_larger_policy_batch_requires_balancing_simulation_budget():

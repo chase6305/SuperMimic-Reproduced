@@ -1,0 +1,201 @@
+{
+  "schema": "g1-static-initialization-v1",
+  "cases": [
+    {
+      "id": "baseline",
+      "perturbation": {}
+    },
+    {
+      "id": "yaw-minus",
+      "perturbation": {
+        "root_world_rotation_vector_rad": [
+          0,
+          0,
+          -0.04
+        ]
+      }
+    },
+    {
+      "id": "lateral-velocity-minus",
+      "perturbation": {
+        "root_linear_velocity_delta_m_s": [
+          0,
+          -0.04,
+          0
+        ]
+      }
+    },
+    {
+      "id": "body-pitch-velocity-minus",
+      "perturbation": {
+        "root_body_angular_velocity_delta_rad_s": [
+          0,
+          -0.04,
+          0
+        ]
+      }
+    },
+    {
+      "id": "height-yaw-minus",
+      "perturbation": {
+        "root_translation_m": [
+          0,
+          0,
+          -0.007
+        ],
+        "root_world_rotation_vector_rad": [
+          0,
+          0,
+          0.02
+        ]
+      }
+    },
+    {
+      "id": "yaw-plus",
+      "perturbation": {
+        "root_world_rotation_vector_rad": [
+          0,
+          0,
+          0.04
+        ]
+      }
+    },
+    {
+      "id": "lateral-velocity-plus",
+      "perturbation": {
+        "root_linear_velocity_delta_m_s": [
+          0,
+          0.04,
+          0
+        ]
+      }
+    },
+    {
+      "id": "body-pitch-velocity-plus",
+      "perturbation": {
+        "root_body_angular_velocity_delta_rad_s": [
+          0,
+          0.04,
+          0
+        ]
+      }
+    },
+    {
+      "id": "height-yaw-plus",
+      "perturbation": {
+        "root_translation_m": [
+          0,
+          0,
+          0.007
+        ],
+        "root_world_rotation_vector_rad": [
+          0,
+          0,
+          -0.02
+        ]
+      }
+    },
+    {
+      "id": "joint-seed-2026111809",
+      "perturbation": {
+        "joint_position_noise_std_rad": 0.012,
+        "seed": 2026111809
+      }
+    },
+    {
+      "id": "joint-seed-2026111810",
+      "perturbation": {
+        "joint_position_noise_std_rad": 0.012,
+        "seed": 2026111810
+      }
+    },
+    {
+      "id": "combined-final-0-0",
+      "perturbation": {
+        "root_translation_m": [
+          -0.012,
+          -0.012,
+          0
+        ],
+        "root_world_rotation_vector_rad": [
+          -0.012,
+          -0.01,
+          0.02
+        ],
+        "root_linear_velocity_delta_m_s": [
+          -0.03,
+          -0.03,
+          0
+        ],
+        "joint_position_noise_std_rad": 0.006,
+        "seed": 2026111811
+      }
+    },
+    {
+      "id": "combined-final-0-2",
+      "perturbation": {
+        "root_translation_m": [
+          -0.012,
+          0.012,
+          0
+        ],
+        "root_world_rotation_vector_rad": [
+          0.012,
+          -0.01,
+          -0.02
+        ],
+        "root_linear_velocity_delta_m_s": [
+          -0.03,
+          0.03,
+          0
+        ],
+        "joint_position_noise_std_rad": 0.006,
+        "seed": 2026111811
+      }
+    },
+    {
+      "id": "combined-final-2-0",
+      "perturbation": {
+        "root_translation_m": [
+          0.012,
+          -0.012,
+          0
+        ],
+        "root_world_rotation_vector_rad": [
+          -0.012,
+          0.01,
+          -0.02
+        ],
+        "root_linear_velocity_delta_m_s": [
+          0.03,
+          -0.03,
+          0
+        ],
+        "joint_position_noise_std_rad": 0.006,
+        "seed": 2026111811
+      }
+    },
+    {
+      "id": "combined-final-2-2",
+      "perturbation": {
+        "root_translation_m": [
+          0.012,
+          0.012,
+          0
+        ],
+        "root_world_rotation_vector_rad": [
+          0.012,
+          0.01,
+          0.02
+        ],
+        "root_linear_velocity_delta_m_s": [
+          0.03,
+          0.03,
+          0
+        ],
+        "joint_position_noise_std_rad": 0.006,
+        "seed": 2026111811
+      }
+    }
+  ]
+}

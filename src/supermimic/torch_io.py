@@ -9,6 +9,7 @@ from __future__ import annotations
 import hashlib
 import os
 import tempfile
+from collections.abc import Callable
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Literal
@@ -28,13 +29,16 @@ def read_torch_archive(
     mmap: bool | Literal["auto"] = False,
     fingerprint: bool = False,
     max_bytes: int | None = None,
+    consume: Callable[[Any], Any] | None = None,
 ) -> TorchArchive:
     """Read CPU storage and an optional matching digest from one opened inode.
 
     Explicit mmap requires Linux /proc/self/fd, with no eager fallback. ``auto``
     maps modern ZIP serialization when that descriptor path is available and
     otherwise keeps the eager reader's legacy-format/platform support. Automatic
-    format selection and deserialization inspect the same descriptor.
+    format selection and deserialization inspect the same descriptor. A consumer
+    can copy selected storage before the final change/digest checks; its result
+    replaces the raw archive data returned to the caller.
 
     Pickle remains enabled for existing local artifacts; inputs must be trusted.
     """
@@ -58,6 +62,8 @@ def read_torch_archive(
                 raise RuntimeError("Torch archive mmap requires Linux /proc/self/fd")
             source = descriptor_path
         data = torch.load(source, map_location="cpu", weights_only=False, mmap=mapping)
+        if consume is not None:
+            data = consume(data)
         after = os.fstat(stream.fileno())
         if (before.st_size, before.st_mtime_ns) != (after.st_size, after.st_mtime_ns):
             raise RuntimeError("Torch archive changed in place during loading")

@@ -2,6 +2,7 @@
 
 from types import SimpleNamespace
 
+import pytest
 import torch
 
 from supermimic.data.replay_buffer import ReplayBuffer
@@ -72,3 +73,30 @@ def test_world_model_learns_from_short_episodes_without_mixing_window_metrics():
     assert "one_step/nse_1step" in metrics and "nse_kstep" in metrics
     assert int(next(iter(trainer.opt.state.values()))["step"]) == 3
     assert all(torch.isfinite(torch.tensor(v)) for v in metrics.values())
+
+
+def test_metrics_average_each_window_group_without_changing_optimizer_steps():
+    trainer = WorldModelTrainer.__new__(WorldModelTrainer)
+    trainer.cfg = WMTrainerCfg(
+        window=3, batches_per_update=2, one_step_batches_per_update=1, batch_size=2
+    )
+    trainer.wm = torch.nn.Linear(1, 1, bias=False)
+    trainer.wm.weight.data.fill_(1)
+    trainer.opt = torch.optim.Adam(trainer.wm.parameters(), lr=0)
+    calls = []
+
+    def loss_on(window):
+        calls.append(window)
+        loss = trainer.wm.weight.square().sum() + len(calls)
+        return loss, {"probe": torch.tensor(float(10 * window + len(calls)))}
+
+    trainer.loss_on = loss_on
+    metrics = trainer.update(SimpleNamespace(sample_windows=lambda n, k: k))
+    assert calls == [3, 3, 1]
+    assert metrics == pytest.approx(
+        {"loss": 2.5, "probe": 31.5, "grad_norm": 2,
+         "one_step/loss": 4, "one_step/probe": 13, "one_step/grad_norm": 2}
+    )
+    assert int(trainer.opt.state[trainer.wm.weight]["step"]) == 3
+    trainer.cfg.batches_per_update = trainer.cfg.one_step_batches_per_update = 0
+    assert trainer.update(None) == {}

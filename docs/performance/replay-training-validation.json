@@ -1,0 +1,52 @@
+{
+  "scope": "Bounded training and resume smoke only; no motion-quality or total-throughput claim.",
+  "cpu_suite": {
+    "passed": 334,
+    "skipped": 24,
+    "subtests_passed": 12
+  },
+  "runs": [
+    {
+      "name": "train-smoke",
+      "status": "complete",
+      "starting_iteration": 0,
+      "iteration": 60,
+      "starting_updates": 0,
+      "updates": 14,
+      "checkpoint_sha256": "50024e7ffcc3932ef762e905bccf11d923fc01aef553885e549e0bd4f9ec56f2",
+      "motion_sha256": "4598698aa035c52ba160986e05796cb525df557d1879266e933c40a65994c041",
+      "replay_capacity": 128,
+      "wm_window": 8,
+      "wm_one_step_batches": 0,
+      "elapsed_s": 12.650346223963425,
+      "process_peak_rss_bytes": 3661402112,
+      "process_peak_gpu_mib": 820,
+      "reserve_ram_gib": 12.5,
+      "stop_reason": null,
+      "exit_code": 0,
+      "replay_source_sha256": "f381b3bec4b14cac6e810c198ffc8bd43efc758f7c192d4b6384795e60bfe248",
+      "wm_trainer_source_sha256": "bc7e621e961b26122697a657439e7c805316faa10a836b244f22773d268c44e3"
+    },
+    {
+      "name": "train-resume",
+      "status": "complete",
+      "starting_iteration": 60,
+      "iteration": 140,
+      "starting_updates": 14,
+      "updates": 37,
+      "checkpoint_sha256": "84357b6acafe5fbee33a597d8ed8311f15eaade01117d75ff82dcb2402ac2880",
+      "motion_sha256": "4598698aa035c52ba160986e05796cb525df557d1879266e933c40a65994c041",
+      "replay_capacity": 32,
+      "wm_window": 3,
+      "wm_one_step_batches": 2,
+      "elapsed_s": 13.498729729035404,
+      "process_peak_rss_bytes": 3620614144,
+      "process_peak_gpu_mib": 818,
+      "reserve_ram_gib": 12.5,
+      "stop_reason": null,
+      "exit_code": 0,
+      "replay_source_sha256": "8291915d2cbf23426dd2e4502c2bded9f33a14c54a54e689c4fe226f68a96633",
+      "wm_trainer_source_sha256": "bc7e621e961b26122697a657439e7c805316faa10a836b244f22773d268c44e3"
+    }
+  ]
+}

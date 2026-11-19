@@ -29,6 +29,9 @@ class TerminationHead(nn.Module):
 
 
 class WorldModel(nn.Module):
+    # Keep compiler graph construction bounded for longer fitting horizons.
+    _MAX_COMPILED_WINDOW = 8
+
     def __init__(self, cfg: WorldModelCfg, heads: AnalyticHeads, device):
         super().__init__()
         self.cfg = cfg
@@ -42,9 +45,9 @@ class WorldModel(nn.Module):
 
     def step(self, s: torch.Tensor, action: torch.Tensor, xi: torch.Tensor) -> torch.Tensor:
         """s_{t+1} = integrate(s_t, f(s_t, a_t, xi))."""
-        feat = self.spec.canonical(s)
+        feat, q, hq = self.spec.canonical_with_frame(s)
         delta = self.dynamics(feat, action, self.spec.normalize_xi(xi))
-        return self.spec.integrate(s, delta)
+        return self.spec.integrate_with_frame(s, delta, q, hq)
 
     def termination_logits(self, s_next: torch.Tensor, ref: ReferenceFrame) -> torch.Tensor:
         # The pelvis is the free-joint body, so its pose is the state's root pose: no FK needed.
@@ -66,11 +69,17 @@ class WorldModel(nn.Module):
         bce = F.binary_cross_entropy_with_logits(logits, done, reduction="none")
         return s_next, e * e, bce, logits
 
-    def enable_compile(self, mode: str | None = "default") -> None:
+    def enable_compile(self, mode: str | None = "default", *, window: bool = False) -> None:
+        compile_mode = None if mode == "default" else mode
         self._loss_step_fn = (
-            torch.compile(self._loss_step, mode=None if mode == "default" else mode, dynamic=False)
+            torch.compile(self._loss_step, mode=compile_mode, dynamic=False)
             if mode
             else self._loss_step
+        )
+        self._window_loss_fn = (
+            torch.compile(self._window_loss, mode=compile_mode, dynamic=False, fullgraph=True)
+            if mode and window
+            else None
         )
 
     def window_loss(
@@ -81,6 +90,15 @@ class WorldModel(nn.Module):
         done: torch.Tensor,
         refs: list[ReferenceFrame],
     ):
+        """Use one graph for short windows; retain per-step compilation beyond the bound."""
+        window_fn = getattr(self, "_window_loss_fn", None)
+        if window_fn is not None and a_exec.shape[0] <= self._MAX_COMPILED_WINDOW:
+            return window_fn(states, a_exec, xi, done, refs)
+        return self._window_loss(
+            states, a_exec, xi, done, refs, step_fn=getattr(self, "_loss_step_fn", None)
+        )
+
+    def _window_loss(self, states, a_exec, xi, done, refs, step_fn=None):
         """k-step autoregressive loss.
 
         states: (k+1, n, 71) logged states; a_exec: (k, n, 29); xi: (n, 33);
@@ -95,7 +113,7 @@ class WorldModel(nn.Module):
         err_first = None
         err_last = None
         acc_num = 0.0
-        step_fn = getattr(self, "_loss_step_fn", None) or self._loss_step
+        step_fn = step_fn or self._loss_step
         for j in range(k):
             s, sq, bce, logits = step_fn(
                 s, a_exec[j], xi, states[j + 1], done[j], refs[j].root_pos_w, refs[j].root_quat_w

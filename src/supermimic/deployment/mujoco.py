@@ -13,14 +13,23 @@ import numpy as np
 from supermimic.artifacts import sha256, snapshot_file, write_json
 from supermimic.data.schema import validate_motion
 from supermimic.deployment.core import MotionReference, PolicyRunner, gravity, rotation
+from supermimic.deployment.initialization import InitialPerturbation
 from supermimic.deployment.trajectory import PHYSICAL_CONTACT_COLUMNS
 from supermimic.deployment.validation import validate_model_contract
 from supermimic.runtime import source_manifest
 
 
 def deploy(
-    bundle: Path, motion: Path, output: Path, steps: int | None = None, viewer: bool = False
+    bundle: Path,
+    motion: Path,
+    output: Path,
+    steps: int | None = None,
+    viewer: bool = False,
+    *,
+    initialization: InitialPerturbation | None = None,
 ) -> dict:
+    if initialization is not None:
+        initialization = InitialPerturbation.from_mapping(initialization.as_dict())
     runner = PolicyRunner(bundle)
     c = runner.contract
     if c["packages"]["mujoco"] != mujoco.__version__:
@@ -35,7 +44,8 @@ def deploy(
     with TemporaryDirectory(prefix=".supermimic-deploy-", dir=existing) as temporary:
         pinned_motion = Path(temporary) / motion.name
         snapshot_file(motion, pinned_motion)
-        return _deploy(runner, model, bundle, pinned_motion, output, steps, viewer)
+        options = {"initialization": initialization} if initialization is not None else {}
+        return _deploy(runner, model, bundle, pinned_motion, output, steps, viewer, **options)
 
 
 def _deploy(
@@ -46,30 +56,24 @@ def _deploy(
     output: Path,
     steps: int | None,
     viewer: bool,
+    *,
+    initialization: InitialPerturbation | None = None,
 ) -> dict:
     c = runner.contract
     reference = MotionReference(motion, runner.default_q)
-    data = mujoco.MjData(model)
+    data = initialize_data(model, c, reference, initialization)
     qadr, vadr = c["joint_qpos_indices"], c["joint_qvel_indices"]
     root_q, root_v = c["root_qpos_index"], c["root_qvel_index"]
-    data.qpos[root_q : root_q + 3] = reference.root_pos[0]
-    data.qpos[root_q + 3 : root_q + 7] = reference.root_quat[0]
-    limits = np.asarray(c["joint_limits"])
-    center = limits.mean(axis=1)
-    half = (limits[:, 1] - limits[:, 0]) * c.get("initial_joint_soft_limit_factor", 0.9) / 2
-    data.qpos[qadr] = np.clip(reference.q[0], center - half, center + half)
-    data.qvel[root_v : root_v + 3] = reference.root_lin[0]
-    data.qvel[root_v + 3 : root_v + 6] = (
-        rotation(reference.root_quat[0]).inv().apply(reference.root_ang[0])
-    )
-    data.qvel[vadr] = reference.qd[0]
-    mujoco.mj_forward(model, data)
     anchor_id = model.body("robot/" + c["anchor_body"]).id
     output.mkdir(parents=True, exist_ok=False)
     requested = steps if steps is not None else reference.frames - 1
     if requested < 1 or requested > 10_000_000:
         raise ValueError("Deployment step budget must be within [1, 10000000]")
-    if requested * (model.nq + model.nv + 29 + 4 * 13) * 8 > 512 * 1024**2:
+    force_columns = c["decimation"] * model.nu if initialization is not None else 0
+    if (
+        requested * (model.nq + model.nv + 29 + c["decimation"] * 13 + force_columns) * 8
+        > 512 * 1024**2
+    ):
         raise ValueError("Trajectory exceeds the 512 MiB recording budget")
     record = {
         "status": "running",
@@ -90,11 +94,25 @@ def _deploy(
         # Whole-package Python source inventory, not an exact imported-module trace.
         "implementation_package_sha256": source_manifest(),
     }
+    if initialization is not None:
+        flags = int(mujoco.mjtState.mjSTATE_INTEGRATION)
+        initial_state = np.empty(mujoco.mj_stateSize(model, flags))
+        mujoco.mj_getState(model, data, initial_state, flags)
+        np.savez(output / "initialization.npz", integration_state=initial_state, state_flags=flags)
+        record.update(
+            initialization=initialization.as_dict(),
+            initialization_sha256=sha256(output / "initialization.npz"),
+        )
     write_json(output / "result.json", record)
     states = np.empty((requested + 1, model.nq + model.nv), dtype=np.float64)
     actions = np.empty((requested, 29), dtype=np.float32)
     frames = np.empty(requested, dtype=np.int64)
     contacts = np.empty((requested * c["decimation"], 13), dtype=np.float64)
+    actuator_forces = (
+        np.empty((requested * c["decimation"], model.nu), dtype=np.float64)
+        if initialization is not None
+        else None
+    )
     contact_steps = 0
     floors = {i for i in range(model.ngeom) if model.geom_type[i] == mujoco.mjtGeom.mjGEOM_PLANE}
     feet = [
@@ -148,28 +166,9 @@ def _deploy(
                             raise RuntimeError(
                                 "MuJoCo reported invalid state/acceleration; rollout rejected"
                             )
-                    forces = np.zeros((3, 3))  # left foot, right foot, non-foot ground
-                    nonfoot_count = 0
-                    max_depth = 0.0
-                    local_force = np.zeros(6)
-                    for contact_id in range(data.ncon):
-                        contact = data.contact[contact_id]
-                        one, two = map(int, contact.geom)
-                        if one not in floors and two not in floors:
-                            continue
-                        mujoco.mj_contactForce(model, data, contact_id, local_force)
-                        world_force = contact.frame.reshape(3, 3).T @ local_force[:3]
-                        other = two if one in floors else one
-                        if two in floors:
-                            world_force = -world_force
-                        side = next((i for i, ids in enumerate(feet) if other in ids), 2)
-                        forces[side] += world_force
-                        if side == 2:
-                            nonfoot_count += int(np.linalg.norm(world_force) > 1e-3)
-                            max_depth = max(max_depth, float(-contact.dist))
-                    contacts[contact_steps] = np.concatenate(
-                        [[data.time], forces.reshape(-1), [nonfoot_count, max_depth, data.ncon]]
-                    )
+                    contacts[contact_steps] = ground_contact_row(model, data, floors, feet)
+                    if actuator_forces is not None:
+                        actuator_forces[contact_steps] = data.actuator_force
                     contact_steps += 1
                 mujoco.mj_forward(model, data)
                 states[step + 1] = np.concatenate([data.qpos, data.qvel])
@@ -247,6 +246,9 @@ def _deploy(
         record.update(status="failed", error=f"{type(error).__name__}: {error}", steps=actual_steps)
         raise
     finally:
+        if actuator_forces is not None:
+            np.savez(output / "actuator-forces.npz", actuator_force=actuator_forces[:contact_steps])
+            record["actuator_forces_sha256"] = sha256(output / "actuator-forces.npz")
         np.savez(
             output / "trajectory.npz",
             states=states[: actual_steps + 1],
@@ -273,3 +275,49 @@ def _deploy(
                 "elapsed_s": record["elapsed_s"],
             },
         )
+
+
+def initialize_data(model, contract, reference, initialization=None):
+    """Build the contractual first state, retaining the original operation order."""
+    data = mujoco.MjData(model)
+    qadr, vadr = contract["joint_qpos_indices"], contract["joint_qvel_indices"]
+    root_q, root_v = contract["root_qpos_index"], contract["root_qvel_index"]
+    data.qpos[root_q : root_q + 3] = reference.root_pos[0]
+    data.qpos[root_q + 3 : root_q + 7] = reference.root_quat[0]
+    limits = np.asarray(contract["joint_limits"])
+    center = limits.mean(axis=1)
+    half = (limits[:, 1] - limits[:, 0]) * contract.get("initial_joint_soft_limit_factor", 0.9) / 2
+    data.qpos[qadr] = np.clip(reference.q[0], center - half, center + half)
+    data.qvel[root_v : root_v + 3] = reference.root_lin[0]
+    data.qvel[root_v + 3 : root_v + 6] = (
+        rotation(reference.root_quat[0]).inv().apply(reference.root_ang[0])
+    )
+    data.qvel[vadr] = reference.qd[0]
+    if initialization is not None:
+        initialization.apply(data, contract)
+    mujoco.mj_forward(model, data)
+    return data
+
+
+def ground_contact_row(model, data, floors, feet) -> np.ndarray:
+    """Solved world forces immediately after one substep; shared with action replay."""
+    forces = np.zeros((3, 3))  # left foot, right foot, non-foot ground
+    nonfoot_count = 0
+    max_depth = 0.0
+    local_force = np.zeros(6)
+    for contact_id in range(data.ncon):
+        contact = data.contact[contact_id]
+        one, two = map(int, contact.geom)
+        if one not in floors and two not in floors:
+            continue
+        mujoco.mj_contactForce(model, data, contact_id, local_force)
+        world_force = contact.frame.reshape(3, 3).T @ local_force[:3]
+        other = two if one in floors else one
+        if two in floors:
+            world_force = -world_force
+        side = next((i for i, ids in enumerate(feet) if other in ids), 2)
+        forces[side] += world_force
+        if side == 2:
+            nonfoot_count += int(np.linalg.norm(world_force) > 1e-3)
+            max_depth = max(max_depth, float(-contact.dist))
+    return np.concatenate([[data.time], forces.reshape(-1), [nonfoot_count, max_depth, data.ncon]])

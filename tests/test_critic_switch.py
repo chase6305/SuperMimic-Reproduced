@@ -93,6 +93,7 @@ def test_cli_disabled_critic_is_never_called_during_actor_update(tmp_path, monke
         raise AssertionError("Disabled critic was evaluated")
 
     monkeypatch.setattr(model.critic, "forward", forbidden)
+    monkeypatch.setattr(model.wm.spec, "canonical", forbidden)
     monkeypatch.setattr(module, "imagine", fixture.synthetic_rollout)
     metrics = model.update(fixture.Buffer())
     assert not torch.equal(model.policy.weight, before)

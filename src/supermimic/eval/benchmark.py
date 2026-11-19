@@ -2,7 +2,8 @@
 
 Every clip is played once from its first frame with the deterministic policy:
 no observation/action noise, no reset noise, no domain randomization (foot friction 1.0),
-deterministic physics. A clip *fails* if the training termination (pelvis height /
+fixed physics settings (CUDA execution is not promised bitwise repeatable).
+A clip *fails* if the training termination (pelvis height /
 tilt vs reference) fires before the clip ends. Normalised return = sum of per-step
 rewards / (max step reward * number of steps).
 """
@@ -15,7 +16,7 @@ from pathlib import Path
 
 import torch
 
-from supermimic.checkpoints import policy_from_checkpoint, read_checkpoint
+from supermimic.checkpoints import read_actor_checkpoint
 from supermimic.policy.nets import Policy
 
 
@@ -44,9 +45,8 @@ class ClipResult:
 
 
 def load_policy_from_checkpoint(path: str | Path, device: str) -> tuple[Policy, dict]:
-    ck = read_checkpoint(path).data
-    policy = policy_from_checkpoint(ck).to(device)
-    return policy, ck["config"]
+    loaded = read_actor_checkpoint(path)
+    return loaded.actor.to(device), loaded.metadata["config"]
 
 
 @torch.no_grad()

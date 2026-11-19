@@ -1,0 +1,130 @@
+{
+  "optimized_revision": "858ec159d85f4f601c97dbd2e2bb47804ef4a596",
+  "status": "complete",
+  "exit_code": 0,
+  "passed": 14,
+  "elapsed_s": 38.6321120680077,
+  "peak_rss_bytes": 5571727360,
+  "peak_process_gpu_mib": 1320,
+  "limits": {
+    "gpu_index": 0,
+    "max_gpu_mib": 2304,
+    "reserve_gpu_mib": 4096,
+    "max_rss_gib": 6,
+    "reserve_ram_gib": 12.5,
+    "reserve_disk_gib": 20.0,
+    "poll_seconds": 2.0,
+    "stop_grace_seconds": 30.0
+  },
+  "stop_reason": null,
+  "coverage": [
+    "environment spaces, replay, state I/O, contexts and clip boundaries",
+    "analytic reward, observation and termination against mjlab",
+    "full/compact reference parity",
+    "world-model fitting on physical replay",
+    "training, restore and weight-transfer smoke",
+    "compiled world-model loss and gradients"
+  ],
+  "world_model_error_before": [
+    0.4903,
+    0.7382,
+    1.0381,
+    1.4287,
+    1.9131,
+    2.5401,
+    3.2997,
+    4.1904
+  ],
+  "world_model_error_after": [
+    0.0708,
+    0.0936,
+    0.1141,
+    0.1364,
+    0.1602,
+    0.1876,
+    0.2165,
+    0.2553
+  ],
+  "additional_input_batch_checks": {
+    "passed": 8,
+    "noise": true,
+    "library_modes": [
+      "full",
+      "compact"
+    ],
+    "anchor_modes": [
+      false,
+      true
+    ],
+    "horizons": [
+      8,
+      32
+    ],
+    "rng_equal": true,
+    "forward_atol": 3e-06,
+    "forward_rtol": 3e-06,
+    "actor_gradient_atol": 3e-06,
+    "actor_gradient_rtol": 0.0001,
+    "includes_goal_encoder": true,
+    "relative_gradient_l2_bound": 0.0001,
+    "absolute_gradient_l2_floor": 1e-12,
+    "reference_gradient_nonzero": true,
+    "optimized_revision": "140d5ac8adfb7cb5085f42c91e17ce75ddcbffcd"
+  },
+  "previous_validation": {
+    "optimized_revision": "088d17639ae9e572d11ba888ad9977a7b9256935",
+    "elapsed_s": 56.95549708500039,
+    "peak_rss_bytes": 5663039488,
+    "peak_process_gpu_mib": 1326,
+    "world_model_error_before": [
+      0.5144,
+      0.7723,
+      1.0612,
+      1.4579,
+      1.9664,
+      2.5829,
+      3.3196,
+      4.2052
+    ],
+    "world_model_error_after": [
+      0.0687,
+      0.0896,
+      0.1076,
+      0.1307,
+      0.1542,
+      0.1815,
+      0.216,
+      0.2518
+    ]
+  },
+  "cpu_validation": {
+    "passed": 640,
+    "skipped": 32,
+    "subtests_passed": 12,
+    "local_elapsed_s": 21.45,
+    "github_elapsed_s": 42.93,
+    "github_run": "https://github.com/chase6305/SuperMimic-Reproduced/actions/runs/43935505880"
+  },
+  "feedback_revalidation": {
+    "optimized_revision": "140d5ac8adfb7cb5085f42c91e17ce75ddcbffcd",
+    "passed": 9,
+    "status": "complete",
+    "exit_code": 0,
+    "elapsed_s": 77.25041120796232,
+    "peak_rss_bytes": 3740884992,
+    "peak_process_gpu_mib": 956,
+    "coverage": [
+      "eight per-step versus batched input/encoder/RNG/bootstrap-gradient cases",
+      "compiled imagination state/action/previous-action/context gradients"
+    ]
+  },
+  "cpu_revalidation": {
+    "optimized_revision": "140d5ac8adfb7cb5085f42c91e17ce75ddcbffcd",
+    "passed": 652,
+    "skipped": 33,
+    "subtests_passed": 12,
+    "github_elapsed_s": 48.68,
+    "github_run": "https://github.com/chase6305/SuperMimic-Reproduced/actions/runs/43940696064",
+    "includes_distribution_build": true
+  }
+}

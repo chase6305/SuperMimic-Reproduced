@@ -1,0 +1,842 @@
+{
+  "generated_at_utc": "2026-11-17T03:33:05.617973+00:00",
+  "scope": "Fresh uninterrupted full-reference CPU MuJoCo deployment of retained learned models, with unchanged dynamic-skill gates. Availability of training artifacts and completed simulation do not establish strict skill acceptance, novel-motion generalization or hardware deployment. Binaries and data are local, excluded from Git.",
+  "deployment_source_revision": "ee72041188847ec8391c6c1a1b4414e664ef7cbb",
+  "deployment_implementation_sha256": {
+    "interfaces.py": "5f15734d0d4502877d5912d856d5bc1d205b7fba211e8bdcefd350d233f283db",
+    "cpu_resources.py": "ac986e3406b1e9b5d4659a5b5868b3d20f88d31af029fedfd8d6b4eb7bd83c64",
+    "__init__.py": "125f22c257d97507d23ebfb893b5afc51031273f46c9dbbc079800df93064111",
+    "config.py": "7f8f5c81a2346db9320eb19477b006a863e340806edd824a49a76727a4232fde",
+    "worker.py": "e0885089a7f955fe0968a037e95ec1fd5394221a0f10ac12746f3df5bf7e4522",
+    "checkpoints.py": "8e2cf93e4fb7e0b93aab4f4d0b832ea0cec2690e7f583e9a3a9ff4ed16da30ce",
+    "numpy_io.py": "4ad5ee43bbf0d5c94953b6ab63a3d5619b523843b6f6f5eebc6477cd1e706253",
+    "memory.py": "bc51fc63a8f8b875caab94e95d90c0e8de5e4c01c53d430de94be5445b294eee",
+    "runtime.py": "41394b0a6e1c6a681a3efa53f9fdc477ea852f7f37dce164c25f0f354393bb0b",
+    "resources.py": "7a974620a22c45ab340a39db2d1c64c04ea30731ee1b2f9c2cd28c24128653ad",
+    "__main__.py": "ac0f44f47d38cac6daa194e73602db7db034c728c2f360d669c67e6a6ec3f8be",
+    "profiles.py": "7e3041f918c7753bd42cf3596db8c83a66468d6c4ff8e56b3fb22f602e46b17b",
+    "torch_io.py": "fa9c4d78e7a6bf1d51fa1f6932377c1dbe07aabbb48fc4e390fa494608bdea3b",
+    "cli.py": "39b9959a56ec8394d4a59297752fb4e9c87b5241459a8fab371089f0290a9203",
+    "artifacts.py": "5aa508b4f7355f89904934129100b17731baab39098221bdecacbd674eb28349",
+    "supervisor.py": "e9efdb03028950fdf99d45749d6c738308eb2db525420afe4982a1bc71164b40",
+    "eval/quality.py": "a6b5c11dc7f8f7a897be9e054ba92f49f6b2c8395ef3ffe4f7b59dde8bbf16a6",
+    "eval/benchmark.py": "f870fa9bcb19b9b738e3521992f6f202245b6797a60c2f92be13f812296b02fb",
+    "eval/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "eval/acceptance.py": "c1432354083bf95ac063c91e39a02f06fb10446d0bf20c263b16841931bdfe1c",
+    "world_model/wm_trainer.py": "9aa1017b71c4d85219ac75fb736baff8ba6e6b068416d015d1c410ef024d2570",
+    "world_model/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "world_model/reference.py": "9908b2838e0b239afabd7b66c6ae55caf3329d9b8ca4001f902bdcf0234d5759",
+    "world_model/dynamics.py": "7653e339a25e95092a7990aa98a1c0e0655edf8d44a4ea793b63dd889699a8bf",
+    "world_model/state_spec.py": "3d07830482f1d14864253d2a6731cea6fe38d5430950583f8a161dee416c26fd",
+    "world_model/heads.py": "4f4f8cab6e6ff4ea12409fb5916c1bafc7f310d83542abbed7f05f25b9e93819",
+    "world_model/world_model.py": "a411025317457d5ba14325ed2990db63a7678e7dacc0e65f1883cab4307f91c0",
+    "deployment/metrics.py": "5af6f3ff9e43a25cd249ae2f457782459a5efe660abeb5e6488bf59bcb35c62d",
+    "deployment/tracking_metrics.py": "8e7ccba3cfe7256e721bf9a4721807e9c4ba694cd0eb0cd93dea56e9eec6ab72",
+    "deployment/validation.py": "2b1b8c4c6973f6ecbdce176029741669d7d658d79f328dd19d2be18f188bdfc2",
+    "deployment/assessment.py": "4fa35f266290f1e82d4b30540f10055772f8f97a9ec5d5ae3548cae47eb9923c",
+    "deployment/core.py": "6ac85c65b771f180f994ff163c66017f4a135cabab714ac4c3512a26c373201a",
+    "deployment/mujoco.py": "71d5296a85656d53f98fe0885173f4f0d9a97abf60cbae0c339210dfb3078a30",
+    "deployment/trajectory.py": "d35e5e0c760548f4ac4823ceef9a141bee141163c11505b4d603566a8fc0f184",
+    "deployment/play.py": "952b3cebf05bb7f6a4797b3ba818ba6580d1a3b19f67d6168eb7ccb5d4fb5bc7",
+    "deployment/__init__.py": "68dd3e550f8ced1c99b9207e614c54c2f96f400b0b7010ac33aaeed3fff2a0e5",
+    "deployment/reference.py": "957feae98242f965547f232c14a8e89311b7da8026958dde3384074ff5922f59",
+    "deployment/render.py": "766d90f00398ceee3734be30131ef12dea484482ef6f3d6370654657fa177fe0",
+    "deployment/evidence.py": "9c0c90efb49dc2f533c13d8799f16bed5f926214d8f4109de179902fe01e0f34",
+    "deployment/export.py": "84793a469eca234ef70548ca91a00590b7f17b24e34b65ffa95b0aa375f7915d",
+    "deployment/contract.py": "752dbeec7977700921845fc062621a57e6a8b171b5d59a1c412bf5147ebe3442",
+    "kinematics/rotations.py": "927b4227b790e70f91e6c5b871a0022cb0e9a88fbcacabcfd9247a3b4bd991b4",
+    "kinematics/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "kinematics/g1_fk.py": "712f500323942a2c115b97dd10cc826be6746cf26c8ac253d3dede54354638f5",
+    "envs/actions.py": "531ec95fdcda4f98c50a16fa4dd9c448ef645b10753f595d95e95decf220216c",
+    "envs/state_io.py": "59d119ec4c7bee6403d0f8dddc4237c8d8a32cc6054711afbb3ae7ff683fb4b6",
+    "envs/sim_context.py": "f4625f44be7fbf492499dad811f6b964ce67864ef20b0547a9de86354f97581f",
+    "envs/__init__.py": "404a78d581d3ef593bdcd2d44a27da80f05078c58ed7d3e4835517c0a3d20414",
+    "envs/physics_audit.py": "115508a59cea024297a367d0a6357f1f3d031ee513a5191831568f2a4ba2df5c",
+    "envs/tracking_env_cfg.py": "0da1f08f330070ec45687cbfb18f6c01602e605739d7a887237aaca709f23cb0",
+    "imagination/foot_support.py": "8746378b0bdcdcb087e8578f081f87b0d573dbf985390dbf5f2eadf52c56c8d5",
+    "imagination/tracking.py": "35ed07f2833dfbbecce0a25f4bad48061f5d09cf81212a9dced7659159203b69",
+    "imagination/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "imagination/objective.py": "00d1cf396943cc169183ac7642f5742f2cfd5f054d0128c84b93cb3eed7bb3e3",
+    "imagination/rollout.py": "8c56fce22f41c260cd0d479a85a05312e8c58968a91887615eca205f8d9557fd",
+    "imagination/policy_trainer.py": "7f4d126a7d84171adf5101c8183206bc44aa5e4f53059f63784f5b520c354438",
+    "imagination/compiled.py": "d28e79db68d4381f6a06cd0972e7c1de7215d5db5d68a2d01241adf135ab4d6c",
+    "data/motion_library.py": "26f7193c2ee35a32abff657ea9d3c4287f79f915533b813ce1c00401f8e4482f",
+    "data/preparation.py": "6141bd34f161d7173e89aa45cf521385e60176d84a968c39ef70bf48e3c73ed2",
+    "data/motion_convert.py": "2c92ea0b20aea428c0d12df30a357a94971b7c98ad791b6b725e720b95ce096a",
+    "data/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/reference.py": "522d632c06916f292f41d4319ab1e73446038aaf2eb922d9e3e5b384ba2d85f8",
+    "data/replay_buffer.py": "ad3a7acd4d1016bd9a931b68b8eec9b00716ffe2c3d0ba9874f9373f59232a6a",
+    "data/packing.py": "7495a73bfe50903a07857eb99613d4a0607b2a4084f769bcd152d7f81cf4b24e",
+    "data/loading.py": "ed79289c90e7e9b30363d29ab9ba144521a564f878d1e02d83e6d7e95bbadb8d",
+    "data/discovery.py": "ea2d16c4048501a2b32b6f2ced6c695a09e12ddad479fab68688d30adbe6c055",
+    "data/packed.py": "510f3449207ff2e708c102ab32917de9b4361fe40688f0fc9bf06c616a515689",
+    "data/recorder.py": "f6d178e071598347c79905d1421394f1581aacb33f121968afcb8b39677d9a8c",
+    "data/schema.py": "b89df1028a5f447ea7b3626447974b38e8dba447da8965eb62a751e22a9773ff",
+    "policy/nets.py": "69d4b43f5b71b0f15f82e7b1144d2556cf7781398fa3e4c0a3ad91310deb5706",
+    "policy/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "scripts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "scripts/train.py": "0571c73de2683e242de73845be125f780fe79b1e12225d95cfdaf82a4be0fc86",
+    "training/anchor.py": "2fadfa0b4212a724bbab84a9f99d0e5359d3b46a7319064050c07dfbac8e6eb2",
+    "training/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "training/distributed.py": "040d192d0374aea2e803b1ec2f071f689a610f41e5ccb57ad9624c5a95848277",
+    "training/schedule.py": "f345886d2ed860fd35293a6f75a669059eb68049c27557efab510b40f9073e24",
+    "training/loop.py": "0fc0934fc3afdccf337c547555c8dc96b6c286a52e46db02408b7200364662c7",
+    "envs/mdp/motion_library.py": "d06c3117339847dad09cd78306a3df47ddc68f2ad5aa1e9e3aa78a6f71166306",
+    "envs/mdp/terminations.py": "e16ee034c3509a5f66984804a9daca658d5203ba0dfff4b712204392ff0fd6c0",
+    "envs/mdp/rewards.py": "d5c2edc671f1ab16c563942f2a5cf27175d3f76475e2bbaff1ba09aa48b642da",
+    "envs/mdp/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "envs/mdp/commands.py": "511a46e66b3992c1c9a256dbac0ad20cf7a618ba0c316c82171bb37c531fbec4",
+    "envs/mdp/observations.py": "7783bc1715269b4c011a2492557716e2ed59a7de7869452a64d748c6e1e94cea",
+    "envs/mdp/sampling.py": "00bd42a172a78a75b8094c04c0adbbcbbdce5b8570e2bebde02d9b7ef1234fb9"
+  },
+  "cases": [
+    {
+      "task": "walk-basic",
+      "motion": "data/npz/g1/walk1_subject1.npz",
+      "motion_sha256": "4598698aa035c52ba160986e05796cb525df557d1879266e933c40a65994c041",
+      "checkpoint": "runs/final/training-checkpoint.pt",
+      "checkpoint_sha256": "3842a75c651b25acabfbd19afe2280ab76a68889adf8ac8aa37fcf282420a617",
+      "bundle": "exports/g1-best",
+      "contract_sha256": "3bf50e526a872f77805a06c19bb169d5ef47cb622db8365f701e524ff1b8d362",
+      "deployment": "runs/task-readiness-20261117/baselines/walk-basic/deploy",
+      "trajectory_sha256": "de684d48e1b91700eae6fbd459b6ca3b251b9ff66e4711249b1d9e76e4dc424e",
+      "recorded_at_utc": "2026-11-17T02:37:03.673922+00:00",
+      "completed_motion": true,
+      "controls": 13065,
+      "simulated_seconds": 261.3,
+      "auto_reset": false,
+      "hardware_deployed": false,
+      "tracking": {
+        "normalized_return_full_clip_zero_padded": 0.6503826048791158,
+        "clip_coverage": 1.0,
+        "root_xy_rmse_m": 5.4084532694619,
+        "joint_rmse_rad": 0.2932570738333962
+      },
+      "strict_acceptance": null,
+      "resources": {
+        "status": "complete",
+        "limits": {
+          "gpu_index": 0,
+          "max_gpu_mib": 2304,
+          "reserve_gpu_mib": 4096,
+          "max_rss_gib": 2.0,
+          "reserve_ram_gib": 12.5,
+          "reserve_disk_gib": 20.0,
+          "poll_seconds": 2.0,
+          "stop_grace_seconds": 30.0
+        },
+        "peak_rss_bytes": 781463552,
+        "process_high_water_rss_bytes": 1260732416,
+        "stop_reason": null
+      }
+    },
+    {
+      "task": "walk-anchor",
+      "motion": "data/npz/g1/walk1_subject1.npz",
+      "motion_sha256": "4598698aa035c52ba160986e05796cb525df557d1879266e933c40a65994c041",
+      "checkpoint": "runs/anchor-final-20261106/training-checkpoint.pt",
+      "checkpoint_sha256": "bc95a21eb9b55ba56aafd6b5bd4dc9ba663f19f7f087d674348318243ec633c4",
+      "bundle": "exports/g1-anchor-best-return",
+      "contract_sha256": "bf8a5db5de72e3da990927f265cc20af29ac5f478bf662960674cb492ef746df",
+      "deployment": "runs/task-readiness-20261117/baselines/walk-anchor/deploy",
+      "trajectory_sha256": "a4755a03b3b47c2990649480c02f113e569fbf2ca7eca3a70db405c55b929ac5",
+      "recorded_at_utc": "2026-11-17T02:37:25.539241+00:00",
+      "completed_motion": true,
+      "controls": 13065,
+      "simulated_seconds": 261.3,
+      "auto_reset": false,
+      "hardware_deployed": false,
+      "tracking": {
+        "normalized_return_full_clip_zero_padded": 0.8215163963944164,
+        "clip_coverage": 1.0,
+        "root_xy_rmse_m": 0.4953910213584888,
+        "joint_rmse_rad": 0.29632877691223003
+      },
+      "strict_acceptance": null,
+      "resources": {
+        "status": "complete",
+        "limits": {
+          "gpu_index": 0,
+          "max_gpu_mib": 2304,
+          "reserve_gpu_mib": 4096,
+          "max_rss_gib": 2.0,
+          "reserve_ram_gib": 12.5,
+          "reserve_disk_gib": 20.0,
+          "poll_seconds": 2.0,
+          "stop_grace_seconds": 30.0
+        },
+        "peak_rss_bytes": 723386368,
+        "process_high_water_rss_bytes": 1258024960,
+        "stop_reason": null
+      }
+    },
+    {
+      "task": "jump",
+      "motion": "data/npz/validation/jumps1_subject1.npz",
+      "motion_sha256": "0c21df779e79a8e96a5fb42f5a8a3ffe9b3cf775b883e6bf40016a67d8468878",
+      "checkpoint": "runs/jump-original-half-WM13200-H16-GAE20-matched-20261110/update-0001/checkpoint.pt",
+      "checkpoint_sha256": "63b72f052c9f5e41de23b3feee923d0565abe075cc20097d7e687996bc8d1986",
+      "bundle": "runs/jump-original-half-WM13200-H16-GAE20-matched-20261110/update-0001/export",
+      "contract_sha256": "2fc2c9f07ff0449300b0593e90ea8d44a5c9a31566c5635a471899337deee4b2",
+      "deployment": "runs/task-readiness-20261117/baselines/jump/deploy",
+      "trajectory_sha256": "d4621d4abfd528df5aec910acb71117a63eaac4ea70dd619a55184fbf55a5985",
+      "recorded_at_utc": "2026-11-17T02:37:45.838537+00:00",
+      "completed_motion": true,
+      "controls": 12221,
+      "simulated_seconds": 244.42000000000002,
+      "auto_reset": false,
+      "hardware_deployed": false,
+      "tracking": {
+        "normalized_return_full_clip_zero_padded": 0.8034916659948936,
+        "clip_coverage": 1.0,
+        "root_xy_rmse_m": 0.21145326307697052,
+        "joint_rmse_rad": 0.1350071282406161
+      },
+      "strict_acceptance": {
+        "passed": false,
+        "skill": "jump",
+        "criteria": {
+          "version": "g1-skills-v2-full-motion",
+          "min_full_clip_return": 0.7,
+          "max_joint_rmse_rad": 0.25,
+          "max_body_relative_pos_rmse_m": 0.15,
+          "max_root_xy_rmse_m": 0.75,
+          "max_root_orientation_rmse_rad": 0.3,
+          "max_root_height_rmse_m": 0.08,
+          "min_joint_motion_correlation": 0.6,
+          "min_active_joints": 3,
+          "min_reference_jump_events": 3,
+          "min_jump_event_recall": 0.8,
+          "min_jump_time_precision": 0.8,
+          "min_jump_airtime_ratio": 0.6,
+          "max_jump_airtime_ratio": 1.6,
+          "max_jump_vertical_velocity_rmse_mps": 0.6,
+          "min_joint_amplitude_ratio": 0.6,
+          "max_joint_amplitude_ratio": 1.4,
+          "max_worst_1s_joint_rmse_rad": 0.35,
+          "max_worst_1s_root_orientation_rmse_rad": 0.4,
+          "max_worst_1s_root_height_rmse_m": 0.1,
+          "max_worst_1s_effector_rmse_m": 0.25,
+          "min_inversion_recall": 0.8,
+          "max_inverted_joint_rmse_rad": 0.3,
+          "max_inverted_root_orientation_rmse_rad": 0.35,
+          "max_inverted_root_height_rmse_m": 0.1
+        },
+        "scope": "Engineering imitation gate on this reference and initialization, not a general skill-success rate or paper benchmark",
+        "checks": [
+          {
+            "name": "completed_motion",
+            "value": true,
+            "passed": true
+          },
+          {
+            "name": "joint_rmse_rad",
+            "value": 0.1350071282406161,
+            "limit": 0.25,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "body_relative_pos_rmse_m",
+            "value": 0.05772449276556978,
+            "limit": 0.15,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "root_xy_rmse_m",
+            "value": 0.21145326307697052,
+            "limit": 0.75,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "full_clip_return",
+            "value": 0.8034916659948936,
+            "limit": 0.7,
+            "comparison": ">=",
+            "passed": true
+          },
+          {
+            "name": "root_orientation_rmse_rad",
+            "value": 0.10184464501556685,
+            "limit": 0.3,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "root_height_rmse_m",
+            "value": 0.028062786868804607,
+            "limit": 0.08,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "joint_motion_correlation",
+            "value": 0.7945275225332328,
+            "limit": 0.6,
+            "comparison": ">=",
+            "passed": true
+          },
+          {
+            "name": "active_reference_joints",
+            "value": 25.0,
+            "limit": 3,
+            "comparison": ">=",
+            "passed": true
+          },
+          {
+            "name": "worst_1s_joint_rmse_rad",
+            "value": 0.2284287462631857,
+            "limit": 0.35,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "worst_1s_root_orientation_rmse_rad",
+            "value": 0.22848999684052998,
+            "limit": 0.4,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "worst_1s_root_height_rmse_m",
+            "value": 0.06525321038654325,
+            "limit": 0.1,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "worst_1s_effector_rmse_m",
+            "value": 0.25495304814368386,
+            "limit": 0.25,
+            "comparison": "<=",
+            "passed": false
+          },
+          {
+            "name": "legs_amplitude_min",
+            "value": 0.9202972116443491,
+            "limit": 0.6,
+            "comparison": ">=",
+            "passed": true
+          },
+          {
+            "name": "legs_amplitude_max",
+            "value": 0.9202972116443491,
+            "limit": 1.4,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "arms_amplitude_min",
+            "value": 0.9031901274916663,
+            "limit": 0.6,
+            "comparison": ">=",
+            "passed": true
+          },
+          {
+            "name": "arms_amplitude_max",
+            "value": 0.9031901274916663,
+            "limit": 1.4,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "reference_jump_events",
+            "value": 90.0,
+            "limit": 3,
+            "comparison": ">=",
+            "passed": true
+          },
+          {
+            "name": "jump_event_recall",
+            "value": 0.8555555555555555,
+            "limit": 0.8,
+            "comparison": ">=",
+            "passed": true
+          },
+          {
+            "name": "jump_time_precision",
+            "value": 0.8011428571428572,
+            "limit": 0.8,
+            "comparison": ">=",
+            "passed": true
+          },
+          {
+            "name": "jump_airtime_ratio_min",
+            "value": 0.6427522037218413,
+            "limit": 0.6,
+            "comparison": ">=",
+            "passed": true
+          },
+          {
+            "name": "jump_airtime_ratio_max",
+            "value": 0.6427522037218413,
+            "limit": 1.6,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "root_vertical_velocity_rmse_mps",
+            "value": 0.1990395641702059,
+            "limit": 0.6,
+            "comparison": "<=",
+            "passed": true
+          }
+        ]
+      },
+      "resources": {
+        "status": "complete",
+        "limits": {
+          "gpu_index": 0,
+          "max_gpu_mib": 2304,
+          "reserve_gpu_mib": 4096,
+          "max_rss_gib": 2.0,
+          "reserve_ram_gib": 12.5,
+          "reserve_disk_gib": 20.0,
+          "poll_seconds": 2.0,
+          "stop_grace_seconds": 30.0
+        },
+        "peak_rss_bytes": 721833984,
+        "process_high_water_rss_bytes": 1255755776,
+        "stop_reason": null
+      }
+    },
+    {
+      "task": "dance",
+      "motion": "data/npz/validation/dance1_subject1.npz",
+      "motion_sha256": "56e955ff22f9ea0b80b210467115d37aa095dd5d6e8aca485d0a1f2acd29c065",
+      "checkpoint": "runs/dance-original-source0d29-WM31200-H16-actual-history-all20-fresh5-20261110/update-0003/checkpoint.pt",
+      "checkpoint_sha256": "3735896ba6dc398c5bf36b94202b3ee7b77470f77ddad0759455bd15ea1cbf43",
+      "bundle": "runs/dance-original-source0d29-WM31200-H16-actual-history-all20-fresh5-20261110/update-0003/export",
+      "contract_sha256": "df16120459e6a1a214e580a9beed71575dd82c7bdb0c57e8cb24e199caf39854",
+      "deployment": "runs/task-readiness-20261117/baselines/dance/deploy",
+      "trajectory_sha256": "ebc34d7952dfe36a76817f1541ad09f05bb993637cf72503b60633b9c9daec72",
+      "recorded_at_utc": "2026-11-17T02:37:59.915742+00:00",
+      "completed_motion": true,
+      "controls": 6573,
+      "simulated_seconds": 131.46,
+      "auto_reset": false,
+      "hardware_deployed": false,
+      "tracking": {
+        "normalized_return_full_clip_zero_padded": 0.8115803384715593,
+        "clip_coverage": 1.0,
+        "root_xy_rmse_m": 0.18966375067903835,
+        "joint_rmse_rad": 0.1379291089373854
+      },
+      "strict_acceptance": {
+        "passed": false,
+        "skill": "dance",
+        "criteria": {
+          "version": "g1-skills-v2-full-motion",
+          "min_full_clip_return": 0.7,
+          "max_joint_rmse_rad": 0.25,
+          "max_body_relative_pos_rmse_m": 0.15,
+          "max_root_xy_rmse_m": 0.75,
+          "max_root_orientation_rmse_rad": 0.3,
+          "max_root_height_rmse_m": 0.08,
+          "min_joint_motion_correlation": 0.6,
+          "min_active_joints": 3,
+          "min_reference_jump_events": 3,
+          "min_jump_event_recall": 0.8,
+          "min_jump_time_precision": 0.8,
+          "min_jump_airtime_ratio": 0.6,
+          "max_jump_airtime_ratio": 1.6,
+          "max_jump_vertical_velocity_rmse_mps": 0.6,
+          "min_joint_amplitude_ratio": 0.6,
+          "max_joint_amplitude_ratio": 1.4,
+          "max_worst_1s_joint_rmse_rad": 0.35,
+          "max_worst_1s_root_orientation_rmse_rad": 0.4,
+          "max_worst_1s_root_height_rmse_m": 0.1,
+          "max_worst_1s_effector_rmse_m": 0.25,
+          "min_inversion_recall": 0.8,
+          "max_inverted_joint_rmse_rad": 0.3,
+          "max_inverted_root_orientation_rmse_rad": 0.35,
+          "max_inverted_root_height_rmse_m": 0.1
+        },
+        "scope": "Engineering imitation gate on this reference and initialization, not a general skill-success rate or paper benchmark",
+        "checks": [
+          {
+            "name": "completed_motion",
+            "value": true,
+            "passed": true
+          },
+          {
+            "name": "joint_rmse_rad",
+            "value": 0.1379291089373854,
+            "limit": 0.25,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "body_relative_pos_rmse_m",
+            "value": 0.052549361978472126,
+            "limit": 0.15,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "root_xy_rmse_m",
+            "value": 0.18966375067903835,
+            "limit": 0.75,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "full_clip_return",
+            "value": 0.8115803384715593,
+            "limit": 0.7,
+            "comparison": ">=",
+            "passed": true
+          },
+          {
+            "name": "root_orientation_rmse_rad",
+            "value": 0.11266189630462975,
+            "limit": 0.3,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "root_height_rmse_m",
+            "value": 0.019729256671753757,
+            "limit": 0.08,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "joint_motion_correlation",
+            "value": 0.8510655424232312,
+            "limit": 0.6,
+            "comparison": ">=",
+            "passed": true
+          },
+          {
+            "name": "active_reference_joints",
+            "value": 28.0,
+            "limit": 3,
+            "comparison": ">=",
+            "passed": true
+          },
+          {
+            "name": "worst_1s_joint_rmse_rad",
+            "value": 0.33640385352221824,
+            "limit": 0.35,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "worst_1s_root_orientation_rmse_rad",
+            "value": 0.3897826824926154,
+            "limit": 0.4,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "worst_1s_root_height_rmse_m",
+            "value": 0.08261768682744647,
+            "limit": 0.1,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "worst_1s_effector_rmse_m",
+            "value": 0.33159459813226294,
+            "limit": 0.25,
+            "comparison": "<=",
+            "passed": false
+          },
+          {
+            "name": "legs_amplitude_min",
+            "value": 0.9468865210732631,
+            "limit": 0.6,
+            "comparison": ">=",
+            "passed": true
+          },
+          {
+            "name": "legs_amplitude_max",
+            "value": 0.9468865210732631,
+            "limit": 1.4,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "waist_amplitude_min",
+            "value": 1.117647972807302,
+            "limit": 0.6,
+            "comparison": ">=",
+            "passed": true
+          },
+          {
+            "name": "waist_amplitude_max",
+            "value": 1.117647972807302,
+            "limit": 1.4,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "arms_amplitude_min",
+            "value": 0.9071209522774523,
+            "limit": 0.6,
+            "comparison": ">=",
+            "passed": true
+          },
+          {
+            "name": "arms_amplitude_max",
+            "value": 0.9071209522774523,
+            "limit": 1.4,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "inversion_recall",
+            "value": 0.9056603773584906,
+            "limit": 0.8,
+            "comparison": ">=",
+            "passed": true
+          },
+          {
+            "name": "inverted_joint_rmse_rad",
+            "value": 0.3419627449473929,
+            "limit": 0.3,
+            "comparison": "<=",
+            "passed": false
+          },
+          {
+            "name": "inverted_root_orientation_rmse_rad",
+            "value": 0.24021963468918975,
+            "limit": 0.35,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "inverted_root_height_rmse_m",
+            "value": 0.08235990489766559,
+            "limit": 0.1,
+            "comparison": "<=",
+            "passed": true
+          }
+        ]
+      },
+      "resources": {
+        "status": "complete",
+        "limits": {
+          "gpu_index": 0,
+          "max_gpu_mib": 2304,
+          "reserve_gpu_mib": 4096,
+          "max_rss_gib": 2.0,
+          "reserve_ram_gib": 12.5,
+          "reserve_disk_gib": 20.0,
+          "poll_seconds": 2.0,
+          "stop_grace_seconds": 30.0
+        },
+        "peak_rss_bytes": 712802304,
+        "process_high_water_rss_bytes": 1228566528,
+        "stop_reason": null
+      }
+    },
+    {
+      "task": "fight",
+      "motion": "data/npz/validation/fight1_subject2.npz",
+      "motion_sha256": "02d949a6462dcaa8f69c755fe55da109edf37533b3337b0942d499185e503fa5",
+      "checkpoint": "runs/fight-original-source110-WM25200-H32-GAE5-20261110/update-0005/checkpoint.pt",
+      "checkpoint_sha256": "eb9a6a00c768fb145c056cb68ac947a503bb52c8de4af5471c6b87f5ff06c5da",
+      "bundle": "runs/fight-original-source110-WM25200-H32-GAE5-20261110/update-0005/export",
+      "contract_sha256": "f260042dc10cfefc38a499c17cbc4f24b433e2035cfe35223562cfcda3284c41",
+      "deployment": "runs/task-readiness-20261117/baselines/fight/deploy",
+      "trajectory_sha256": "90bbd0e012fda9154edb7ef7d4e626559315db34dc4b23c2dd143b81d7617beb",
+      "recorded_at_utc": "2026-11-17T02:38:21.839061+00:00",
+      "completed_motion": true,
+      "controls": 12243,
+      "simulated_seconds": 244.86,
+      "auto_reset": false,
+      "hardware_deployed": false,
+      "tracking": {
+        "normalized_return_full_clip_zero_padded": 0.6096690304575525,
+        "clip_coverage": 1.0,
+        "root_xy_rmse_m": 0.742775465450014,
+        "joint_rmse_rad": 0.20462688010161542
+      },
+      "strict_acceptance": {
+        "passed": false,
+        "skill": "fight",
+        "criteria": {
+          "version": "g1-skills-v2-full-motion",
+          "min_full_clip_return": 0.7,
+          "max_joint_rmse_rad": 0.25,
+          "max_body_relative_pos_rmse_m": 0.15,
+          "max_root_xy_rmse_m": 0.75,
+          "max_root_orientation_rmse_rad": 0.3,
+          "max_root_height_rmse_m": 0.08,
+          "min_joint_motion_correlation": 0.6,
+          "min_active_joints": 3,
+          "min_reference_jump_events": 3,
+          "min_jump_event_recall": 0.8,
+          "min_jump_time_precision": 0.8,
+          "min_jump_airtime_ratio": 0.6,
+          "max_jump_airtime_ratio": 1.6,
+          "max_jump_vertical_velocity_rmse_mps": 0.6,
+          "min_joint_amplitude_ratio": 0.6,
+          "max_joint_amplitude_ratio": 1.4,
+          "max_worst_1s_joint_rmse_rad": 0.35,
+          "max_worst_1s_root_orientation_rmse_rad": 0.4,
+          "max_worst_1s_root_height_rmse_m": 0.1,
+          "max_worst_1s_effector_rmse_m": 0.25,
+          "min_inversion_recall": 0.8,
+          "max_inverted_joint_rmse_rad": 0.3,
+          "max_inverted_root_orientation_rmse_rad": 0.35,
+          "max_inverted_root_height_rmse_m": 0.1
+        },
+        "scope": "Engineering imitation gate on this reference and initialization, not a general skill-success rate or paper benchmark",
+        "checks": [
+          {
+            "name": "completed_motion",
+            "value": true,
+            "passed": true
+          },
+          {
+            "name": "joint_rmse_rad",
+            "value": 0.20462688010161542,
+            "limit": 0.25,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "body_relative_pos_rmse_m",
+            "value": 0.08780512336721599,
+            "limit": 0.15,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "root_xy_rmse_m",
+            "value": 0.742775465450014,
+            "limit": 0.75,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "full_clip_return",
+            "value": 0.6096690304575525,
+            "limit": 0.7,
+            "comparison": ">=",
+            "passed": false
+          },
+          {
+            "name": "root_orientation_rmse_rad",
+            "value": 0.17892040216310526,
+            "limit": 0.3,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "root_height_rmse_m",
+            "value": 0.035734212761615126,
+            "limit": 0.08,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "joint_motion_correlation",
+            "value": 0.6528830593128064,
+            "limit": 0.6,
+            "comparison": ">=",
+            "passed": true
+          },
+          {
+            "name": "active_reference_joints",
+            "value": 27.0,
+            "limit": 3,
+            "comparison": ">=",
+            "passed": true
+          },
+          {
+            "name": "worst_1s_joint_rmse_rad",
+            "value": 0.4529903010647668,
+            "limit": 0.35,
+            "comparison": "<=",
+            "passed": false
+          },
+          {
+            "name": "worst_1s_root_orientation_rmse_rad",
+            "value": 0.48292172162727365,
+            "limit": 0.4,
+            "comparison": "<=",
+            "passed": false
+          },
+          {
+            "name": "worst_1s_root_height_rmse_m",
+            "value": 0.10779409994771913,
+            "limit": 0.1,
+            "comparison": "<=",
+            "passed": false
+          },
+          {
+            "name": "worst_1s_effector_rmse_m",
+            "value": 0.45895959941468895,
+            "limit": 0.25,
+            "comparison": "<=",
+            "passed": false
+          },
+          {
+            "name": "legs_amplitude_min",
+            "value": 0.7855740086626681,
+            "limit": 0.6,
+            "comparison": ">=",
+            "passed": true
+          },
+          {
+            "name": "legs_amplitude_max",
+            "value": 0.7855740086626681,
+            "limit": 1.4,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "waist_amplitude_min",
+            "value": 1.0743759865289797,
+            "limit": 0.6,
+            "comparison": ">=",
+            "passed": true
+          },
+          {
+            "name": "waist_amplitude_max",
+            "value": 1.0743759865289797,
+            "limit": 1.4,
+            "comparison": "<=",
+            "passed": true
+          },
+          {
+            "name": "arms_amplitude_min",
+            "value": 0.746563067230296,
+            "limit": 0.6,
+            "comparison": ">=",
+            "passed": true
+          },
+          {
+            "name": "arms_amplitude_max",
+            "value": 0.746563067230296,
+            "limit": 1.4,
+            "comparison": "<=",
+            "passed": true
+          }
+        ]
+      },
+      "resources": {
+        "status": "complete",
+        "limits": {
+          "gpu_index": 0,
+          "max_gpu_mib": 2304,
+          "reserve_gpu_mib": 4096,
+          "max_rss_gib": 2.0,
+          "reserve_ram_gib": 12.5,
+          "reserve_disk_gib": 20.0,
+          "poll_seconds": 2.0,
+          "stop_grace_seconds": 30.0
+        },
+        "peak_rss_bytes": 722247680,
+        "process_high_water_rss_bytes": 1257357312,
+        "stop_reason": null
+      }
+    }
+  ]
+}
