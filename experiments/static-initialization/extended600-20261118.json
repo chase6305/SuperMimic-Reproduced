@@ -1,0 +1,41 @@
+{
+  "schema": "g1-static-initialization-v1",
+  "cases": [
+    {
+      "id": "baseline",
+      "perturbation": {}
+    },
+    {
+      "id": "velocity-1-minus",
+      "perturbation": {
+        "root_linear_velocity_delta_m_s": [
+          0,
+          -0.05,
+          0
+        ]
+      }
+    },
+    {
+      "id": "combined-0-0",
+      "perturbation": {
+        "root_translation_m": [
+          -0.015,
+          -0.015,
+          0
+        ],
+        "root_world_rotation_vector_rad": [
+          -0.02,
+          -0.015,
+          0
+        ],
+        "root_linear_velocity_delta_m_s": [
+          -0.025,
+          -0.025,
+          0
+        ],
+        "joint_position_noise_std_rad": 0.005,
+        "seed": 2026111805
+      }
+    }
+  ]
+}

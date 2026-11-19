@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import os
 import shutil
+import signal
+import subprocess
 import sys
 import tempfile
 from collections.abc import Iterator, Sequence
@@ -35,6 +37,51 @@ def freeze_implementation(implementation: Path, *, source: Path | None = None) -
 def isolated_cli_command(implementation: Path, arguments: Sequence[str]) -> list[str]:
     """Run CLI arguments with this interpreter and only the selected package override."""
     return [sys.executable, "-I", "-c", _CLI_BOOTSTRAP, str(implementation), *arguments]
+
+
+def run_owned_worker(
+    command: Sequence[str],
+    *,
+    grace_seconds: float = 30.0,
+    timeout: float | None = None,
+    stdout=None,
+    stderr=None,
+) -> int:
+    """Reap the worker and kill remaining members of its isolated process group.
+
+    A surrounding CPU guard signals its own parent on a resource limit. Forward
+    that interruption to the worker, allowing it to publish partial evidence,
+    then remove any remaining owned descendants before the caller releases its
+    heavy-work lock. No other process group is signalled.
+    """
+    child = subprocess.Popen(command, start_new_session=True, stdout=stdout, stderr=stderr)
+
+    def send(signum):
+        try:
+            os.killpg(child.pid, signum)
+        except ProcessLookupError:
+            pass
+
+    try:
+        return child.wait(timeout=timeout)
+    finally:
+        try:
+            if child.poll() is None:
+                send(signal.SIGINT)
+                try:
+                    child.wait(timeout=grace_seconds)
+                except subprocess.TimeoutExpired:
+                    send(signal.SIGKILL)
+                    child.wait()
+        except BaseException:
+            send(signal.SIGKILL)
+            child.wait()
+            raise
+        finally:
+            # The direct worker has exited and had its interruption grace period.
+            # Orphaned descendants may ignore SIGTERM; they must not keep doing
+            # heavy work after the caller releases its lock.
+            send(signal.SIGKILL)
 
 
 @contextmanager

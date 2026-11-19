@@ -1,0 +1,2100 @@
+{
+  "status": "complete_no_new_full_jump_model",
+  "window": {
+    "start_utc": "2026-11-18T10:46:53Z",
+    "deadline_utc": "2026-11-18T14:46:53Z",
+    "branch": "feat/reproducible-static-initialization",
+    "base": "perf/runtime-memory-lifecycle",
+    "base_sha": "35cbc85",
+    "objective": "New PR; reproducible static initialization evidence and further evidence-directed optimization",
+    "status": "complete",
+    "actual_end_utc": "2026-11-18T14:47:12.102186+00:00",
+    "elapsed_seconds": 14419.102186,
+    "new_models_adopted": 0,
+    "all_requested_checks_complete": true
+  },
+  "source_checkpoint_sha256": "83d1e3ce3317346681e4f56ea3dec178459124494e8a7c2d8dbb4c7e964ce647",
+  "source_motion_sha256": "0c21df779e79a8e96a5fb42f5a8a3ffe9b3cf775b883e6bf40016a67d8468878",
+  "source_full_trajectory_sha256": "10934b90bc572042d6fb3ea075bfc1e61d80a602d814cfd330298641f93b7c18",
+  "completed_full_physical_evaluations": 37,
+  "strict_passes": 0,
+  "phases": [
+    {
+      "name": "coordinate",
+      "completed_physical_evaluations": 17,
+      "strict_passes": 0,
+      "local_results": "runs/task-optimization-20261118/jump-native-head-search/coordinate/physical-results.json",
+      "local_results_sha256": "770567efacf7a6d9a87bce7c2e4d49ee3ed636bd2e202e76625d4bc009c72467",
+      "plan_sha256": "df5f2c4b5078f4060530d441575e2000f046004e854ad0c2c69c068c067754d8",
+      "records": [
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/coordinate/candidate-000",
+          "phase": "coordinate",
+          "candidate": 0,
+          "bias_delta_vector": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "checkpoint_sha256": "83d1e3ce3317346681e4f56ea3dec178459124494e8a7c2d8dbb4c7e964ce647",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.81149589994927,
+          "worst_effector_m": 0.25225533386523663,
+          "flight_precision": 0.8034188034188035,
+          "flight_recall": 0.9,
+          "airtime_ratio": 0.7735063663075415,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25225533386523663,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.009021587716280388,
+          "trajectory_sha256": "10934b90bc572042d6fb3ea075bfc1e61d80a602d814cfd330298641f93b7c18",
+          "assessment_sha256": "de8cc8abd6a9dd189ea62e3f04bae1ef35186a53d62bd2d4f72ce727d229df72"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/coordinate/candidate-001",
+          "phase": "coordinate",
+          "candidate": 1,
+          "bias_delta_vector": [
+            -0.001,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "checkpoint_sha256": "4f74a0a81881d8d5ce146578a236c5cd605755c848ada5e0da6e54f9e82ab7e6",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.8067721074326476,
+          "worst_effector_m": 0.2624242305678286,
+          "flight_precision": 0.7851646660510927,
+          "flight_recall": 0.8888888888888888,
+          "airtime_ratio": 0.7955435847208618,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2624242305678286,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7851646660510927,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.1238738544400817,
+          "trajectory_sha256": "b9e241cf8b8075b70a2de2caf75b5940cb10a201e729bb0f2212af4e933e37df",
+          "assessment_sha256": "29799c8a87c6cc4877de0453ba213727f719423449a56f57d7bb720deb1e3557"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/coordinate/candidate-002",
+          "phase": "coordinate",
+          "candidate": 2,
+          "bias_delta_vector": [
+            0.001,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "checkpoint_sha256": "2c61fe24e420a1a0ab6280eb88a0351242feb35235d7089aee5c3ae2234e6a49",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.8111133857148337,
+          "worst_effector_m": 0.259157313528849,
+          "flight_precision": 0.7835470753831717,
+          "flight_recall": 0.8888888888888888,
+          "airtime_ratio": 0.7828109696376102,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.259157313528849,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7835470753831717,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.11889413635685134,
+          "trajectory_sha256": "6b6b2f78a00d72e3bc3fa3a42a7268c41184451fa145f9f3c6cdd4bf03ab8192",
+          "assessment_sha256": "0c46de13e284495c4924891f22776cc7cf9163a6c67a36f5fa2a099407783516"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/coordinate/candidate-003",
+          "phase": "coordinate",
+          "candidate": 3,
+          "bias_delta_vector": [
+            0.0,
+            -0.001,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "checkpoint_sha256": "e86d24a6ca09346021bf725e7d0d98775cf35ed67093319b0097253eb28b3753",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.8101659538644238,
+          "worst_effector_m": 0.25365149452829255,
+          "flight_precision": 0.7787312289304321,
+          "flight_recall": 0.8777777777777778,
+          "airtime_ratio": 0.798971596474045,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25365149452829255,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7787312289304321,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.12095008711250438,
+          "trajectory_sha256": "99d1d82f80a83cc81cb9e5d6c9a249c4bf5cb1d0b9a448bba0baa6f1cd0ec449",
+          "assessment_sha256": "ff1f141b984cef30283161acf648b7e6330c3576d3de7e67e6f0e4def836b2ab"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/coordinate/candidate-004",
+          "phase": "coordinate",
+          "candidate": 4,
+          "bias_delta_vector": [
+            0.0,
+            0.001,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "checkpoint_sha256": "e876b633d982d53a9aa7a07c5acefe2f290ad9a8a1e30c7d0da55ed6e236177b",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.8080885658267281,
+          "worst_effector_m": 0.25293548647297326,
+          "flight_precision": 0.7810059356451109,
+          "flight_recall": 0.8888888888888888,
+          "airtime_ratio": 0.783790401567091,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25293548647297326,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7810059356451109,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.10671252060182526,
+          "trajectory_sha256": "7b7da2347cc1e09f40bec8a92206bf43db6c9dcb7ad91b561c3bfd00421d693d",
+          "assessment_sha256": "eb43624b72532fca2449f55d6e1c47125259f8aaeb1890fe899d8d9091a4ee66"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/coordinate/candidate-005",
+          "phase": "coordinate",
+          "candidate": 5,
+          "bias_delta_vector": [
+            0.0,
+            0.0,
+            -0.001,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "checkpoint_sha256": "be905f7e9ed04981628d1bbc89ee484df79e2916f190908ee3e9925d52b1c7f6",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.8057174939354647,
+          "worst_effector_m": 0.3134664964693776,
+          "flight_precision": 0.7940717628705148,
+          "flight_recall": 0.8777777777777778,
+          "airtime_ratio": 0.7847698334965718,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.3134664964693776,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7940717628705148,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.2835074849914328,
+          "trajectory_sha256": "279c84e45a6548b9f12bb42e9c3b448e9688e1a31c90cc4d2e1e9bb74be3c176",
+          "assessment_sha256": "9524f402ec7ca06be74f6d9c110a6845d47d583b3829c3da869a015ad9c325bd"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/coordinate/candidate-006",
+          "phase": "coordinate",
+          "candidate": 6,
+          "bias_delta_vector": [
+            0.0,
+            0.0,
+            0.001,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "checkpoint_sha256": "09f7adde8e721d029c7b090d90e6168bb5135046a7b50363ff4c233e0dcfb713",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.8043336068420185,
+          "worst_effector_m": 0.3559051114744987,
+          "flight_precision": 0.7768569674647022,
+          "flight_recall": 0.9222222222222223,
+          "airtime_ratio": 0.7977473065621938,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.3559051114744987,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7768569674647022,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.5393359644795954,
+          "trajectory_sha256": "0bb5f8fbffa378ee1328ae256ba8fe727990e50c9dffe46ce73c8688ab5b9413",
+          "assessment_sha256": "ad78773592115acfa1a086f9881f9152037db6b78ee76327fe990aa01141d9ce"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/coordinate/candidate-007",
+          "phase": "coordinate",
+          "candidate": 7,
+          "bias_delta_vector": [
+            0.0,
+            0.0,
+            0.0,
+            -0.001,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "checkpoint_sha256": "84f4579dc0d47c15c02c07debbeab6e6e44326fd780cde833cdf41aff34c7d69",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.8106559232607692,
+          "worst_effector_m": 0.28057681118160505,
+          "flight_precision": 0.7842896594047254,
+          "flight_recall": 0.8777777777777778,
+          "airtime_ratio": 0.7979921645445641,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.28057681118160505,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7842896594047254,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.20085922827960462,
+          "trajectory_sha256": "3b89917abc3dd8629a06572687057819ce80e0d8f5c2260469fe74f529f68094",
+          "assessment_sha256": "ab31c280252de21aac3a73d652aa42ca3f03ba5593c798d4b902baa5c41db881"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/coordinate/candidate-008",
+          "phase": "coordinate",
+          "candidate": 8,
+          "bias_delta_vector": [
+            0.0,
+            0.0,
+            0.0,
+            0.001,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "checkpoint_sha256": "591401765de2cc8b2bab2c612d9e3c2558f9b69f1f0851712d2445d90b0615c3",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.8125324739331787,
+          "worst_effector_m": 0.2516210421828857,
+          "flight_precision": 0.7812985399192296,
+          "flight_recall": 0.8666666666666667,
+          "airtime_ratio": 0.788197845249755,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2516210421828857,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7812985399192296,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.09999172075643732,
+          "trajectory_sha256": "7ba9abb32e1d0589b911ddfa89d5522a4b28080f90e1728dce6109ccde4c03da",
+          "assessment_sha256": "a0d4bb9d020bfa0d273bc0f8a664a70d22d2af819a7490779a98881ce1204b8f"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/coordinate/candidate-009",
+          "phase": "coordinate",
+          "candidate": 9,
+          "bias_delta_vector": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            -0.001,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "checkpoint_sha256": "9581db733c2032c20747fa7292609bcc2b515d3ad88897d5a184e887ef9b135b",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.8119970670787005,
+          "worst_effector_m": 0.25314161779977074,
+          "flight_precision": 0.7870967741935484,
+          "flight_recall": 0.8666666666666667,
+          "airtime_ratio": 0.7970127326150831,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25314161779977074,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7870967741935484,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.07708285337295898,
+          "trajectory_sha256": "8ad876fe3392ec904364d5a635fbcf33878e54e7ddc6fa2148baa840c1057147",
+          "assessment_sha256": "99b01f6136d0ac00f2849ab717fea627105786209e8369049a8f03d2f8f64b26"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/coordinate/candidate-010",
+          "phase": "coordinate",
+          "candidate": 10,
+          "bias_delta_vector": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.001,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "checkpoint_sha256": "02500695eac5c1f1b7ad0ee8d5257080c3f621f0142887bdaca7b6846dc2ae9b",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.8076239073103865,
+          "worst_effector_m": 0.2546504159433728,
+          "flight_precision": 0.7835019932536031,
+          "flight_recall": 0.8888888888888888,
+          "airtime_ratio": 0.7984818805093046,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2546504159433728,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7835019932536031,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.10109195215589159,
+          "trajectory_sha256": "dc4b05cbff3988a7e9e65f111bc7e2598d2ff5b3b9095806029bce146dabeec2",
+          "assessment_sha256": "2284b90f85b3cc5615b83ae021c7f8254b44dc3ab48acde1408c5f4e51d51a21"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/coordinate/candidate-011",
+          "phase": "coordinate",
+          "candidate": 11,
+          "bias_delta_vector": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            -0.001,
+            0.0,
+            0.0
+          ],
+          "checkpoint_sha256": "eeaa826ba54ecbd18d555dbd0080c029a54042f32e70c0b053a183fd5dc76f82",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.8101495257883997,
+          "worst_effector_m": 0.34438786123278,
+          "flight_precision": 0.7821506042764177,
+          "flight_recall": 0.8666666666666667,
+          "airtime_ratio": 0.7901567091087169,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.34438786123278,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7821506042764177,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.4667987679368929,
+          "trajectory_sha256": "816feebf67adb8e9daa1ffb6bc03ba194a01a8bbf750215a0494b4441a77efd2",
+          "assessment_sha256": "a365fd8e185e363d26fff75e25c53eee40ae0c7ef65136076e425c04718c6114"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/coordinate/candidate-012",
+          "phase": "coordinate",
+          "candidate": 12,
+          "bias_delta_vector": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.001,
+            0.0,
+            0.0
+          ],
+          "checkpoint_sha256": "6ce6f6bf25b02430243f6168c4d2d23c9caef6852a588b59f23ff9a21d960c18",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.8083467984509715,
+          "worst_effector_m": 0.2538531381462445,
+          "flight_precision": 0.7877843564973512,
+          "flight_recall": 0.8666666666666667,
+          "airtime_ratio": 0.785749265426053,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2538531381462445,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7877843564973512,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.07649102395136018,
+          "trajectory_sha256": "da7f057f0951cbd2422b1b70ed73e0ea3c29c1715095aad9621a6b9c8f165d47",
+          "assessment_sha256": "e0f7dd544868d6473463772201893a730ea0c0a76b9d5cd430c546e81b9a856d"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/coordinate/candidate-013",
+          "phase": "coordinate",
+          "candidate": 13,
+          "bias_delta_vector": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            -0.001,
+            0.0
+          ],
+          "checkpoint_sha256": "10457bee32f7d108b03a91b733438fe30ef43e29f0e35215e2b9d69abc884009",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.8071531245521374,
+          "worst_effector_m": 0.2531555308587931,
+          "flight_precision": 0.7764341085271318,
+          "flight_recall": 0.9,
+          "airtime_ratio": 0.7896669931439765,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2531555308587931,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7764341085271318,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.13045183395504456,
+          "trajectory_sha256": "c8611a3abd864e505b92225fc771d7f230956cf7ac943cac3b5732aafa74ad9c",
+          "assessment_sha256": "434f73bd411fb98cd6c5fd616224ee66ae938d604bb64421e38d247e7cdf5471"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/coordinate/candidate-014",
+          "phase": "coordinate",
+          "candidate": 14,
+          "bias_delta_vector": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.001,
+            0.0
+          ],
+          "checkpoint_sha256": "4931a48e08b65093831dcda38c6435179a7c8b5ddaba78ed91bb2f712520fc00",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.8048223904858691,
+          "worst_effector_m": 0.2676178472160278,
+          "flight_precision": 0.7922932330827067,
+          "flight_recall": 0.8888888888888888,
+          "airtime_ratio": 0.781586679725759,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2676178472160278,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7922932330827067,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.10900549106842516,
+          "trajectory_sha256": "9ce26e82eb6133f41690940c9f87c71deefeb85618eeabc52c0ed06eeb9dc1cd",
+          "assessment_sha256": "7c03ee3a61d9cccc486a5be7b92f9dbdab274e3c1f314fb13e114a1248c78e39"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/coordinate/candidate-015",
+          "phase": "coordinate",
+          "candidate": 15,
+          "bias_delta_vector": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            -0.001
+          ],
+          "checkpoint_sha256": "9cc649fe79cb6fa7433b289faa81d979a8de9e4962028ade3a0b996d93b1b58a",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.8095900753537212,
+          "worst_effector_m": 0.25417149708051956,
+          "flight_precision": 0.7804953560371517,
+          "flight_recall": 0.8777777777777778,
+          "airtime_ratio": 0.7908912830558275,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25417149708051956,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7804953560371517,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.11420946230781705,
+          "trajectory_sha256": "48f32b11aad746f7f2d6c5c5f607caa577ff49dbe30258f4bfe108986fe82de2",
+          "assessment_sha256": "0574baaa5cfd5b5b93aaf8c6816ae98d7bcca2e4180e419ac8c9dd73c0d0fe7e"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/coordinate/candidate-016",
+          "phase": "coordinate",
+          "candidate": 16,
+          "bias_delta_vector": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.001
+          ],
+          "checkpoint_sha256": "5ca4644c4d9f264ba7be32fb6fe2d174cfeab66537d64ddac5527314bfab630b",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.8073403415659641,
+          "worst_effector_m": 0.26775610051698423,
+          "flight_precision": 0.790821105213862,
+          "flight_recall": 0.8666666666666667,
+          "airtime_ratio": 0.7842801175318315,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.26775610051698423,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.790821105213862,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.1169191437547279,
+          "trajectory_sha256": "a2ae60ea240496ecd92eb193c129e3c9368ae5d7aaa2561497953661974aafa5",
+          "assessment_sha256": "3a5c3a27253a6a83850a9a64644b17381c512fb2e77bd361a901e9f73b137087"
+        }
+      ],
+      "zero_source_control": {
+        "passed": true,
+        "fields_bitexact": {
+          "states": true,
+          "actions": true,
+          "reference_frame": true,
+          "physical_contacts": true
+        },
+        "source_trajectory_sha256": "10934b90bc572042d6fb3ea075bfc1e61d80a602d814cfd330298641f93b7c18"
+      }
+    },
+    {
+      "name": "population-1",
+      "completed_physical_evaluations": 16,
+      "strict_passes": 0,
+      "local_results": "runs/task-optimization-20261118/jump-native-head-search/population-1/physical-results.json",
+      "local_results_sha256": "1ae78780aa17b3602c4061425f4516a637634adceace578f200ae510331f1433",
+      "plan_sha256": "50af6eb53c0289f4bc4538f4b7f5285de8fe1a3b23116612c68877604297f593",
+      "records": [
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/population-1/candidate-000",
+          "phase": "population-1",
+          "candidate": 0,
+          "bias_delta_vector": [
+            1.4296879448857639e-05,
+            -4.5577495435168796e-05,
+            2.8689402791810883e-06,
+            7.701475732080937e-05,
+            6.550093600894293e-05,
+            -5.197047052711049e-05,
+            8.048381580011199e-05,
+            0.00025540681618280126
+          ],
+          "checkpoint_sha256": "b09c8f333490df0e26744e1e8ee878f49cec43ad5cdda754076b60671b895dc6",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.8051828787531851,
+          "worst_effector_m": 0.3256136787726793,
+          "flight_precision": 0.7849829351535836,
+          "flight_recall": 0.8777777777777778,
+          "airtime_ratio": 0.789177277179236,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.3256136787726793,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7849829351535836,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.37754036493647813,
+          "trajectory_sha256": "aa2ac23c3515fff210308019a4813e92902e1df6b4b0cf1ae3af28715320251b",
+          "assessment_sha256": "8a4af8ce12443adb7323a6c10606d79cb3494edaadd44f304e0b04faa3ca090a"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/population-1/candidate-001",
+          "phase": "population-1",
+          "candidate": 1,
+          "bias_delta_vector": [
+            -1.4296879448857639e-05,
+            4.5577495435168796e-05,
+            -2.8689402791810883e-06,
+            -7.701475732080937e-05,
+            -6.550093600894293e-05,
+            5.197047052711049e-05,
+            -8.048381580011199e-05,
+            -0.00025540681618280126
+          ],
+          "checkpoint_sha256": "29a5949601df95224c114607abc548b16545f82c4e08ef494b0217e6535836e3",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.8087944131895988,
+          "worst_effector_m": 0.25674167286565014,
+          "flight_precision": 0.7944130571249215,
+          "flight_recall": 0.8777777777777778,
+          "airtime_ratio": 0.7801175318315376,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25674167286565014,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7944130571249215,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.054901662579666166,
+          "trajectory_sha256": "b2373c1ba3f9da381555a149b726c1e45bfd5c80784a80c4b6258074d947c3ad",
+          "assessment_sha256": "0bd926f1857a453f5af81759ed83b47abfec773027fe035c23abbdea66e7cc05"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/population-1/candidate-002",
+          "phase": "population-1",
+          "candidate": 2,
+          "bias_delta_vector": [
+            -0.00017234170121716374,
+            -0.00010176480460039161,
+            -0.00011250526147011813,
+            9.059418253761082e-05,
+            3.081827009371671e-05,
+            -3.9518419664249014e-05,
+            2.9409617774840544e-06,
+            -0.00011139486345810315
+          ],
+          "checkpoint_sha256": "e5d550cf97a180a3167a69db13c943804276d41ebcaaa484157dd7cd0403d1db",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.8111392428447528,
+          "worst_effector_m": 0.25286230451759023,
+          "flight_precision": 0.7815518853225304,
+          "flight_recall": 0.8888888888888888,
+          "airtime_ratio": 0.785749265426053,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25286230451759023,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7815518853225304,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.10369004432001369,
+          "trajectory_sha256": "cfd3c7d5d75d2d877c8d22139ff5da0be91fe4d3def08dba770e6f46c10c67be",
+          "assessment_sha256": "f649c92200ff7c37f5ac7dc076350516a026f5c93fae54302eda2e8a0cec6f6c"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/population-1/candidate-003",
+          "phase": "population-1",
+          "candidate": 3,
+          "bias_delta_vector": [
+            0.00017234170121716374,
+            0.00010176480460039161,
+            0.00011250526147011813,
+            -9.059418253761082e-05,
+            -3.081827009371671e-05,
+            3.9518419664249014e-05,
+            -2.9409617774840544e-06,
+            0.00011139486345810315
+          ],
+          "checkpoint_sha256": "2b0663e8c5ac01e84b2bb8728764e5f1a4daac856e0f5576cb6221b580bea5f0",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.8092356403158237,
+          "worst_effector_m": 0.2534552245142923,
+          "flight_precision": 0.7862262387036459,
+          "flight_recall": 0.8777777777777778,
+          "airtime_ratio": 0.785749265426053,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2534552245142923,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7862262387036459,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.08268995799416427,
+          "trajectory_sha256": "8b840360681f6152b896b484b27df73b2637ef96071c7e49f2145e29f18d44f6",
+          "assessment_sha256": "32954a0cdc8f9554e3ef3e32859415ef7bbf7f5aeecff6996016bcf437f5a947"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/population-1/candidate-004",
+          "phase": "population-1",
+          "candidate": 4,
+          "bias_delta_vector": [
+            4.6040564057663275e-06,
+            -0.00012090844065674882,
+            0.00014451313541999735,
+            -0.00017217510954034579,
+            -0.00016014193349077126,
+            9.377947562470281e-05,
+            0.00010544094197631911,
+            0.0001329220470342684
+          ],
+          "checkpoint_sha256": "f08aa3f4978af5ad569f0df2de3df6b66250b3ac61438d7f14314c2ad651ecdd",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.8045349623643672,
+          "worst_effector_m": 0.27610330192334487,
+          "flight_precision": 0.7863805970149254,
+          "flight_recall": 0.8666666666666667,
+          "airtime_ratio": 0.7874632713026445,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.27610330192334487,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7863805970149254,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.17251049872205484,
+          "trajectory_sha256": "97e63bba225679c4c02110ced75272319de46bcd82e3f257e43f280007adcd5b",
+          "assessment_sha256": "2c39391a9738ff06d9c44ce1178a92b3761be354891b524da66073a1cf1a3a1c"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/population-1/candidate-005",
+          "phase": "population-1",
+          "candidate": 5,
+          "bias_delta_vector": [
+            -4.6040564057663275e-06,
+            0.00012090844065674882,
+            -0.00014451313541999735,
+            0.00017217510954034579,
+            0.00016014193349077126,
+            -9.377947562470281e-05,
+            -0.00010544094197631911,
+            -0.0001329220470342684
+          ],
+          "checkpoint_sha256": "2f5d27d4ba2bf3e4bd88502ac13e11976c15efa747d47434391a708673232c56",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.8067798790082282,
+          "worst_effector_m": 0.25362346207899533,
+          "flight_precision": 0.7786353812905218,
+          "flight_recall": 0.8888888888888888,
+          "airtime_ratio": 0.7930950048971596,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25362346207899533,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7786353812905218,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.12131719548683469,
+          "trajectory_sha256": "e16a10566d41aacc1af7b8e4e9c91e26bad7c256cdab04212db1995e0128f286",
+          "assessment_sha256": "352b7e9367b8e37ce83f02e9a860af90ccf0061c9ea0bc6bc666290e9d4b1b93"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/population-1/candidate-006",
+          "phase": "population-1",
+          "candidate": 6,
+          "bias_delta_vector": [
+            -4.575391794432357e-05,
+            -1.2411561963470873e-07,
+            -5.431887585494565e-05,
+            0.00029067222269710155,
+            -8.984662076102234e-05,
+            0.00012154785988741229,
+            -6.263509872811687e-05,
+            0.00021248255957455946
+          ],
+          "checkpoint_sha256": "c9f042c5c856325faf77c2bfdf134829e6744dcf5e394d574e84979aeed232c7",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.8093487007822208,
+          "worst_effector_m": 0.2591400946306075,
+          "flight_precision": 0.7859128822984245,
+          "flight_recall": 0.8777777777777778,
+          "airtime_ratio": 0.7926052889324191,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2591400946306075,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7859128822984245,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.10699622617040241,
+          "trajectory_sha256": "d2570916dec66beeb38cd4faacfd51e65a645777a84f9ed14d8824a70f8b3af9",
+          "assessment_sha256": "1fef9d69cc6b2d4225d9979b50348da482d3ee3c2302613d4a69e2efe52ea32f"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/population-1/candidate-007",
+          "phase": "population-1",
+          "candidate": 7,
+          "bias_delta_vector": [
+            4.575391794432357e-05,
+            1.2411561963470873e-07,
+            5.431887585494565e-05,
+            -0.00029067222269710155,
+            8.984662076102234e-05,
+            -0.00012154785988741229,
+            6.263509872811687e-05,
+            -0.00021248255957455946
+          ],
+          "checkpoint_sha256": "85164e8b195e74ef8c709c5fbdbeb85d4059475c510b97965760d6353036e245",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.8078403319170057,
+          "worst_effector_m": 0.25141104873674786,
+          "flight_precision": 0.7878319950586782,
+          "flight_recall": 0.8888888888888888,
+          "airtime_ratio": 0.7928501469147894,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25141104873674786,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7878319950586782,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.06648447106464948,
+          "trajectory_sha256": "cc3dcddef4029da7afeecb94e624a3b0b893c70011fdab4ba9464b2f65e16a9e",
+          "assessment_sha256": "dc106710ebd1dc24cb083c31d0f805b6c50724a07c5eca9e42d43dd99367f7c6"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/population-1/candidate-008",
+          "phase": "population-1",
+          "candidate": 8,
+          "bias_delta_vector": [
+            -2.9200295168286323e-05,
+            8.881993253824227e-05,
+            -4.4639940092568994e-05,
+            0.00016238033833915604,
+            6.881450435170155e-05,
+            -0.0002578739208730496,
+            0.00014722483723615253,
+            -5.148680467449817e-05
+          ],
+          "checkpoint_sha256": "f91922057d8a4b1904a87d7e5918b3f7de992b535fc0791cd292bb5b8240899a",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.8067975521438806,
+          "worst_effector_m": 0.25229539045220584,
+          "flight_precision": 0.7682242990654206,
+          "flight_recall": 0.8777777777777778,
+          "airtime_ratio": 0.7859941234084231,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25229539045220584,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7682242990654206,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.16806031877711122,
+          "trajectory_sha256": "8169dff6ff31dad96263560de9c03a6e1ac7e9d9d4a2e0adbf69b332f629a734",
+          "assessment_sha256": "fa17b43abe75da4ad4ac1d40fb090217fbaf66515bf018c57528c89fec08385d"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/population-1/candidate-009",
+          "phase": "population-1",
+          "candidate": 9,
+          "bias_delta_vector": [
+            2.9200295168286323e-05,
+            -8.881993253824227e-05,
+            4.4639940092568994e-05,
+            -0.00016238033833915604,
+            -6.881450435170155e-05,
+            0.0002578739208730496,
+            -0.00014722483723615253,
+            5.148680467449817e-05
+          ],
+          "checkpoint_sha256": "8bb9d8f5661c13c7eacd65a5bb60f80d25eb90b79e5d2c8f5432fab91aa2866b",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.8070597501523306,
+          "worst_effector_m": 0.36474637952024813,
+          "flight_precision": 0.7745700245700246,
+          "flight_recall": 0.8777777777777778,
+          "airtime_ratio": 0.7972575905974535,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.36474637952024813,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7745700245700246,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.5861357599772495,
+          "trajectory_sha256": "3e5a4501d5c3036f85cb79457081ce727bb69dbd2490886d281ee3166c6f8d08",
+          "assessment_sha256": "92ad507dacf127b03cb5aec65607c6171c457f781a4603ffdd183d3ae9b05da4"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/population-1/candidate-010",
+          "phase": "population-1",
+          "candidate": 10,
+          "bias_delta_vector": [
+            5.726193758999414e-05,
+            -0.0001204511772757935,
+            -4.570425553566394e-05,
+            4.111507555107858e-05,
+            1.9921904657609252e-05,
+            7.616373682537815e-05,
+            -4.23419916339443e-05,
+            -6.0129804563724034e-05
+          ],
+          "checkpoint_sha256": "d256947bbda810fc0f23f911f5b2afd3b8f8a387b693c05bf12bf7e9dfff6b4e",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.7985583331812989,
+          "worst_effector_m": 0.2589506059760273,
+          "flight_precision": 0.776693105552166,
+          "flight_recall": 0.8777777777777778,
+          "airtime_ratio": 0.8026444662095984,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2589506059760273,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.776693105552166,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.1523371550938856,
+          "trajectory_sha256": "bccd1a6fc266bc52f8e2ac6553edb33505a4eb2231306dc6fe79eb47dd481275",
+          "assessment_sha256": "1d2e68e4b7b099cfd0870e92f6271c991769e23d3fd019ed5c4ec500923c8f08"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/population-1/candidate-011",
+          "phase": "population-1",
+          "candidate": 11,
+          "bias_delta_vector": [
+            -5.726193758999414e-05,
+            0.0001204511772757935,
+            4.570425553566394e-05,
+            -4.111507555107858e-05,
+            -1.9921904657609252e-05,
+            -7.616373682537815e-05,
+            4.23419916339443e-05,
+            6.0129804563724034e-05
+          ],
+          "checkpoint_sha256": "46512fb0bded314027c1140b658771b58d6aa625519256a2a98afca33c604e3c",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.79757778336906,
+          "worst_effector_m": 0.3052717900735111,
+          "flight_precision": 0.7820838627700127,
+          "flight_recall": 0.8555555555555555,
+          "airtime_ratio": 0.7708129285014691,
+          "failed_checks": [
+            {
+              "name": "worst_1s_root_orientation_rmse_rad",
+              "value": 0.8405664991087262,
+              "limit": 0.4,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.3052717900735111,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7820838627700127,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 1.4120843994875862,
+          "trajectory_sha256": "0899cafbdb02683a0276f33750f6d20fc2f4414bd4476c3caa6d5528942b4242",
+          "assessment_sha256": "bf143679ffaecac5bc12b15218db4684807bae171131df8c1a033bffd1f7fbe9"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/population-1/candidate-012",
+          "phase": "population-1",
+          "candidate": 12,
+          "bias_delta_vector": [
+            -1.2046945246601455e-05,
+            5.9110934244176766e-05,
+            0.0002370459997975635,
+            -0.0001377597821375091,
+            0.0001981408948482445,
+            -1.1155405154693358e-05,
+            5.8027289240231455e-05,
+            -1.9863678849539745e-05
+          ],
+          "checkpoint_sha256": "1501188c5a0001e6f5bf1f949aaaaa4195a20edd93e7462f33354c1e1eeb7591",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.803527603776821,
+          "worst_effector_m": 0.3232457063950142,
+          "flight_precision": 0.794887977279899,
+          "flight_recall": 0.8777777777777778,
+          "airtime_ratio": 0.7759549461312438,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.3232457063950142,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.794887977279899,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.31854326242626835,
+          "trajectory_sha256": "4911843483a61c07ab8ec18f18232c9cdb2e62d215541e2e93df828d3bd18a41",
+          "assessment_sha256": "516327e74901379dc26bcfb1cdb5ff103daf6cc7376255b4dfc367f82c5bb9d7"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/population-1/candidate-013",
+          "phase": "population-1",
+          "candidate": 13,
+          "bias_delta_vector": [
+            1.2046945246601455e-05,
+            -5.9110934244176766e-05,
+            -0.0002370459997975635,
+            0.0001377597821375091,
+            -0.0001981408948482445,
+            1.1155405154693358e-05,
+            -5.8027289240231455e-05,
+            1.9863678849539745e-05
+          ],
+          "checkpoint_sha256": "994794a198d278c45f9a73d9dd152f351c2218defee1e32b7465edf764c58eb8",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.8060808285550178,
+          "worst_effector_m": 0.25432760806279275,
+          "flight_precision": 0.7775364567173441,
+          "flight_recall": 0.8666666666666667,
+          "airtime_ratio": 0.789177277179236,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25432760806279275,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7775364567173441,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.129628402992059,
+          "trajectory_sha256": "44a0df74e03aa26f9e89830c1ba4e9f97adf938ecce8e725b04ae01df7e344ed",
+          "assessment_sha256": "9cfc0403ce382a74758460e59a4cc7e4c1308966764b22817b8f9cc9a178fab5"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/population-1/candidate-014",
+          "phase": "population-1",
+          "candidate": 14,
+          "bias_delta_vector": [
+            -3.5102680007842384e-05,
+            3.3143584768478937e-06,
+            0.00016782337579816052,
+            0.0001583070380951275,
+            -7.448891260790732e-05,
+            -3.409007738399425e-05,
+            9.33499106346334e-05,
+            -0.0001008512501458381
+          ],
+          "checkpoint_sha256": "89c166d0fbae117fce484939f6c7c1540f4da74e6c217c4c03723e7a7f575f25",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.813402966483019,
+          "worst_effector_m": 0.25266793920380176,
+          "flight_precision": 0.7844611528822055,
+          "flight_recall": 0.8666666666666667,
+          "airtime_ratio": 0.781586679725759,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25266793920380176,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7844611528822055,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.08836624507211885,
+          "trajectory_sha256": "16da8f68767dc98e181c5f125c4b39ee81aef17bca7561b081b587ef73a48b72",
+          "assessment_sha256": "7bea9ddfcdd093761d12b6c22f7e2d31e52da176c446979406cdcb5516ab85de"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/population-1/candidate-015",
+          "phase": "population-1",
+          "candidate": 15,
+          "bias_delta_vector": [
+            3.5102680007842384e-05,
+            -3.3143584768478937e-06,
+            -0.00016782337579816052,
+            -0.0001583070380951275,
+            7.448891260790732e-05,
+            3.409007738399425e-05,
+            -9.33499106346334e-05,
+            0.0001008512501458381
+          ],
+          "checkpoint_sha256": "903553e7053c3dcfc732131857fc3e69086b181b2a09fc3e915bc3f369730a7d",
+          "strict_passed": false,
+          "completed_motion": false,
+          "steps": 8728,
+          "normalized_return": 0.5649969779840809,
+          "worst_effector_m": 0.3749910476728602,
+          "flight_precision": 0.7500838644750084,
+          "flight_recall": 0.7888888888888889,
+          "airtime_ratio": 0.7299216454456415,
+          "failed_checks": [
+            {
+              "name": "completed_motion",
+              "value": false,
+              "passed": false
+            },
+            {
+              "name": "full_clip_return",
+              "value": 0.5649969779840809,
+              "limit": 0.7,
+              "comparison": ">=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_orientation_rmse_rad",
+              "value": 0.5961210682707756,
+              "limit": 0.4,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.3749910476728602,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_event_recall",
+              "value": 0.7888888888888889,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7500838644750084,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 101.44659826289602,
+          "trajectory_sha256": "0b54995f5e13dbaf96a4d3b04e201f33abaa2b6d4e04ddf51ebe1c932e6fa9d1",
+          "assessment_sha256": "a1469bb23672b72b8b0657dabb9fc5f6f374f9986f337562ffd967ebc0fe9053"
+        }
+      ]
+    },
+    {
+      "name": "local-ridge",
+      "completed_physical_evaluations": 4,
+      "strict_passes": 0,
+      "local_results": "runs/task-optimization-20261118/jump-native-head-search/local-ridge/physical-results.json",
+      "local_results_sha256": "448ce69a6adaf98af4c82f15728e39b8fece5249eeff18a67a85d6a5df518bca",
+      "plan_sha256": "57579513ff202300b889acbfff087535c85525adfffed2e6ef1a62d60459f480",
+      "records": [
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/local-ridge/candidate-000",
+          "phase": "local-ridge",
+          "candidate": 0,
+          "gain": 0.0,
+          "source_control": true,
+          "checkpoint_sha256": "83d1e3ce3317346681e4f56ea3dec178459124494e8a7c2d8dbb4c7e964ce647",
+          "method": "Native-kinematic diagnostic plus ridge fit on existing frozen decoder features; no new architecture or runtime frame gate.",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.81149589994927,
+          "worst_effector_m": 0.25225533386523663,
+          "flight_precision": 0.8034188034188035,
+          "flight_recall": 0.9,
+          "airtime_ratio": 0.7735063663075415,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.25225533386523663,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.009021587716280388,
+          "trajectory_sha256": "10934b90bc572042d6fb3ea075bfc1e61d80a602d814cfd330298641f93b7c18",
+          "assessment_sha256": "8eee7be6bbdd3fc8b356a7ec5f1c4c7d95d77d287932e5fa6b5e41e77e3fd126"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/local-ridge/candidate-001",
+          "phase": "local-ridge",
+          "candidate": 1,
+          "gain": -0.01,
+          "source_control": false,
+          "checkpoint_sha256": "3f3153214e8d852693f302de1b3aa0199e0468b91d5246d850ad389d31165e96",
+          "method": "Native-kinematic diagnostic plus ridge fit on existing frozen decoder features; no new architecture or runtime frame gate.",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.8139229121238234,
+          "worst_effector_m": 0.2543692610210286,
+          "flight_precision": 0.770820481184454,
+          "flight_recall": 0.8777777777777778,
+          "airtime_ratio": 0.7938295788442703,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.2543692610210286,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.770820481184454,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.16337489253110551,
+          "trajectory_sha256": "a76b7142e26a9280ee626447c0b6f046664c6f8a8f4fb018c109ff8e8801becb",
+          "assessment_sha256": "3a25ad0586d3ccc83179b608a392c6c550a78217a8cc523f7c21f771ba51cd97"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/local-ridge/candidate-002",
+          "phase": "local-ridge",
+          "candidate": 2,
+          "gain": 0.01,
+          "source_control": false,
+          "checkpoint_sha256": "af96baaa045bd2ead5ac607e47f3a4ba13dfac4546737af69edf1587ef1201c1",
+          "method": "Native-kinematic diagnostic plus ridge fit on existing frozen decoder features; no new architecture or runtime frame gate.",
+          "strict_passed": false,
+          "completed_motion": true,
+          "steps": 12221,
+          "normalized_return": 0.8090827465252461,
+          "worst_effector_m": 0.35689475796690806,
+          "flight_precision": 0.7886876390212901,
+          "flight_recall": 0.8666666666666667,
+          "airtime_ratio": 0.7705680705190989,
+          "failed_checks": [
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.35689475796690806,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7886876390212901,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 0.48414119365593977,
+          "trajectory_sha256": "9878afb271d5d819e1575c3c7775beb66095c72082372cfec1fd867b2901ad39",
+          "assessment_sha256": "6112cfad7e6ed99a66b8cc0ebf8926f8e15014fe15c2a200e73efed5f24a534c"
+        },
+        {
+          "stage": "runs/task-optimization-20261118/jump-native-head-search/local-ridge/candidate-003",
+          "phase": "local-ridge",
+          "candidate": 3,
+          "gain": 0.025,
+          "source_control": false,
+          "checkpoint_sha256": "667a177f4c8918deed0ec21c72d9f6697f8d456c620cec96c525de5c5c897ba9",
+          "method": "Native-kinematic diagnostic plus ridge fit on existing frozen decoder features; no new architecture or runtime frame gate.",
+          "strict_passed": false,
+          "completed_motion": false,
+          "steps": 11269,
+          "normalized_return": 0.7368654803766984,
+          "worst_effector_m": 0.33579406467518974,
+          "flight_precision": 0.7619499841722064,
+          "flight_recall": 0.8555555555555555,
+          "airtime_ratio": 0.7735063663075415,
+          "failed_checks": [
+            {
+              "name": "completed_motion",
+              "value": false,
+              "passed": false
+            },
+            {
+              "name": "worst_1s_root_orientation_rmse_rad",
+              "value": 0.8143762322304723,
+              "limit": 0.4,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "worst_1s_effector_rmse_m",
+              "value": 0.33579406467518974,
+              "limit": 0.25,
+              "comparison": "<=",
+              "passed": false
+            },
+            {
+              "name": "jump_time_precision",
+              "value": 0.7619499841722064,
+              "limit": 0.8,
+              "comparison": ">=",
+              "passed": false
+            }
+          ],
+          "fitness": 101.56936725420998,
+          "trajectory_sha256": "da19994ae3946c9ab709fa8abfabad0b6b2ecbcd7c2a18eea6f07e437b6b7dbd",
+          "assessment_sha256": "5a592fb76839612b5513208628ab1bda5095fa813ac4e7d3d912937351031fc4"
+        }
+      ],
+      "zero_source_control": {
+        "passed": true,
+        "fields_bitexact": {
+          "states": true,
+          "actions": true,
+          "reference_frame": true,
+          "physical_contacts": true
+        },
+        "source_trajectory_sha256": "10934b90bc572042d6fb3ea075bfc1e61d80a602d814cfd330298641f93b7c18"
+      }
+    }
+  ],
+  "plan_versions": [
+    {
+      "path": "runs/task-optimization-20261118/jump-native-head-search-plan-v1.json",
+      "sha256": "df5f2c4b5078f4060530d441575e2000f046004e854ad0c2c69c068c067754d8",
+      "plan": {
+        "created_at_utc": "2026-11-18T11:14:08.477614+00:00",
+        "source_checkpoint": "runs/task-optimization-20261117c/jump-distill-preserve-202-214/alpha-1p0/update-0500/checkpoint.pt",
+        "source_checkpoint_sha256": "83d1e3ce3317346681e4f56ea3dec178459124494e8a7c2d8dbb4c7e964ce647",
+        "source_trajectory": "runs/task-optimization-20261117c/jump-distill-preserve-202-214/alpha-1p0/update-0500/deploy/trajectory.npz",
+        "source_trajectory_sha256": "10934b90bc572042d6fb3ea075bfc1e61d80a602d814cfd330298641f93b7c18",
+        "source_contract": "runs/task-optimization-20261117c/jump-distill-preserve-202-214/alpha-1p0/update-0500/export/contract.json",
+        "source_contract_sha256": "0731e57cd828bd683ce51dc88c36d60c8a87cecab4f284e56fa227ef13df01f2",
+        "motion": "data/npz/validation/jumps1_subject1.npz",
+        "motion_sha256": "0c21df779e79a8e96a5fb42f5a8a3ffe9b3cf775b883e6bf40016a67d8468878",
+        "method": "Full native closed-loop parameter search in original action-head biases, not a learned-world-model or offline kinematic proxy. No runtime switching, external control correction or architecture change.",
+        "joint_names": [
+          "left_hip_pitch_joint",
+          "left_hip_roll_joint",
+          "left_hip_yaw_joint",
+          "left_knee_joint",
+          "left_ankle_pitch_joint",
+          "left_ankle_roll_joint",
+          "right_ankle_pitch_joint",
+          "right_ankle_roll_joint"
+        ],
+        "coordinate_deltas": [
+          -0.001,
+          0.001
+        ],
+        "initial_evaluations": 17,
+        "followup_if_needed": {
+          "method": "two seeded antithetic populations centered on the best physical candidate; top4 feasible-weighted mean, keep incumbent",
+          "population_size": 16,
+          "generations": 2,
+          "sigma": [
+            0.002,
+            0.001
+          ],
+          "absolute_bias_bound": 0.01,
+          "seed": 2026111812,
+          "maximum_additional_evaluations": 32
+        },
+        "selection": "Each candidate must run the entire original244.42s reference from the original first state with one unchanged neural actor and all23originalg1-skills-v2-full-motion gates. Baselinezero must reproduce original arrays bitexact before any candidate evaluation. Score summed normalized gate violation (4xflight-precision violation), full duration mandatory. Failed trials and partial trajectories retained; no threshold change. A passing candidate still needs copied independent full NN replay, native command/state/contact/force replay and actual transfer-training qualification. Known-reference optimization only, no new-motion/hardware claim.",
+        "optimizer_note": "Directly changed neural weights do not have matching Adam state. Mark policy_optimizer_resume_valid=false and continue only with --transfer; preserve source state for audit.",
+        "resources": {
+          "max_rss_gib": 2,
+          "reserve_ram_gib": 12.5,
+          "gpu_used": false,
+          "cpu_threads": 1,
+          "shared_lock": "/home/ubuntu/.cache/codex-heavy-work.lock",
+          "maximum_candidate_count": 49,
+          "estimated_peak_gib": 1.5,
+          "maximum_disk_budget_gib": 15
+        }
+      }
+    },
+    {
+      "path": "runs/task-optimization-20261118/jump-native-head-search-plan.json",
+      "sha256": "50af6eb53c0289f4bc4538f4b7f5285de8fe1a3b23116612c68877604297f593",
+      "plan": {
+        "created_at_utc": "2026-11-18T11:14:08.477614+00:00",
+        "source_checkpoint": "runs/task-optimization-20261117c/jump-distill-preserve-202-214/alpha-1p0/update-0500/checkpoint.pt",
+        "source_checkpoint_sha256": "83d1e3ce3317346681e4f56ea3dec178459124494e8a7c2d8dbb4c7e964ce647",
+        "source_trajectory": "runs/task-optimization-20261117c/jump-distill-preserve-202-214/alpha-1p0/update-0500/deploy/trajectory.npz",
+        "source_trajectory_sha256": "10934b90bc572042d6fb3ea075bfc1e61d80a602d814cfd330298641f93b7c18",
+        "source_contract": "runs/task-optimization-20261117c/jump-distill-preserve-202-214/alpha-1p0/update-0500/export/contract.json",
+        "source_contract_sha256": "0731e57cd828bd683ce51dc88c36d60c8a87cecab4f284e56fa227ef13df01f2",
+        "motion": "data/npz/validation/jumps1_subject1.npz",
+        "motion_sha256": "0c21df779e79a8e96a5fb42f5a8a3ffe9b3cf775b883e6bf40016a67d8468878",
+        "method": "Full native closed-loop parameter search in original action-head biases, not a learned-world-model or offline kinematic proxy. No runtime switching, external control correction or architecture change.",
+        "joint_names": [
+          "left_hip_pitch_joint",
+          "left_hip_roll_joint",
+          "left_hip_yaw_joint",
+          "left_knee_joint",
+          "left_ankle_pitch_joint",
+          "left_ankle_roll_joint",
+          "right_ankle_pitch_joint",
+          "right_ankle_roll_joint"
+        ],
+        "coordinate_deltas": [
+          -0.001,
+          0.001
+        ],
+        "initial_evaluations": 17,
+        "followup_if_needed": {
+          "method": "two seeded antithetic populations centered on the best physical candidate; top4 feasible-weighted mean, keep incumbent",
+          "population_size": 16,
+          "generations": 2,
+          "sigma": [
+            0.0001,
+            5e-05
+          ],
+          "absolute_bias_bound": 0.01,
+          "seed": 2026111812,
+          "maximum_additional_evaluations": 32,
+          "initially_proposed_sigma": [
+            0.002,
+            0.001
+          ]
+        },
+        "selection": "Each candidate must run the entire original244.42s reference from the original first state with one unchanged neural actor and all23originalg1-skills-v2-full-motion gates. Baselinezero must reproduce original arrays bitexact before any candidate evaluation. Score summed normalized gate violation (4xflight-precision violation), full duration mandatory. Failed trials and partial trajectories retained; no threshold change. A passing candidate still needs copied independent full NN replay, native command/state/contact/force replay and actual transfer-training qualification. Known-reference optimization only, no new-motion/hardware claim.",
+        "optimizer_note": "Directly changed neural weights do not have matching Adam state. Mark policy_optimizer_resume_valid=false and continue only with --transfer; preserve source state for audit.",
+        "resources": {
+          "max_rss_gib": 2,
+          "reserve_ram_gib": 12.5,
+          "gpu_used": false,
+          "cpu_threads": 1,
+          "shared_lock": "/home/ubuntu/.cache/codex-heavy-work.lock",
+          "maximum_candidate_count": 49,
+          "estimated_peak_gib": 1.5,
+          "maximum_disk_budget_gib": 15
+        },
+        "plan_revision": 2,
+        "initial_plan_sha256": "df5f2c4b5078f4060530d441575e2000f046004e854ad0c2c69c068c067754d8",
+        "adaptation_note": "After the first9complete coordinate evaluations, all nonzero +/-0.001 proposals degraded aggregate fixed-gate fitness and often flight precision. Before generating either follow-up population, shrink its standard deviations to0.0001and0.00005. Preserve the original plan and all coordinate results; maximum49full evaluations, original neural architecture/model/PD/reference and all23quality limits remain unchanged. Populations use only physical development feedback, never fresh/hardware claims."
+      }
+    }
+  ],
+  "selection_rule": "Each candidate must run the entire original244.42s reference from the original first state with one unchanged neural actor and all23originalg1-skills-v2-full-motion gates. Baselinezero must reproduce original arrays bitexact before any candidate evaluation. Score summed normalized gate violation (4xflight-precision violation), full duration mandatory. Failed trials and partial trajectories retained; no threshold change. A passing candidate still needs copied independent full NN replay, native command/state/contact/force replay and actual transfer-training qualification. Known-reference optimization only, no new-motion/hardware claim.",
+  "controller_scope": "Same neural architecture, only the declared final action-head parameters searched; each phase retains its exact proposal method. Original PD/model/reference clock and all23g1-skills-v2-full-motion conditions unchanged. No runtime controller switching or external action correction. New SGDupdates0; unmatched Adam states marked invalid, continuation requires explicittransfer.",
+  "scope": "Known original244.42s reference and initialization, complete reached-state/contact scoring. No training-loss, short-prefix, general skill or hardware acceptance claim. Retained120s/30s handoffs stay intact.",
+  "delivery_decision": {
+    "local_report": "runs/task-optimization-20261118/jump-selected-full-verification.json",
+    "sha256": "cf9f7c871f7466410a8069be5c5121c1e1703b4dbb492f1460c4fe80cf08add0",
+    "result": {
+      "status": "no_qualified_new_full_jump",
+      "physical_evaluations": 37,
+      "strict_passes": 0,
+      "retained_120s_and30s_handoffs_unchanged": true
+    }
+  },
+  "global_bias_stop": {
+    "local_report": "runs/task-optimization-20261118/jump-global-bias-stop.json",
+    "sha256": "8cc4ff1f8d81ec37093b74a6b0239b07d25d7a628d193638a103811d0c9dcba7",
+    "result": {
+      "reason": "The original actor remains best on fixed-gate fitness after17coordinate and the first fine16population trials. Do not execute the second planned global population; further work will target different model directions.",
+      "original_maximum_proposals": 49,
+      "global_bias_phases_to_complete": [
+        "coordinate",
+        "population-1"
+      ],
+      "population2_executed": false,
+      "original_gates_unchanged": true
+    }
+  },
+  "local_ridge_execution_issue": {
+    "description": "The private proposal generator wrote all four files, then aborted during interpreter finalization in PyTorch Dispatcher deregistration. The error and original log remain preserved. A fresh independent process verified file hashes, shapes, finiteness and frozen parameters before full physical evaluation. No generator exit was reclassified as success.",
+    "generator_log": "runs/task-optimization-20261118/jump-local-ridge-pipeline/generate.log",
+    "generator_log_sha256": "0222b537b4ecab9a2a2af04aaabc2150f9f52b43ab3b4c1c52fbd405c4cc1711",
+    "independent_file_validation": {
+      "local_report": "runs/task-optimization-20261118/jump-native-head-search/local-ridge/independent-file-validation.json",
+      "sha256": "790ac996b2dc9902ebc921bbc2358727356ad33de112ae5e3b6e9b6758285666",
+      "result": {
+        "status": "passed",
+        "source_checkpoint_sha256": "83d1e3ce3317346681e4f56ea3dec178459124494e8a7c2d8dbb4c7e964ce647",
+        "records": [
+          {
+            "stage": "runs/task-optimization-20261118/jump-native-head-search/local-ridge/candidate-000",
+            "phase": "local-ridge",
+            "candidate": 0,
+            "gain": 0.0,
+            "source_control": true,
+            "checkpoint_sha256": "83d1e3ce3317346681e4f56ea3dec178459124494e8a7c2d8dbb4c7e964ce647",
+            "method": "Native-kinematic diagnostic plus ridge fit on existing frozen decoder features; no new architecture or runtime frame gate.",
+            "changed_tensors": [],
+            "all_other_actor_tensors_bitexact": true,
+            "file_verified": true
+          },
+          {
+            "stage": "runs/task-optimization-20261118/jump-native-head-search/local-ridge/candidate-001",
+            "phase": "local-ridge",
+            "candidate": 1,
+            "gain": -0.01,
+            "source_control": false,
+            "checkpoint_sha256": "3f3153214e8d852693f302de1b3aa0199e0468b91d5246d850ad389d31165e96",
+            "method": "Native-kinematic diagnostic plus ridge fit on existing frozen decoder features; no new architecture or runtime frame gate.",
+            "changed_tensors": [
+              "decoder.mlp.net.8.weight",
+              "decoder.mlp.net.8.bias"
+            ],
+            "all_other_actor_tensors_bitexact": true,
+            "file_verified": true
+          },
+          {
+            "stage": "runs/task-optimization-20261118/jump-native-head-search/local-ridge/candidate-002",
+            "phase": "local-ridge",
+            "candidate": 2,
+            "gain": 0.01,
+            "source_control": false,
+            "checkpoint_sha256": "af96baaa045bd2ead5ac607e47f3a4ba13dfac4546737af69edf1587ef1201c1",
+            "method": "Native-kinematic diagnostic plus ridge fit on existing frozen decoder features; no new architecture or runtime frame gate.",
+            "changed_tensors": [
+              "decoder.mlp.net.8.weight",
+              "decoder.mlp.net.8.bias"
+            ],
+            "all_other_actor_tensors_bitexact": true,
+            "file_verified": true
+          },
+          {
+            "stage": "runs/task-optimization-20261118/jump-native-head-search/local-ridge/candidate-003",
+            "phase": "local-ridge",
+            "candidate": 3,
+            "gain": 0.025,
+            "source_control": false,
+            "checkpoint_sha256": "667a177f4c8918deed0ec21c72d9f6697f8d456c620cec96c525de5c5c897ba9",
+            "method": "Native-kinematic diagnostic plus ridge fit on existing frozen decoder features; no new architecture or runtime frame gate.",
+            "changed_tensors": [
+              "decoder.mlp.net.8.weight",
+              "decoder.mlp.net.8.bias"
+            ],
+            "all_other_actor_tensors_bitexact": true,
+            "file_verified": true
+          }
+        ],
+        "generator_process_exit_anomaly_preserved": true,
+        "scope": "Independent file/shape/finiteness/frozen-parameter validation. No physical quality claim; full neural zero control and original23gates are still required."
+      }
+    },
+    "recovery_steps": {
+      "local_report": "runs/task-optimization-20261118/jump-local-ridge-recovery/results.json",
+      "sha256": "479efa4e706483dd98c48cea65e6dc850dff523ad7cf3d1b809ce204b9c8d7f3",
+      "result": [
+        {
+          "step": "validate-files",
+          "returncode": 0
+        },
+        {
+          "step": "evaluate",
+          "returncode": 0
+        }
+      ]
+    }
+  },
+  "full_reference_completions": 35,
+  "early_terminations": [
+    {
+      "phase": "population-1",
+      "candidate": 15,
+      "steps": 8728,
+      "duration_s": 174.56,
+      "stage": "runs/task-optimization-20261118/jump-native-head-search/population-1/candidate-015",
+      "failed_checks": [
+        {
+          "name": "completed_motion",
+          "value": false,
+          "passed": false
+        },
+        {
+          "name": "full_clip_return",
+          "value": 0.5649969779840809,
+          "limit": 0.7,
+          "comparison": ">=",
+          "passed": false
+        },
+        {
+          "name": "worst_1s_root_orientation_rmse_rad",
+          "value": 0.5961210682707756,
+          "limit": 0.4,
+          "comparison": "<=",
+          "passed": false
+        },
+        {
+          "name": "worst_1s_effector_rmse_m",
+          "value": 0.3749910476728602,
+          "limit": 0.25,
+          "comparison": "<=",
+          "passed": false
+        },
+        {
+          "name": "jump_event_recall",
+          "value": 0.7888888888888889,
+          "limit": 0.8,
+          "comparison": ">=",
+          "passed": false
+        },
+        {
+          "name": "jump_time_precision",
+          "value": 0.7500838644750084,
+          "limit": 0.8,
+          "comparison": ">=",
+          "passed": false
+        }
+      ]
+    },
+    {
+      "phase": "local-ridge",
+      "candidate": 3,
+      "steps": 11269,
+      "duration_s": 225.38,
+      "stage": "runs/task-optimization-20261118/jump-native-head-search/local-ridge/candidate-003",
+      "failed_checks": [
+        {
+          "name": "completed_motion",
+          "value": false,
+          "passed": false
+        },
+        {
+          "name": "worst_1s_root_orientation_rmse_rad",
+          "value": 0.8143762322304723,
+          "limit": 0.4,
+          "comparison": "<=",
+          "passed": false
+        },
+        {
+          "name": "worst_1s_effector_rmse_m",
+          "value": 0.33579406467518974,
+          "limit": 0.25,
+          "comparison": "<=",
+          "passed": false
+        },
+        {
+          "name": "jump_time_precision",
+          "value": 0.7619499841722064,
+          "limit": 0.8,
+          "comparison": ">=",
+          "passed": false
+        }
+      ]
+    }
+  ],
+  "evaluation_count_scope": "Thirty-seven evaluations targeting the original244.42s reference;35reached the end and2stopped early under original termination conditions. All37completed evaluations are counted, including those two failed partial trajectories. None passed all23gates.",
+  "new_sgd_updates": 0,
+  "new_models_adopted": 0,
+  "source_validation": {
+    "conclusion": "success",
+    "ci_run": "https://github.com/chase6305/SuperMimic-Reproduced/actions/runs/44326455081",
+    "ci_source_revision": "a9922ef83582262c7b258bfcce1bc5ff3383dd13",
+    "cpu_baseline": "passed",
+    "lint": "passed",
+    "cli_and_distribution_build": "passed",
+    "completed_at_utc": "2026-11-18T14:40:23Z",
+    "job_metadata_file": "runs/task-optimization-20261118/source-ci-jobs-output-fix.json",
+    "job_metadata_sha256": "d9049a661bbc7ab8d64fe36f1db8d39b5dfd61b19f38b8d3128556df4b97aea4",
+    "local_comparison_cli_tests_passed": 11,
+    "local_comparison_cli_seconds": 0.09,
+    "comparison_cli_validation": "runs/task-optimization-20261118/comparison-cli-validation.json",
+    "comparison_cli_validation_sha256": "c4bf61203fe732c8f647e55a9f0f16e4fe3c9c1f94522bdaab09db6b53a8c924",
+    "scope": "Full CPU baseline and every job/step passed on the last changed source revision; later commits only curate documentation and experiment evidence. Local related34and report-comparison11tests are recorded separately. Individual CI test count is not inferred."
+  },
+  "reproduction_helpers": {
+    "manifest": "runs/task-optimization-20261118/reproduction-tools-final/manifest.json",
+    "manifest_sha256": "4d816c1472fab72cd4ae618c048599d273321099df14217aee61fcb2ff3f93e8",
+    "scope": "Final versions of private orchestration helpers and shared wrappers. Each run retains its actual executing worker/package snapshot; these final versions do not replace earlier snapshots or failed logs."
+  },
+  "retained_delivery_integrity": {
+    "local_report": "runs/task-optimization-20261118/delivery-integrity/result.json",
+    "sha256": "5f9034531dac3445c2cf98e7b4e8c3e8aa663a1db3cce5c34ea1dcce6f94fe21",
+    "result": {
+      "status": "passed",
+      "packets": 9,
+      "listed_files_verified": 127,
+      "referenced_checkpoints_verified": 9,
+      "bytes_hashed": 1427365463,
+      "records": [
+        {
+          "packet": "exports/g1-tasks-20261117/walk-reference",
+          "entry_sha256": "a56e48ed8dc52da30226fb3286c11e0792ea898457025a67876f492b19cfa2b4",
+          "files": 10,
+          "checkpoint_sha256": "bc95a21eb9b55ba56aafd6b5bd4dc9ba663f19f7f087d674348318243ec633c4",
+          "status": "simulation-demo"
+        },
+        {
+          "packet": "exports/g1-tasks-20261117/stand-hold",
+          "entry_sha256": "1ae7e64a1c48442a38a78caa90d7ef16095ed55f568f9db59c8bc8738f8baa2b",
+          "files": 11,
+          "checkpoint_sha256": "f47634b0c7dcf13a05788f175b40afe38f5cd7a41426c8046e0f2dce0f75238a",
+          "status": "validated-static-hold"
+        },
+        {
+          "packet": "exports/g1-tasks-20261117/jump-preview",
+          "entry_sha256": "483db89b1482ea0537abbc91dff6bd818c60c20407a2262069f7dec791bee6a6",
+          "files": 11,
+          "checkpoint_sha256": "2fd371dc544e4a8eda6c39c4529c6fdca1d1f31fe8b0a3ca39151b9c10cf120a",
+          "status": "unaccepted-preview"
+        },
+        {
+          "packet": "exports/g1-tasks-20261117/dance-preview",
+          "entry_sha256": "d11a86cd66faefafbfea578f12a52422eb34a05b90c9ab35644b8f85dfb8106a",
+          "files": 11,
+          "checkpoint_sha256": "3735896ba6dc398c5bf36b94202b3ee7b77470f77ddad0759455bd15ea1cbf43",
+          "status": "unaccepted-preview"
+        },
+        {
+          "packet": "exports/g1-tasks-20261117/fight-preview",
+          "entry_sha256": "8afbcb6c02ca8b06c83f5a7d804b7c77060216465c779aa3ffe6e39c47b7f80c",
+          "files": 11,
+          "checkpoint_sha256": "eb9a6a00c768fb145c056cb68ac947a503bb52c8de4af5471c6b87f5ff06c5da",
+          "status": "unaccepted-preview"
+        },
+        {
+          "packet": "exports/g1-tasks-20261117/stand-hold-600",
+          "entry_sha256": "d383651ea16c6daf2febb2793438330b9f29fb10bfe588eac08ce2f0e17288f1",
+          "files": 18,
+          "checkpoint_sha256": "6984a9c7ea58c96834349941e986e3b28f6bddba706448c9c3f690e8f248a5f8",
+          "status": "validated-static-hold"
+        },
+        {
+          "packet": "exports/g1-tasks-20261117b/jump30",
+          "entry_sha256": "2b844fbf8827b3d9f278f8aa9869a3ad7285f3825c84ac0f2df3d94d262ebeeb",
+          "files": 11,
+          "checkpoint_sha256": "c511d5bffe21965e3ffda9680d636d4558d708b00f8c5b1795e329cb6f136494",
+          "status": "strict-skill-pass"
+        },
+        {
+          "packet": "exports/g1-tasks-20261117b/jump120",
+          "entry_sha256": "7d718f98e62e0450377f81357e47b50775e9ac831ff0e2a30c73930f5c2f75b8",
+          "files": 11,
+          "checkpoint_sha256": "a4db166b41d4361cd121fae3941c8ce9327d454df24d6a4154b5e8d79dccc746",
+          "status": "strict-skill-pass"
+        },
+        {
+          "packet": "exports/g1-tasks-20261117c/stand-hold-600-reset040",
+          "entry_sha256": "236e0304fa7fbd0deaeb63a6793bc7fe63c2c6ecba0537f6e243766f0acc9a3a",
+          "files": 33,
+          "checkpoint_sha256": "0c96f5084c427b9c68a5c5a9d437dcc9bfae2dd905c99a0c695d1a46fab2aba3",
+          "status": "validated-static-hold"
+        }
+      ],
+      "scope": "Catalog/entry agreement and actual listed artifact/checkpoint hashes; no new quality or hardware claim."
+    }
+  },
+  "window_closure": {
+    "local_report": "runs/task-optimization-20261118/window-closure.json",
+    "sha256": "196a8561715ddc0019c6a1a704ff37bb8ff39b288c7990dce95f7439a4e833c6",
+    "result": {
+      "status": "complete",
+      "actual_end_utc": "2026-11-18T14:47:12.102186+00:00",
+      "elapsed_seconds": 14419.102186,
+      "new_models_adopted": 0,
+      "all_requested_checks_complete": true
+    }
+  }
+}
