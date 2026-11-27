@@ -64,7 +64,6 @@ class PolicyRunner:
         self.history.reset()
         self.previous_action.fill(0)
 
-    @torch.inference_mode()
     def act(
         self,
         q: np.ndarray,
@@ -73,12 +72,23 @@ class PolicyRunner:
         angular_velocity_body: np.ndarray,
         goal: np.ndarray,
     ) -> tuple[np.ndarray, np.ndarray]:
+        return self._act_with_gravity(q, qd, gravity(root_quat), angular_velocity_body, goal)
+
+    @torch.inference_mode()
+    def _act_with_gravity(
+        self,
+        q: np.ndarray,
+        qd: np.ndarray,
+        projected_gravity: np.ndarray,
+        angular_velocity_body: np.ndarray,
+        goal: np.ndarray,
+    ) -> tuple[np.ndarray, np.ndarray]:
         observation = np.concatenate(
             [
                 q - self.default_q,
                 qd,
                 angular_velocity_body,
-                gravity(root_quat),
+                projected_gravity,
                 self.previous_action,
             ]
         )

@@ -200,3 +200,37 @@ def test_atomic_checkpoint_publication_cannot_change_export_provenance(tmp_path,
     assert contract["checkpoint_sha256"] == expected
     assert contract["checkpoint_sha256"] != sha256(checkpoint)
     assert contract["checkpoint_iteration"] == 12
+
+
+def test_contact_rows_accumulate_in_native_order_and_clear_previous_sample(monkeypatch):
+    frames = np.tile(np.eye(3).reshape(1, 9), (5, 1))
+    frames[1] = np.array([[0.0, -1.0, 0.0], [1.0, 0.0, 0.0], [0.0, 0.0, 1.0]]).ravel()
+    contacts = SimpleNamespace(
+        geom=np.array([[5, 2], [3, 5], [5, -1], [5, 7], [2, 3]]),
+        frame=frames,
+        dist=np.array([0.0, 0.0, -0.02, -0.03, -1.0]),
+    )
+    data = SimpleNamespace(time=0.02, ncon=5, contact=contacts)
+    applied = [(1, 2, 3), (4, 5, 6), (0, 0, 0.002), (0, 0, 0.0005)]
+    calls = []
+
+    def contact_force(model, current, index, out):
+        assert current is data
+        calls.append(index)
+        out[:3] = applied[index]
+        out[3:] = 0
+
+    monkeypatch.setattr(runtime.mujoco, "mj_contactForce", contact_force)
+    row, scratch = np.empty(13), np.empty(6)
+    runtime._record_contact_row(None, data, {5}, {2: 0, 3: 1}, scratch, row)
+
+    assert calls == [0, 1, 2, 3]
+    np.testing.assert_array_equal(
+        row, [0.02, 1, 2, 3, -5, 4, -6, 0, 0, 0.0025, 1, 0.03, 5]
+    )
+
+    data.time = 0.025
+    data.ncon = 0
+    data.contact = SimpleNamespace(geom=np.empty((0, 2)), frame=np.empty((0, 9)), dist=[])
+    runtime._record_contact_row(None, data, {5}, {2: 0, 3: 1}, scratch, row)
+    np.testing.assert_array_equal(row, [0.025, *([0] * 12)])

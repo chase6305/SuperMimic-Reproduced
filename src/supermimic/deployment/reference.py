@@ -54,11 +54,13 @@ class MotionReference:
         heading = Rotation.from_quat(
             np.stack([zeros, zeros, np.sin(yaw / 2), np.cos(yaw / 2)], axis=-1)
         )
+        root_gravity = gravity(self.root_quat)
+        self.root_gravity_z = root_gravity[:, 2].copy()
         self.features = np.concatenate(
             [
                 self.q - default_q,
                 self.qd,
-                gravity(self.root_quat),
+                root_gravity,
                 r.inv().apply(self.root_ang),
                 heading.inv().apply(self.root_lin),
                 self.root_pos[:, 2:3],
