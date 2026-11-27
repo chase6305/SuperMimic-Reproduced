@@ -74,3 +74,21 @@ def test_airborne_runs_reject_contact_and_short_gaps():
     contacts[:, 6] = 100  # right foot alone supports the body
     assert airborne_metrics(contacts, 0.005)["airborne_substeps"] == 0
     assert airborne_metrics(np.zeros((0, 13)), 0.005)["longest_airborne_s"] == 0
+
+
+def test_airborne_intervals_and_force_peaks_across_contact_chunks(monkeypatch):
+    from supermimic.deployment import metrics
+
+    monkeypatch.setattr(metrics, "_CONTACT_CHUNK_SIZE", 8)
+    contacts = np.zeros((29, 13), dtype=np.float64)
+    contacts[:, 1] = 2.0
+    contacts[5:14, 1] = 0.0
+    contacts[21:27, 1] = 0.0
+    contacts[19, 7:10] = (1.0, 4.0, 0.0)
+    stats = airborne_metrics(contacts, 0.005)
+    assert stats["airborne_substeps"] == 15
+    assert stats["airborne_time_s"] == 0.005 * 15
+    assert stats["longest_airborne_s"] == 0.005 * 9
+    assert stats["airborne_intervals_ge_40ms"] == 1
+    assert metrics._max_ground_force(contacts) == 5.0
+    assert metrics._max_ground_force(contacts[:0]) == 0.0

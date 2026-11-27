@@ -12,6 +12,8 @@ if TYPE_CHECKING:
 
 __all__ = ["airborne_metrics", "tracking_metrics"]
 
+_CONTACT_CHUNK_SIZE = 65_536
+
 
 def airborne_metrics(physical_contacts: np.ndarray, physics_dt: float) -> dict:
     """Observed unloaded intervals; these alone do not establish successful jumps."""
@@ -20,18 +22,31 @@ def airborne_metrics(physical_contacts: np.ndarray, physics_dt: float) -> dict:
     physical = np.asarray(physical_contacts)
     if physical.ndim != 2 or physical.shape[1] != 13:
         raise ValueError("Expected physical contact records with 13 columns")
-    foot_load = np.linalg.norm(physical[:, 1:7].reshape(-1, 2, 3), axis=-1)
-    unloaded = (foot_load < 1.0).all(-1) & (physical[:, 10] == 0)
-    changes = np.diff(np.concatenate([[False], unloaded, [False]]).astype(np.int8))
-    lengths = np.flatnonzero(changes == -1) - np.flatnonzero(changes == 1)
-    durations = lengths * physics_dt
+    unloaded = np.empty(len(physical), dtype=bool)
+    for begin in range(0, len(physical), _CONTACT_CHUNK_SIZE):
+        end = begin + _CONTACT_CHUNK_SIZE
+        rows = physical[begin:end]
+        foot_load = np.linalg.norm(rows[:, 1:7].reshape(-1, 2, 3), axis=-1)
+        unloaded[begin:end] = (foot_load < 1.0).all(-1) & (rows[:, 10] == 0)
+    boundaries = np.flatnonzero(np.diff(unloaded, prepend=False, append=False))
+    durations = (boundaries[1::2] - boundaries[::2]) * physics_dt
+    samples = unloaded.sum()
     return {
-        "airborne_substeps": int(unloaded.sum()),
-        "airborne_time_s": float(unloaded.sum() * physics_dt),
+        "airborne_substeps": int(samples),
+        "airborne_time_s": float(samples * physics_dt),
         "longest_airborne_s": float(durations.max()) if len(durations) else 0.0,
         "airborne_intervals_ge_40ms": int(np.count_nonzero(durations >= 0.04)),
         "airborne_definition": "Each foot solved-force norm below 1 N, no nonfoot ground force; sampled every physics substep. Unloaded intervals are not a jump-success metric.",
     }
+
+
+def _max_ground_force(physical: np.ndarray) -> float:
+    peak = 0.0
+    for begin in range(0, len(physical), _CONTACT_CHUNK_SIZE):
+        rows = physical[begin : begin + _CONTACT_CHUNK_SIZE]
+        total_force = rows[:, 1:10].reshape(-1, 3, 3).sum(axis=1)
+        peak = np.maximum(peak, np.linalg.norm(total_force, axis=-1).max())
+    return float(peak)
 
 
 def __getattr__(name):

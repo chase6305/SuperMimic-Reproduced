@@ -257,7 +257,11 @@ def _deploy(
             max_root_tilt_error=max_tilt_error,
             max_joint_error_rad=max_joint_error,
         )
-        from supermimic.deployment.metrics import airborne_metrics, tracking_metrics
+        from supermimic.deployment.metrics import (
+            _max_ground_force,
+            airborne_metrics,
+            tracking_metrics,
+        )
 
         record["tracking"] = tracking_metrics(
             states[: actual_steps + 1], actions[:actual_steps], frames[:actual_steps], motion, c
@@ -268,11 +272,7 @@ def _deploy(
             "physics_substeps": contact_steps,
             "nonfoot_ground_force_substeps": int(np.count_nonzero(physical[:, 10] > 0)),
             "max_nonfoot_penetration_m": float(physical[:, 11].max()) if contact_steps else 0.0,
-            "max_ground_force_N": float(
-                np.linalg.norm(physical[:, 1:10].reshape(-1, 3, 3).sum(axis=1), axis=-1).max()
-            )
-            if contact_steps
-            else 0.0,
+            "max_ground_force_N": _max_ground_force(physical),
             "source": "actual CPU MuJoCo solved forces immediately after each physics substep",
         }
         return record
