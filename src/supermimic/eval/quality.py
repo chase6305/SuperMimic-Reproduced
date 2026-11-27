@@ -11,9 +11,9 @@ def worst_window_rmse(squared_errors: np.ndarray, window: int) -> np.ndarray:
     count = min(window, len(values))
     if count < 1:
         raise ValueError("A positive window and nonempty errors are required")
-    cumulative = np.concatenate(
-        [np.zeros((1, *values.shape[1:])), np.cumsum(values, axis=0)], axis=0
-    )
+    cumulative = np.empty((len(values) + 1, *values.shape[1:]), dtype=np.float64)
+    cumulative[0] = 0
+    np.cumsum(values, axis=0, out=cumulative[1:])
     means = (cumulative[count:] - cumulative[:-count]) / count
     return np.sqrt(np.maximum(means, 0).max(axis=0))
 
@@ -33,9 +33,11 @@ def motion_quality(
     error = actual[:, 7:36] - target
     actual_centered = actual[:, 7:36] - actual[:, 7:36].mean(0)
     target_centered = target - target.mean(0)
-    active = target.std(0) >= 0.1
+    actual_std = actual[:, 7:36].std(0)
+    target_std = target.std(0)
+    active = target_std >= 0.1
     covariance = (actual_centered * target_centered).mean(0)
-    denominator = actual[:, 7:36].std(0) * target.std(0)
+    denominator = actual_std * target_std
     correlation = np.divide(covariance, denominator, out=np.zeros(29), where=denominator > 1e-8)
     root_position = reference["body_pos_w"][frames, root_index]
     root_orientation = reference["body_quat_w"][frames, root_index].astype(np.float64)
@@ -50,8 +52,8 @@ def motion_quality(
     amplitude = {}
     for name, sl in (("legs", slice(0, 12)), ("waist", slice(12, 15)), ("arms", slice(15, 29))):
         use = active[sl]
-        numerator = np.square(actual[:, 7:36].std(0)[sl][use]).sum()
-        denominator = np.square(target.std(0)[sl][use]).sum()
+        numerator = np.square(actual_std[sl][use]).sum()
+        denominator = np.square(target_std[sl][use]).sum()
         amplitude[name] = float(np.sqrt(numerator / denominator)) if denominator > 1e-8 else None
     reference_gravity_z = -(1 - 2 * np.square(root_orientation[:, 1:3]).sum(-1))
     actual_gravity_z = -(1 - 2 * np.square(actual_orientation[:, 1:3]).sum(-1))

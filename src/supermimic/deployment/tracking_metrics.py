@@ -34,25 +34,25 @@ def tracking_metrics(
     with np.load(motion, allow_pickle=False) as data:
         names = data["body_names"].tolist()
         body_indices = [names.index(name) for name in TRACKED_BODIES]
-        root_index = names.index(ROOT_BODY)
+        root_index = TRACKED_BODIES.index(ROOT_BODY)
         reference = {
-            key: data[key].copy()
+            key: np.take(data[key], body_indices, axis=1)
             for key in (
                 "body_pos_w",
                 "body_quat_w",
                 "body_lin_vel_w",
                 "body_ang_vel_w",
-                "joint_pos",
             )
         }
-        expected_steps = len(data["joint_pos"]) - 1
+        reference["joint_pos"] = data["joint_pos"]
+        expected_steps = len(reference["joint_pos"]) - 1
     totals = {}
     xy_sq = joint_sq = velocity_sq = yaw_sq = body_sq = 0.0
     yaw_max = 0.0
     actual_speed_sum = reference_speed_sum = 0.0
     xy_max = 0.0
     n = len(actions)
-    body_errors = []
+    body_errors = np.empty((n, len(TRACKED_BODIES)), dtype=np.float32)
     previous_actions = np.concatenate([np.zeros((1, 29), dtype=np.float32), actions[:-1]])
     for begin in range(0, n, 128):
         end = min(begin + 128, n)
@@ -62,7 +62,7 @@ def tracking_metrics(
         previous = torch.tensor(previous_actions[begin:end])
         ref = ReferenceFrame(
             *[
-                torch.tensor(reference[key][indices][:, body_indices], dtype=torch.float32)
+                torch.tensor(reference[key][indices], dtype=torch.float32)
                 for key in ("body_pos_w", "body_quat_w", "body_lin_vel_w", "body_ang_vel_w")
             ],
             torch.tensor(reference["body_pos_w"][indices, root_index], dtype=torch.float32),
@@ -81,7 +81,7 @@ def tracking_metrics(
         )
         per_body = (relative - bodies["pos"]).square().sum(-1)
         body_sq += float(per_body.sum())
-        body_errors.append(per_body.numpy())
+        body_errors[begin:end] = per_body.numpy()
         for key, values in terms.items():
             totals[key] = totals.get(key, 0.0) + float(values.sum())
         xy = np.linalg.norm(
@@ -119,12 +119,12 @@ def tracking_metrics(
             zip(
                 TRACKED_BODIES,
                 worst_window_rmse(
-                    np.concatenate(body_errors), max(1, round(1 / contract["control_dt"]))
+                    body_errors, max(1, round(1 / contract["control_dt"]))
                 ).tolist(),
                 strict=True,
             )
         )
-        if body_errors
+        if n
         else {},
         "root_xy_velocity_rmse_mps": (velocity_sq / max(n, 1)) ** 0.5,
         "mean_root_xy_speed_mps": actual_speed_sum / max(n, 1),
