@@ -27,14 +27,15 @@ def _record_contact_row(model, data, floor_geoms, foot_sides, local_force, row):
     nonfoot_count = 0
     max_depth = 0.0
     contacts = data.contact
-    frames, distances = contacts.frame, contacts.dist
-    for contact_id, (one, two) in enumerate(contacts.geom):
-        one, two = int(one), int(two)
+    world_from_contact = contacts.frame.reshape(-1, 3, 3).transpose(0, 2, 1)
+    distances = contacts.dist
+    linear_force = local_force[:3]
+    for contact_id, (one, two) in enumerate(contacts.geom.tolist()):
         one_is_floor, two_is_floor = one in floor_geoms, two in floor_geoms
         if not (one_is_floor or two_is_floor):
             continue
         mujoco.mj_contactForce(model, data, contact_id, local_force)
-        world_force = frames[contact_id].reshape(3, 3).T @ local_force[:3]
+        world_force = world_from_contact[contact_id] @ linear_force
         other = two if one_is_floor else one
         if two_is_floor:
             world_force = -world_force
