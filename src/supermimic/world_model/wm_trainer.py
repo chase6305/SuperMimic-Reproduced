@@ -42,14 +42,23 @@ class WorldModelTrainer:
         ]
         return self.wm.window_loss(w.states, w.a_exec, w.xi, w.done, refs)
 
-    def update(self, buffer: ReplayBuffer) -> dict[str, float]:
+    def update(
+        self, buffer: ReplayBuffer, *, window_mask: torch.Tensor | None = None
+    ) -> dict[str, float]:
         agg: dict[str, torch.Tensor] = {}
         counts: dict[str, int] = {}
         specs = [(self.cfg.window, "")] * self.cfg.batches_per_update + [
             (1, "one_step/")
         ] * self.cfg.one_step_batches_per_update
+        # Minibatch updates leave the replay rows and pointers fixed.
+        masks = None if window_mask is None else {self.cfg.window: window_mask}
         for window, prefix in specs:
-            w = buffer.sample_windows(self.cfg.batch_size, window)
+            if masks is None:
+                w = buffer.sample_windows(self.cfg.batch_size, window)
+            else:
+                if window not in masks:
+                    masks[window] = buffer.window_mask(window)
+                w = buffer.sample_windows(self.cfg.batch_size, window, mask=masks[window])
             loss, m = self.loss_on(w)
             if not torch.isfinite(loss):
                 raise FloatingPointError("Non-finite world-model loss")

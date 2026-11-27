@@ -72,3 +72,29 @@ def test_reset_curriculum_samples_real_reset_rows_with_correct_history():
     assert (mixed.state[:, 0] == 0).sum() >= 10
     buffer.ep_start[:] = False
     assert buffer.sample_starts(20, 10, reset_start_fraction=1.0).state.shape == (20, 71)
+
+
+def test_window_mask_keeps_ring_chronology_and_terminal_targets():
+    buffer = ReplayBuffer(2, 11, 1, 1, 1, "cpu")
+    buffer.valid[:] = True
+    buffer.ptr[:] = torch.tensor([4, 8])
+    buffer.ep_id[1, 8:] = 1
+    buffer.ep_id[1, :2] = 1
+    buffer.ep_id[1, 2:8] = 2
+    buffer.terminal[1, 1] = True
+    buffer.valid[1, 6] = False
+
+    for length in (0, 1, 3, 4, 8, 10, 11):
+        for env in range(buffer.E):
+            expected = []
+            ptr = int(buffer.ptr[env])
+            for t in range(buffer.T):
+                rows = [(t + step) % buffer.T for step in range(length + 1)]
+                allowed = (
+                    (ptr - t - 1) % buffer.T >= length
+                    and all(buffer.valid[env, row] for row in rows)
+                    and all(buffer.ep_id[env, row] == buffer.ep_id[env, t] for row in rows)
+                    and not any(buffer.terminal[env, row] for row in rows[: max(length, 1)])
+                )
+                expected.append(allowed)
+            assert buffer.window_mask(length)[env].tolist() == expected

@@ -343,10 +343,12 @@ class Trainer:
             self.iteration += 1
 
             # ---------------- (2)+(3) updates at the configured update-to-data ratio
-            if (
-                self.iteration >= self._updates_after
-                and self.buffer.window_mask(cfg.wm_trainer.window).any()
-            ):
+            window_mask = (
+                self.buffer.window_mask(cfg.wm_trainer.window)
+                if self.iteration >= self._updates_after
+                else None
+            )
+            if window_mask is not None and window_mask.any():
                 self._utd_acc += sch.updates_per_env_step
                 while self._utd_acc >= 1.0:
                     self._utd_acc -= 1.0
@@ -360,7 +362,7 @@ class Trainer:
                     self.wm_trainer.set_lr(lr)
                     self.policy_trainer.set_lr(lr * cfg.policy_trainer.lr / cfg.wm_trainer.lr)
                     t0 = time.perf_counter()
-                    m_wm = self.wm_trainer.update(self.buffer)
+                    m_wm = self.wm_trainer.update(self.buffer, window_mask=window_mask)
                     torch.cuda.synchronize()
                     timers["wm"] += time.perf_counter() - t0
                     t0 = time.perf_counter()
