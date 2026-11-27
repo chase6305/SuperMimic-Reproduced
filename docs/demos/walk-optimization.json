@@ -707,7 +707,7 @@
           },
           "passed": true,
           "actor_only": true,
-          "candidate_label": "\u53c2\u6570\u63d2\u503c\uff08\u7eed\u8bad\u6743\u91cd 25%\uff09"
+          "candidate_label": "参数插值（续训权重 25%）"
         }
       ]
     },
@@ -746,7 +746,7 @@
           },
           "passed": true,
           "actor_only": true,
-          "candidate_label": "\u53c2\u6570\u63d2\u503c\uff08\u7eed\u8bad\u6743\u91cd 40%\uff09"
+          "candidate_label": "参数插值（续训权重 40%）"
         }
       ]
     },
@@ -785,7 +785,7 @@
           },
           "passed": true,
           "actor_only": true,
-          "candidate_label": "\u53c2\u6570\u63d2\u503c\uff08\u7eed\u8bad\u6743\u91cd 50%\uff09"
+          "candidate_label": "参数插值（续训权重 50%）"
         }
       ]
     },
@@ -824,7 +824,7 @@
           },
           "passed": true,
           "actor_only": true,
-          "candidate_label": "\u53c2\u6570\u63d2\u503c\uff08\u7eed\u8bad\u6743\u91cd 60%\uff09"
+          "candidate_label": "参数插值（续训权重 60%）"
         }
       ]
     },
@@ -863,7 +863,7 @@
           },
           "passed": true,
           "actor_only": true,
-          "candidate_label": "\u53c2\u6570\u63d2\u503c\uff08\u7eed\u8bad\u6743\u91cd 75%\uff09"
+          "candidate_label": "参数插值（续训权重 75%）"
         }
       ]
     }
@@ -895,7 +895,7 @@
     },
     "passed": true,
     "actor_only": true,
-    "candidate_label": "\u53c2\u6570\u63d2\u503c\uff08\u7eed\u8bad\u6743\u91cd 50%\uff09"
+    "candidate_label": "参数插值（续训权重 50%）"
   },
   "candidate_verification": {
     "bundle": "runs/demo-pr/walk-evaluations/alpha-050/alpha-050/bundle",
@@ -2912,5 +2912,926 @@
         }
       }
     }
+  },
+  "compact_walk": {
+    "selected": true,
+    "selection": {
+      "trial": "mixed-compact-tempo-child-075",
+      "checkpoint": "runs/opt-7h/walk-mixed/mixed-compact-tempo-child-075.pt",
+      "iteration": 107,
+      "bundle": "runs/opt-7h/walk-evaluations/mixed-compact-tempo-child-075/mixed-compact-tempo-child-075/bundle",
+      "result": "runs/opt-7h/walk-evaluations/mixed-compact-tempo-child-075/mixed-compact-tempo-child-075/deploy/result.json",
+      "result_sha256": "8d0fd275162a6fa0f94154577446fdc86ea41b71b25d0c8d125b595a620710c9",
+      "steps": 13065,
+      "completed_motion": true,
+      "failure": null,
+      "xy_rmse_m": 0.19607430785117358,
+      "xy_peak_m": 0.6032872839050896,
+      "joint_rmse_rad": 0.29106185989862543,
+      "return": 0.8299966699722121,
+      "nonfoot_ground_force_substeps": 0,
+      "joint_groups_rad": {
+        "legs": 0.21161268073494502,
+        "waist": 0.09377140676413782,
+        "arms": 0.367720277267171
+      },
+      "trajectory_sha256": "03c8f3b484c37a7907b7eba075955041fcc06a6715cd73521c873ebb25394848",
+      "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+      "checks": {
+        "full_reference": true,
+        "nonfoot_ground_force": true,
+        "xy_rmse": true,
+        "xy_peak": true,
+        "joints": true,
+        "return": true,
+        "meaningful_gain": true
+      },
+      "qualifies": true,
+      "ranking_score": 1.7298024204472844,
+      "deployment_seconds": 8.182010623975657
+    },
+    "interpolation": {
+      "sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+      "origin_sha256": "2374196a1da2f8a323379c1e580d18f26a58038e8491e1ca97e7f2ab99d88319",
+      "target_sha256": "09851b013723749d924b90dc389f94c49eb4e2cbd00131736534140c6aaf5bb8",
+      "origin_iteration": 120,
+      "target_iteration": 107,
+      "target_weight": 0.75,
+      "method": "torch.lerp per floating parameter",
+      "source_motion_files": {
+        "origin": {
+          "walk1_subject1.npz": "4598698aa035c52ba160986e05796cb525df557d1879266e933c40a65994c041"
+        },
+        "target": {
+          "walk1_subject1.npz": "4598698aa035c52ba160986e05796cb525df557d1879266e933c40a65994c041"
+        }
+      }
+    },
+    "median_runtime_s": {
+      "teacher": 18.65007603605045,
+      "student": 7.984820943966042
+    },
+    "actor_bytes": {
+      "teacher": 35653396,
+      "student": 17038100
+    },
+    "parameters": {
+      "teacher": 8909629,
+      "student": 4255805
+    },
+    "qualifies": true,
+    "selection_gates": {
+      "candidate": "selected625-onpolicy-e120",
+      "teacher": "mixed-prior-pose12-050",
+      "before_viewing_novel_variation_metrics": true,
+      "standard_group_checks": [
+        "windows",
+        "known-placements",
+        "fresh-placements"
+      ],
+      "new_placements": {
+        "require_all_predeclared_checks": true
+      },
+      "new_starts": {
+        "complete": true,
+        "no_nonfoot_ground_force": true,
+        "xy_multiplier": 1.4,
+        "peak_multiplier": 1.5,
+        "joint_increase_rad": 0.015,
+        "return_drop": 0.025
+      },
+      "tempo_cases": {
+        "complete": true,
+        "no_nonfoot_ground_force": true,
+        "xy_multiplier": 1.2,
+        "mean_xy_multiplier": 1.05,
+        "peak_multiplier": 1.35,
+        "joint_increase_rad": 0.01,
+        "return_drop": 0.01
+      },
+      "median_native_runtime_multiplier": 0.8,
+      "require_exact_independent_replay": true,
+      "scope": "Original reference with controller timing, reset start and rigid transform variants. No independent walking motion.",
+      "applied_to": "mixed-compact-tempo-child-075"
+    },
+    "checks": {
+      "original_full_reference": {
+        "complete": true,
+        "contact": true,
+        "xy": true,
+        "peak": true,
+        "joints": true,
+        "return": true,
+        "trajectory_exact_after_fresh_export": true
+      },
+      "windows": {
+        "65-85": {
+          "complete": true,
+          "nonfoot": true,
+          "xy": true,
+          "peak": true,
+          "joint": true,
+          "return": true
+        },
+        "137-157": {
+          "complete": true,
+          "nonfoot": true,
+          "xy": true,
+          "peak": true,
+          "joint": true,
+          "return": true
+        },
+        "238-258": {
+          "complete": true,
+          "nonfoot": true,
+          "xy": true,
+          "peak": true,
+          "joint": true,
+          "return": true
+        }
+      },
+      "known-placements": {
+        "translated": {
+          "complete": true,
+          "nonfoot": true,
+          "xy": true,
+          "peak": true,
+          "joint": true,
+          "return": true,
+          "runtime": true
+        },
+        "yaw-90-translated": {
+          "complete": true,
+          "nonfoot": true,
+          "xy": true,
+          "peak": true,
+          "joint": true,
+          "return": true,
+          "runtime": true
+        },
+        "yaw-minus-37-translated": {
+          "complete": true,
+          "nonfoot": true,
+          "xy": true,
+          "peak": true,
+          "joint": true,
+          "return": true,
+          "runtime": true
+        }
+      },
+      "fresh-placements": {
+        "yaw-+137": {
+          "complete": true,
+          "nonfoot": true,
+          "xy": true,
+          "peak": true,
+          "joint": true,
+          "return": true,
+          "runtime": true
+        },
+        "yaw--79": {
+          "complete": true,
+          "nonfoot": true,
+          "xy": true,
+          "peak": true,
+          "joint": true,
+          "return": true,
+          "runtime": true
+        }
+      },
+      "new-placements": {
+        "extra-yaw-+51": {
+          "complete": true,
+          "xy": true,
+          "peak": true,
+          "joints": true,
+          "return": true,
+          "contact": true,
+          "runtime": true
+        },
+        "extra-yaw--154": {
+          "complete": true,
+          "xy": true,
+          "peak": true,
+          "joints": true,
+          "return": true,
+          "contact": true,
+          "runtime": true
+        }
+      },
+      "fresh-starts": {
+        "start-27.6-47.6": {
+          "complete": true,
+          "contact": true,
+          "xy": true,
+          "peak": true,
+          "joints": true,
+          "return": true
+        },
+        "start-106.2-126.2": {
+          "complete": true,
+          "contact": true,
+          "xy": true,
+          "peak": true,
+          "joints": true,
+          "return": true
+        },
+        "start-228.4-248.4": {
+          "complete": true,
+          "contact": true,
+          "xy": true,
+          "peak": true,
+          "joints": true,
+          "return": true
+        }
+      },
+      "tempo": {
+        "tempo-0.97": {
+          "complete": true,
+          "contact": true,
+          "xy": true,
+          "peak": true,
+          "joints": true,
+          "return": true
+        },
+        "tempo-1.03": {
+          "complete": true,
+          "contact": true,
+          "xy": true,
+          "peak": true,
+          "joints": true,
+          "return": true
+        }
+      },
+      "unseen-tempo": {
+        "tempo-0.985": {
+          "complete": true,
+          "contact": true,
+          "xy": true,
+          "peak": true,
+          "joints": true,
+          "return": true
+        },
+        "tempo-1.015": {
+          "complete": true,
+          "contact": true,
+          "xy": true,
+          "peak": true,
+          "joints": true,
+          "return": true
+        }
+      },
+      "tempo-holdout": {
+        "tempo-0.99": {
+          "complete": true,
+          "contact": true,
+          "xy": true,
+          "peak": true,
+          "joints": true,
+          "return": true
+        },
+        "tempo-1.01": {
+          "complete": true,
+          "contact": true,
+          "xy": true,
+          "peak": true,
+          "joints": true,
+          "return": true
+        }
+      },
+      "speed": {
+        "exact_repeats": true,
+        "within_median_runtime_limit": true
+      },
+      "mean_tempo_xy": {
+        "four": true,
+        "all_six": true
+      }
+    },
+    "mean_tempo_xy_ratio": {
+      "four": 0.9600815642483091,
+      "all_six": 0.9688054538881459
+    },
+    "verification": {
+      "bitwise_replay": true,
+      "contract_sha256": "741a803136973fd26c86af0def0dbdf4cf6e8febb46afb6bb4679c183f2539e5",
+      "result_sha256": "1d34b067dc364dc07507726660d2e5cd452d1f81cdf029db5a76571dc554203a",
+      "fresh_bundle": "runs/opt-7h/walk-final/mixed-compact-tempo-child-075/bundle",
+      "fresh_trajectory": "runs/opt-7h/walk-final/mixed-compact-tempo-child-075/deploy/trajectory.npz",
+      "gif_manifest_entry": {
+        "bundle": "runs/opt-7h/walk-final/mixed-compact-tempo-child-075/bundle",
+        "trajectory": "runs/opt-7h/walk-final/mixed-compact-tempo-child-075/deploy/trajectory.npz",
+        "gif_sha256": "24c0b78758fa1a948e36ab88df9e6578573776e1e4038411caec081511a10557",
+        "size_bytes": 629858,
+        "first_source_frame": 12250,
+        "source_start_seconds": 245.0,
+        "source_end_seconds": 249.9,
+        "duration_s": 5.0,
+        "width": 384,
+        "height": 288,
+        "fps": 10,
+        "frames": 50,
+        "renderer": "llvmpipe (LLVM 15.0.7, 256 bits)",
+        "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+        "trajectory_sha256": "03c8f3b484c37a7907b7eba075955041fcc06a6715cd73521c873ebb25394848",
+        "contract_sha256": "741a803136973fd26c86af0def0dbdf4cf6e8febb46afb6bb4679c183f2539e5",
+        "result_sha256": "1d34b067dc364dc07507726660d2e5cd452d1f81cdf029db5a76571dc554203a"
+      }
+    },
+    "same_motion_variants": {
+      "windows": {
+        "65-85": {
+          "motion_sha256": "95cc9897a985f6e315ed686c853be7ea6a5eef11cf35e7e92de26c0eab286f77",
+          "previous": {
+            "steps": 1000,
+            "completed_motion": true,
+            "xy_rmse_m": 0.11930082864201241,
+            "xy_peak_m": 0.25271227659128415,
+            "joint_rmse_rad": 0.16990874529526645,
+            "return": 0.877493143081665,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "961fd8cc0c6c4fdd7b62de00ffcea2218cf8e3efd3fffb6da82938f0c6808a99",
+            "result_sha256": "5eb35f631328ad5f56b4ebdbf1c195e12059519908698fc7371ebcc4e1a8df83"
+          },
+          "candidate": {
+            "steps": 1000,
+            "completed_motion": true,
+            "xy_rmse_m": 0.10806105032164036,
+            "xy_peak_m": 0.22637528141644658,
+            "joint_rmse_rad": 0.1692757742496285,
+            "return": 0.8810020160675048,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "d02d0ab6049c31d4051a2edf68e57b059d9f0ae6d18041427c92f3e9b5fc6d93",
+            "result_sha256": "d50f06cd1cd54e5631edae6cacec1c1faf12b5b717353b13b8b47482edd7f358"
+          }
+        },
+        "137-157": {
+          "motion_sha256": "7b3ff853e79b0d549aa7ae1742ae27e466caa964b3f7b059fda97f8cf1e6db69",
+          "previous": {
+            "steps": 1000,
+            "completed_motion": true,
+            "xy_rmse_m": 0.16530767379096659,
+            "xy_peak_m": 0.29147020171005145,
+            "joint_rmse_rad": 0.22626223143729265,
+            "return": 0.8489764213562012,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "de065a6cb36fefcfba3a269d6bc7c7e2ff0629d3317d06b5b315b148eaf6b331",
+            "result_sha256": "c5a87cf7378b306df02c954bb0497f2b2f27f262b0c630799be919fd3b647341"
+          },
+          "candidate": {
+            "steps": 1000,
+            "completed_motion": true,
+            "xy_rmse_m": 0.157549622899897,
+            "xy_peak_m": 0.28879548814134737,
+            "joint_rmse_rad": 0.22638007085660797,
+            "return": 0.8509681415557862,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "862c31437518e144163932159a1257b7358ec7075b4356fd8c238c0612d4f99f",
+            "result_sha256": "5172a6254049c6248672521e8354e1e9fd49149f451fff09ae7444ab42b7d7c0"
+          }
+        },
+        "238-258": {
+          "motion_sha256": "4447040d229505b34e474eb077989378c2a8c2a30acb76860752893be06e479a",
+          "previous": {
+            "steps": 1000,
+            "completed_motion": true,
+            "xy_rmse_m": 0.3581119440907348,
+            "xy_peak_m": 0.8907769863135298,
+            "joint_rmse_rad": 0.5957957961518652,
+            "return": 0.5911550235748291,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "1df3ca51e353799c4f50a11be76d417e8348aed9d9b635009fbbbe19c5cecd41",
+            "result_sha256": "2cd24896bcb0a78d27350e156432d6360232534db5843ba5562a784c50e1b733"
+          },
+          "candidate": {
+            "steps": 1000,
+            "completed_motion": true,
+            "xy_rmse_m": 0.27253915533226425,
+            "xy_peak_m": 0.4783734379763613,
+            "joint_rmse_rad": 0.5981704913110684,
+            "return": 0.5925760412216187,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "528d828b34f160d2aebdfa05c8644a66f8621f6e637ad1864ce849666f80a443",
+            "result_sha256": "74489b28fc12c79c0a955171aab8186adb327120fbb02ce4b43d1789fc59b1e6"
+          }
+        }
+      },
+      "known-placements": {
+        "translated": {
+          "motion_sha256": "59b7b9dfa587c9045f2c14062c421efde312e8325c40de433c3a32af2a358420",
+          "previous": {
+            "steps": 13065,
+            "completed_motion": true,
+            "xy_rmse_m": 0.22498290156859754,
+            "xy_peak_m": 0.8214819497484328,
+            "joint_rmse_rad": 0.2918180823680311,
+            "return": 0.8257638278520294,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "9881408a26a4c11378c3f5cb5efa2d4373e02340b87c62f5a2ccbb5195135d0f",
+            "result_sha256": "62adab2232dca990f0449b93d0ce11a71b20bed5e243ef6fce7017181d6333fa"
+          },
+          "candidate": {
+            "steps": 13065,
+            "completed_motion": true,
+            "xy_rmse_m": 0.19278439322972934,
+            "xy_peak_m": 0.5822957348580879,
+            "joint_rmse_rad": 0.2907492846330906,
+            "return": 0.8310809404604562,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "563178f8b2cfb9e86035fce4ace824e7e57c2fa19c05904a3f3481f336aa415e",
+            "result_sha256": "a8e56a4f2bcbfed819b03a30e43374b93412485c055c7fd4b2bc172f9105cbf8"
+          }
+        },
+        "yaw-90-translated": {
+          "motion_sha256": "29ec31e3d2fa8a8c20761d277ce682ff4590972c391d7dc84e9758774aeb2abe",
+          "previous": {
+            "steps": 13065,
+            "completed_motion": true,
+            "xy_rmse_m": 0.2359277759201431,
+            "xy_peak_m": 0.9504954867527713,
+            "joint_rmse_rad": 0.29087748004461905,
+            "return": 0.8236358341384199,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "8d85cdb49f437794ebe6dc6a8d542d99ec6fe717f706c4ec618a46cbc2154cbb",
+            "result_sha256": "12e348fea207c95a08933a8441868c9a81be6522945445fb6923728964f6e463"
+          },
+          "candidate": {
+            "steps": 13065,
+            "completed_motion": true,
+            "xy_rmse_m": 0.21017527011992262,
+            "xy_peak_m": 0.6159817548510251,
+            "joint_rmse_rad": 0.291156383134873,
+            "return": 0.8270931510326738,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "50de58915a3fd5ce7fd4eae9379879221f7aec8663ec23dd76788f61287394f8",
+            "result_sha256": "29da62cdfff47ef607594e90b444cb7380831513908f5b1f20cf5d6c53b95471"
+          }
+        },
+        "yaw-minus-37-translated": {
+          "motion_sha256": "3f896e8b88eea1472ce32b79b5f59c7a27a4ea398aecd98b647ad712d500ffbb",
+          "previous": {
+            "steps": 13065,
+            "completed_motion": true,
+            "xy_rmse_m": 0.25184085959068725,
+            "xy_peak_m": 0.8531824799106302,
+            "joint_rmse_rad": 0.29201002554762284,
+            "return": 0.8223717693528863,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "c829d8f4c5890cf59898adba38c0367a1daf09adf5163e66b12df6e8f9c44ac4",
+            "result_sha256": "e25ffc8da55e4b064f54feaef157050654842eeff8a36ae0a53387e2c47ace58"
+          },
+          "candidate": {
+            "steps": 13065,
+            "completed_motion": true,
+            "xy_rmse_m": 0.21286912855642962,
+            "xy_peak_m": 0.6057485419340797,
+            "joint_rmse_rad": 0.29147771520890087,
+            "return": 0.826940753931658,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "675010227f6134b89450742c09633c82f872df0be2e821c36fa1aef4e83b6b4c",
+            "result_sha256": "de4041d9956ae975b36d0145e262069a18ad940e82fa89fea5a01dc1e0ff1859"
+          }
+        }
+      },
+      "fresh-placements": {
+        "yaw-+137": {
+          "motion_sha256": "33413d086b0bee22d5dd0a5b062c9e449e070fc21962b3443d49e5c222d7d95d",
+          "previous": {
+            "steps": 13065,
+            "completed_motion": true,
+            "xy_rmse_m": 0.24548569085645916,
+            "xy_peak_m": 0.9583408234169785,
+            "joint_rmse_rad": 0.29066867789141754,
+            "return": 0.8244716537167549,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "2783daa97dc28aecc6f244edb54683fd4bed1bc89954f76a31d7e31f70c5d5a4",
+            "result_sha256": "ca271e5fe9ac04b3e801c6f2372f3569ec7d03eeaadb0014b68a3d7d50d95a7a"
+          },
+          "candidate": {
+            "steps": 13065,
+            "completed_motion": true,
+            "xy_rmse_m": 0.22397652417645061,
+            "xy_peak_m": 0.6206751005893051,
+            "joint_rmse_rad": 0.29103958889017545,
+            "return": 0.8250694794988797,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "b001e4bd5bc8258780486271d94d1c16e633c165e76687e7d38304429e2aec80",
+            "result_sha256": "7048b3d0e9991938db1cd1a833922df6d9b50e29978abb4bf7c20a08efb4eb73"
+          }
+        },
+        "yaw--79": {
+          "motion_sha256": "37e3505e9608fc7b94e19a31d3d462933b08579c5e00fc00952240d0c686e67c",
+          "previous": {
+            "steps": 13065,
+            "completed_motion": true,
+            "xy_rmse_m": 0.2704677051348239,
+            "xy_peak_m": 0.9453566054063365,
+            "joint_rmse_rad": 0.290875358949977,
+            "return": 0.8215305991798719,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "2e38d9bc8a68158b2a2dc4071c968136a5297ad0ff66d7d8793af170c7eb7198",
+            "result_sha256": "60c2a61e561f4f1e7825e1157319d59d066c11be952289c15aed50b176b581d1"
+          },
+          "candidate": {
+            "steps": 13065,
+            "completed_motion": true,
+            "xy_rmse_m": 0.2648505768274489,
+            "xy_peak_m": 0.9604500628817056,
+            "joint_rmse_rad": 0.29046588574311555,
+            "return": 0.821837348861344,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "b914e8b95face39db0bbea083de7abd5e33d7d83dcea775516b8464902109cdf",
+            "result_sha256": "5a4a1b07e91ed320e5f05ff3e77ade4027aa30a4f080f0ba35c19bb0c5ea017d"
+          }
+        }
+      },
+      "new-placements": {
+        "extra-yaw-+51": {
+          "motion_sha256": "2168005cc660f912ca5e9df3df125255590f2247201927b18aa05218af8aa944",
+          "previous": {
+            "steps": 13065,
+            "completed_motion": true,
+            "xy_rmse_m": 0.23449857171774127,
+            "xy_peak_m": 1.004206793854534,
+            "joint_rmse_rad": 0.29173724647118043,
+            "return": 0.8267818812524684,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "c6e0fe844c2ce07e6bf7685f7a1dff1836f23f2d5d84d82c279b591a6d99383b",
+            "result_sha256": "026f82e33322c2f7299abca6dfa2b6602f40dcd87e81d1bdbc6957d7b680304f"
+          },
+          "candidate": {
+            "steps": 13065,
+            "completed_motion": true,
+            "xy_rmse_m": 0.19711608905032638,
+            "xy_peak_m": 0.6466726195549334,
+            "joint_rmse_rad": 0.29082965989025533,
+            "return": 0.8305759450461369,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "0d017debc47965da141fbc1cc0dbd6d3fb949f523444db1e5190f2845f914b3e",
+            "result_sha256": "8f566b5db7fca72e133bce2cca1e13687758f8c552e5be2da770dd08d510e3d3"
+          }
+        },
+        "extra-yaw--154": {
+          "motion_sha256": "ab79bddf423d2e4b2600bf6582d77e333d0ecf6813e3147411d389b877a9cf32",
+          "previous": {
+            "steps": 13065,
+            "completed_motion": true,
+            "xy_rmse_m": 0.25240203267485334,
+            "xy_peak_m": 1.0495476721635617,
+            "joint_rmse_rad": 0.29069050708068755,
+            "return": 0.823823620385244,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "29e9e95037484262973fd426befcffb61299dd89c32c0528d24c8458f1adbf8f",
+            "result_sha256": "b10e689abbe8c4aa0d76e3f3b42040baab517fdb33857dd16c1226aaf357dd05"
+          },
+          "candidate": {
+            "steps": 13065,
+            "completed_motion": true,
+            "xy_rmse_m": 0.21341178535390573,
+            "xy_peak_m": 0.6437441820815021,
+            "joint_rmse_rad": 0.29087149420220776,
+            "return": 0.8269242525465681,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "621c8cbddda020eef35e99c77f0f184079b2cb8f46ede3adee84965538cbbb54",
+            "result_sha256": "61b0a4df445c093a5d98d5d3127235a1cc74d7f0b1510fa08a45d3882f843a12"
+          }
+        }
+      },
+      "fresh-starts": {
+        "start-27.6-47.6": {
+          "motion_sha256": "884686e0768bc8221f7e2145295d0cd32429af3fc6edd1f126a5e187fb40c7fd",
+          "previous": {
+            "steps": 1000,
+            "completed_motion": true,
+            "xy_rmse_m": 0.15535899210083362,
+            "xy_peak_m": 0.2707203178765708,
+            "joint_rmse_rad": 0.16318734493364617,
+            "return": 0.8799688148498536,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "016597c29f54f30bcf088a6d5b6fb48b035cc1caa06fc4a88f637be6d5ecd0e4",
+            "result_sha256": "dd615bb95a7e20162a52427d9b027e0996de6f2afd18aa382af2ba9a40fd120c"
+          },
+          "candidate": {
+            "steps": 1000,
+            "completed_motion": true,
+            "xy_rmse_m": 0.1519984880151805,
+            "xy_peak_m": 0.23450828164181292,
+            "joint_rmse_rad": 0.16336191302414632,
+            "return": 0.8805099773406982,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "58901a7cd4f171cc119c36254c4e4f7d9152057f01da98d97e70576a24434576",
+            "result_sha256": "0af0b33442e3137a16955f3ca40adfbf11ddf7cc8b8a043ee019299af8e64730"
+          }
+        },
+        "start-106.2-126.2": {
+          "motion_sha256": "fa26363b0384b24a8ac19fa43b814aa4120cf674024be651a047d03369272d1c",
+          "previous": {
+            "steps": 1000,
+            "completed_motion": true,
+            "xy_rmse_m": 0.1796069618957472,
+            "xy_peak_m": 0.3346411471276864,
+            "joint_rmse_rad": 0.1688171577386769,
+            "return": 0.8659208202362061,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "98f6cf62d026c61cc8d76ea03629e62a1f057c17e322a573283bd482cb9c45d9",
+            "result_sha256": "d007bed969940f6b94f80fed880d633b2242bb74156c038cd48c3c48811fcd81"
+          },
+          "candidate": {
+            "steps": 1000,
+            "completed_motion": true,
+            "xy_rmse_m": 0.18166062869987093,
+            "xy_peak_m": 0.3227183404693261,
+            "joint_rmse_rad": 0.16830407495497576,
+            "return": 0.8655876922607422,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "e8e54e8292c9626b294502fca71d80652d9d2fa737b76da4fd0fa3b373d4889a",
+            "result_sha256": "fed75fe4c861915e65f03229eca75f6aeac6495f082433ef5efb35d1cec8b4b6"
+          }
+        },
+        "start-228.4-248.4": {
+          "motion_sha256": "8b95152a4414c868766e32ada879ba7f7d37fec40c528de8a12664bd74b37cc9",
+          "previous": {
+            "steps": 1000,
+            "completed_motion": true,
+            "xy_rmse_m": 0.4560611026606539,
+            "xy_peak_m": 0.8468078043038312,
+            "joint_rmse_rad": 0.5959118924258374,
+            "return": 0.5765879535675049,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "0fd15f3f3e65d51a47191fbbfaf45210389fcfd2fb7466dd428cf2e4801c56dc",
+            "result_sha256": "6c5e0e512a31b7620286495b2d0e644d57ba2ea08d5ed2d65e0ce70f3d9cb01f"
+          },
+          "candidate": {
+            "steps": 1000,
+            "completed_motion": true,
+            "xy_rmse_m": 0.349546302241197,
+            "xy_peak_m": 0.7388160084400947,
+            "joint_rmse_rad": 0.5919968593773042,
+            "return": 0.5943635988235474,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "9cf2665f5213fd1b9868701dc7b0b42b7a5c4594605b85a3a84b5dade4c22e84",
+            "result_sha256": "c6a2e86a605ab3300e6eb2603e5c0f22731a92b09c2f61028998b1b9efec74e5"
+          }
+        }
+      },
+      "tempo": {
+        "tempo-0.97": {
+          "motion_sha256": "120ce84fef1d4601157b26560270f0e10619815489827ac49db4a89570d4f526",
+          "previous": {
+            "steps": 13469,
+            "completed_motion": true,
+            "xy_rmse_m": 0.31505139091075074,
+            "xy_peak_m": 0.9225130262732216,
+            "joint_rmse_rad": 0.292005583680103,
+            "return": 0.810379103568466,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "e94fd6c434f0b4788e6b9a95273e1259e1f8829099db121f31460e5364a0c3fe",
+            "result_sha256": "f89722b695555423c5bbb2ebbe9328d10e36fd6112075a4d4fb61f5bacfbeb37"
+          },
+          "candidate": {
+            "steps": 13469,
+            "completed_motion": true,
+            "xy_rmse_m": 0.2494881693597631,
+            "xy_peak_m": 0.7989772953517993,
+            "joint_rmse_rad": 0.2912704303690956,
+            "return": 0.8186660257052433,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "39848714de906d639127c59c9bee94223f07bc9d84fb7c871571a874c2be0686",
+            "result_sha256": "7ff51c54a711c7dc0bfcbc2510f2741c1bde6c875f8a1d84cf471196e2093404"
+          }
+        },
+        "tempo-1.03": {
+          "motion_sha256": "33b8fbd0878b3a71a13d6f0a70a38b938f43aa43e15670aacffc62072b024b35",
+          "previous": {
+            "steps": 12684,
+            "completed_motion": true,
+            "xy_rmse_m": 0.24113369674099613,
+            "xy_peak_m": 1.0462314147837464,
+            "joint_rmse_rad": 0.2906662751112254,
+            "return": 0.8239262104410359,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "c52058a895fa161e2424f988a1687f91a8c269aa8325662d82468d0e1739400a",
+            "result_sha256": "b83ce63aa179b70a616ff1f39de0c400d2da84c55a6bf5368dda16ec5029e327"
+          },
+          "candidate": {
+            "steps": 12684,
+            "completed_motion": true,
+            "xy_rmse_m": 0.24069161195926106,
+            "xy_peak_m": 0.9773895787969724,
+            "joint_rmse_rad": 0.29019042859428157,
+            "return": 0.8258506008613301,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "466bcf4d83503ef6b9a4b4cfa10a534dc3055d629cadf1ea86e29cd491a6037b",
+            "result_sha256": "b41a867f8eb379882c38de31b3c1000dd723be81ef97247e04a0d6c43ee4f117"
+          }
+        }
+      },
+      "unseen-tempo": {
+        "tempo-0.985": {
+          "motion_sha256": "a9ea905ec02c2bd75a23f1f2872356ac96c5c23b2c7d9403ad2dd0866f39a786",
+          "previous": {
+            "steps": 13263,
+            "completed_motion": true,
+            "xy_rmse_m": 0.23594245353360518,
+            "xy_peak_m": 0.6101417776525613,
+            "joint_rmse_rad": 0.29219144361263544,
+            "return": 0.8212638503509454,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "068153908c2f3042fab9694231ab1c6b7551cecb333b7e1632a8f2a1f9cf9b99",
+            "result_sha256": "76f5760c18489460d3122e1f926b10d8a89f06ca5b89d102376eb6d3d861817e"
+          },
+          "candidate": {
+            "steps": 13263,
+            "completed_motion": true,
+            "xy_rmse_m": 0.24329035722907036,
+            "xy_peak_m": 0.7183672238015425,
+            "joint_rmse_rad": 0.2922438788087574,
+            "return": 0.8199692549033554,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "7ce22fa99ff804da1d6893410e18e90c1ebd230cf5a238212dcf1a442faeb13b",
+            "result_sha256": "7032de215659a1a60756731e07653f376d589568921ff6d808883fcc0b741cc2"
+          }
+        },
+        "tempo-1.015": {
+          "motion_sha256": "c3978c605c2b5f1314a8abf9d822eb04aa305889ed332789ca305c8423be9652",
+          "previous": {
+            "steps": 12871,
+            "completed_motion": true,
+            "xy_rmse_m": 0.2183233920174409,
+            "xy_peak_m": 0.6895705950665098,
+            "joint_rmse_rad": 0.2914496039478818,
+            "return": 0.8273207569870671,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "1412e892ea5f59db0b6df76dc0fefe81de42718b06d4f1aeeae93d51c0df5cdd",
+            "result_sha256": "feb4ce7b89f12632ef83326342d0a20398ebe459854cdf722bac1ffcda2a0895"
+          },
+          "candidate": {
+            "steps": 12871,
+            "completed_motion": true,
+            "xy_rmse_m": 0.23664517399740664,
+            "xy_peak_m": 0.87011515248521,
+            "joint_rmse_rad": 0.2915249793592083,
+            "return": 0.8263496040751462,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "997d7d0d76e5452bbd664034f9fa4f94c7f0a63ec70d80727a3ddfec6e740b70",
+            "result_sha256": "671d897e6222d820a5e998ac19d1bebc19073db276badfd21c6106d7c3ae4cbc"
+          }
+        }
+      },
+      "tempo-holdout": {
+        "tempo-0.99": {
+          "motion_sha256": "cc640c0c475e2a4664db12df280068760f1a8029f87c2fa224525eebccf764ac",
+          "previous": {
+            "steps": 13196,
+            "completed_motion": true,
+            "xy_rmse_m": 0.23861900918980086,
+            "xy_peak_m": 0.7919522309608178,
+            "joint_rmse_rad": 0.2908575045054006,
+            "return": 0.8223827034189831,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "823cba64bdf817b483b94277306be528c3c7d264f2f2cdfe28e6e060fcb46ab6",
+            "result_sha256": "f863f40503a9008d215845e92d0cc9b6acd06d48f3d6d6772966015baa0f80a4"
+          },
+          "candidate": {
+            "steps": 13196,
+            "completed_motion": true,
+            "xy_rmse_m": 0.2432747228762689,
+            "xy_peak_m": 0.8248204427972871,
+            "joint_rmse_rad": 0.2905443755645564,
+            "return": 0.8216672422091648,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "7df8bbec3876986d3a95e252f802c5cb0c60bf3aabc4db145228050ae6749593",
+            "result_sha256": "57ef5ae480ee06f2bf42fcdc31524e5b3ba34048efd67a31496f159661772304"
+          }
+        },
+        "tempo-1.01": {
+          "motion_sha256": "b540cd6d224a0e9d4c5a83e4ae94ce55ca92e7245bbc942f1891073f44da70c0",
+          "previous": {
+            "steps": 12935,
+            "completed_motion": true,
+            "xy_rmse_m": 0.25454888590434804,
+            "xy_peak_m": 0.9656340919705527,
+            "joint_rmse_rad": 0.29038413213777137,
+            "return": 0.8214434666849261,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "0f87b3043da70c802c18d34d707eb7aa7fa230a6d411e9e97789c0a75447274a",
+            "result_sha256": "0b19a15c31ad3af2992a5eac366d669646fee20e07f5a1e1438f4171fde24d00"
+          },
+          "candidate": {
+            "steps": 12935,
+            "completed_motion": true,
+            "xy_rmse_m": 0.24332408600121075,
+            "xy_peak_m": 0.8194273831603697,
+            "joint_rmse_rad": 0.2915436563739458,
+            "return": 0.8236859247036592,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "c19ea2fe974212a328d6ecbc5dccb324534c3d7f996faf2d2b9b8cb33d1ad781",
+            "result_sha256": "dc4fa13631f9d617a57acf20bec0561e96d7412acf8ac220a515771af775ddb2"
+          }
+        }
+      }
+    },
+    "gif_repeat_sha256": "24c0b78758fa1a948e36ab88df9e6578573776e1e4038411caec081511a10557",
+    "compound_cases": {
+      "1": {
+        "tempo": 0.978,
+        "yaw_degrees": 31,
+        "translation_m": [
+          0.65,
+          -1.1,
+          0.0
+        ],
+        "motion_sha256": "a7cb3eb273c237c8d597f077241875105037fde58ca72a78a026be2dba19ebd5",
+        "requested_steps": 13358,
+        "teacher": {
+          "steps": 13358,
+          "completed_motion": true,
+          "failure": null,
+          "xy_rmse_m": 0.24571272284712944,
+          "xy_peak_m": 1.0765445312657962,
+          "joint_rmse_rad": 0.29018838403283537,
+          "return": 0.8208768232833625,
+          "nonfoot_ground_force_substeps": 0,
+          "joint_groups_rad": {
+            "legs": 0.21082230412861183,
+            "waist": 0.09393145068819685,
+            "arms": 0.36666915500973396
+          },
+          "trajectory_sha256": "0d69351d0b884b3fb7fb58bdb50109fbc5a8088890684422a40fc13da915eba6",
+          "checkpoint_sha256": "4b7e5ecff963955d3af3da1741c9d799c4df583172a400954ebcaa217e892b05",
+          "result_sha256": "2ae9da758416d728d1f42e3924fbdb68af365ffc1541c10a501b952e7e003eea",
+          "deployment_seconds": 18.87618325999938
+        },
+        "candidate": {
+          "steps": 13358,
+          "completed_motion": true,
+          "failure": null,
+          "xy_rmse_m": 0.24320165745154115,
+          "xy_peak_m": 0.7509810780024669,
+          "joint_rmse_rad": 0.2931375120975042,
+          "return": 0.8218988334905923,
+          "nonfoot_ground_force_substeps": 0,
+          "joint_groups_rad": {
+            "legs": 0.21229536947315025,
+            "waist": 0.0932253462512878,
+            "arms": 0.3708150912531169
+          },
+          "trajectory_sha256": "50b8711149f2be151de1d038edc895693de631287b5463143543826c028091b2",
+          "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+          "result_sha256": "d7e6b7b921ed18f47274402fcc67e53eca1681c7bfca8a68d7ad8fa0c437b642",
+          "deployment_seconds": 7.9385679549886845
+        }
+      },
+      "2": {
+        "tempo": 1.022,
+        "yaw_degrees": -108,
+        "translation_m": [
+          -1.25,
+          0.55,
+          0.0
+        ],
+        "motion_sha256": "b2c74a6496f481cb03ed8069330f367ae9692827eb488a268a5be22636b4c8b7",
+        "requested_steps": 12783,
+        "teacher": {
+          "steps": 12783,
+          "completed_motion": true,
+          "failure": null,
+          "xy_rmse_m": 0.23653488215316407,
+          "xy_peak_m": 0.7798162268169194,
+          "joint_rmse_rad": 0.29127692508391967,
+          "return": 0.8218333385998416,
+          "nonfoot_ground_force_substeps": 0,
+          "joint_groups_rad": {
+            "legs": 0.2109392707727436,
+            "waist": 0.0949934149852425,
+            "arms": 0.368336938858067
+          },
+          "trajectory_sha256": "9439aa5a5df7acefd5aea19ef2dc583685859e6a660aef77b065e176583ca3fd",
+          "checkpoint_sha256": "4b7e5ecff963955d3af3da1741c9d799c4df583172a400954ebcaa217e892b05",
+          "result_sha256": "f6eb02e6e9bb80cb64f27d1fc344fd434e4240c31980790db6c90e1e573ca657",
+          "deployment_seconds": 18.03514832200017
+        },
+        "candidate": {
+          "steps": 12783,
+          "completed_motion": true,
+          "failure": null,
+          "xy_rmse_m": 0.2511178349445257,
+          "xy_peak_m": 0.8897955831539318,
+          "joint_rmse_rad": 0.2911646839297899,
+          "return": 0.8235160608596759,
+          "nonfoot_ground_force_substeps": 0,
+          "joint_groups_rad": {
+            "legs": 0.21104298240702718,
+            "waist": 0.09494381449102485,
+            "arms": 0.36810486210363896
+          },
+          "trajectory_sha256": "f19c22752ec68e86a550707a8e1eaf14e0b1cf344b92872acf759d990e039bed",
+          "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+          "result_sha256": "c80fbac7be23f6c05997d459a11b2d62bf410663cf56e5301eadfea6821cd779",
+          "deployment_seconds": 7.750144653022289
+        }
+      }
+    },
+    "scope": "The training reference, reset starts, rigid placements and retimed variants. Native CPU MuJoCo."
   }
 }

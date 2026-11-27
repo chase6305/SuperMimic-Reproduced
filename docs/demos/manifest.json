@@ -1,10 +1,10 @@
 {
   "demos": {
     "walk.gif": {
-      "bundle": "runs/opt-7h/walk-final/mixed-prior-pose12-050/bundle",
-      "trajectory": "runs/opt-7h/walk-final/mixed-prior-pose12-050/deploy/trajectory.npz",
-      "gif_sha256": "789227f10ad330cf45a89400ae949c8634d296bcc0ef306b932d0f0245c91bd6",
-      "size_bytes": 668991,
+      "bundle": "runs/opt-7h/walk-final/mixed-compact-tempo-child-075/bundle",
+      "trajectory": "runs/opt-7h/walk-final/mixed-compact-tempo-child-075/deploy/trajectory.npz",
+      "gif_sha256": "24c0b78758fa1a948e36ab88df9e6578573776e1e4038411caec081511a10557",
+      "size_bytes": 629858,
       "first_source_frame": 12250,
       "source_start_seconds": 245.0,
       "source_end_seconds": 249.9,
@@ -14,10 +14,10 @@
       "fps": 10,
       "frames": 50,
       "renderer": "llvmpipe (LLVM 15.0.7, 256 bits)",
-      "checkpoint_sha256": "4b7e5ecff963955d3af3da1741c9d799c4df583172a400954ebcaa217e892b05",
-      "trajectory_sha256": "ac323ae0680b4c04ea45d50bfb619f5f0046bf981e9d03d6ef62abb0d7178af9",
-      "contract_sha256": "94b5776c7befcc1af4ff7d4e1f977d667e2560387c0befe82ab48318f80fb1fe",
-      "result_sha256": "946a85fd13896fe8305c34aecaf07b8789a30b8a5c2a08374d239d5cf3d3b9a6"
+      "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+      "trajectory_sha256": "03c8f3b484c37a7907b7eba075955041fcc06a6715cd73521c873ebb25394848",
+      "contract_sha256": "741a803136973fd26c86af0def0dbdf4cf6e8febb46afb6bb4679c183f2539e5",
+      "result_sha256": "1d34b067dc364dc07507726660d2e5cd452d1f81cdf029db5a76571dc554203a"
     },
     "jump.gif": {
       "bundle": "exports/g1-tasks-20261117b/jump120/bundle",
