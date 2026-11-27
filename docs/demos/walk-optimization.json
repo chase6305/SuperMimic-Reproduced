@@ -987,7 +987,7 @@
       }
     }
   },
-  "comparison_sha256": "6177d2b4decee07e3bcc8aa03534284844e30367e797da9d784ba95401dc5048",
+  "comparison_sha256": "c3ae67eaad7791ffe4041f455e4d52a8fddb1924814d2b7736957c056c8164a3",
   "reference_placement_checks": {
     "translated": {
       "yaw_degrees": 0,
@@ -1088,5 +1088,1599 @@
         "result_sha256": "acf3dee7303258fef769484ecc85e009bfd6d1dd81fe940099b7560190827ad8"
       }
     }
+  },
+  "follow_up": {
+    "selection": {
+      "trial": "mixed-prior-pose12-050",
+      "checkpoint": "runs/opt-7h/walk-mixed/mixed-prior-pose12-050.pt",
+      "iteration": 55105,
+      "bundle": "runs/opt-7h/walk-evaluations/mixed-prior-pose12-050/mixed-prior-pose12-050/bundle",
+      "result": "runs/opt-7h/walk-evaluations/mixed-prior-pose12-050/mixed-prior-pose12-050/deploy/result.json",
+      "result_sha256": "5be1970c1e743d282a5d372378bc441d6c0648690a516733b3574df53b620216",
+      "steps": 13065,
+      "completed_motion": true,
+      "failure": null,
+      "xy_rmse_m": 0.21111305680401637,
+      "xy_peak_m": 0.6951751912743055,
+      "joint_rmse_rad": 0.29109948847881306,
+      "return": 0.8282842399788414,
+      "nonfoot_ground_force_substeps": 0,
+      "joint_groups_rad": {
+        "legs": 0.21137783853821535,
+        "waist": 0.09404776061529867,
+        "arms": 0.36788259212639146
+      },
+      "trajectory_sha256": "ac323ae0680b4c04ea45d50bfb619f5f0046bf981e9d03d6ef62abb0d7178af9",
+      "checkpoint_sha256": "4b7e5ecff963955d3af3da1741c9d799c4df583172a400954ebcaa217e892b05",
+      "checks": {
+        "full_reference": true,
+        "nonfoot_ground_force": true,
+        "xy_rmse": true,
+        "xy_peak": true,
+        "joints": true,
+        "return": true,
+        "meaningful_gain": true
+      },
+      "qualifies": true,
+      "ranking_score": 1.7902483485059149,
+      "deployment_seconds": 25.31784529297147
+    },
+    "first_optimized_policy": {
+      "steps": 13065,
+      "completed_motion": true,
+      "failure": null,
+      "xy_rmse_m": 0.24929969045531006,
+      "xy_peak_m": 0.7535240437619014,
+      "joint_rmse_rad": 0.3085563855002786,
+      "return": 0.8249176155320995,
+      "nonfoot_ground_force_substeps": 0,
+      "joint_groups_rad": {
+        "legs": 0.2209957210423215,
+        "waist": 0.09918807184491592,
+        "arms": 0.39146429526474935
+      },
+      "trajectory_sha256": "288708959867f0c4ffa39923afbd380501daab00f49adf83451adb3b4726bbb8",
+      "checkpoint_sha256": "2eff6581d5de691b6c56a6fb9421d9fd31622c3692c7083216c727b1f94e0cfd"
+    },
+    "selection_plan": {
+      "reference": "walk1_subject1",
+      "baseline_rollout": "runs/demo-pr/fresh-optimized-export/deploy/result.json",
+      "baseline_bundle": "runs/demo-pr/fresh-optimized-export/bundle",
+      "baseline_trajectory_sha256": "288708959867f0c4ffa39923afbd380501daab00f49adf83451adb3b4726bbb8",
+      "required_steps": 13065,
+      "max_nonfoot_ground_force_substeps": 0,
+      "full_reference_gates": {
+        "max_xy_rmse_multiplier": 1.06,
+        "max_xy_peak_multiplier": 1.12,
+        "max_joint_rmse_increase_rad": 0.0001,
+        "max_return_drop": 0.005,
+        "meaningful_xy_reduction": 0.1,
+        "meaningful_joint_reduction": 0.03
+      },
+      "ranking": "Require every guard and either meaningful reduction. Rank sum of baseline-normalized XY and joint RMSE, then worst XY and returning reward.",
+      "provisional_source": "runs/demo-pr/walk-xy40-decoder/training/ckpt_0048000.pt",
+      "initial_trials": [
+        {
+          "name": "pose12-head",
+          "hours": 0.13,
+          "scope": "action-head",
+          "joint_weight": 12,
+          "xy_weight": 35,
+          "learning_rate": 1.2e-06,
+          "priority_windows": [
+            [
+              220,
+              260
+            ]
+          ],
+          "priority_ratio": 0.2
+        },
+        {
+          "name": "pose40-decoder",
+          "hours": 0.16,
+          "scope": "decoder",
+          "joint_weight": 40,
+          "xy_weight": 25,
+          "learning_rate": 7e-07,
+          "priority_windows": [
+            [
+              220,
+              260
+            ]
+          ],
+          "priority_ratio": 0.2
+        },
+        {
+          "name": "pose12-hand20",
+          "hours": 0.14,
+          "scope": "action-head",
+          "joint_weight": 12,
+          "xy_weight": 35,
+          "learning_rate": 1.2e-06,
+          "priority_windows": [
+            [
+              220,
+              260
+            ]
+          ],
+          "priority_ratio": 0.2,
+          "effector_weight": 20,
+          "effector_weights": [
+            1,
+            1,
+            3,
+            3
+          ]
+        }
+      ],
+      "confirmations": {
+        "known_short_starts_s": [
+          [
+            65,
+            85
+          ],
+          [
+            137,
+            157
+          ],
+          [
+            238,
+            258
+          ]
+        ],
+        "frozen_placement_holdouts": [
+          {
+            "yaw_degrees": 137,
+            "shift_m": [
+              1.75,
+              0.8,
+              0.0
+            ]
+          },
+          {
+            "yaw_degrees": -79,
+            "shift_m": [
+              -1.2,
+              1.7,
+              0.0
+            ]
+          }
+        ],
+        "role": "Confirm primary selection on temporally different starts and fresh rigid placements of the same reference. These are not independent walking motions.",
+        "untouched_final_starts_s": [
+          [
+            27.6,
+            47.6
+          ],
+          [
+            106.2,
+            126.2
+          ],
+          [
+            228.4,
+            248.4
+          ]
+        ],
+        "exploratory_tempo_factors": [
+          0.97,
+          1.03
+        ]
+      }
+    },
+    "evaluated_candidates": [
+      {
+        "trial": "mixed-prior-pose12-050",
+        "checkpoint": "runs/opt-7h/walk-mixed/mixed-prior-pose12-050.pt",
+        "iteration": 55105,
+        "bundle": "runs/opt-7h/walk-evaluations/mixed-prior-pose12-050/mixed-prior-pose12-050/bundle",
+        "result": "runs/opt-7h/walk-evaluations/mixed-prior-pose12-050/mixed-prior-pose12-050/deploy/result.json",
+        "result_sha256": "5be1970c1e743d282a5d372378bc441d6c0648690a516733b3574df53b620216",
+        "steps": 13065,
+        "completed_motion": true,
+        "failure": null,
+        "xy_rmse_m": 0.21111305680401637,
+        "xy_peak_m": 0.6951751912743055,
+        "joint_rmse_rad": 0.29109948847881306,
+        "return": 0.8282842399788414,
+        "nonfoot_ground_force_substeps": 0,
+        "joint_groups_rad": {
+          "legs": 0.21137783853821535,
+          "waist": 0.09404776061529867,
+          "arms": 0.36788259212639146
+        },
+        "trajectory_sha256": "ac323ae0680b4c04ea45d50bfb619f5f0046bf981e9d03d6ef62abb0d7178af9",
+        "checkpoint_sha256": "4b7e5ecff963955d3af3da1741c9d799c4df583172a400954ebcaa217e892b05",
+        "checks": {
+          "full_reference": true,
+          "nonfoot_ground_force": true,
+          "xy_rmse": true,
+          "xy_peak": true,
+          "joints": true,
+          "return": true,
+          "meaningful_gain": true
+        },
+        "qualifies": true,
+        "ranking_score": 1.7902483485059149,
+        "deployment_seconds": 25.31784529297147
+      },
+      {
+        "trial": "mixed-prior-pose12-075",
+        "checkpoint": "runs/opt-7h/walk-mixed/mixed-prior-pose12-075.pt",
+        "iteration": 55105,
+        "bundle": "runs/opt-7h/walk-evaluations/mixed-prior-pose12-075/mixed-prior-pose12-075/bundle",
+        "result": "runs/opt-7h/walk-evaluations/mixed-prior-pose12-075/mixed-prior-pose12-075/deploy/result.json",
+        "result_sha256": "84d74039826543e5da0c4be8265a352f62d1241b972b1ad758c02ff44e6c8a9e",
+        "steps": 13065,
+        "completed_motion": true,
+        "failure": null,
+        "xy_rmse_m": 0.23366219209274033,
+        "xy_peak_m": 0.8210331617113884,
+        "joint_rmse_rad": 0.2826327588672591,
+        "return": 0.8239094144395609,
+        "nonfoot_ground_force_substeps": 0,
+        "joint_groups_rad": {
+          "legs": 0.20601434357194887,
+          "waist": 0.09343460217706134,
+          "arms": 0.3566775277696426
+        },
+        "trajectory_sha256": "edb8147ae830596f65cca1922ca0a486d68243ec85225bb70b00cc66dd7c8833",
+        "checkpoint_sha256": "a6963c9a03609fd88fcaa6deaabcd83968a447cead2c93d98bd0e6f63c26b59e",
+        "checks": {
+          "full_reference": true,
+          "nonfoot_ground_force": true,
+          "xy_rmse": true,
+          "xy_peak": true,
+          "joints": true,
+          "return": true,
+          "meaningful_gain": true
+        },
+        "qualifies": true,
+        "ranking_score": 1.8532584481071752,
+        "deployment_seconds": 25.05864289798774
+      },
+      {
+        "trial": "mixed-prior-pose12-090",
+        "checkpoint": "runs/opt-7h/walk-mixed/mixed-prior-pose12-090.pt",
+        "iteration": 55105,
+        "bundle": "runs/opt-7h/walk-evaluations/mixed-prior-pose12-090/mixed-prior-pose12-090/bundle",
+        "result": "runs/opt-7h/walk-evaluations/mixed-prior-pose12-090/mixed-prior-pose12-090/deploy/result.json",
+        "result_sha256": "01e967b8811301db7018fe2211c625b01e0184055509b77059ffc176d24608c3",
+        "steps": 13065,
+        "completed_motion": true,
+        "failure": null,
+        "xy_rmse_m": 0.256985846873527,
+        "xy_peak_m": 0.7705244214868212,
+        "joint_rmse_rad": 0.2776797150610872,
+        "return": 0.8196255890656101,
+        "nonfoot_ground_force_substeps": 0,
+        "joint_groups_rad": {
+          "legs": 0.203085906375489,
+          "waist": 0.09427711758126157,
+          "arms": 0.34994729719704637
+        },
+        "trajectory_sha256": "33031e9bf5c21cc75f2311b0dbda5debcfc1ee38a98ab5a4ebe8cdd60c052ff5",
+        "checkpoint_sha256": "00582353ad557d4a09f409dda521a95582f7eadf3a3c9887d51778ccf983f817",
+        "checks": {
+          "full_reference": true,
+          "nonfoot_ground_force": true,
+          "xy_rmse": true,
+          "xy_peak": true,
+          "joints": true,
+          "return": false,
+          "meaningful_gain": true
+        },
+        "qualifies": false,
+        "ranking_score": 1.930762828397861,
+        "deployment_seconds": 25.353064519993495
+      },
+      {
+        "trial": "pose12-hand20",
+        "checkpoint": "runs/opt-7h/walk-training/pose12-hand20/training/ckpt_0053000.pt",
+        "iteration": 53000,
+        "bundle": "runs/opt-7h/walk-evaluations/pose12-hand20/ckpt_0053000/bundle",
+        "result": "runs/opt-7h/walk-evaluations/pose12-hand20/ckpt_0053000/deploy/result.json",
+        "result_sha256": "296259e55d194dcce6d31a100cf363204c1e38204b25fe78d6bccb7e58e9b76a",
+        "steps": 13065,
+        "completed_motion": true,
+        "failure": null,
+        "xy_rmse_m": 0.24496575397062423,
+        "xy_peak_m": 0.8358441469012857,
+        "joint_rmse_rad": 0.2786695563616286,
+        "return": 0.8212476939567422,
+        "nonfoot_ground_force_substeps": 0,
+        "joint_groups_rad": {
+          "legs": 0.20365288922691407,
+          "waist": 0.09373190991124401,
+          "arms": 0.35132340853126387
+        },
+        "trajectory_sha256": "8ad5704c2674affe1bff937fa96358ece5642601111f11c24c3b0a39078a2be5",
+        "checkpoint_sha256": "d2f38d0e50e6cf24af4f9c06013742ed31f4361e7c6afbf2ec243daf9cd38973",
+        "checks": {
+          "full_reference": true,
+          "nonfoot_ground_force": true,
+          "xy_rmse": true,
+          "xy_peak": true,
+          "joints": true,
+          "return": true,
+          "meaningful_gain": true
+        },
+        "qualifies": true,
+        "ranking_score": 1.8857553692908051,
+        "deployment_seconds": 19.074619032035116
+      },
+      {
+        "trial": "pose12-hand20",
+        "checkpoint": "runs/opt-7h/walk-training/pose12-hand20/training/ckpt_0054000.pt",
+        "iteration": 54000,
+        "bundle": "runs/opt-7h/walk-evaluations/pose12-hand20/ckpt_0054000/bundle",
+        "result": "runs/opt-7h/walk-evaluations/pose12-hand20/ckpt_0054000/deploy/result.json",
+        "result_sha256": "31c13a7dd0beee37a2b56b5b341d07e8082d8461cd508c8a8ba5f69d6a8d4c75",
+        "steps": 13065,
+        "completed_motion": true,
+        "failure": null,
+        "xy_rmse_m": 0.28068309638689215,
+        "xy_peak_m": 0.8984499191049343,
+        "joint_rmse_rad": 0.2763705350559807,
+        "return": 0.8184857560536253,
+        "nonfoot_ground_force_substeps": 0,
+        "joint_groups_rad": {
+          "legs": 0.20139039431133635,
+          "waist": 0.09457613631847983,
+          "arms": 0.3486205959649545
+        },
+        "trajectory_sha256": "23161611835c57d3fe478db08a754d789aa0c8b699d4b3653f5b8f4d3c94d0c0",
+        "checkpoint_sha256": "c64d5c1342cb2d0abbe4028c9a8671037740d359c467cd59cc55511a01980d9e",
+        "checks": {
+          "full_reference": true,
+          "nonfoot_ground_force": true,
+          "xy_rmse": false,
+          "xy_peak": false,
+          "joints": true,
+          "return": false,
+          "meaningful_gain": true
+        },
+        "qualifies": false,
+        "ranking_score": 2.0215751790793606,
+        "deployment_seconds": 19.024805580964312
+      },
+      {
+        "trial": "pose12-hand20",
+        "checkpoint": "runs/opt-7h/walk-training/pose12-hand20/training/ckpt_latest.pt",
+        "iteration": 54695,
+        "bundle": "runs/opt-7h/walk-evaluations/pose12-hand20/ckpt_latest/bundle",
+        "result": "runs/opt-7h/walk-evaluations/pose12-hand20/ckpt_latest/deploy/result.json",
+        "result_sha256": "bcb38784aff4a9f88c3d995af8ccad41152f2e3ca5d0c869a45e9bc7ca9d7e57",
+        "steps": 13065,
+        "completed_motion": true,
+        "failure": null,
+        "xy_rmse_m": 0.23034750503588355,
+        "xy_peak_m": 0.6996749170716139,
+        "joint_rmse_rad": 0.2760025334232625,
+        "return": 0.8248690425596883,
+        "nonfoot_ground_force_substeps": 0,
+        "joint_groups_rad": {
+          "legs": 0.20251365324725903,
+          "waist": 0.09462136429803425,
+          "arms": 0.3474543742362069
+        },
+        "trajectory_sha256": "782862a36e49e1c921d56988f2e393ee29013490ccd64d566f2c466d5dd957a3",
+        "checkpoint_sha256": "65b9742eb149a3a1c2bf84e2d8a967301e5ed3fa371db4987d5074f253020534",
+        "checks": {
+          "full_reference": true,
+          "nonfoot_ground_force": true,
+          "xy_rmse": true,
+          "xy_peak": true,
+          "joints": true,
+          "return": true,
+          "meaningful_gain": true
+        },
+        "qualifies": true,
+        "ranking_score": 1.8184745653690497,
+        "deployment_seconds": 18.89656570297666
+      },
+      {
+        "trial": "pose12-head",
+        "checkpoint": "runs/opt-7h/walk-training/pose12-head/training/ckpt_0054000.pt",
+        "iteration": 54000,
+        "bundle": "runs/opt-7h/walk-evaluations/pose12-head/ckpt_0054000/bundle",
+        "result": "runs/opt-7h/walk-evaluations/pose12-head/ckpt_0054000/deploy/result.json",
+        "result_sha256": "e9c859d4e3a11d3c9d484833c092ee4c872809ba002e2555591a701023775047",
+        "steps": 13065,
+        "completed_motion": true,
+        "failure": null,
+        "xy_rmse_m": 0.2571643080782488,
+        "xy_peak_m": 0.8419644414449245,
+        "joint_rmse_rad": 0.2783601731515133,
+        "return": 0.8178921084818236,
+        "nonfoot_ground_force_substeps": 0,
+        "joint_groups_rad": {
+          "legs": 0.20427714234304878,
+          "waist": 0.09440648769142418,
+          "arms": 0.3504649593805424
+        },
+        "trajectory_sha256": "e7009c25bbb44cc3f61473cd403be1bc0b789228507b2e97afa1ef0f90a39432",
+        "checkpoint_sha256": "cd2bdf4c1c2d078901d8655dca95db9010bf081535682e2e79d4b25c87a6543d",
+        "checks": {
+          "full_reference": true,
+          "nonfoot_ground_force": true,
+          "xy_rmse": true,
+          "xy_peak": true,
+          "joints": true,
+          "return": false,
+          "meaningful_gain": true
+        },
+        "qualifies": false,
+        "ranking_score": 1.9336839742490466,
+        "deployment_seconds": 25.11881422199076
+      },
+      {
+        "trial": "pose12-head",
+        "checkpoint": "runs/opt-7h/walk-training/pose12-head/training/ckpt_0055000.pt",
+        "iteration": 55000,
+        "bundle": "runs/opt-7h/walk-evaluations/pose12-head/ckpt_0055000/bundle",
+        "result": "runs/opt-7h/walk-evaluations/pose12-head/ckpt_0055000/deploy/result.json",
+        "result_sha256": "ee6200111270e130eb3ea2a9d093bbac036564026252ec3c57d04620438ffee8",
+        "steps": 13065,
+        "completed_motion": true,
+        "failure": null,
+        "xy_rmse_m": 0.2390701402383176,
+        "xy_peak_m": 0.8300930997464038,
+        "joint_rmse_rad": 0.27516218797955655,
+        "return": 0.823697293028264,
+        "nonfoot_ground_force_substeps": 0,
+        "joint_groups_rad": {
+          "legs": 0.20167789212398196,
+          "waist": 0.09341269232674795,
+          "arms": 0.34655933338577954
+        },
+        "trajectory_sha256": "03f318bc764b1b8c65ca2d7471a1625c9b2706311c05a54e724da8534fda528d",
+        "checkpoint_sha256": "3b7b6dc0d8376b32cb045d861520211c6d8de6e7431ae83293994ab7f87b1011",
+        "checks": {
+          "full_reference": true,
+          "nonfoot_ground_force": true,
+          "xy_rmse": true,
+          "xy_peak": true,
+          "joints": true,
+          "return": true,
+          "meaningful_gain": true
+        },
+        "qualifies": true,
+        "ranking_score": 1.8507396429597016,
+        "deployment_seconds": 25.27401050296612
+      },
+      {
+        "trial": "pose12-head",
+        "checkpoint": "runs/opt-7h/walk-training/pose12-head/training/ckpt_latest.pt",
+        "iteration": 55105,
+        "bundle": "runs/opt-7h/walk-evaluations/pose12-head/ckpt_latest/bundle",
+        "result": "runs/opt-7h/walk-evaluations/pose12-head/ckpt_latest/deploy/result.json",
+        "result_sha256": "1bf611c6ebc2caa9eee13143cac6d983d0b458a74a46c6e53137ebb1274696ea",
+        "steps": 13065,
+        "completed_motion": true,
+        "failure": null,
+        "xy_rmse_m": 0.234753540038482,
+        "xy_peak_m": 0.758170429319305,
+        "joint_rmse_rad": 0.27498831588553374,
+        "return": 0.8221844963036503,
+        "nonfoot_ground_force_substeps": 0,
+        "joint_groups_rad": {
+          "legs": 0.20128740958827718,
+          "waist": 0.09399673329650689,
+          "arms": 0.34643418562930434
+        },
+        "trajectory_sha256": "cc3f097a8ce9b3f1cf5cd2040c8918beec05882ff9f06faf13047f49381336da",
+        "checkpoint_sha256": "9d8003ecd07a605d702affa45a526404084cbee726ccb3d6eadf08e4ff222f44",
+        "checks": {
+          "full_reference": true,
+          "nonfoot_ground_force": true,
+          "xy_rmse": true,
+          "xy_peak": true,
+          "joints": true,
+          "return": true,
+          "meaningful_gain": true
+        },
+        "qualifies": true,
+        "ranking_score": 1.832861237140415,
+        "deployment_seconds": 25.20327413099585
+      },
+      {
+        "trial": "pose12-xy55-tail",
+        "checkpoint": "runs/opt-7h/walk-training/pose12-xy55-tail/training/ckpt_0060800.pt",
+        "iteration": 60800,
+        "bundle": "runs/opt-7h/walk-evaluations/pose12-xy55-tail/ckpt_0060800/bundle",
+        "result": "runs/opt-7h/walk-evaluations/pose12-xy55-tail/ckpt_0060800/deploy/result.json",
+        "result_sha256": "243377c5b4b9bb4dd773ab9831a5d500007a3a840ec2b4c2462154f9fba558c0",
+        "steps": 13065,
+        "completed_motion": true,
+        "failure": null,
+        "xy_rmse_m": 0.2498363776300882,
+        "xy_peak_m": 0.7608272142935318,
+        "joint_rmse_rad": 0.27318059764588054,
+        "return": 0.820812590816584,
+        "nonfoot_ground_force_substeps": 0,
+        "joint_groups_rad": {
+          "legs": 0.19971321971273295,
+          "waist": 0.09434306321456284,
+          "arms": 0.3442253463221251
+        },
+        "trajectory_sha256": "2c6d3eb99edd6ac489dcea04c8b034193b12a71c719015702acf9d0291987345",
+        "checkpoint_sha256": "dd8edd8b37b2905d64865942a393eeb83da9a54613396d88f99e95fcfe12b00f",
+        "checks": {
+          "full_reference": true,
+          "nonfoot_ground_force": true,
+          "xy_rmse": true,
+          "xy_peak": true,
+          "joints": true,
+          "return": true,
+          "meaningful_gain": true
+        },
+        "qualifies": true,
+        "ranking_score": 1.8875034329755582,
+        "deployment_seconds": 18.821691257995553
+      },
+      {
+        "trial": "pose12-xy55-tail",
+        "checkpoint": "runs/opt-7h/walk-training/pose12-xy55-tail/training/ckpt_0062400.pt",
+        "iteration": 62400,
+        "bundle": "runs/opt-7h/walk-evaluations/pose12-xy55-tail/ckpt_0062400/bundle",
+        "result": "runs/opt-7h/walk-evaluations/pose12-xy55-tail/ckpt_0062400/deploy/result.json",
+        "result_sha256": "4dabd53445d9743b6dc23f7cd3f83eecd01b20f75d7e6c044071530e6caa2b94",
+        "steps": 13065,
+        "completed_motion": true,
+        "failure": null,
+        "xy_rmse_m": 0.2507913839634755,
+        "xy_peak_m": 0.7658552344225393,
+        "joint_rmse_rad": 0.27229579180478164,
+        "return": 0.8164883376627738,
+        "nonfoot_ground_force_substeps": 0,
+        "joint_groups_rad": {
+          "legs": 0.19960786660552018,
+          "waist": 0.09513915142520023,
+          "arms": 0.34277553770358954
+        },
+        "trajectory_sha256": "72b160d0cb920f1912a87202556b7527316d199ae00d824469c84ee17ac38eef",
+        "checkpoint_sha256": "7e41d78a5ed2677457a47443397918bc356e76d79b590fcc3cb41a1f0f279811",
+        "checks": {
+          "full_reference": true,
+          "nonfoot_ground_force": true,
+          "xy_rmse": true,
+          "xy_peak": true,
+          "joints": true,
+          "return": false,
+          "meaningful_gain": true
+        },
+        "qualifies": false,
+        "ranking_score": 1.8884666230368796,
+        "deployment_seconds": 18.261695458961185
+      },
+      {
+        "trial": "pose40-decoder",
+        "checkpoint": "runs/opt-7h/walk-training/pose40-decoder/training/ckpt_0057000.pt",
+        "iteration": 57000,
+        "bundle": "runs/opt-7h/walk-evaluations/pose40-decoder/ckpt_0057000/bundle",
+        "result": "runs/opt-7h/walk-evaluations/pose40-decoder/ckpt_0057000/deploy/result.json",
+        "result_sha256": "71f44583fdd89f2575c110fcfc080f04007f9019cac9e4e1e990ff819428bb11",
+        "steps": 13065,
+        "completed_motion": true,
+        "failure": null,
+        "xy_rmse_m": 0.32766457712434255,
+        "xy_peak_m": 1.2050500462418805,
+        "joint_rmse_rad": 0.22167259468109268,
+        "return": 0.8169642050422292,
+        "nonfoot_ground_force_substeps": 0,
+        "joint_groups_rad": {
+          "legs": 0.17892963656776426,
+          "waist": 0.09140198400060613,
+          "arms": 0.26936044512906393
+        },
+        "trajectory_sha256": "f674c09320aeb3de58547858fbb560795896fe33fa31d5cdcede1571c90f5da3",
+        "checkpoint_sha256": "6b0e0ea7ca7e02d56d142758ad45be68a25a9f487b24bbc415a9e0ff544d8eaf",
+        "checks": {
+          "full_reference": true,
+          "nonfoot_ground_force": true,
+          "xy_rmse": false,
+          "xy_peak": false,
+          "joints": true,
+          "return": false,
+          "meaningful_gain": true
+        },
+        "qualifies": false,
+        "ranking_score": 2.032758520217664,
+        "deployment_seconds": 18.32295040297322
+      },
+      {
+        "trial": "pose40-decoder",
+        "checkpoint": "runs/opt-7h/walk-training/pose40-decoder/training/ckpt_0058000.pt",
+        "iteration": 58000,
+        "bundle": "runs/opt-7h/walk-evaluations/pose40-decoder/ckpt_0058000/bundle",
+        "result": "runs/opt-7h/walk-evaluations/pose40-decoder/ckpt_0058000/deploy/result.json",
+        "result_sha256": "bfb40ae9412b1b5e5261790af8adb36bbcbe5a97027067e3b9072e6b21d84f5f",
+        "steps": 13065,
+        "completed_motion": true,
+        "failure": null,
+        "xy_rmse_m": 0.36399392089707877,
+        "xy_peak_m": 1.3127531178633498,
+        "joint_rmse_rad": 0.21973653157908166,
+        "return": 0.8101085375608086,
+        "nonfoot_ground_force_substeps": 0,
+        "joint_groups_rad": {
+          "legs": 0.17756190041003558,
+          "waist": 0.09044889787276293,
+          "arms": 0.2669080104904878
+        },
+        "trajectory_sha256": "61bdb0bd54fb6bceede7a90e30ee70d59bff9d3d3e8b9b278b8433e0c6050f6a",
+        "checkpoint_sha256": "8edd035dc2ea6d41e069490c8cbaacaf59992953b371da3ffe31489e81e3104f",
+        "checks": {
+          "full_reference": true,
+          "nonfoot_ground_force": true,
+          "xy_rmse": false,
+          "xy_peak": false,
+          "joints": true,
+          "return": false,
+          "meaningful_gain": true
+        },
+        "qualifies": false,
+        "ranking_score": 2.1722095229253338,
+        "deployment_seconds": 18.839922406012192
+      },
+      {
+        "trial": "pose40-decoder",
+        "checkpoint": "runs/opt-7h/walk-training/pose40-decoder/training/ckpt_latest.pt",
+        "iteration": 58675,
+        "bundle": "runs/opt-7h/walk-evaluations/pose40-decoder/ckpt_latest/bundle",
+        "result": "runs/opt-7h/walk-evaluations/pose40-decoder/ckpt_latest/deploy/result.json",
+        "result_sha256": "57e2ed38f6b8134f3e62c05224dc40d024a22bb80c0ca0a42f43e38d2763d13f",
+        "steps": 13065,
+        "completed_motion": true,
+        "failure": null,
+        "xy_rmse_m": 0.32838567612221564,
+        "xy_peak_m": 1.097825311582975,
+        "joint_rmse_rad": 0.21672663701187325,
+        "return": 0.8129626126568572,
+        "nonfoot_ground_force_substeps": 0,
+        "joint_groups_rad": {
+          "legs": 0.17383645849646287,
+          "waist": 0.08950614734299965,
+          "arms": 0.26396417474132217
+        },
+        "trajectory_sha256": "4148d44ccd7852f19a0ea46701b1d8b58a666e3c5e0420613151dedc9bb7c96c",
+        "checkpoint_sha256": "7a1a0d46d2b32f0c629d1cc2361b980168007706c582a11293829ef5c13df863",
+        "checks": {
+          "full_reference": true,
+          "nonfoot_ground_force": true,
+          "xy_rmse": false,
+          "xy_peak": false,
+          "joints": true,
+          "return": false,
+          "meaningful_gain": true
+        },
+        "qualifies": false,
+        "ranking_score": 2.019621670824131,
+        "deployment_seconds": 18.96785172802629
+      }
+    ],
+    "confirmation": {
+      "137-157.resources": {
+        "status": "complete",
+        "limits": {
+          "gpu_index": 0,
+          "max_gpu_mib": 2304,
+          "reserve_gpu_mib": 4096,
+          "max_rss_gib": 2.0,
+          "reserve_ram_gib": 8.0,
+          "reserve_disk_gib": 20.0,
+          "poll_seconds": 2.0,
+          "stop_grace_seconds": 30.0
+        },
+        "cuda_used": false,
+        "peak_rss_bytes": 702078976,
+        "stop_reason": null,
+        "process_high_water_rss_start_bytes": 20361216,
+        "process_high_water_rss_bytes": 1190457344,
+        "high_water_scope": "process lifetime, excludes children; family peak sampled separately",
+        "admission": {
+          "host": {
+            "ram_available_bytes": 36467298304,
+            "ram_total_bytes": 64891912192,
+            "swap_free_bytes": 188416,
+            "disk_free_bytes": 163324198912
+          },
+          "gpu": null,
+          "limits": {
+            "gpu_index": 0,
+            "max_gpu_mib": 2304,
+            "reserve_gpu_mib": 4096,
+            "max_rss_gib": 2.0,
+            "reserve_ram_gib": 8.0,
+            "reserve_disk_gib": 20.0,
+            "poll_seconds": 2.0,
+            "stop_grace_seconds": 30.0
+          }
+        },
+        "new_process_high_water_limit_exceeded": false,
+        "elapsed_s": 2.7369606550200842
+      },
+      "238-258.resources": {
+        "status": "complete",
+        "limits": {
+          "gpu_index": 0,
+          "max_gpu_mib": 2304,
+          "reserve_gpu_mib": 4096,
+          "max_rss_gib": 2.0,
+          "reserve_ram_gib": 8.0,
+          "reserve_disk_gib": 20.0,
+          "poll_seconds": 2.0,
+          "stop_grace_seconds": 30.0
+        },
+        "cuda_used": false,
+        "peak_rss_bytes": 702222336,
+        "stop_reason": null,
+        "process_high_water_rss_start_bytes": 20365312,
+        "process_high_water_rss_bytes": 1190445056,
+        "high_water_scope": "process lifetime, excludes children; family peak sampled separately",
+        "admission": {
+          "host": {
+            "ram_available_bytes": 36486791168,
+            "ram_total_bytes": 64891912192,
+            "swap_free_bytes": 188416,
+            "disk_free_bytes": 163323015168
+          },
+          "gpu": null,
+          "limits": {
+            "gpu_index": 0,
+            "max_gpu_mib": 2304,
+            "reserve_gpu_mib": 4096,
+            "max_rss_gib": 2.0,
+            "reserve_ram_gib": 8.0,
+            "reserve_disk_gib": 20.0,
+            "poll_seconds": 2.0,
+            "stop_grace_seconds": 30.0
+          }
+        },
+        "new_process_high_water_limit_exceeded": false,
+        "elapsed_s": 2.6367694130167365
+      },
+      "65-85.resources": {
+        "status": "complete",
+        "limits": {
+          "gpu_index": 0,
+          "max_gpu_mib": 2304,
+          "reserve_gpu_mib": 4096,
+          "max_rss_gib": 2.0,
+          "reserve_ram_gib": 8.0,
+          "reserve_disk_gib": 20.0,
+          "poll_seconds": 2.0,
+          "stop_grace_seconds": 30.0
+        },
+        "cuda_used": false,
+        "peak_rss_bytes": 701919232,
+        "stop_reason": null,
+        "process_high_water_rss_start_bytes": 20312064,
+        "process_high_water_rss_bytes": 1190539264,
+        "high_water_scope": "process lifetime, excludes children; family peak sampled separately",
+        "admission": {
+          "host": {
+            "ram_available_bytes": 36602888192,
+            "ram_total_bytes": 64891912192,
+            "swap_free_bytes": 188416,
+            "disk_free_bytes": 163325374464
+          },
+          "gpu": null,
+          "limits": {
+            "gpu_index": 0,
+            "max_gpu_mib": 2304,
+            "reserve_gpu_mib": 4096,
+            "max_rss_gib": 2.0,
+            "reserve_ram_gib": 8.0,
+            "reserve_disk_gib": 20.0,
+            "poll_seconds": 2.0,
+            "stop_grace_seconds": 30.0
+          }
+        },
+        "new_process_high_water_limit_exceeded": false,
+        "elapsed_s": 2.6938168089836836
+      },
+      "fresh-placements": {
+        "rules": {
+          "xy_multiplier": 1.2,
+          "peak_multiplier": 1.35,
+          "joint_rad": 0.002,
+          "return_drop": 0.007
+        },
+        "cases": {
+          "yaw-+137": {
+            "yaw_degrees": 137,
+            "shift_m": [
+              1.75,
+              0.8,
+              0.0
+            ],
+            "motion_sha256": "33413d086b0bee22d5dd0a5b062c9e449e070fc21962b3443d49e5c222d7d95d",
+            "previous": {
+              "steps": 13065,
+              "completed_motion": true,
+              "failure": null,
+              "xy_rmse_m": 0.24369833472536537,
+              "xy_peak_m": 0.8787682157750484,
+              "joint_rmse_rad": 0.30828703794356827,
+              "return": 0.8265034231791039,
+              "nonfoot_ground_force_substeps": 0,
+              "joint_groups_rad": {
+                "legs": 0.22088311775299185,
+                "waist": 0.09971749723203871,
+                "arms": 0.3910501499528914
+              },
+              "trajectory_sha256": "58a82048c235f9098cd640fb2821001133df1afcbbf81452885b0907edc8227e",
+              "checkpoint_sha256": "2eff6581d5de691b6c56a6fb9421d9fd31622c3692c7083216c727b1f94e0cfd",
+              "result_sha256": "a9360498148c48c2351f79b8dc2bc42031490e5e3bf428b07d7373c8682efcce"
+            },
+            "candidate": {
+              "steps": 13065,
+              "completed_motion": true,
+              "failure": null,
+              "xy_rmse_m": 0.24548569085645916,
+              "xy_peak_m": 0.9583408234169785,
+              "joint_rmse_rad": 0.29066867789141754,
+              "return": 0.8244716537167549,
+              "nonfoot_ground_force_substeps": 0,
+              "joint_groups_rad": {
+                "legs": 0.21074704143225612,
+                "waist": 0.09434585863764926,
+                "arms": 0.367470593586517
+              },
+              "trajectory_sha256": "2783daa97dc28aecc6f244edb54683fd4bed1bc89954f76a31d7e31f70c5d5a4",
+              "checkpoint_sha256": "4b7e5ecff963955d3af3da1741c9d799c4df583172a400954ebcaa217e892b05",
+              "result_sha256": "ca271e5fe9ac04b3e801c6f2372f3569ec7d03eeaadb0014b68a3d7d50d95a7a"
+            },
+            "checks": {
+              "complete": true,
+              "nonfoot": true,
+              "xy": true,
+              "peak": true,
+              "joint": true,
+              "return": true
+            },
+            "passes": true
+          },
+          "yaw--79": {
+            "yaw_degrees": -79,
+            "shift_m": [
+              -1.2,
+              1.7,
+              0.0
+            ],
+            "motion_sha256": "37e3505e9608fc7b94e19a31d3d462933b08579c5e00fc00952240d0c686e67c",
+            "previous": {
+              "steps": 13065,
+              "completed_motion": true,
+              "failure": null,
+              "xy_rmse_m": 0.2533286327012766,
+              "xy_peak_m": 0.7696507044545802,
+              "joint_rmse_rad": 0.3083924333451729,
+              "return": 0.8213616706747412,
+              "nonfoot_ground_force_substeps": 0,
+              "joint_groups_rad": {
+                "legs": 0.2204200461527243,
+                "waist": 0.09970010527357462,
+                "arms": 0.39144700439211394
+              },
+              "trajectory_sha256": "5c83ef07f96cc2ad34ced54bcc063e8ffc7c35c5b46fe18779017f83e7b1f7b9",
+              "checkpoint_sha256": "2eff6581d5de691b6c56a6fb9421d9fd31622c3692c7083216c727b1f94e0cfd",
+              "result_sha256": "64db7f01033a9af2e7e954e569bb96e0fa4a765cbc5fec837790f93dba7c21b1"
+            },
+            "candidate": {
+              "steps": 13065,
+              "completed_motion": true,
+              "failure": null,
+              "xy_rmse_m": 0.2704677051348239,
+              "xy_peak_m": 0.9453566054063365,
+              "joint_rmse_rad": 0.290875358949977,
+              "return": 0.8215305991798719,
+              "nonfoot_ground_force_substeps": 0,
+              "joint_groups_rad": {
+                "legs": 0.21154660447275356,
+                "waist": 0.09437214289993441,
+                "arms": 0.36741411673342733
+              },
+              "trajectory_sha256": "2e38d9bc8a68158b2a2dc4071c968136a5297ad0ff66d7d8793af170c7eb7198",
+              "checkpoint_sha256": "4b7e5ecff963955d3af3da1741c9d799c4df583172a400954ebcaa217e892b05",
+              "result_sha256": "60c2a61e561f4f1e7825e1157319d59d066c11be952289c15aed50b176b581d1"
+            },
+            "checks": {
+              "complete": true,
+              "nonfoot": true,
+              "xy": true,
+              "peak": true,
+              "joint": true,
+              "return": true
+            },
+            "passes": true
+          }
+        },
+        "all_cases_pass": true,
+        "mean_normalized_score": 1.9805196662911515
+      },
+      "known-placements": {
+        "rules": {
+          "xy_multiplier": 1.2,
+          "peak_multiplier": 1.35,
+          "joint_rad": 0.002,
+          "return_drop": 0.007
+        },
+        "cases": {
+          "translated": {
+            "yaw_degrees": 0,
+            "translation_m": [
+              1.0,
+              -2.0,
+              0.0
+            ],
+            "motion_sha256": "59b7b9dfa587c9045f2c14062c421efde312e8325c40de433c3a32af2a358420",
+            "previous": {
+              "steps": 13065,
+              "completed_motion": true,
+              "failure": null,
+              "xy_rmse_m": 0.2875901334718179,
+              "xy_peak_m": 0.9863769889429226,
+              "joint_rmse_rad": 0.30866269686158077,
+              "return": 0.8191582676646265,
+              "nonfoot_ground_force_substeps": 0,
+              "joint_groups_rad": {
+                "legs": 0.22181027381533702,
+                "waist": 0.1006091638107403,
+                "arms": 0.3911651980405605
+              },
+              "trajectory_sha256": "3fc48153e821a49e7cf3198885a05984805dd02502aaefdc97516dd018675f0f",
+              "checkpoint_sha256": "2eff6581d5de691b6c56a6fb9421d9fd31622c3692c7083216c727b1f94e0cfd",
+              "result_sha256": "f33949ff9cdb98c148db37b309a228ef76f9b8f0801ceb52c778b3e80a6e39c9"
+            },
+            "candidate": {
+              "steps": 13065,
+              "completed_motion": true,
+              "failure": null,
+              "xy_rmse_m": 0.22498290156859754,
+              "xy_peak_m": 0.8214819497484328,
+              "joint_rmse_rad": 0.2918180823680311,
+              "return": 0.8257638278520294,
+              "nonfoot_ground_force_substeps": 0,
+              "joint_groups_rad": {
+                "legs": 0.21135499318061735,
+                "waist": 0.09323554188161576,
+                "arms": 0.36911537164582264
+              },
+              "trajectory_sha256": "9881408a26a4c11378c3f5cb5efa2d4373e02340b87c62f5a2ccbb5195135d0f",
+              "checkpoint_sha256": "4b7e5ecff963955d3af3da1741c9d799c4df583172a400954ebcaa217e892b05",
+              "result_sha256": "62adab2232dca990f0449b93d0ce11a71b20bed5e243ef6fce7017181d6333fa"
+            },
+            "checks": {
+              "complete": true,
+              "nonfoot": true,
+              "xy": true,
+              "peak": true,
+              "joint": true,
+              "return": true
+            },
+            "passes": true
+          },
+          "yaw-90-translated": {
+            "yaw_degrees": 90,
+            "translation_m": [
+              1.0,
+              -2.0,
+              0.0
+            ],
+            "motion_sha256": "29ec31e3d2fa8a8c20761d277ce682ff4590972c391d7dc84e9758774aeb2abe",
+            "previous": {
+              "steps": 13065,
+              "completed_motion": true,
+              "failure": null,
+              "xy_rmse_m": 0.26745434965929904,
+              "xy_peak_m": 1.095459778539681,
+              "joint_rmse_rad": 0.30908208529732145,
+              "return": 0.8224039731060369,
+              "nonfoot_ground_force_substeps": 0,
+              "joint_groups_rad": {
+                "legs": 0.22143384525533438,
+                "waist": 0.09965476110014129,
+                "arms": 0.3920852440091442
+              },
+              "trajectory_sha256": "733c863f7e5e953e65f7c6e83ecf261de13640f2322dfe811b3097b790dfeefc",
+              "checkpoint_sha256": "2eff6581d5de691b6c56a6fb9421d9fd31622c3692c7083216c727b1f94e0cfd",
+              "result_sha256": "dee2f59564170c45057bd3a8f764646b5597f90307c4bb85c2df595f562406d5"
+            },
+            "candidate": {
+              "steps": 13065,
+              "completed_motion": true,
+              "failure": null,
+              "xy_rmse_m": 0.2359277759201431,
+              "xy_peak_m": 0.9504954867527713,
+              "joint_rmse_rad": 0.29087748004461905,
+              "return": 0.8236358341384199,
+              "nonfoot_ground_force_substeps": 0,
+              "joint_groups_rad": {
+                "legs": 0.2110715948141381,
+                "waist": 0.09326865130013931,
+                "arms": 0.3677120187166544
+              },
+              "trajectory_sha256": "8d85cdb49f437794ebe6dc6a8d542d99ec6fe717f706c4ec618a46cbc2154cbb",
+              "checkpoint_sha256": "4b7e5ecff963955d3af3da1741c9d799c4df583172a400954ebcaa217e892b05",
+              "result_sha256": "12e348fea207c95a08933a8441868c9a81be6522945445fb6923728964f6e463"
+            },
+            "checks": {
+              "complete": true,
+              "nonfoot": true,
+              "xy": true,
+              "peak": true,
+              "joint": true,
+              "return": true
+            },
+            "passes": true
+          },
+          "yaw-minus-37-translated": {
+            "yaw_degrees": -37,
+            "translation_m": [
+              1.0,
+              -2.0,
+              0.0
+            ],
+            "motion_sha256": "3f896e8b88eea1472ce32b79b5f59c7a27a4ea398aecd98b647ad712d500ffbb",
+            "previous": {
+              "steps": 13065,
+              "completed_motion": true,
+              "failure": null,
+              "xy_rmse_m": 0.29038714010428257,
+              "xy_peak_m": 0.9878385376860543,
+              "joint_rmse_rad": 0.3082663973322555,
+              "return": 0.8186205582649736,
+              "nonfoot_ground_force_substeps": 0,
+              "joint_groups_rad": {
+                "legs": 0.2208001784209233,
+                "waist": 0.09947688993009732,
+                "arms": 0.3910697233799875
+              },
+              "trajectory_sha256": "e2b6bbd3d1db4a48b92ef270cba57d7682b9fdbb6b6b9da629e5cff9ee53701e",
+              "checkpoint_sha256": "2eff6581d5de691b6c56a6fb9421d9fd31622c3692c7083216c727b1f94e0cfd",
+              "result_sha256": "acf3dee7303258fef769484ecc85e009bfd6d1dd81fe940099b7560190827ad8"
+            },
+            "candidate": {
+              "steps": 13065,
+              "completed_motion": true,
+              "failure": null,
+              "xy_rmse_m": 0.25184085959068725,
+              "xy_peak_m": 0.8531824799106302,
+              "joint_rmse_rad": 0.29201002554762284,
+              "return": 0.8223717693528863,
+              "nonfoot_ground_force_substeps": 0,
+              "joint_groups_rad": {
+                "legs": 0.21147145677114443,
+                "waist": 0.09322011667772143,
+                "arms": 0.3693733787281057
+              },
+              "trajectory_sha256": "c829d8f4c5890cf59898adba38c0367a1daf09adf5163e66b12df6e8f9c44ac4",
+              "checkpoint_sha256": "4b7e5ecff963955d3af3da1741c9d799c4df583172a400954ebcaa217e892b05",
+              "result_sha256": "e25ffc8da55e4b064f54feaef157050654842eeff8a36ae0a53387e2c47ace58"
+            },
+            "checks": {
+              "complete": true,
+              "nonfoot": true,
+              "xy": true,
+              "peak": true,
+              "joint": true,
+              "return": true
+            },
+            "passes": true
+          }
+        },
+        "all_cases_pass": true,
+        "mean_normalized_score": 1.7884932856532199
+      },
+      "translated.resources": {
+        "status": "complete",
+        "limits": {
+          "gpu_index": 0,
+          "max_gpu_mib": 2304,
+          "reserve_gpu_mib": 4096,
+          "max_rss_gib": 2.0,
+          "reserve_ram_gib": 8.0,
+          "reserve_disk_gib": 20.0,
+          "poll_seconds": 2.0,
+          "stop_grace_seconds": 30.0
+        },
+        "cuda_used": false,
+        "peak_rss_bytes": 781348864,
+        "stop_reason": null,
+        "process_high_water_rss_start_bytes": 20303872,
+        "process_high_water_rss_bytes": 1261322240,
+        "high_water_scope": "process lifetime, excludes children; family peak sampled separately",
+        "admission": {
+          "host": {
+            "ram_available_bytes": 36694519808,
+            "ram_total_bytes": 64891912192,
+            "swap_free_bytes": 94208,
+            "disk_free_bytes": 158883667968
+          },
+          "gpu": null,
+          "limits": {
+            "gpu_index": 0,
+            "max_gpu_mib": 2304,
+            "reserve_gpu_mib": 4096,
+            "max_rss_gib": 2.0,
+            "reserve_ram_gib": 8.0,
+            "reserve_disk_gib": 20.0,
+            "poll_seconds": 2.0,
+            "stop_grace_seconds": 30.0
+          }
+        },
+        "new_process_high_water_limit_exceeded": false,
+        "elapsed_s": 18.80943964299513
+      },
+      "windows": {
+        "rules": {
+          "xy_multiplier": 1.4,
+          "peak_multiplier": 1.5,
+          "joint_rad": 0.015,
+          "return_drop": 0.025
+        },
+        "cases": {
+          "65-85": {
+            "source_seconds": [
+              65,
+              85
+            ],
+            "motion_sha256": "95cc9897a985f6e315ed686c853be7ea6a5eef11cf35e7e92de26c0eab286f77",
+            "previous": {
+              "steps": 1000,
+              "completed_motion": true,
+              "failure": null,
+              "xy_rmse_m": 0.13850911846831745,
+              "xy_peak_m": 0.27480072035742453,
+              "joint_rmse_rad": 0.17425289684556697,
+              "return": 0.8725790309906006,
+              "nonfoot_ground_force_substeps": 0,
+              "joint_groups_rad": {
+                "legs": 0.15001784527404816,
+                "waist": 0.09503916713828366,
+                "arms": 0.2041351990775524
+              },
+              "trajectory_sha256": "f56497eb39a4c3fa0ae7335dd340e73ff547f3115a9cb7efe8570ec8f03f3e5e",
+              "checkpoint_sha256": "2eff6581d5de691b6c56a6fb9421d9fd31622c3692c7083216c727b1f94e0cfd",
+              "result_sha256": "f91ef9c8d511b0ed9b77f205f77a187fa2e831bac9e5a596f6ec16629416ecf4"
+            },
+            "candidate": {
+              "steps": 1000,
+              "completed_motion": true,
+              "failure": null,
+              "xy_rmse_m": 0.11930082864201241,
+              "xy_peak_m": 0.25271227659128415,
+              "joint_rmse_rad": 0.16990874529526645,
+              "return": 0.877493143081665,
+              "nonfoot_ground_force_substeps": 0,
+              "joint_groups_rad": {
+                "legs": 0.14991432387524803,
+                "waist": 0.09529584634710159,
+                "arms": 0.19644427073742743
+              },
+              "trajectory_sha256": "961fd8cc0c6c4fdd7b62de00ffcea2218cf8e3efd3fffb6da82938f0c6808a99",
+              "checkpoint_sha256": "4b7e5ecff963955d3af3da1741c9d799c4df583172a400954ebcaa217e892b05",
+              "result_sha256": "5eb35f631328ad5f56b4ebdbf1c195e12059519908698fc7371ebcc4e1a8df83"
+            },
+            "checks": {
+              "complete": true,
+              "nonfoot": true,
+              "xy": true,
+              "peak": true,
+              "joint": true,
+              "return": true
+            },
+            "passes": true
+          },
+          "137-157": {
+            "source_seconds": [
+              137,
+              157
+            ],
+            "motion_sha256": "7b3ff853e79b0d549aa7ae1742ae27e466caa964b3f7b059fda97f8cf1e6db69",
+            "previous": {
+              "steps": 1000,
+              "completed_motion": true,
+              "failure": null,
+              "xy_rmse_m": 0.20590642549450755,
+              "xy_peak_m": 0.3653447895883533,
+              "joint_rmse_rad": 0.23562846174839452,
+              "return": 0.8359724426269531,
+              "nonfoot_ground_force_substeps": 0,
+              "joint_groups_rad": {
+                "legs": 0.17645013314918762,
+                "waist": 0.10431179013506459,
+                "arms": 0.2932385358918067
+              },
+              "trajectory_sha256": "026f99311af7d0b30f7acf53a932c6ce2306a3da544c21ef95bf059cae8ef678",
+              "checkpoint_sha256": "2eff6581d5de691b6c56a6fb9421d9fd31622c3692c7083216c727b1f94e0cfd",
+              "result_sha256": "2353b38f9ce2fd7d59a309c4913ec85faf387450f2ac6e969d227449807186e6"
+            },
+            "candidate": {
+              "steps": 1000,
+              "completed_motion": true,
+              "failure": null,
+              "xy_rmse_m": 0.16530767379096659,
+              "xy_peak_m": 0.29147020171005145,
+              "joint_rmse_rad": 0.22626223143729265,
+              "return": 0.8489764213562012,
+              "nonfoot_ground_force_substeps": 0,
+              "joint_groups_rad": {
+                "legs": 0.1655944689029891,
+                "waist": 0.09073080798095627,
+                "arms": 0.2842142988949308
+              },
+              "trajectory_sha256": "de065a6cb36fefcfba3a269d6bc7c7e2ff0629d3317d06b5b315b148eaf6b331",
+              "checkpoint_sha256": "4b7e5ecff963955d3af3da1741c9d799c4df583172a400954ebcaa217e892b05",
+              "result_sha256": "c5a87cf7378b306df02c954bb0497f2b2f27f262b0c630799be919fd3b647341"
+            },
+            "checks": {
+              "complete": true,
+              "nonfoot": true,
+              "xy": true,
+              "peak": true,
+              "joint": true,
+              "return": true
+            },
+            "passes": true
+          },
+          "238-258": {
+            "source_seconds": [
+              238,
+              258
+            ],
+            "motion_sha256": "4447040d229505b34e474eb077989378c2a8c2a30acb76860752893be06e479a",
+            "previous": {
+              "steps": 1000,
+              "completed_motion": true,
+              "failure": null,
+              "xy_rmse_m": 0.375724118515872,
+              "xy_peak_m": 0.6669106934374136,
+              "joint_rmse_rad": 0.6467683436917377,
+              "return": 0.5864702701568604,
+              "nonfoot_ground_force_substeps": 0,
+              "joint_groups_rad": {
+                "legs": 0.4781576028200975,
+                "waist": 0.11442901383764759,
+                "arms": 0.8171409699333815
+              },
+              "trajectory_sha256": "9d205c7abc3a62b0ded6be5278ba131d6dcfd19e156ad0bc55bd511403aaba56",
+              "checkpoint_sha256": "2eff6581d5de691b6c56a6fb9421d9fd31622c3692c7083216c727b1f94e0cfd",
+              "result_sha256": "10dda659e5216426b533b4e34f79469946a73051bd2acd5b3fd057de830db94c"
+            },
+            "candidate": {
+              "steps": 1000,
+              "completed_motion": true,
+              "failure": null,
+              "xy_rmse_m": 0.3581119440907348,
+              "xy_peak_m": 0.8907769863135298,
+              "joint_rmse_rad": 0.5957957961518652,
+              "return": 0.5911550235748291,
+              "nonfoot_ground_force_substeps": 0,
+              "joint_groups_rad": {
+                "legs": 0.4421974348857643,
+                "waist": 0.10593318561527082,
+                "arms": 0.7518585502499986
+              },
+              "trajectory_sha256": "1df3ca51e353799c4f50a11be76d417e8348aed9d9b635009fbbbe19c5cecd41",
+              "checkpoint_sha256": "4b7e5ecff963955d3af3da1741c9d799c4df583172a400954ebcaa217e892b05",
+              "result_sha256": "2cd24896bcb0a78d27350e156432d6360232534db5843ba5562a784c50e1b733"
+            },
+            "checks": {
+              "complete": true,
+              "nonfoot": true,
+              "xy": true,
+              "peak": true,
+              "joint": true,
+              "return": true
+            },
+            "passes": true
+          }
+        },
+        "all_cases_pass": true,
+        "mean_normalized_score": 1.8245945553590548
+      },
+      "yaw-+137.resources": {
+        "status": "complete",
+        "limits": {
+          "gpu_index": 0,
+          "max_gpu_mib": 2304,
+          "reserve_gpu_mib": 4096,
+          "max_rss_gib": 2.0,
+          "reserve_ram_gib": 8.0,
+          "reserve_disk_gib": 20.0,
+          "poll_seconds": 2.0,
+          "stop_grace_seconds": 30.0
+        },
+        "cuda_used": false,
+        "peak_rss_bytes": 723181568,
+        "stop_reason": null,
+        "process_high_water_rss_start_bytes": 20267008,
+        "process_high_water_rss_bytes": 1260851200,
+        "high_water_scope": "process lifetime, excludes children; family peak sampled separately",
+        "admission": {
+          "host": {
+            "ram_available_bytes": 36574949376,
+            "ram_total_bytes": 64891912192,
+            "swap_free_bytes": 241664,
+            "disk_free_bytes": 161683120128
+          },
+          "gpu": null,
+          "limits": {
+            "gpu_index": 0,
+            "max_gpu_mib": 2304,
+            "reserve_gpu_mib": 4096,
+            "max_rss_gib": 2.0,
+            "reserve_ram_gib": 8.0,
+            "reserve_disk_gib": 20.0,
+            "poll_seconds": 2.0,
+            "stop_grace_seconds": 30.0
+          }
+        },
+        "new_process_high_water_limit_exceeded": false,
+        "elapsed_s": 20.09513575298479
+      },
+      "yaw--79.resources": {
+        "status": "complete",
+        "limits": {
+          "gpu_index": 0,
+          "max_gpu_mib": 2304,
+          "reserve_gpu_mib": 4096,
+          "max_rss_gib": 2.0,
+          "reserve_ram_gib": 8.0,
+          "reserve_disk_gib": 20.0,
+          "poll_seconds": 2.0,
+          "stop_grace_seconds": 30.0
+        },
+        "cuda_used": false,
+        "peak_rss_bytes": 1247379456,
+        "stop_reason": null,
+        "process_high_water_rss_start_bytes": 20365312,
+        "process_high_water_rss_bytes": 1261031424,
+        "high_water_scope": "process lifetime, excludes children; family peak sampled separately",
+        "admission": {
+          "host": {
+            "ram_available_bytes": 36534308864,
+            "ram_total_bytes": 64891912192,
+            "swap_free_bytes": 241664,
+            "disk_free_bytes": 161668558848
+          },
+          "gpu": null,
+          "limits": {
+            "gpu_index": 0,
+            "max_gpu_mib": 2304,
+            "reserve_gpu_mib": 4096,
+            "max_rss_gib": 2.0,
+            "reserve_ram_gib": 8.0,
+            "reserve_disk_gib": 20.0,
+            "poll_seconds": 2.0,
+            "stop_grace_seconds": 30.0
+          }
+        },
+        "new_process_high_water_limit_exceeded": false,
+        "elapsed_s": 20.369209759985097
+      },
+      "yaw-90-translated.resources": {
+        "status": "complete",
+        "limits": {
+          "gpu_index": 0,
+          "max_gpu_mib": 2304,
+          "reserve_gpu_mib": 4096,
+          "max_rss_gib": 2.0,
+          "reserve_ram_gib": 8.0,
+          "reserve_disk_gib": 20.0,
+          "poll_seconds": 2.0,
+          "stop_grace_seconds": 30.0
+        },
+        "cuda_used": false,
+        "peak_rss_bytes": 723820544,
+        "stop_reason": null,
+        "process_high_water_rss_start_bytes": 20373504,
+        "process_high_water_rss_bytes": 1260302336,
+        "high_water_scope": "process lifetime, excludes children; family peak sampled separately",
+        "admission": {
+          "host": {
+            "ram_available_bytes": 36491157504,
+            "ram_total_bytes": 64891912192,
+            "swap_free_bytes": 94208,
+            "disk_free_bytes": 158868983808
+          },
+          "gpu": null,
+          "limits": {
+            "gpu_index": 0,
+            "max_gpu_mib": 2304,
+            "reserve_gpu_mib": 4096,
+            "max_rss_gib": 2.0,
+            "reserve_ram_gib": 8.0,
+            "reserve_disk_gib": 20.0,
+            "poll_seconds": 2.0,
+            "stop_grace_seconds": 30.0
+          }
+        },
+        "new_process_high_water_limit_exceeded": false,
+        "elapsed_s": 18.88964553398546
+      },
+      "yaw-minus-37-translated.resources": {
+        "status": "complete",
+        "limits": {
+          "gpu_index": 0,
+          "max_gpu_mib": 2304,
+          "reserve_gpu_mib": 4096,
+          "max_rss_gib": 2.0,
+          "reserve_ram_gib": 8.0,
+          "reserve_disk_gib": 20.0,
+          "poll_seconds": 2.0,
+          "stop_grace_seconds": 30.0
+        },
+        "cuda_used": false,
+        "peak_rss_bytes": 723382272,
+        "stop_reason": null,
+        "process_high_water_rss_start_bytes": 20316160,
+        "process_high_water_rss_bytes": 1261461504,
+        "high_water_scope": "process lifetime, excludes children; family peak sampled separately",
+        "admission": {
+          "host": {
+            "ram_available_bytes": 36468973568,
+            "ram_total_bytes": 64891912192,
+            "swap_free_bytes": 94208,
+            "disk_free_bytes": 158854443008
+          },
+          "gpu": null,
+          "limits": {
+            "gpu_index": 0,
+            "max_gpu_mib": 2304,
+            "reserve_gpu_mib": 4096,
+            "max_rss_gib": 2.0,
+            "reserve_ram_gib": 8.0,
+            "reserve_disk_gib": 20.0,
+            "poll_seconds": 2.0,
+            "stop_grace_seconds": 30.0
+          }
+        },
+        "new_process_high_water_limit_exceeded": false,
+        "elapsed_s": 19.882999360968824
+      }
+    },
+    "verification": {
+      "selected": {
+        "trial": "mixed-prior-pose12-050",
+        "checkpoint": "runs/opt-7h/walk-mixed/mixed-prior-pose12-050.pt",
+        "iteration": 55105,
+        "bundle": "runs/opt-7h/walk-evaluations/mixed-prior-pose12-050/mixed-prior-pose12-050/bundle",
+        "result": "runs/opt-7h/walk-evaluations/mixed-prior-pose12-050/mixed-prior-pose12-050/deploy/result.json",
+        "result_sha256": "5be1970c1e743d282a5d372378bc441d6c0648690a516733b3574df53b620216",
+        "steps": 13065,
+        "completed_motion": true,
+        "failure": null,
+        "xy_rmse_m": 0.21111305680401637,
+        "xy_peak_m": 0.6951751912743055,
+        "joint_rmse_rad": 0.29109948847881306,
+        "return": 0.8282842399788414,
+        "nonfoot_ground_force_substeps": 0,
+        "joint_groups_rad": {
+          "legs": 0.21137783853821535,
+          "waist": 0.09404776061529867,
+          "arms": 0.36788259212639146
+        },
+        "trajectory_sha256": "ac323ae0680b4c04ea45d50bfb619f5f0046bf981e9d03d6ef62abb0d7178af9",
+        "checkpoint_sha256": "4b7e5ecff963955d3af3da1741c9d799c4df583172a400954ebcaa217e892b05",
+        "checks": {
+          "full_reference": true,
+          "nonfoot_ground_force": true,
+          "xy_rmse": true,
+          "xy_peak": true,
+          "joints": true,
+          "return": true,
+          "meaningful_gain": true
+        },
+        "qualifies": true,
+        "ranking_score": 1.7902483485059149,
+        "deployment_seconds": 25.31784529297147
+      },
+      "fresh_bundle": "runs/opt-7h/walk-final/mixed-prior-pose12-050/bundle",
+      "fresh_trajectory": "runs/opt-7h/walk-final/mixed-prior-pose12-050/deploy/trajectory.npz",
+      "result_sha256": "946a85fd13896fe8305c34aecaf07b8789a30b8a5c2a08374d239d5cf3d3b9a6",
+      "contract_sha256": "94b5776c7befcc1af4ff7d4e1f977d667e2560387c0befe82ab48318f80fb1fe",
+      "bitwise_replay": true,
+      "gif": "runs/opt-7h/walk-final/mixed-prior-pose12-050/walk.gif",
+      "gif_manifest_entry": {
+        "bundle": "runs/opt-7h/walk-final/mixed-prior-pose12-050/bundle",
+        "trajectory": "runs/opt-7h/walk-final/mixed-prior-pose12-050/deploy/trajectory.npz",
+        "gif_sha256": "789227f10ad330cf45a89400ae949c8634d296bcc0ef306b932d0f0245c91bd6",
+        "size_bytes": 668991,
+        "first_source_frame": 12250,
+        "source_start_seconds": 245.0,
+        "source_end_seconds": 249.9,
+        "duration_s": 5.0,
+        "width": 384,
+        "height": 288,
+        "fps": 10,
+        "frames": 50,
+        "renderer": "llvmpipe (LLVM 15.0.7, 256 bits)",
+        "checkpoint_sha256": "4b7e5ecff963955d3af3da1741c9d799c4df583172a400954ebcaa217e892b05",
+        "trajectory_sha256": "ac323ae0680b4c04ea45d50bfb619f5f0046bf981e9d03d6ef62abb0d7178af9",
+        "contract_sha256": "94b5776c7befcc1af4ff7d4e1f977d667e2560387c0befe82ab48318f80fb1fe",
+        "result_sha256": "946a85fd13896fe8305c34aecaf07b8789a30b8a5c2a08374d239d5cf3d3b9a6"
+      },
+      "comparison": "runs/opt-7h/walk-final/mixed-prior-pose12-050/walk-comparison.png",
+      "comparison_sha256": "c3ae67eaad7791ffe4041f455e4d52a8fddb1924814d2b7736957c056c8164a3",
+      "gif_repeat_sha256": "789227f10ad330cf45a89400ae949c8634d296bcc0ef306b932d0f0245c91bd6"
+    },
+    "trials": [
+      {
+        "checkpoint": "runs/demo-pr/walk-xy40-decoder/training/ckpt_0048000.pt",
+        "name": "pose12-hand20",
+        "hours": 0.14,
+        "scope": "action-head",
+        "joint_weight": 12,
+        "xy_weight": 35,
+        "learning_rate": 1.2e-06,
+        "priority_windows": [
+          [
+            220,
+            260
+          ]
+        ],
+        "priority_ratio": 0.2,
+        "effector_weight": 20,
+        "effector_weights": [
+          1,
+          1,
+          3,
+          3
+        ]
+      },
+      {
+        "checkpoint": "runs/demo-pr/walk-xy40-decoder/training/ckpt_0048000.pt",
+        "name": "pose12-head",
+        "hours": 0.13,
+        "scope": "action-head",
+        "joint_weight": 12,
+        "xy_weight": 35,
+        "learning_rate": 1.2e-06,
+        "priority_windows": [
+          [
+            220,
+            260
+          ]
+        ],
+        "priority_ratio": 0.2
+      },
+      {
+        "name": "pose12-xy55-tail",
+        "checkpoint": "runs/opt-7h/walk-training/pose12-head/training/ckpt_latest.pt",
+        "hours": 0.15,
+        "scope": "action-head",
+        "joint_weight": 12,
+        "xy_weight": 55,
+        "learning_rate": 5e-07,
+        "priority_windows": [
+          [
+            228,
+            260
+          ]
+        ],
+        "priority_ratio": 0.38,
+        "checkpoint_interval": 1600
+      },
+      {
+        "checkpoint": "runs/demo-pr/walk-xy40-decoder/training/ckpt_0048000.pt",
+        "name": "pose40-decoder",
+        "hours": 0.16,
+        "scope": "decoder",
+        "joint_weight": 40,
+        "xy_weight": 25,
+        "learning_rate": 7e-07,
+        "priority_windows": [
+          [
+            220,
+            260
+          ]
+        ],
+        "priority_ratio": 0.2
+      }
+    ]
   }
 }
