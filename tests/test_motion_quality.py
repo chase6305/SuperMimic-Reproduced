@@ -39,6 +39,12 @@ def test_motion_quality_accepts_tracking_and_rejects_static_substitute():
     assert motion_quality(states, frames, reference, 0)["root_orientation_rmse_rad"] == 0
 
 
+def test_rolling_error_preserves_float64_sums_for_float32_columns():
+    squared = np.array([[1.0, 2.0], [2e-8, 3e-8], [1.0, 0.0]], dtype=np.float32)
+    expected = np.sqrt((squared[0].astype(np.float64) + squared[1]) / 2)
+    np.testing.assert_array_equal(worst_window_rmse(squared, 2), expected)
+
+
 def test_rolling_error_and_inversion_metrics_expose_rare_missed_stunts():
     squared = np.zeros(1000)
     squared[500:550] = 1

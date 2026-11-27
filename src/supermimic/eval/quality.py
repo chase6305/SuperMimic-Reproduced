@@ -7,15 +7,16 @@ import numpy as np
 
 def worst_window_rmse(squared_errors: np.ndarray, window: int) -> np.ndarray:
     """Maximum rolling RMS over time, preserving trailing signal dimensions."""
-    values = np.asarray(squared_errors, dtype=np.float64)
+    values = np.asarray(squared_errors)
     count = min(window, len(values))
     if count < 1:
         raise ValueError("A positive window and nonempty errors are required")
     cumulative = np.empty((len(values) + 1, *values.shape[1:]), dtype=np.float64)
     cumulative[0] = 0
-    np.cumsum(values, axis=0, out=cumulative[1:])
-    means = (cumulative[count:] - cumulative[:-count]) / count
-    return np.sqrt(np.maximum(means, 0).max(axis=0))
+    np.cumsum(values, axis=0, dtype=np.float64, out=cumulative[1:])
+    means = cumulative[count:] - cumulative[:-count]
+    means /= count
+    return np.sqrt(np.maximum(means.max(axis=0), 0))
 
 
 def motion_quality(

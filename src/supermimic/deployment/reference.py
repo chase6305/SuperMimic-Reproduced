@@ -15,8 +15,7 @@ def rotation(q_wxyz: np.ndarray) -> Rotation:
 
 
 def gravity(q_wxyz: np.ndarray) -> np.ndarray:
-    q = np.asarray(q_wxyz)
-    return rotation(q).inv().apply(np.broadcast_to([0.0, 0.0, -1.0], q.shape[:-1] + (3,)))
+    return rotation(q_wxyz).apply((0.0, 0.0, -1.0), inverse=True)
 
 
 def heading_error(actual_wxyz: np.ndarray, reference_wxyz: np.ndarray) -> np.ndarray:
