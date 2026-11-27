@@ -1,0 +1,985 @@
+{
+  "scope": "CPU MuJoCo tracking of the same full training reference, no resets",
+  "source_motion_sha256": "4598698aa035c52ba160986e05796cb525df557d1879266e933c40a65994c041",
+  "full_reference_seconds": 261.3,
+  "full_reference_controls": 13065,
+  "baseline": {
+    "iteration": 42519,
+    "checkpoint_sha256": "bc95a21eb9b55ba56aafd6b5bd4dc9ba663f19f7f087d674348318243ec633c4",
+    "trajectory_sha256": "a4755a03b3b47c2990649480c02f113e569fbf2ca7eca3a70db405c55b929ac5",
+    "result_sha256": "bc47a58271dbd44d906c1d32eb9513f2afe2bf2d3e7a5df230144b3c65ca7584",
+    "root_xy_rmse_m": 0.4953910213584888,
+    "root_xy_max_error_m": 1.9822379852771261,
+    "joint_rmse_rad": 0.29632877691223003,
+    "return": 0.8215163963944164,
+    "nonfoot_ground_force_substeps": 0
+  },
+  "selection_conditions": {
+    "all_steps": 13065,
+    "min_relative_xy_rmse_improvement": 0.1,
+    "max_normalized_return_drop": 0.01,
+    "max_joint_rmse_increase_rad": 0.02,
+    "max_root_xy_error_may_not_increase": true,
+    "max_nonfoot_ground_force_substeps": 0,
+    "tie_breaker": "Minimum plane RMSE among qualifying final/latest or retained checkpoint candidates. An exact fresh repeated CPU deployment is required before selection."
+  },
+  "training_trials": [
+    {
+      "name": "xy120-decoder",
+      "declared_configuration": {
+        "name": "xy120-decoder",
+        "learning_rate": 2e-06,
+        "root_xy_tracking_weight": 120,
+        "policy_update_scope": "decoder",
+        "policy_horizon": 16,
+        "priority_window_seconds": [
+          220,
+          260
+        ],
+        "priority_ratio": 0.25
+      },
+      "actual_options": {
+        "profile": "paper-width",
+        "num_envs": 32,
+        "iterations": 100000,
+        "seed": 42,
+        "training_mode": "deterministic",
+        "priority_window": [
+          [
+            220.0,
+            260.0
+          ]
+        ],
+        "priority_reset_ratio": 0.25,
+        "learning_rate": 2e-06,
+        "root_xy_tracking_weight": 120.0,
+        "policy_update_scope": "decoder",
+        "policy_horizon": 16,
+        "policy_batch_size": 24,
+        "wm_batches_per_update": 2,
+        "wm_batch_size": 128,
+        "replay_capacity": 512,
+        "compile_policy": true,
+        "compile_world_model": true
+      },
+      "input_checkpoint_sha256": "bc95a21eb9b55ba56aafd6b5bd4dc9ba663f19f7f087d674348318243ec633c4",
+      "training_config_sha256": "e029c8ebc2c636ba4b2047c50f2a19939432c0fc8b53c1ed47af64a39467d0e0",
+      "training_result_sha256": "15bfcb3012c3799c33e0f7d0500e32e0509a47d6942602396332ec17aca79204",
+      "resource_record_sha256": "889c8690dd7cb8b339cd8588d51e31d4ef6c765e5ea655388cfaefb32e4fa5ba",
+      "final_iteration": 51937,
+      "optimizer_update_rounds": 3758,
+      "budget_hours": 0.14,
+      "wall_elapsed_seconds": 512.5534394670394,
+      "peak_process_gpu_mib": 1174,
+      "peak_process_tree_rss_gib": 4.036647796630859,
+      "evaluations": [
+        {
+          "attempt": "xy120-decoder",
+          "checkpoint": "runs/demo-pr/walk-xy120-decoder/training/ckpt_0050000.pt",
+          "bundle": "runs/demo-pr/walk-evaluations/xy120-decoder/ckpt_0050000/bundle",
+          "trajectory": "runs/demo-pr/walk-evaluations/xy120-decoder/ckpt_0050000/deploy/trajectory.npz",
+          "checkpoint_sha256": "4b640184ef1030e6ca89a8eb7c5e15c969cd5414a1bb2bb3942cb766f2ad0732",
+          "iteration": 50000,
+          "result_sha256": "036810bc10d3ad59ede21b0c85eb6cf7d460855b71c9c772676264d5e7a68094",
+          "trajectory_sha256": "31fc29316c3df6142e19d2607cdd167aa7c9c2a354c108192a56811f4d15571f",
+          "steps": 13065,
+          "root_xy_rmse_m": 0.7861876229232764,
+          "root_xy_max_error_m": 3.423377625541939,
+          "joint_rmse_rad": 0.29257244503226043,
+          "return": 0.7364612649876725,
+          "nonfoot_ground_force_substeps": 0,
+          "checks": {
+            "full_controls": true,
+            "plane_rmse": false,
+            "plane_max": false,
+            "return": false,
+            "joints": true,
+            "nonfoot_contacts": true
+          },
+          "passed": false
+        },
+        {
+          "attempt": "xy120-decoder",
+          "checkpoint": "runs/demo-pr/walk-xy120-decoder/training/ckpt_0051000.pt",
+          "bundle": "runs/demo-pr/walk-evaluations/xy120-decoder/ckpt_0051000/bundle",
+          "trajectory": "runs/demo-pr/walk-evaluations/xy120-decoder/ckpt_0051000/deploy/trajectory.npz",
+          "checkpoint_sha256": "1dc3c3b3525c422f5448cbb3c417bd62b059ec772602229dd2011f011cb7c48c",
+          "iteration": 51000,
+          "result_sha256": "aae9518509c0bf0de2e2f89f0b6b7e1026d8f7a3eac8cc1e539dc64486e40048",
+          "trajectory_sha256": "73821a6b0b07dac5603d0a2e6a632660e8138faa73084545866dbedb1c9e71f3",
+          "steps": 13065,
+          "root_xy_rmse_m": 1.0250586842054366,
+          "root_xy_max_error_m": 5.405260355079362,
+          "joint_rmse_rad": 0.2950076033054284,
+          "return": 0.7336760091909357,
+          "nonfoot_ground_force_substeps": 0,
+          "checks": {
+            "full_controls": true,
+            "plane_rmse": false,
+            "plane_max": false,
+            "return": false,
+            "joints": true,
+            "nonfoot_contacts": true
+          },
+          "passed": false
+        },
+        {
+          "attempt": "xy120-decoder",
+          "checkpoint": "runs/demo-pr/walk-xy120-decoder/training/ckpt_latest.pt",
+          "bundle": "runs/demo-pr/walk-evaluations/xy120-decoder/ckpt_latest/bundle",
+          "trajectory": "runs/demo-pr/walk-evaluations/xy120-decoder/ckpt_latest/deploy/trajectory.npz",
+          "checkpoint_sha256": "5505ee18c1ad59865fe1704262e626cd49bed0406d71ea5ca048ab40aec4b5c2",
+          "iteration": 51937,
+          "result_sha256": "bf4490691c146ad4ab6eb218ae200ccd8d8b2e3070ada3e1bc22788db90e582a",
+          "trajectory_sha256": "e102a6d197a37999ed4212d756d051869b3fb76b453dd711617c5caab65a3e08",
+          "steps": 12076,
+          "root_xy_rmse_m": 0.8670017785610897,
+          "root_xy_max_error_m": 4.209412975520254,
+          "joint_rmse_rad": 0.26024615787436034,
+          "return": 0.6867029118984995,
+          "nonfoot_ground_force_substeps": 0,
+          "checks": {
+            "full_controls": false,
+            "plane_rmse": false,
+            "plane_max": false,
+            "return": false,
+            "joints": true,
+            "nonfoot_contacts": true
+          },
+          "passed": false
+        }
+      ]
+    },
+    {
+      "name": "xy120-head",
+      "declared_configuration": {
+        "name": "xy120-head",
+        "learning_rate": 4e-06,
+        "root_xy_tracking_weight": 120,
+        "policy_update_scope": "action-head",
+        "policy_horizon": 16,
+        "priority_window_seconds": [
+          220,
+          260
+        ],
+        "priority_ratio": 0.25
+      },
+      "actual_options": {
+        "profile": "paper-width",
+        "num_envs": 32,
+        "iterations": 100000,
+        "seed": 42,
+        "training_mode": "deterministic",
+        "priority_window": [
+          [
+            220.0,
+            260.0
+          ]
+        ],
+        "priority_reset_ratio": 0.25,
+        "learning_rate": 4e-06,
+        "root_xy_tracking_weight": 120.0,
+        "policy_update_scope": "action-head",
+        "policy_horizon": 16,
+        "policy_batch_size": 24,
+        "wm_batches_per_update": 2,
+        "wm_batch_size": 128,
+        "replay_capacity": 512,
+        "compile_policy": true,
+        "compile_world_model": true
+      },
+      "input_checkpoint_sha256": "bc95a21eb9b55ba56aafd6b5bd4dc9ba663f19f7f087d674348318243ec633c4",
+      "training_config_sha256": "e89195b1d7bf0b7b03daa7f0ee0e22cbeec8410246d07999380e003b0f303979",
+      "training_result_sha256": "a01478c0668dd6df056911a5d2078c14fc0a7acb028da3c5ead84eafd757df3c",
+      "resource_record_sha256": "2adbef45e390f7e1628df3ec02bd7326d788b15c020d04ef7dd2f38b680d3bcb",
+      "final_iteration": 49732,
+      "optimizer_update_rounds": 2876,
+      "budget_hours": 0.12,
+      "wall_elapsed_seconds": 442.055606660957,
+      "peak_process_gpu_mib": 1152,
+      "peak_process_tree_rss_gib": 4.046787261962891,
+      "evaluations": [
+        {
+          "attempt": "xy120-head",
+          "checkpoint": "runs/demo-pr/walk-xy120-head/training/ckpt_0048000.pt",
+          "bundle": "runs/demo-pr/walk-evaluations/xy120-head/ckpt_0048000/bundle",
+          "trajectory": "runs/demo-pr/walk-evaluations/xy120-head/ckpt_0048000/deploy/trajectory.npz",
+          "checkpoint_sha256": "babeb4da0160bca93996cfb29526fd0b32db7563732a912d5de49f493af73dea",
+          "iteration": 48000,
+          "result_sha256": "3e7c9fd862a20d5a7a1ead2eca805f14e669a51f09c5036ab3e0732f98c67126",
+          "trajectory_sha256": "468f1ab0d6b238b9ed466df9dfad5259c2e37a556d3877cac2f44fd904fef982",
+          "steps": 13065,
+          "root_xy_rmse_m": 0.42978283389272565,
+          "root_xy_max_error_m": 1.9559630250791589,
+          "joint_rmse_rad": 0.30154885529018366,
+          "return": 0.8140387726249797,
+          "nonfoot_ground_force_substeps": 0,
+          "checks": {
+            "full_controls": true,
+            "plane_rmse": true,
+            "plane_max": true,
+            "return": true,
+            "joints": true,
+            "nonfoot_contacts": true
+          },
+          "passed": true
+        },
+        {
+          "attempt": "xy120-head",
+          "checkpoint": "runs/demo-pr/walk-xy120-head/training/ckpt_0049000.pt",
+          "bundle": "runs/demo-pr/walk-evaluations/xy120-head/ckpt_0049000/bundle",
+          "trajectory": "runs/demo-pr/walk-evaluations/xy120-head/ckpt_0049000/deploy/trajectory.npz",
+          "checkpoint_sha256": "35596d5e681d5b52b52a2924b2911ab9e2abf7ea8872f7080116715bff2190d3",
+          "iteration": 49000,
+          "result_sha256": "c5a5cd5e61197511334967726c7a6badea8ea4c291cfbb26109ded61cf5873ac",
+          "trajectory_sha256": "1ea6da1c09f3ea3040a85cbd929cb1d18f0fba209e1de0d0ee5a4fbd91584883",
+          "steps": 13065,
+          "root_xy_rmse_m": 0.48787200165997596,
+          "root_xy_max_error_m": 2.0784398394823063,
+          "joint_rmse_rad": 0.3003894778229843,
+          "return": 0.7985190003939255,
+          "nonfoot_ground_force_substeps": 0,
+          "checks": {
+            "full_controls": true,
+            "plane_rmse": false,
+            "plane_max": false,
+            "return": false,
+            "joints": true,
+            "nonfoot_contacts": true
+          },
+          "passed": false
+        },
+        {
+          "attempt": "xy120-head",
+          "checkpoint": "runs/demo-pr/walk-xy120-head/training/ckpt_latest.pt",
+          "bundle": "runs/demo-pr/walk-evaluations/xy120-head/ckpt_latest/bundle",
+          "trajectory": "runs/demo-pr/walk-evaluations/xy120-head/ckpt_latest/deploy/trajectory.npz",
+          "checkpoint_sha256": "6ba60dfffbdf23293830bad95383b788e46c868be6b0cdaf6f2bdb3078dcffbf",
+          "iteration": 49732,
+          "result_sha256": "e52213f22e4d2759c2cae4be2a36d0f3f363f244ac0300e7d58b0df767db489b",
+          "trajectory_sha256": "ad75bc864869bef63cef3c88e8fe010ef790482d277f3e3a0462bab1eed7f879",
+          "steps": 13065,
+          "root_xy_rmse_m": 0.49827102007000057,
+          "root_xy_max_error_m": 2.176623995971496,
+          "joint_rmse_rad": 0.3007503283417898,
+          "return": 0.8001274849508077,
+          "nonfoot_ground_force_substeps": 0,
+          "checks": {
+            "full_controls": true,
+            "plane_rmse": false,
+            "plane_max": false,
+            "return": false,
+            "joints": true,
+            "nonfoot_contacts": true
+          },
+          "passed": false
+        }
+      ]
+    },
+    {
+      "name": "xy20-decoder",
+      "declared_configuration": {
+        "name": "xy20-decoder",
+        "start": "original anchor checkpoint",
+        "learning_rate": 2e-06,
+        "root_xy_tracking_weight": 20,
+        "keep_scope": "decoder",
+        "policy_horizon": 16,
+        "priorities_seconds": [
+          [
+            220,
+            260
+          ]
+        ],
+        "priority_ratio": 0.25,
+        "reason": "Lower-weight comparison from the original model."
+      },
+      "actual_options": {
+        "profile": "paper-width",
+        "num_envs": 32,
+        "iterations": 100000,
+        "seed": 42,
+        "training_mode": "deterministic",
+        "priority_window": [
+          [
+            220.0,
+            260.0
+          ]
+        ],
+        "priority_reset_ratio": 0.25,
+        "learning_rate": 2e-06,
+        "root_xy_tracking_weight": 20.0,
+        "policy_update_scope": "decoder",
+        "policy_horizon": 16,
+        "policy_batch_size": 24,
+        "wm_batches_per_update": 2,
+        "wm_batch_size": 128,
+        "replay_capacity": 512,
+        "compile_policy": true,
+        "compile_world_model": true
+      },
+      "input_checkpoint_sha256": "bc95a21eb9b55ba56aafd6b5bd4dc9ba663f19f7f087d674348318243ec633c4",
+      "training_config_sha256": "416b69562812e1a6567d8e09fef53b59ec262fd2dcee7a30e53b554a5721f8c8",
+      "training_result_sha256": "21f522ff047d01b2bca19de03289fe9551b6353a93f17b9588242145eca2509f",
+      "resource_record_sha256": "404e4db73321a6e60fd1deabfc2719667a52c4fad533bd69e7697ef7f7aba72c",
+      "final_iteration": 50512,
+      "optimizer_update_rounds": 3188,
+      "budget_hours": 0.12,
+      "wall_elapsed_seconds": 441.43971231399337,
+      "peak_process_gpu_mib": 1174,
+      "peak_process_tree_rss_gib": 4.063835144042969,
+      "evaluations": [
+        {
+          "attempt": "xy20-decoder",
+          "checkpoint": "runs/demo-pr/walk-xy20-decoder/training/ckpt_0049000.pt",
+          "bundle": "runs/demo-pr/walk-evaluations/xy20-decoder/ckpt_0049000/bundle",
+          "trajectory": "runs/demo-pr/walk-evaluations/xy20-decoder/ckpt_0049000/deploy/trajectory.npz",
+          "checkpoint_sha256": "5c48ebd93bd772349dad2c18f610306c68b60d636efc7801c7799c8787895b27",
+          "iteration": 49000,
+          "result_sha256": "a6eab79a337816763ba38708302f9071c28d4100d876a6759caeda391f1d685f",
+          "trajectory_sha256": "9aa25212225abe8666911e8a6deff7fb2d1b79efccae60bb13a6918d3cb5ef23",
+          "steps": 13065,
+          "root_xy_rmse_m": 0.3218986469859863,
+          "root_xy_max_error_m": 1.4181832633159677,
+          "joint_rmse_rad": 0.32318165644953617,
+          "return": 0.825528911553349,
+          "nonfoot_ground_force_substeps": 0,
+          "checks": {
+            "full_controls": true,
+            "plane_rmse": true,
+            "plane_max": true,
+            "return": true,
+            "joints": false,
+            "nonfoot_contacts": true
+          },
+          "passed": false
+        },
+        {
+          "attempt": "xy20-decoder",
+          "checkpoint": "runs/demo-pr/walk-xy20-decoder/training/ckpt_0050000.pt",
+          "bundle": "runs/demo-pr/walk-evaluations/xy20-decoder/ckpt_0050000/bundle",
+          "trajectory": "runs/demo-pr/walk-evaluations/xy20-decoder/ckpt_0050000/deploy/trajectory.npz",
+          "checkpoint_sha256": "2cd92cd20d3f8e99d935060a798ab7ebaabeb7dd302ce41f370aa41c44f389f0",
+          "iteration": 50000,
+          "result_sha256": "2465d4660c319cd145ff7bb1ea58fb37a3e8dcab1f6a908a98cc8962820bb7cb",
+          "trajectory_sha256": "49f4224b25bf96f8f9613507140c4336dae57c9a12160d780b37dd06d59ddb51",
+          "steps": 13065,
+          "root_xy_rmse_m": 0.3975884643179798,
+          "root_xy_max_error_m": 1.7946723380614247,
+          "joint_rmse_rad": 0.3284195334751597,
+          "return": 0.8144996325904913,
+          "nonfoot_ground_force_substeps": 0,
+          "checks": {
+            "full_controls": true,
+            "plane_rmse": true,
+            "plane_max": true,
+            "return": true,
+            "joints": false,
+            "nonfoot_contacts": true
+          },
+          "passed": false
+        },
+        {
+          "attempt": "xy20-decoder",
+          "checkpoint": "runs/demo-pr/walk-xy20-decoder/training/ckpt_latest.pt",
+          "bundle": "runs/demo-pr/walk-evaluations/xy20-decoder/ckpt_latest/bundle",
+          "trajectory": "runs/demo-pr/walk-evaluations/xy20-decoder/ckpt_latest/deploy/trajectory.npz",
+          "checkpoint_sha256": "4ac19b70af9c9799750f74bae37b151d8cb00c2183b1392077907837cb437c13",
+          "iteration": 50512,
+          "result_sha256": "676d1998d71785679cc6d8567ea69c7651bf04788d546cd9adcd6891aa9e543e",
+          "trajectory_sha256": "68bb1ff173edf082494578f07645ef6f074f3276b4679680c4eeb4bd994cabc2",
+          "steps": 12013,
+          "root_xy_rmse_m": 0.20915426008403495,
+          "root_xy_max_error_m": 0.5903612396673166,
+          "joint_rmse_rad": 0.2818814234130229,
+          "return": 0.7704659763807726,
+          "nonfoot_ground_force_substeps": 0,
+          "checks": {
+            "full_controls": false,
+            "plane_rmse": true,
+            "plane_max": true,
+            "return": false,
+            "joints": true,
+            "nonfoot_contacts": true
+          },
+          "passed": false
+        }
+      ]
+    },
+    {
+      "name": "xy25-focus",
+      "declared_configuration": {
+        "name": "xy25-focus",
+        "start": "best qualifying first-phase checkpoint",
+        "learning_rate": 6.5e-07,
+        "root_xy_tracking_weight": 25,
+        "keep_scope": "decoder",
+        "policy_horizon": 16,
+        "priorities_seconds": [
+          [
+            230,
+            261.3
+          ],
+          [
+            100,
+            111
+          ]
+        ],
+        "priority_ratio": 0.3,
+        "reason": "Conservative continuation on the two remaining high-error portions."
+      },
+      "actual_options": {
+        "profile": "paper-width",
+        "num_envs": 32,
+        "iterations": 100000,
+        "seed": 42,
+        "training_mode": "deterministic",
+        "priority_window": [
+          [
+            230.0,
+            261.3
+          ],
+          [
+            100.0,
+            111.0
+          ]
+        ],
+        "priority_reset_ratio": 0.3,
+        "learning_rate": 6.5e-07,
+        "root_xy_tracking_weight": 25.0,
+        "policy_update_scope": "decoder",
+        "policy_horizon": 16,
+        "policy_batch_size": 24,
+        "wm_batches_per_update": 2,
+        "wm_batch_size": 128,
+        "replay_capacity": 512,
+        "compile_policy": true,
+        "compile_world_model": true
+      },
+      "input_checkpoint_sha256": "3a542027478898a356f5db1df04d894c7f87e4c0c9b87e5c4bf9ded019c33b5d",
+      "training_config_sha256": "5e67503cd7b9cc07dc8e65db8a1d87ff0db0ef1661730b2f121089c2ff82c602",
+      "training_result_sha256": "aff625580e8c101f5455d001a6f907ddcdd1add83ea4a8796eb721370f3bdf20",
+      "resource_record_sha256": "4838a24040697263ec691035672ff5196fce2fa54cf30b0763798b43e05a2b89",
+      "final_iteration": 56385,
+      "optimizer_update_rounds": 3103,
+      "budget_hours": 0.14,
+      "wall_elapsed_seconds": 513.6803435469628,
+      "peak_process_gpu_mib": 1174,
+      "peak_process_tree_rss_gib": 4.124652862548828,
+      "evaluations": [
+        {
+          "attempt": "xy25-focus",
+          "checkpoint": "runs/demo-pr/walk-xy25-focus/training/ckpt_0055000.pt",
+          "bundle": "runs/demo-pr/walk-evaluations/xy25-focus/ckpt_0055000/bundle",
+          "trajectory": "runs/demo-pr/walk-evaluations/xy25-focus/ckpt_0055000/deploy/trajectory.npz",
+          "checkpoint_sha256": "9a8eae3ee73347b700edb11b0458e2983c624d0f250f38e61a74a1d48afe5fe2",
+          "iteration": 55000,
+          "result_sha256": "0ddbe88412e5bbdf4b35e5f55b47f4e0f3876097e47e90bc11546f1d68b34b58",
+          "trajectory_sha256": "46a04f6832e2b30d39725e9e2f2af74ccc7be0b895b091e19f9624eab750b6a7",
+          "steps": 13065,
+          "root_xy_rmse_m": 0.31875560442756734,
+          "root_xy_max_error_m": 0.9941914761484053,
+          "joint_rmse_rad": 0.31747387117525316,
+          "return": 0.8174131568984606,
+          "nonfoot_ground_force_substeps": 0,
+          "checks": {
+            "full_controls": true,
+            "plane_rmse": true,
+            "plane_max": true,
+            "return": true,
+            "joints": false,
+            "nonfoot_contacts": true
+          },
+          "passed": false
+        },
+        {
+          "attempt": "xy25-focus",
+          "checkpoint": "runs/demo-pr/walk-xy25-focus/training/ckpt_0056000.pt",
+          "bundle": "runs/demo-pr/walk-evaluations/xy25-focus/ckpt_0056000/bundle",
+          "trajectory": "runs/demo-pr/walk-evaluations/xy25-focus/ckpt_0056000/deploy/trajectory.npz",
+          "checkpoint_sha256": "3f641b26ac85cd8482cc18a2547925f86bfc80cbb89864366f7679ed723789fc",
+          "iteration": 56000,
+          "result_sha256": "f5d8b5f82888f3a1b4358fbaa534bef0f6d1ffe18685b0cae93c9da1ecf12529",
+          "trajectory_sha256": "8f09ce05dec655145f4be1cd075cab8218af78fc3d04c485b345a6fbf588295c",
+          "steps": 13065,
+          "root_xy_rmse_m": 0.32163933448226384,
+          "root_xy_max_error_m": 1.3706922060995501,
+          "joint_rmse_rad": 0.3176521597345833,
+          "return": 0.8239483832400556,
+          "nonfoot_ground_force_substeps": 0,
+          "checks": {
+            "full_controls": true,
+            "plane_rmse": true,
+            "plane_max": true,
+            "return": true,
+            "joints": false,
+            "nonfoot_contacts": true
+          },
+          "passed": false
+        },
+        {
+          "attempt": "xy25-focus",
+          "checkpoint": "runs/demo-pr/walk-xy25-focus/training/ckpt_latest.pt",
+          "bundle": "runs/demo-pr/walk-evaluations/xy25-focus/ckpt_latest/bundle",
+          "trajectory": "runs/demo-pr/walk-evaluations/xy25-focus/ckpt_latest/deploy/trajectory.npz",
+          "checkpoint_sha256": "888dbef3241dbbefd21e3d39ca8915f8a9af7247b693503486b387b8ab8ad344",
+          "iteration": 56385,
+          "result_sha256": "0adc6b20792e3aa8035fab52ab94684f4d9718169f061e60ef076090501468b9",
+          "trajectory_sha256": "21032dff86519c626fc720c7c78f74848ac202c6d6457683f5ae6458f20d75ab",
+          "steps": 13065,
+          "root_xy_rmse_m": 0.2877072369109458,
+          "root_xy_max_error_m": 1.1299858811683599,
+          "joint_rmse_rad": 0.31821664611336037,
+          "return": 0.8264732544694967,
+          "nonfoot_ground_force_substeps": 0,
+          "checks": {
+            "full_controls": true,
+            "plane_rmse": true,
+            "plane_max": true,
+            "return": true,
+            "joints": false,
+            "nonfoot_contacts": true
+          },
+          "passed": false
+        }
+      ]
+    },
+    {
+      "name": "xy40-decoder",
+      "declared_configuration": {
+        "name": "xy40-decoder",
+        "learning_rate": 2e-06,
+        "root_xy_tracking_weight": 40,
+        "policy_update_scope": "decoder",
+        "policy_horizon": 16,
+        "priority_window_seconds": [
+          220,
+          260
+        ],
+        "priority_ratio": 0.25
+      },
+      "actual_options": {
+        "profile": "paper-width",
+        "num_envs": 32,
+        "iterations": 100000,
+        "seed": 42,
+        "training_mode": "deterministic",
+        "priority_window": [
+          [
+            220.0,
+            260.0
+          ]
+        ],
+        "priority_reset_ratio": 0.25,
+        "learning_rate": 2e-06,
+        "root_xy_tracking_weight": 40.0,
+        "policy_update_scope": "decoder",
+        "policy_horizon": 16,
+        "policy_batch_size": 24,
+        "wm_batches_per_update": 2,
+        "wm_batch_size": 128,
+        "replay_capacity": 512,
+        "compile_policy": true,
+        "compile_world_model": true
+      },
+      "input_checkpoint_sha256": "bc95a21eb9b55ba56aafd6b5bd4dc9ba663f19f7f087d674348318243ec633c4",
+      "training_config_sha256": "c4e59fb1c9ec46becf1bd74b3b665a1a28ddf10fcb1af06e44c0169b42fdb3ea",
+      "training_result_sha256": "e80765939e48904b93081c307aac924c8eee4c3eceee52d0ff907f3dc0933269",
+      "resource_record_sha256": "c345e97132a192aa6d9c096370e579903f1dde54f6cba70e42033dd7416572e0",
+      "final_iteration": 48605,
+      "optimizer_update_rounds": 2425,
+      "budget_hours": 0.14,
+      "wall_elapsed_seconds": 516.6013911250047,
+      "peak_process_gpu_mib": 1256,
+      "peak_process_tree_rss_gib": 4.548004150390625,
+      "evaluations": [
+        {
+          "attempt": "xy40-decoder",
+          "checkpoint": "runs/demo-pr/walk-xy40-decoder/training/ckpt_0047000.pt",
+          "bundle": "runs/demo-pr/walk-evaluations/xy40-decoder/ckpt_0047000/bundle",
+          "trajectory": "runs/demo-pr/walk-evaluations/xy40-decoder/ckpt_0047000/deploy/trajectory.npz",
+          "checkpoint_sha256": "b7aab4565fbd58371eb811b86027bd2cf93d3fd3b74baca444b1cd3d3d9381ba",
+          "iteration": 47000,
+          "result_sha256": "799e4cb49fe6af49115dbb434b12428c020c8bf70d8c30ad58b426d7820c88bf",
+          "trajectory_sha256": "e1bf4c4bd87eef7bcd6b262f3b59cbde2123597fb07ab6d3a5d1c838ca6a25e6",
+          "steps": 13065,
+          "root_xy_rmse_m": 0.3040426939194795,
+          "root_xy_max_error_m": 1.0491044687268196,
+          "joint_rmse_rad": 0.2957793790131792,
+          "return": 0.8181357289747493,
+          "nonfoot_ground_force_substeps": 0,
+          "checks": {
+            "full_controls": true,
+            "plane_rmse": true,
+            "plane_max": true,
+            "return": true,
+            "joints": true,
+            "nonfoot_contacts": true
+          },
+          "passed": true
+        },
+        {
+          "attempt": "xy40-decoder",
+          "checkpoint": "runs/demo-pr/walk-xy40-decoder/training/ckpt_0048000.pt",
+          "bundle": "runs/demo-pr/walk-evaluations/xy40-decoder/ckpt_0048000/bundle",
+          "trajectory": "runs/demo-pr/walk-evaluations/xy40-decoder/ckpt_0048000/deploy/trajectory.npz",
+          "checkpoint_sha256": "4144ad0165cfd47a0bfbc387149484080e94d9d10f05506fce2388a2f33ae015",
+          "iteration": 48000,
+          "result_sha256": "4d5e353e46efa071e9b13358807cfbc0f9646f85a65a9af5b5858b3f6b3d33c5",
+          "trajectory_sha256": "b0a9b913ec7b4c674ab84fcbae020241eb9ce3b2fb86d1b9712bf1b755dd78af",
+          "steps": 13065,
+          "root_xy_rmse_m": 0.3017820906843606,
+          "root_xy_max_error_m": 1.1553812121470708,
+          "joint_rmse_rad": 0.29406994629958255,
+          "return": 0.8182612002420553,
+          "nonfoot_ground_force_substeps": 0,
+          "checks": {
+            "full_controls": true,
+            "plane_rmse": true,
+            "plane_max": true,
+            "return": true,
+            "joints": true,
+            "nonfoot_contacts": true
+          },
+          "passed": true
+        },
+        {
+          "attempt": "xy40-decoder",
+          "checkpoint": "runs/demo-pr/walk-xy40-decoder/training/ckpt_latest.pt",
+          "bundle": "runs/demo-pr/walk-evaluations/xy40-decoder/ckpt_latest/bundle",
+          "trajectory": "runs/demo-pr/walk-evaluations/xy40-decoder/ckpt_latest/deploy/trajectory.npz",
+          "checkpoint_sha256": "3a542027478898a356f5db1df04d894c7f87e4c0c9b87e5c4bf9ded019c33b5d",
+          "iteration": 48605,
+          "result_sha256": "e5edd7f5101cd74540e499bfe3d6a2d4f92b4ae9bdb576e0e21bb02b9e568aad",
+          "trajectory_sha256": "38af17a857590c80bdc420913b4735a7072299360095ca1c1ff1bf1ca2912103",
+          "steps": 13065,
+          "root_xy_rmse_m": 0.2748193705479143,
+          "root_xy_max_error_m": 1.0409698449422529,
+          "joint_rmse_rad": 0.30048036296124975,
+          "return": 0.8141201297031524,
+          "nonfoot_ground_force_substeps": 0,
+          "checks": {
+            "full_controls": true,
+            "plane_rmse": true,
+            "plane_max": true,
+            "return": true,
+            "joints": true,
+            "nonfoot_contacts": true
+          },
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "actor_interpolations": [
+    {
+      "name": "alpha-025",
+      "checkpoint_sha256": "0889deab7da4f69e2c6d2297ea3e51cd3b1e6f4536ea7c144802d40cd02b8432",
+      "type": "actor_parameter_interpolation",
+      "policy_optimizer_resume_valid": false,
+      "critic_optimizer_resume_valid": false,
+      "origin_checkpoint_sha256": "3a542027478898a356f5db1df04d894c7f87e4c0c9b87e5c4bf9ded019c33b5d",
+      "continued_checkpoint_sha256": "888dbef3241dbbefd21e3d39ca8915f8a9af7247b693503486b387b8ab8ad344",
+      "continued_weight": 0.25,
+      "evaluations": [
+        {
+          "attempt": "alpha-025",
+          "checkpoint": "runs/demo-pr/walk-interpolation/alpha-025.pt",
+          "bundle": "runs/demo-pr/walk-evaluations/alpha-025/alpha-025/bundle",
+          "trajectory": "runs/demo-pr/walk-evaluations/alpha-025/alpha-025/deploy/trajectory.npz",
+          "checkpoint_sha256": "0889deab7da4f69e2c6d2297ea3e51cd3b1e6f4536ea7c144802d40cd02b8432",
+          "iteration": 48605,
+          "result_sha256": "e5584bb948249463abe9c838f61d110f908c14d63366d81fefabcc7332013af1",
+          "trajectory_sha256": "6bba084e6553c190165eb8e9b4a9646a5c3c30c1ea56ff358a14ee7e1f7d9b99",
+          "steps": 13065,
+          "root_xy_rmse_m": 0.2555544410199356,
+          "root_xy_max_error_m": 0.8965756402015236,
+          "joint_rmse_rad": 0.3046503422409109,
+          "return": 0.8176445665826663,
+          "nonfoot_ground_force_substeps": 0,
+          "checks": {
+            "full_controls": true,
+            "plane_rmse": true,
+            "plane_max": true,
+            "return": true,
+            "joints": true,
+            "nonfoot_contacts": true
+          },
+          "passed": true,
+          "actor_only": true,
+          "candidate_label": "\u53c2\u6570\u63d2\u503c\uff08\u7eed\u8bad\u6743\u91cd 25%\uff09"
+        }
+      ]
+    },
+    {
+      "name": "alpha-040",
+      "checkpoint_sha256": "61ffb29b0b17922a0f4339b4d1aa046c07a3013e8cbe12456410ffbda0b5219d",
+      "type": "actor_parameter_interpolation",
+      "policy_optimizer_resume_valid": false,
+      "critic_optimizer_resume_valid": false,
+      "origin_checkpoint_sha256": "3a542027478898a356f5db1df04d894c7f87e4c0c9b87e5c4bf9ded019c33b5d",
+      "continued_checkpoint_sha256": "888dbef3241dbbefd21e3d39ca8915f8a9af7247b693503486b387b8ab8ad344",
+      "continued_weight": 0.4,
+      "evaluations": [
+        {
+          "attempt": "alpha-040",
+          "checkpoint": "runs/demo-pr/walk-interpolation/alpha-040.pt",
+          "bundle": "runs/demo-pr/walk-evaluations/alpha-040/alpha-040/bundle",
+          "trajectory": "runs/demo-pr/walk-evaluations/alpha-040/alpha-040/deploy/trajectory.npz",
+          "checkpoint_sha256": "61ffb29b0b17922a0f4339b4d1aa046c07a3013e8cbe12456410ffbda0b5219d",
+          "iteration": 48605,
+          "result_sha256": "fa2c970be23cc9f699abaf6867a26bf0d551265e7b4ee864f846306c0178583d",
+          "trajectory_sha256": "bd3ff390b662bc6a023cda748a1041daf27db7a24e9d4fc42f579080baba493d",
+          "steps": 13065,
+          "root_xy_rmse_m": 0.30594412275741506,
+          "root_xy_max_error_m": 1.3158138235086785,
+          "joint_rmse_rad": 0.30712602610661105,
+          "return": 0.8192218633798453,
+          "nonfoot_ground_force_substeps": 0,
+          "checks": {
+            "full_controls": true,
+            "plane_rmse": true,
+            "plane_max": true,
+            "return": true,
+            "joints": true,
+            "nonfoot_contacts": true
+          },
+          "passed": true,
+          "actor_only": true,
+          "candidate_label": "\u53c2\u6570\u63d2\u503c\uff08\u7eed\u8bad\u6743\u91cd 40%\uff09"
+        }
+      ]
+    },
+    {
+      "name": "alpha-050",
+      "checkpoint_sha256": "2eff6581d5de691b6c56a6fb9421d9fd31622c3692c7083216c727b1f94e0cfd",
+      "type": "actor_parameter_interpolation",
+      "policy_optimizer_resume_valid": false,
+      "critic_optimizer_resume_valid": false,
+      "origin_checkpoint_sha256": "3a542027478898a356f5db1df04d894c7f87e4c0c9b87e5c4bf9ded019c33b5d",
+      "continued_checkpoint_sha256": "888dbef3241dbbefd21e3d39ca8915f8a9af7247b693503486b387b8ab8ad344",
+      "continued_weight": 0.5,
+      "evaluations": [
+        {
+          "attempt": "alpha-050",
+          "checkpoint": "runs/demo-pr/walk-interpolation/alpha-050.pt",
+          "bundle": "runs/demo-pr/walk-evaluations/alpha-050/alpha-050/bundle",
+          "trajectory": "runs/demo-pr/walk-evaluations/alpha-050/alpha-050/deploy/trajectory.npz",
+          "checkpoint_sha256": "2eff6581d5de691b6c56a6fb9421d9fd31622c3692c7083216c727b1f94e0cfd",
+          "iteration": 48605,
+          "result_sha256": "3d082ff755d074e3d2751ca36e48399508e151e1481621c8810dfa0b0106c904",
+          "trajectory_sha256": "288708959867f0c4ffa39923afbd380501daab00f49adf83451adb3b4726bbb8",
+          "steps": 13065,
+          "root_xy_rmse_m": 0.24929969045531006,
+          "root_xy_max_error_m": 0.7535240437619014,
+          "joint_rmse_rad": 0.3085563855002786,
+          "return": 0.8249176155320995,
+          "nonfoot_ground_force_substeps": 0,
+          "checks": {
+            "full_controls": true,
+            "plane_rmse": true,
+            "plane_max": true,
+            "return": true,
+            "joints": true,
+            "nonfoot_contacts": true
+          },
+          "passed": true,
+          "actor_only": true,
+          "candidate_label": "\u53c2\u6570\u63d2\u503c\uff08\u7eed\u8bad\u6743\u91cd 50%\uff09"
+        }
+      ]
+    },
+    {
+      "name": "alpha-060",
+      "checkpoint_sha256": "45f380f43575378fd00e3310959d0be9d3d37792c7f8dc31a9d6a41f3efc2be4",
+      "type": "actor_parameter_interpolation",
+      "policy_optimizer_resume_valid": false,
+      "critic_optimizer_resume_valid": false,
+      "origin_checkpoint_sha256": "3a542027478898a356f5db1df04d894c7f87e4c0c9b87e5c4bf9ded019c33b5d",
+      "continued_checkpoint_sha256": "888dbef3241dbbefd21e3d39ca8915f8a9af7247b693503486b387b8ab8ad344",
+      "continued_weight": 0.6,
+      "evaluations": [
+        {
+          "attempt": "alpha-060",
+          "checkpoint": "runs/demo-pr/walk-interpolation/alpha-060.pt",
+          "bundle": "runs/demo-pr/walk-evaluations/alpha-060/alpha-060/bundle",
+          "trajectory": "runs/demo-pr/walk-evaluations/alpha-060/alpha-060/deploy/trajectory.npz",
+          "checkpoint_sha256": "45f380f43575378fd00e3310959d0be9d3d37792c7f8dc31a9d6a41f3efc2be4",
+          "iteration": 48605,
+          "result_sha256": "460f8122ca137d38de3ebf688e7559bd1e68d3c00a5ed8b213b88870f10dc7fa",
+          "trajectory_sha256": "1f484795c03d5c41795dc3bf271467c7725c313ad362ec95df508ece799231e0",
+          "steps": 13065,
+          "root_xy_rmse_m": 0.2554398592850357,
+          "root_xy_max_error_m": 0.8589342050861141,
+          "joint_rmse_rad": 0.3114712091406267,
+          "return": 0.8252235814797846,
+          "nonfoot_ground_force_substeps": 0,
+          "checks": {
+            "full_controls": true,
+            "plane_rmse": true,
+            "plane_max": true,
+            "return": true,
+            "joints": true,
+            "nonfoot_contacts": true
+          },
+          "passed": true,
+          "actor_only": true,
+          "candidate_label": "\u53c2\u6570\u63d2\u503c\uff08\u7eed\u8bad\u6743\u91cd 60%\uff09"
+        }
+      ]
+    },
+    {
+      "name": "alpha-075",
+      "checkpoint_sha256": "704cd45278aa11c0826c9bb0fd7a276a7fa27e43714ec74e19fbcebb8ae2bce0",
+      "type": "actor_parameter_interpolation",
+      "policy_optimizer_resume_valid": false,
+      "critic_optimizer_resume_valid": false,
+      "origin_checkpoint_sha256": "3a542027478898a356f5db1df04d894c7f87e4c0c9b87e5c4bf9ded019c33b5d",
+      "continued_checkpoint_sha256": "888dbef3241dbbefd21e3d39ca8915f8a9af7247b693503486b387b8ab8ad344",
+      "continued_weight": 0.75,
+      "evaluations": [
+        {
+          "attempt": "alpha-075",
+          "checkpoint": "runs/demo-pr/walk-interpolation/alpha-075.pt",
+          "bundle": "runs/demo-pr/walk-evaluations/alpha-075/alpha-075/bundle",
+          "trajectory": "runs/demo-pr/walk-evaluations/alpha-075/alpha-075/deploy/trajectory.npz",
+          "checkpoint_sha256": "704cd45278aa11c0826c9bb0fd7a276a7fa27e43714ec74e19fbcebb8ae2bce0",
+          "iteration": 48605,
+          "result_sha256": "666f92bba0cc8b1b498a57cee7adbd38f02f860c83f07be377ad42458682a800",
+          "trajectory_sha256": "37d45ad367b85784f7a689d52cdaa182638056a99382e3c72e6ad4c6bede80c1",
+          "steps": 13065,
+          "root_xy_rmse_m": 0.26237126966946067,
+          "root_xy_max_error_m": 0.9823973034682087,
+          "joint_rmse_rad": 0.31355633131196586,
+          "return": 0.8254473504552976,
+          "nonfoot_ground_force_substeps": 0,
+          "checks": {
+            "full_controls": true,
+            "plane_rmse": true,
+            "plane_max": true,
+            "return": true,
+            "joints": true,
+            "nonfoot_contacts": true
+          },
+          "passed": true,
+          "actor_only": true,
+          "candidate_label": "\u53c2\u6570\u63d2\u503c\uff08\u7eed\u8bad\u6743\u91cd 75%\uff09"
+        }
+      ]
+    }
+  ],
+  "qualifying_full_reference_candidates": 9,
+  "evaluated_candidates": 20,
+  "candidate": {
+    "attempt": "alpha-050",
+    "checkpoint": "runs/demo-pr/walk-interpolation/alpha-050.pt",
+    "bundle": "runs/demo-pr/walk-evaluations/alpha-050/alpha-050/bundle",
+    "trajectory": "runs/demo-pr/walk-evaluations/alpha-050/alpha-050/deploy/trajectory.npz",
+    "checkpoint_sha256": "2eff6581d5de691b6c56a6fb9421d9fd31622c3692c7083216c727b1f94e0cfd",
+    "iteration": 48605,
+    "result_sha256": "3d082ff755d074e3d2751ca36e48399508e151e1481621c8810dfa0b0106c904",
+    "trajectory_sha256": "288708959867f0c4ffa39923afbd380501daab00f49adf83451adb3b4726bbb8",
+    "steps": 13065,
+    "root_xy_rmse_m": 0.24929969045531006,
+    "root_xy_max_error_m": 0.7535240437619014,
+    "joint_rmse_rad": 0.3085563855002786,
+    "return": 0.8249176155320995,
+    "nonfoot_ground_force_substeps": 0,
+    "checks": {
+      "full_controls": true,
+      "plane_rmse": true,
+      "plane_max": true,
+      "return": true,
+      "joints": true,
+      "nonfoot_contacts": true
+    },
+    "passed": true,
+    "actor_only": true,
+    "candidate_label": "\u53c2\u6570\u63d2\u503c\uff08\u7eed\u8bad\u6743\u91cd 50%\uff09"
+  },
+  "candidate_verification": {
+    "bundle": "runs/demo-pr/walk-evaluations/alpha-050/alpha-050/bundle",
+    "trajectory": "runs/demo-pr/walk-final-alpha-050/replay/trajectory.npz",
+    "replay_result_sha256": "54598b4a713f76701a7f6ec9d349cb1c26ca2ca88ab94e69f5ccaac48de6bfaf",
+    "repeat_trajectory_sha256": "288708959867f0c4ffa39923afbd380501daab00f49adf83451adb3b4726bbb8",
+    "bitwise_repeat": true
+  },
+  "alternate_reference_starts": {
+    "65-85.npz": {
+      "motion_sha256": "95cc9897a985f6e315ed686c853be7ea6a5eef11cf35e7e92de26c0eab286f77",
+      "baseline": {
+        "steps": 1000,
+        "completed_motion": true,
+        "root_xy_rmse_m": 0.2615157168833387,
+        "max_root_xy_error_m": 0.37316582023428885,
+        "return": 0.8557596778869629,
+        "joint_rmse_rad": 0.15367076894382867,
+        "nonfoot_contacts": 0,
+        "trajectory_sha256": "5e9e019191925d771b29a3e16710373154341cd3bfdd3e4a47ebca0315e3d235",
+        "result_sha256": "52c8bf7294f353f7936a7246fcd3e8e435d7864a5111659806914b7642b0de1a"
+      },
+      "optimized": {
+        "steps": 1000,
+        "completed_motion": true,
+        "root_xy_rmse_m": 0.13850911846831745,
+        "max_root_xy_error_m": 0.27480072035742453,
+        "return": 0.8725790309906006,
+        "joint_rmse_rad": 0.17425289684556697,
+        "nonfoot_contacts": 0,
+        "trajectory_sha256": "f56497eb39a4c3fa0ae7335dd340e73ff547f3115a9cb7efe8570ec8f03f3e5e",
+        "result_sha256": "f91ef9c8d511b0ed9b77f205f77a187fa2e831bac9e5a596f6ec16629416ecf4"
+      }
+    },
+    "137-157.npz": {
+      "motion_sha256": "7b3ff853e79b0d549aa7ae1742ae27e466caa964b3f7b059fda97f8cf1e6db69",
+      "baseline": {
+        "steps": 1000,
+        "completed_motion": true,
+        "root_xy_rmse_m": 0.22648915806745934,
+        "max_root_xy_error_m": 0.3810396988575577,
+        "return": 0.8492153072357178,
+        "joint_rmse_rad": 0.20605985970134144,
+        "nonfoot_contacts": 0,
+        "trajectory_sha256": "ab751cbcf13213ebabd4f369ea9c094013ea45fc16b131505c63f40758763820",
+        "result_sha256": "7c0d7d61a075b331b8446ce6a534556335d004a5f98154c79e1dc29a69dd7a0c"
+      },
+      "optimized": {
+        "steps": 1000,
+        "completed_motion": true,
+        "root_xy_rmse_m": 0.20590642549450755,
+        "max_root_xy_error_m": 0.3653447895883533,
+        "return": 0.8359724426269531,
+        "joint_rmse_rad": 0.23562846174839452,
+        "nonfoot_contacts": 0,
+        "trajectory_sha256": "026f99311af7d0b30f7acf53a932c6ce2306a3da544c21ef95bf059cae8ef678",
+        "result_sha256": "2353b38f9ce2fd7d59a309c4913ec85faf387450f2ac6e969d227449807186e6"
+      }
+    },
+    "238-258.npz": {
+      "motion_sha256": "4447040d229505b34e474eb077989378c2a8c2a30acb76860752893be06e479a",
+      "baseline": {
+        "steps": 1000,
+        "completed_motion": true,
+        "root_xy_rmse_m": 1.2352590002875932,
+        "max_root_xy_error_m": 1.8544762711971363,
+        "return": 0.5847266626358032,
+        "joint_rmse_rad": 0.6403810010750043,
+        "nonfoot_contacts": 0,
+        "trajectory_sha256": "f8ed299b49883541bdd53c0bd915ae77ce273ae05baec96f6f176b34db5b3ec1",
+        "result_sha256": "d76e86d3e564e58c12b6a8bd673c6deb3915bff2ba1fd3df3f475778aecf5445"
+      },
+      "optimized": {
+        "steps": 1000,
+        "completed_motion": true,
+        "root_xy_rmse_m": 0.375724118515872,
+        "max_root_xy_error_m": 0.6669106934374136,
+        "return": 0.5864702701568604,
+        "joint_rmse_rad": 0.6467683436917377,
+        "nonfoot_contacts": 0,
+        "trajectory_sha256": "9d205c7abc3a62b0ded6be5278ba131d6dcfd19e156ad0bc55bd511403aaba56",
+        "result_sha256": "10dda659e5216426b533b4e34f79469946a73051bd2acd5b3fd057de830db94c"
+      }
+    }
+  },
+  "comparison_sha256": "6177d2b4decee07e3bcc8aa03534284844e30367e797da9d784ba95401dc5048"
+}
