@@ -4093,6 +4093,408 @@
           "full_clip_return": 0.8299966699722121
         }
       ]
+    },
+    "compound_reset_stress": {
+      "scope": "same training reference with reset/tempo/rigid transform combinations",
+      "seed": 315019,
+      "summary": {
+        "teacher": {
+          "complete": 12,
+          "nonfoot_ground_force_substeps": 0,
+          "xy_rmse_m_median_of_complete_rollouts": 0.18551863819300923
+        },
+        "compact": {
+          "complete": 12,
+          "nonfoot_ground_force_substeps": 0,
+          "xy_rmse_m_median_of_complete_rollouts": 0.15455655670912252
+        }
+      },
+      "cases": {
+        "compound-01": {
+          "name": "compound-01",
+          "first_step": 84,
+          "last_step": 834,
+          "tempo": 0.9991,
+          "yaw_degrees": -12,
+          "shift_m": [
+            -0.64,
+            0.95,
+            0.0
+          ],
+          "motion_sha256": "5babe576bb5e8ac1ede7c42586e79025e907e21d0371765028bee9d2b80b7104",
+          "required_steps": 750,
+          "teacher": {
+            "steps": 750,
+            "xy_rmse_m": 0.2321695929852504,
+            "joint_rmse_rad": 0.19101511073104024,
+            "completed_motion": true,
+            "nonfoot_ground_force_substeps": 0,
+            "checkpoint_sha256": "4b7e5ecff963955d3af3da1741c9d799c4df583172a400954ebcaa217e892b05",
+            "trajectory_sha256": "1a139a7410b0d559938196407471bef1195993cf43b9c177f64db0b6049b9a41"
+          },
+          "compact": {
+            "steps": 750,
+            "xy_rmse_m": 0.1153529682055106,
+            "joint_rmse_rad": 0.1893884449352945,
+            "completed_motion": true,
+            "nonfoot_ground_force_substeps": 0,
+            "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+            "trajectory_sha256": "60236209423a5ff8e3e9b014a6512ba11ee5ae588b66eda80de5aa315e90f060"
+          }
+        },
+        "compound-02": {
+          "name": "compound-02",
+          "first_step": 1390,
+          "last_step": 2140,
+          "tempo": 1.0034,
+          "yaw_degrees": -153,
+          "shift_m": [
+            -0.44,
+            0.13,
+            0.0
+          ],
+          "motion_sha256": "711ed2357449b0c2ea4a6ba6454e8ce920120cf8300f2755c0c609e97d62b9ec",
+          "required_steps": 747,
+          "teacher": {
+            "steps": 747,
+            "xy_rmse_m": 0.13624694051976158,
+            "joint_rmse_rad": 0.15481961418586312,
+            "completed_motion": true,
+            "nonfoot_ground_force_substeps": 0,
+            "checkpoint_sha256": "4b7e5ecff963955d3af3da1741c9d799c4df583172a400954ebcaa217e892b05",
+            "trajectory_sha256": "24d9516c6c723c45938553fb9c24c3c6b6708df91315a306fce280ed1b2321c5"
+          },
+          "compact": {
+            "steps": 747,
+            "xy_rmse_m": 0.13775448447362468,
+            "joint_rmse_rad": 0.15536306628584684,
+            "completed_motion": true,
+            "nonfoot_ground_force_substeps": 0,
+            "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+            "trajectory_sha256": "26b73d73b6bddd6dbfea1e0f7ac7459739b18c04b2a580c185d9f3dac10c9dec"
+          }
+        },
+        "compound-03": {
+          "name": "compound-03",
+          "first_step": 2397,
+          "last_step": 3147,
+          "tempo": 0.9678,
+          "yaw_degrees": 156,
+          "shift_m": [
+            -1.53,
+            -1.68,
+            0.0
+          ],
+          "motion_sha256": "ca10665b23ea2a77030d8f2767540104736ec9b6e7b9a445efedfe1c9c2aeec2",
+          "required_steps": 774,
+          "teacher": {
+            "steps": 774,
+            "xy_rmse_m": 0.18715435602069183,
+            "joint_rmse_rad": 0.15400218225614046,
+            "completed_motion": true,
+            "nonfoot_ground_force_substeps": 0,
+            "checkpoint_sha256": "4b7e5ecff963955d3af3da1741c9d799c4df583172a400954ebcaa217e892b05",
+            "trajectory_sha256": "9ee2a6fdb821e0dec4c0ae6b091838213aa16df6d964e9c8483d571977f47058"
+          },
+          "compact": {
+            "steps": 774,
+            "xy_rmse_m": 0.19642718444781287,
+            "joint_rmse_rad": 0.15388972988490426,
+            "completed_motion": true,
+            "nonfoot_ground_force_substeps": 0,
+            "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+            "trajectory_sha256": "48188fa52c65c15a003c755df6dd18b9abe8777d21ea97b182960ca4024118d1"
+          }
+        },
+        "compound-04": {
+          "name": "compound-04",
+          "first_step": 3161,
+          "last_step": 3911,
+          "tempo": 1.0132,
+          "yaw_degrees": 88,
+          "shift_m": [
+            0.81,
+            -1.0,
+            0.0
+          ],
+          "motion_sha256": "6617dd4abb5232d83121f17bc2cf590bb81f515b71330da07110c808b32ecc88",
+          "required_steps": 740,
+          "teacher": {
+            "steps": 740,
+            "xy_rmse_m": 0.12750916911219531,
+            "joint_rmse_rad": 0.18157147299141935,
+            "completed_motion": true,
+            "nonfoot_ground_force_substeps": 0,
+            "checkpoint_sha256": "4b7e5ecff963955d3af3da1741c9d799c4df583172a400954ebcaa217e892b05",
+            "trajectory_sha256": "7fa30f677a63949245e0f3dc71b12f6f9af23568d9956010484bfdaf08e47226"
+          },
+          "compact": {
+            "steps": 740,
+            "xy_rmse_m": 0.208647708292929,
+            "joint_rmse_rad": 0.1826746434680671,
+            "completed_motion": true,
+            "nonfoot_ground_force_substeps": 0,
+            "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+            "trajectory_sha256": "a376ac79c6e0ee57f559290f734e5d4b8948b857fed878e8c297d3521e7b1e6b"
+          }
+        },
+        "compound-05": {
+          "name": "compound-05",
+          "first_step": 4219,
+          "last_step": 4969,
+          "tempo": 0.998,
+          "yaw_degrees": -103,
+          "shift_m": [
+            0.76,
+            1.35,
+            0.0
+          ],
+          "motion_sha256": "736728412a91f69af4a60a923520baf9ac9aa49e65ac08dab1f8eddd0a174cad",
+          "required_steps": 751,
+          "teacher": {
+            "steps": 751,
+            "xy_rmse_m": 0.18388292036532664,
+            "joint_rmse_rad": 0.14090615219573602,
+            "completed_motion": true,
+            "nonfoot_ground_force_substeps": 0,
+            "checkpoint_sha256": "4b7e5ecff963955d3af3da1741c9d799c4df583172a400954ebcaa217e892b05",
+            "trajectory_sha256": "f267f4997ffc2aafd7c3a61cfe0ecb11db0f939bb5e4050a8e639925cac31771"
+          },
+          "compact": {
+            "steps": 751,
+            "xy_rmse_m": 0.1867080560359561,
+            "joint_rmse_rad": 0.14124709602520416,
+            "completed_motion": true,
+            "nonfoot_ground_force_substeps": 0,
+            "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+            "trajectory_sha256": "799d7b3270cec4d4b23e7fdc4a7b1e8bc8708c0d71129ed557035e75d31406fb"
+          }
+        },
+        "compound-06": {
+          "name": "compound-06",
+          "first_step": 5215,
+          "last_step": 5965,
+          "tempo": 1.0004,
+          "yaw_degrees": 85,
+          "shift_m": [
+            -1.14,
+            0.57,
+            0.0
+          ],
+          "motion_sha256": "cb299d6e8eea5f4546d52e4faf85807a6e13eb417bbc6f70edd1797b522664c5",
+          "required_steps": 749,
+          "teacher": {
+            "steps": 749,
+            "xy_rmse_m": 0.22062654640432763,
+            "joint_rmse_rad": 0.15495796680238852,
+            "completed_motion": true,
+            "nonfoot_ground_force_substeps": 0,
+            "checkpoint_sha256": "4b7e5ecff963955d3af3da1741c9d799c4df583172a400954ebcaa217e892b05",
+            "trajectory_sha256": "d2b38e3305e8f459c3cccb035135abe5251a576f85a36532a7df6cf2d1cbb4f7"
+          },
+          "compact": {
+            "steps": 749,
+            "xy_rmse_m": 0.14114259640941315,
+            "joint_rmse_rad": 0.15194266153988387,
+            "completed_motion": true,
+            "nonfoot_ground_force_substeps": 0,
+            "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+            "trajectory_sha256": "e7cefb6e8b801d82d232eb0e616f426463f88988537de39c94ecf465ed40bf8e"
+          }
+        },
+        "compound-07": {
+          "name": "compound-07",
+          "first_step": 6059,
+          "last_step": 6809,
+          "tempo": 0.9958,
+          "yaw_degrees": 132,
+          "shift_m": [
+            0.49,
+            -1.15,
+            0.0
+          ],
+          "motion_sha256": "d15d1fe3ba967143d0a47155f171b587d0bd1db656ff59ff649e28cd5105c6d7",
+          "required_steps": 753,
+          "teacher": {
+            "steps": 753,
+            "xy_rmse_m": 0.12535456916691112,
+            "joint_rmse_rad": 0.2113934683605975,
+            "completed_motion": true,
+            "nonfoot_ground_force_substeps": 0,
+            "checkpoint_sha256": "4b7e5ecff963955d3af3da1741c9d799c4df583172a400954ebcaa217e892b05",
+            "trajectory_sha256": "7e42090a7e74801c63d5f925c49e58f15d938c294b865b3910a92545d19387c0"
+          },
+          "compact": {
+            "steps": 753,
+            "xy_rmse_m": 0.12376199891105136,
+            "joint_rmse_rad": 0.21096302304799958,
+            "completed_motion": true,
+            "nonfoot_ground_force_substeps": 0,
+            "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+            "trajectory_sha256": "488c1352fb6f996efc65e13f5c922b526c964dda40e0651fb08f6bd3fd49137f"
+          }
+        },
+        "compound-08": {
+          "name": "compound-08",
+          "first_step": 6878,
+          "last_step": 7628,
+          "tempo": 0.9996,
+          "yaw_degrees": -112,
+          "shift_m": [
+            -1.24,
+            -0.35,
+            0.0
+          ],
+          "motion_sha256": "6b5884a4c845d1ffc34c1be5fe98d1d023fa41086efc966f808249c06cca25d3",
+          "required_steps": 750,
+          "teacher": {
+            "steps": 750,
+            "xy_rmse_m": 0.1183622503685862,
+            "joint_rmse_rad": 0.22972755557685384,
+            "completed_motion": true,
+            "nonfoot_ground_force_substeps": 0,
+            "checkpoint_sha256": "4b7e5ecff963955d3af3da1741c9d799c4df583172a400954ebcaa217e892b05",
+            "trajectory_sha256": "22dcce5555639d8941e7f6504104a1dec74560f3b3b89dc1ebe4195c826369da"
+          },
+          "compact": {
+            "steps": 750,
+            "xy_rmse_m": 0.10441241038456045,
+            "joint_rmse_rad": 0.23030623123562213,
+            "completed_motion": true,
+            "nonfoot_ground_force_substeps": 0,
+            "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+            "trajectory_sha256": "84fbfa60466332bbcf60aa387d5d687ba1793c2b8705766c0b443234b6f3cab3"
+          }
+        },
+        "compound-09": {
+          "name": "compound-09",
+          "first_step": 8105,
+          "last_step": 8855,
+          "tempo": 0.9974,
+          "yaw_degrees": 2,
+          "shift_m": [
+            -1.12,
+            -0.09,
+            0.0
+          ],
+          "motion_sha256": "5c4ddeee73176986b473940a86af3aff20b6a861f12afa85f8b75937070b559b",
+          "required_steps": 751,
+          "teacher": {
+            "steps": 751,
+            "xy_rmse_m": 0.3953076690558597,
+            "joint_rmse_rad": 0.21792415166675486,
+            "completed_motion": true,
+            "nonfoot_ground_force_substeps": 0,
+            "checkpoint_sha256": "4b7e5ecff963955d3af3da1741c9d799c4df583172a400954ebcaa217e892b05",
+            "trajectory_sha256": "afd4ec21fed81bedab1dbb756c66b0024a612b9f3b6393d6787a5a5809b574ac"
+          },
+          "compact": {
+            "steps": 751,
+            "xy_rmse_m": 0.32793094171492393,
+            "joint_rmse_rad": 0.2192574271133874,
+            "completed_motion": true,
+            "nonfoot_ground_force_substeps": 0,
+            "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+            "trajectory_sha256": "6969c9d9ad4eca411e496f7c134efb116bb24f90905cc47c589e9dbde4a9858b"
+          }
+        },
+        "compound-10": {
+          "name": "compound-10",
+          "first_step": 8925,
+          "last_step": 9675,
+          "tempo": 1.0146,
+          "yaw_degrees": -86,
+          "shift_m": [
+            -1.58,
+            1.78,
+            0.0
+          ],
+          "motion_sha256": "60843b053602f6d1d10f5773de6c46ae22005e2cce7cd8124268e56a3feb299c",
+          "required_steps": 739,
+          "teacher": {
+            "steps": 739,
+            "xy_rmse_m": 0.048492789224013504,
+            "joint_rmse_rad": 0.17336311380890523,
+            "completed_motion": true,
+            "nonfoot_ground_force_substeps": 0,
+            "checkpoint_sha256": "4b7e5ecff963955d3af3da1741c9d799c4df583172a400954ebcaa217e892b05",
+            "trajectory_sha256": "b24e7ffbaa399c4ba6aebb1ed126ee7aaf6c7ad03fa813bf39b928c19fa7c49d"
+          },
+          "compact": {
+            "steps": 739,
+            "xy_rmse_m": 0.04763655874157382,
+            "joint_rmse_rad": 0.173364826683028,
+            "completed_motion": true,
+            "nonfoot_ground_force_substeps": 0,
+            "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+            "trajectory_sha256": "1e6166a7e00e462de3e7f48addce2983c6381781e1828c374d725b089d1a56f1"
+          }
+        },
+        "compound-11": {
+          "name": "compound-11",
+          "first_step": 9990,
+          "last_step": 10740,
+          "tempo": 1.0171,
+          "yaw_degrees": 28,
+          "shift_m": [
+            -0.62,
+            0.74,
+            0.0
+          ],
+          "motion_sha256": "d91f7961601e779d6068e9059ceaa6a06f40c56c55b029ebc1e3654014b872e9",
+          "required_steps": 737,
+          "teacher": {
+            "steps": 737,
+            "xy_rmse_m": 0.19142580284817903,
+            "joint_rmse_rad": 0.1607120274876191,
+            "completed_motion": true,
+            "nonfoot_ground_force_substeps": 0,
+            "checkpoint_sha256": "4b7e5ecff963955d3af3da1741c9d799c4df583172a400954ebcaa217e892b05",
+            "trajectory_sha256": "26c8897919765782805961c73373770c7d4695103b5edb74c2a3a10e9799fc28"
+          },
+          "compact": {
+            "steps": 737,
+            "xy_rmse_m": 0.1679705170088319,
+            "joint_rmse_rad": 0.1605259555271594,
+            "completed_motion": true,
+            "nonfoot_ground_force_substeps": 0,
+            "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+            "trajectory_sha256": "a99e883dd38c80410e96b489ed4df1be1b827f4e2b498f2b032b80454dc07a76"
+          }
+        },
+        "compound-12": {
+          "name": "compound-12",
+          "first_step": 10892,
+          "last_step": 11642,
+          "tempo": 0.9936,
+          "yaw_degrees": 11,
+          "shift_m": [
+            -1.65,
+            -0.11,
+            0.0
+          ],
+          "motion_sha256": "3fdd0cd0e2f331554f2d319457bc771bac21b1c9b3eedefff65256f91435bf86",
+          "required_steps": 754,
+          "teacher": {
+            "steps": 754,
+            "xy_rmse_m": 0.29795401809711575,
+            "joint_rmse_rad": 0.5515987824967302,
+            "completed_motion": true,
+            "nonfoot_ground_force_substeps": 0,
+            "checkpoint_sha256": "4b7e5ecff963955d3af3da1741c9d799c4df583172a400954ebcaa217e892b05",
+            "trajectory_sha256": "ee792545d259242fad28bd7c942d43d8065fb3b7b9c83face758bc5ac8a922b2"
+          },
+          "compact": {
+            "steps": 754,
+            "xy_rmse_m": 0.2888246412285804,
+            "joint_rmse_rad": 0.5492849072489888,
+            "completed_motion": true,
+            "nonfoot_ground_force_substeps": 0,
+            "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+            "trajectory_sha256": "2cb2045eb064ee8f1d4bcf2e0a013836e6241ccf94b044e60c2039b29ae0ae73"
+          }
+        }
+      }
     }
   }
 }
