@@ -3832,6 +3832,213 @@
         }
       }
     },
-    "scope": "The training reference, reset starts, rigid placements and retimed variants. Native CPU MuJoCo."
+    "scope": "The training reference, reset starts, rigid placements and retimed variants. Native CPU MuJoCo.",
+    "independent_reference_checks": {
+      "source_revision": "07ff8845a94d59d4195a8ac04fe918d4e6338239",
+      "used_in_teacher_or_compact_training": false,
+      "cases": {
+        "walk1_subject2": {
+          "motion": "walk1_subject2",
+          "source": "https://huggingface.co/datasets/lvhaidong/LAFAN1_Retargeting_Dataset/blob/07ff8845a94d59d4195a8ac04fe918d4e6338239/g1/walk1_subject2.csv",
+          "csv_sha256": "f8e6ccd5df574dcc5343a0a83d12efddfb5b34578b8b2f00582cb8098ed7fffc",
+          "motion_sha256": "1cb02237c8fd9ac761368a34710455df89d2811181375897db7badf72dd1b76f",
+          "conversion_input_fps": 30,
+          "requested_steps": 13065,
+          "candidates": {
+            "full-width": {
+              "steps": 13065,
+              "completed_motion": true,
+              "failure": null,
+              "xy_rmse_m": 1.1281876086248217,
+              "xy_peak_m": 3.906057003016773,
+              "joint_rmse_rad": 0.25650198288983617,
+              "return": 0.6377924729524971,
+              "nonfoot_ground_force_substeps": 0,
+              "joint_groups_rad": {
+                "legs": 0.23576852554857503,
+                "waist": 0.12579202095138972,
+                "arms": 0.29197508214239576
+              },
+              "trajectory_sha256": "c428dcb1a7afb42246f5e478e6ed360e45ddbda5a0a85b0955206c7c120d8b29",
+              "checkpoint_sha256": "4b7e5ecff963955d3af3da1741c9d799c4df583172a400954ebcaa217e892b05",
+              "result_sha256": "7d4f54f47f1ab1a91f80e669f23ece5b17ef7ad3dd94adcc837922f9787806d4",
+              "deployment_seconds": 18.375828099029604
+            },
+            "compact-initial": {
+              "steps": 13065,
+              "completed_motion": true,
+              "failure": null,
+              "xy_rmse_m": 1.132907660187868,
+              "xy_peak_m": 4.047276782155193,
+              "joint_rmse_rad": 0.2561068686794349,
+              "return": 0.6357418106198083,
+              "nonfoot_ground_force_substeps": 0,
+              "joint_groups_rad": {
+                "legs": 0.2354146667625901,
+                "waist": 0.12485102373123527,
+                "arms": 0.2915876490446331
+              },
+              "trajectory_sha256": "1468f2fae36acb237a49cd43adababb435cca6f1596bd8623129c5352445d4d1",
+              "checkpoint_sha256": "2374196a1da2f8a323379c1e580d18f26a58038e8491e1ca97e7f2ab99d88319",
+              "result_sha256": "509e5ec33bfa2cd416675766cbc6331ef4ae79cbbee2ae165d89c0ead2473445",
+              "deployment_seconds": 8.228051149984822
+            },
+            "compact-tempo-mix75": {
+              "steps": 13065,
+              "completed_motion": true,
+              "failure": null,
+              "xy_rmse_m": 1.2107639965927641,
+              "xy_peak_m": 4.3607735707373285,
+              "joint_rmse_rad": 0.25620325959713414,
+              "return": 0.6315561661170992,
+              "nonfoot_ground_force_substeps": 0,
+              "joint_groups_rad": {
+                "legs": 0.23562410588020666,
+                "waist": 0.12525400959662097,
+                "arms": 0.2915810184635587
+              },
+              "trajectory_sha256": "092bd3f8b47526191bab0d635a77cec1a71106509690399c255b48ab5beb8a08",
+              "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+              "result_sha256": "abe76b2e723749ebbf06b6799a75a6320e1ee50cb086d033b7fe9b15daa02fb1",
+              "deployment_seconds": 7.834367450966965
+            }
+          }
+        },
+        "walk2_subject3": {
+          "motion": "walk2_subject3",
+          "source": "https://huggingface.co/datasets/lvhaidong/LAFAN1_Retargeting_Dataset/blob/07ff8845a94d59d4195a8ac04fe918d4e6338239/g1/walk2_subject3.csv",
+          "csv_sha256": "43a4342a9534ebb49e0dd9ef11ff40bf8a11d4925dac86352ebc7e7ae1220644",
+          "motion_sha256": "9c577faed339db0f942356570374f77aa9c5a2bb953c2276c6895f4934879e88",
+          "conversion_input_fps": 30,
+          "requested_steps": 11908,
+          "candidates": {
+            "full-width": {
+              "steps": 8664,
+              "completed_motion": false,
+              "failure": "root_height",
+              "xy_rmse_m": 0.6246480057040923,
+              "xy_peak_m": 1.5238364738826602,
+              "joint_rmse_rad": 0.3085201002512728,
+              "return": 0.4804157481963978,
+              "nonfoot_ground_force_substeps": 0,
+              "joint_groups_rad": {
+                "legs": 0.2802056572198173,
+                "waist": 0.13552199317171007,
+                "arms": 0.35487158236235167
+              },
+              "trajectory_sha256": "a9a8e495170d98eb2c3e57d0ac43acefe5557ac7d107538f7cb100208e7793f2",
+              "checkpoint_sha256": "4b7e5ecff963955d3af3da1741c9d799c4df583172a400954ebcaa217e892b05",
+              "result_sha256": "cd67a86ca20f7c7a550644f096606f1a91f4a91d6a40a515d9cffeedc9740498",
+              "deployment_seconds": 12.333531153039075
+            },
+            "compact-initial": {
+              "steps": 2425,
+              "completed_motion": false,
+              "failure": "root_height",
+              "xy_rmse_m": 0.3683456348542791,
+              "xy_peak_m": 0.73461218882833,
+              "joint_rmse_rad": 0.2787210078813847,
+              "return": 0.1539002799891689,
+              "nonfoot_ground_force_substeps": 0,
+              "joint_groups_rad": {
+                "legs": 0.23278424413835005,
+                "waist": 0.11503360341018186,
+                "arms": 0.33412106074089415
+              },
+              "trajectory_sha256": "96e417d4c839a13ff44f5006e1fab865ceafa1f70900bb47c360d6dc19beba63",
+              "checkpoint_sha256": "2374196a1da2f8a323379c1e580d18f26a58038e8491e1ca97e7f2ab99d88319",
+              "result_sha256": "a7b06788772779d56cc930c4040e2c7f0f1c0319a9939f9ab51ddc8314319bf5",
+              "deployment_seconds": 1.7841944840038195
+            },
+            "compact-tempo-mix75": {
+              "steps": 2431,
+              "completed_motion": false,
+              "failure": "root_height",
+              "xy_rmse_m": 0.3907527689459909,
+              "xy_peak_m": 0.746062607768833,
+              "joint_rmse_rad": 0.2796148490791737,
+              "return": 0.1531908645860533,
+              "nonfoot_ground_force_substeps": 1,
+              "joint_groups_rad": {
+                "legs": 0.23436006603411993,
+                "waist": 0.11510441356500281,
+                "arms": 0.3347180782023742
+              },
+              "trajectory_sha256": "26c34a782e65ff67054fadd6931d097bfd8d30f7df68945c4e8be1adb02057f9",
+              "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+              "result_sha256": "8ca1432ad881f80580dd2e0efc59b500bb0ec96b9983519a062840e1c21c3256",
+              "deployment_seconds": 1.792013788013719
+            }
+          }
+        },
+        "walk3_subject4": {
+          "motion": "walk3_subject4",
+          "source": "https://huggingface.co/datasets/lvhaidong/LAFAN1_Retargeting_Dataset/blob/07ff8845a94d59d4195a8ac04fe918d4e6338239/g1/walk3_subject4.csv",
+          "csv_sha256": "11a79dd8c534a562b99abdb42a221064b2b2166948d088f7ca9b63ac13f25368",
+          "motion_sha256": "66869901e9b5a0515ad3637401c9fbc98ae99b6f7667ddbe178a2b2c8f6432dc",
+          "conversion_input_fps": 30,
+          "requested_steps": 12330,
+          "candidates": {
+            "full-width": {
+              "steps": 4899,
+              "completed_motion": false,
+              "failure": "root_height",
+              "xy_rmse_m": 0.5936476222393793,
+              "xy_peak_m": 1.5749500802696244,
+              "joint_rmse_rad": 0.2366934686822392,
+              "return": 0.28764561132889693,
+              "nonfoot_ground_force_substeps": 0,
+              "joint_groups_rad": {
+                "legs": 0.20762190701398053,
+                "waist": 0.12292098975119325,
+                "arms": 0.275432019219466
+              },
+              "trajectory_sha256": "6968763e35da1f23f5a5ab22c5a195183c865b2eac0e26ab25941af39aae0f02",
+              "checkpoint_sha256": "4b7e5ecff963955d3af3da1741c9d799c4df583172a400954ebcaa217e892b05",
+              "result_sha256": "274e29f41a56ebbddc5581d6609ff17db30800c086148fbbde6ca1058747c7a5",
+              "deployment_seconds": 7.176442830008455
+            },
+            "compact-initial": {
+              "steps": 4904,
+              "completed_motion": false,
+              "failure": "root_height",
+              "xy_rmse_m": 0.6273663013010731,
+              "xy_peak_m": 1.5777122314990433,
+              "joint_rmse_rad": 0.23742005518515627,
+              "return": 0.28528202887675863,
+              "nonfoot_ground_force_substeps": 0,
+              "joint_groups_rad": {
+                "legs": 0.20773499338341542,
+                "waist": 0.12333871659501051,
+                "arms": 0.27661176361380485
+              },
+              "trajectory_sha256": "ce286e263a7f0586ec5a3d8af6a557e3c89fcdce8b99f910e5e74fa46b0b8075",
+              "checkpoint_sha256": "2374196a1da2f8a323379c1e580d18f26a58038e8491e1ca97e7f2ab99d88319",
+              "result_sha256": "2df8fd856d8cfb09fdf4f72f0c6ab44f7f6201d178723d3f5830db89073ae362",
+              "deployment_seconds": 3.180638507998083
+            },
+            "compact-tempo-mix75": {
+              "steps": 4915,
+              "completed_motion": false,
+              "failure": "root_tilt",
+              "xy_rmse_m": 0.6207787934483149,
+              "xy_peak_m": 2.7557159170456376,
+              "joint_rmse_rad": 0.24044243886844474,
+              "return": 0.2837027274585795,
+              "nonfoot_ground_force_substeps": 11,
+              "joint_groups_rad": {
+                "legs": 0.21080599031989766,
+                "waist": 0.12895205760926148,
+                "arms": 0.27946486358742684
+              },
+              "trajectory_sha256": "51d0aac181e1259b05179f128aa1d3a2b3182640916e9b4027c3be69eb261230",
+              "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+              "result_sha256": "a1a350bc26afa32691860a3099020099eae1d102899fa0eae0a794076d7c7b58",
+              "deployment_seconds": 3.102889141009655
+            }
+          }
+        }
+      }
+    }
   }
 }

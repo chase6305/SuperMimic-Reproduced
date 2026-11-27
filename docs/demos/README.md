@@ -10,6 +10,8 @@ GIF 来自 Unitree G1 策略在 CPU MuJoCo 中生成的保存轨迹。渲染逐�
 | [舞蹈预览](dance.gif) | 105–110 | 131.46 秒完整参考的翻转片段，严格技能验收未通过。[任务证据](https://github.com/chase6305/SuperMimic-Reproduced/blob/44e8c2ff97c86bf7d3fc4fe5e5247a807692e8d9/docs/tasks/readiness-baseline.json) |
 | [格斗预览](fight.gif) | 20–25 | 244.86 秒完整参考的片段，严格技能验收未通过。[任务证据](https://github.com/chase6305/SuperMimic-Reproduced/blob/44e8c2ff97c86bf7d3fc4fe5e5247a807692e8d9/docs/tasks/readiness-baseline.json) |
 
+完整 244.42 秒跳跃参考的补充试验最高达到 71.28% 的腾空时间精度，并完成全部 12,221 步。该版本的其余检查通过，腾空时间精度门槛为 80%。表中的验收和动画使用独立的首 120 秒任务。
+
 ## 渲染验证
 
 五段 GIF 均为 384 × 288、50 帧、5 秒循环，合计 3.15 MiB。最初五段同轨迹样片从 128 色试制参数切换到当前 64 色编码参数后，体积减少约 32%。使用 Mesa llvmpipe 重生成五段 GIF，文件逐字节一致。MP4 对照的首帧与原实现逐像素一致。另测了 12 秒、25 FPS 的跳跃 GIF，输出 300 帧，采样进程树 RSS 峰值约为 733 MiB。
