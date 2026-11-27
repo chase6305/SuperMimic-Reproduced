@@ -95,5 +95,21 @@
       "contract_sha256": "f260042dc10cfefc38a499c17cbc4f24b433e2035cfe35223562cfcda3284c41",
       "result_sha256": "f3c7fe6dc8c12e864e8bbb1bc1e359e679d214eb0c0d102556046172942fcd81"
     }
+  },
+  "local_validation": {
+    "all_five_gifs_reencoded_byte_identically": true,
+    "long_jump_gif": {
+      "width": 320,
+      "height": 240,
+      "fps": 25,
+      "frames": 300,
+      "duration_s": 12.0,
+      "source_start_seconds": 108.0,
+      "trajectory_sha256": "b09328ee7b9e49b4b503276fbeeed873ddb773fa4eaef56a71d8677b8fd1cee1",
+      "video_sha256": "c6c468232dc32f1cd42dbc3753155fb14dda6c2995dcccbce07651bfef706ac8",
+      "renderer": "llvmpipe (LLVM 15.0.7, 256 bits)",
+      "cuda_used": false,
+      "sampled_process_tree_peak_rss_bytes": 768401408
+    }
   }
 }
