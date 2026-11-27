@@ -80,6 +80,21 @@ def test_full_motion_gate_rejects_hidden_inversion_and_missing_kick_amplitude():
     metrics = good_metrics()
     metrics["quality"]["joint_amplitude_ratio_by_group"]["legs"] = 0.05
     assert not judge_skill(metrics, True, "fight")["passed"]
+
+
+def test_flight_precision_includes_tolerance_boundaries_and_repeated_timestamps():
+    clearance = np.zeros((25, 2))
+    clearance[10:16] = 0.06
+    contacts = np.zeros((18, 13))
+    lower, upper = 10 * 0.02 - 0.1, 16 * 0.02 + 0.1
+    contacts[:, 0] = [np.nextafter(lower, -np.inf), *([lower] * 8), *([upper] * 8),
+                      np.nextafter(upper, np.inf)]
+
+    ordered = flight_alignment(clearance, contacts, 0.02, 0.005)
+    unordered = flight_alignment(clearance, contacts[::-1], 0.02, 0.005)
+    assert ordered == unordered
+    assert ordered["time_precision"] == 16 / 18
+    assert ordered["event_recall"] == 1
     metrics = good_metrics()
     metrics["body_relative_worst_1s_rmse_m"]["left_ankle_roll_link"] = 0.8
     assert not judge_skill(metrics, True, "fight")["passed"]

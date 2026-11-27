@@ -178,20 +178,30 @@ def flight_alignment(
     window = np.zeros(len(raw), dtype=bool)
     hits = 0
     times = contacts[:, 0]
+    ordered_times = times.dtype == np.dtype(np.float64) and np.all(times[1:] >= times[:-1])
     expected_time = sum((b - a) * control_dt for a, b in reference_events)
     for a, b in reference_events:
-        region = (times >= a * control_dt - 0.1) & (times <= b * control_dt + 0.1)
-        window |= region
+        lower, upper = a * control_dt - 0.1, b * control_dt + 0.1
+        # Native contact times are monotonically increasing float64 samples.
+        # Keep mask comparisons for other record layouts and numeric dtypes.
+        if ordered_times and lower <= upper:
+            first = times.searchsorted(lower, side="left")
+            last = times.searchsorted(upper, side="right")
+            region = slice(first, last)
+        else:
+            region = (times >= lower) & (times <= upper)
+        window[region] = True
         hits += int(
-            np.count_nonzero(actual & region) * physics_dt >= min(0.06, (b - a) * control_dt * 0.3)
+            np.count_nonzero(actual[region]) * physics_dt >= min(0.06, (b - a) * control_dt * 0.3)
         )
-    actual_time = float(actual.sum() * physics_dt)
+    actual_samples = actual.sum()
+    actual_time = float(actual_samples * physics_dt)
     return {
         "reference_events": len(reference_events),
         "matched_events": hits,
         "actual_events": len(actual_events),
         "event_recall": hits / max(len(reference_events), 1),
-        "time_precision": float((actual & window).sum() / max(actual.sum(), 1)),
+        "time_precision": float(np.count_nonzero(actual & window) / max(actual_samples, 1)),
         "reference_airtime_s": expected_time,
         "actual_airtime_s": actual_time,
         "airtime_ratio": actual_time / max(expected_time, 1e-9),
