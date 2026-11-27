@@ -166,7 +166,7 @@ def _encode_gif(source: Path, target: Path, fps: int) -> None:
     commands = (
         [
             "-i", str(source),
-            "-vf", "palettegen=max_colors=128",
+            "-vf", "palettegen=max_colors=64",
             "-frames:v", "1",
             "-threads", "1",
             str(palette),
@@ -175,7 +175,7 @@ def _encode_gif(source: Path, target: Path, fps: int) -> None:
             "-i", str(source),
             "-threads", "1",
             "-i", str(palette),
-            "-lavfi", "paletteuse=dither=bayer:bayer_scale=4:diff_mode=rectangle",
+            "-lavfi", "paletteuse=dither=bayer:bayer_scale=5:diff_mode=rectangle",
             "-loop", "0",
             "-final_delay", str(100 // fps),
             "-threads", "1",
@@ -325,7 +325,9 @@ def _render_animation(
             mujoco.mj_forward(model, data)
             camera.lookat[:] = data.qpos[root : root + 3]
             if gif:
-                camera.lookat[2] = 0.8
+                # Keep small vertical movements visible and follow larger excursions.
+                root_height = camera.lookat[2]
+                camera.lookat[2] = min(max(0.8, root_height - 0.3), root_height + 0.3)
             renderer.update_scene(data, camera)
             if gif:
                 renderer.scene.flags[mujoco.mjtRndFlag.mjRND_REFLECTION] = False

@@ -4,13 +4,29 @@
 
 核心流程：真实 MuJoCo Warp 仿真采样 → 学习世界模型 → 通过想象轨迹做 BPTT 策略更新 → 确定性评测 → 导出 CPU 策略与 G1 控制契约 → CPU MuJoCo 部署。未使用官方模型权重，缩小配置不代表论文规模复现；仿真部署不代表已上实机。
 
+## G1 仿真演示
+
+以下 GIF 回放 CPU MuJoCo 中由策略控制的轨迹片段。行走完成了 261.3 秒参考，跳跃通过首 120 秒任务的验收，固定姿态保持通过 600 秒复验。
+
+| 行走参考 | 跳跃参考 | 固定姿态保持 |
+| --- | --- | --- |
+| ![G1 行走参考回放](docs/demos/walk.gif) | ![G1 跳跃参考的 120 秒验收轨迹片段](docs/demos/jump.gif) | ![G1 在 600 秒复验末段保持固定姿态](docs/demos/stand.gif) |
+
+舞蹈与格斗为尚未通过严格技能验收的实验预览。
+
+| 舞蹈预览 | 格斗预览 |
+| --- | --- |
+| ![G1 舞蹈轨迹中的翻转片段](docs/demos/dance.gif) | ![G1 格斗动作轨迹片段](docs/demos/fight.gif) |
+
+各片段的时间区间、验收范围和再生成命令见 [演示说明](docs/demos/README.md)。
+
 ## 交付范围与限制
 
 当前交付为 G1 训练、恢复、评测、导出与 CPU MuJoCo 部署的代码基线。默认配置沿用固定上游的算法接口；额外位姿反馈、跟踪辅助项和局部参数微调均为显式启用的实验选项，不代表论文默认算法或已通过技能验收。
 
 本机早期两组从零训练的模型均连续执行了 261.3 秒行走参考；最高整段归一化回报约 0.6504，关节 RMSE 约 0.2933 rad，平面 RMSE 约 5.408 m。详细历史指标和来源见 [结果报告](docs/RESULTS.md)。这些结果仅覆盖训练动作，路径误差明显；连续执行不等于高精度模仿。
 
-跳跃、舞蹈、格斗的严格技能验收尚未通过，后续技能优化与实验编排在独立 PR 中审阅，不作为本基线合并的完成条件。未交付官方权重、全量论文 benchmark 或实机控制。数据、权重、`runs/` 与 `exports/` 为未入库的本地产物，克隆后需要自行准备数据并训练或提供可信检查点。
+原始完整跳跃、舞蹈及格斗参考的严格技能验收尚未通过，后续技能优化与实验编排在独立 PR 中审阅，不作为本基线合并的完成条件。未交付官方权重、全量论文 benchmark 或实机控制。数据、权重、`runs/` 与 `exports/` 为未入库的本地产物，克隆后需要自行准备数据并训练或提供可信检查点。
 
 ## 安装和检查
 
@@ -147,6 +163,17 @@ CPU 测试覆盖 G1 FK、状态表示、训练／部署历史和目标特征一�
   --trajectory runs/deploy-g1/trajectory.npz \
   --output runs/deploy-g1/preview.mp4 --seconds 10
 ```
+
+指定 `.gif` 扩展名可生成循环回放。`--start-seconds` 选择保存轨迹中的起点。
+
+```bash
+./supermimic render --bundle exports/g1 \
+  --trajectory runs/deploy-g1/trajectory.npz \
+  --start-seconds 3 --seconds 5 --width 384 \
+  --output runs/deploy-g1/preview.gif
+```
+
+GIF 默认宽 480 像素、10 FPS，MP4 默认宽 640 像素、25 FPS。`--fps` 支持 10、25 和 50，源帧按 50 Hz 时钟选取。GIF 的首帧和回放元数据保存在 `preview.gif.png` 和 `preview.gif.json`。
 
 需要系统的 Mesa EGL 库；已验证 `llvmpipe` 渲染。可选 `train --compile-policy` 在相同预算内编译想象步骤，首次编译时间也计入训练循环预算。详细输入、时钟和指标定义见 [实现约定](docs/REPRODUCTION.md)。
 
