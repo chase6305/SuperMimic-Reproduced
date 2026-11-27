@@ -32,12 +32,15 @@ def motion_quality(
     actual = np.asarray(states[1 : n + 1], dtype=np.float64)
     target = np.asarray(reference["joint_pos"][frames], dtype=np.float64)
     error = actual[:, 7:36] - target
-    actual_centered = actual[:, 7:36] - actual[:, 7:36].mean(0)
-    target_centered = target - target.mean(0)
-    actual_std = actual[:, 7:36].std(0)
+    actual_joints = actual[:, 7:36]
+    actual_std = actual_joints.std(0)
     target_std = target.std(0)
     active = target_std >= 0.1
-    covariance = (actual_centered * target_centered).mean(0)
+    actual_centered = actual_joints - actual_joints.mean(0)
+    target_centered = target - target.mean(0)
+    np.multiply(actual_centered, target_centered, out=actual_centered)
+    covariance = actual_centered.mean(0)
+    del actual_centered, target_centered
     denominator = actual_std * target_std
     correlation = np.divide(covariance, denominator, out=np.zeros(29), where=denominator > 1e-8)
     root_position = reference["body_pos_w"][frames, root_index]
