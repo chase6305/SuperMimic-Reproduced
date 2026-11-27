@@ -1,6 +1,7 @@
 """Small synthetic actor: package, reload, physical rollout and failure provenance."""
 
 import importlib
+import json
 from dataclasses import asdict
 from pathlib import Path
 from types import SimpleNamespace
@@ -234,3 +235,47 @@ def test_contact_rows_accumulate_in_native_order_and_clear_previous_sample(monke
     data.contact = SimpleNamespace(geom=np.empty((0, 2)), frame=np.empty((0, 9)), dist=[])
     runtime._record_contact_row(None, data, {5}, {2: 0, 3: 1}, scratch, row)
     np.testing.assert_array_equal(row, [0.025, *([0] * 12)])
+
+
+def test_recording_budget_uses_model_decimation_before_allocation(tmp_path, monkeypatch):
+    torch.set_num_threads(1)
+    cfg = PolicyCfg(encoder_hidden=(8,), decoder_hidden=(8,))
+    checkpoint = tmp_path / "actor.pt"
+    torch.save(
+        {
+            "iteration": 0,
+            "policy": Policy(cfg).state_dict(),
+            "config": {"policy": asdict(cfg), "env": {"future_frames": 10, "anchor_obs": False}},
+        },
+        checkpoint,
+    )
+    bundle = tmp_path / "bundle"
+    contract = export_policy(checkpoint, bundle)
+    model_file = bundle / "model.mjb"
+    model = runtime.mujoco.MjModel.from_binary_path(str(model_file))
+    contract["decimation"] = 16
+    contract["physics_dt"] = contract["control_dt"] / contract["decimation"]
+    model.opt.timestep = contract["physics_dt"]
+    runtime.mujoco.mj_saveModel(model, str(model_file), None)
+    contract["files"]["model.mjb"] = sha256(model_file)
+    (bundle / "contract.json").write_text(json.dumps(contract))
+    motion = tmp_path / "motion.npz"
+    make_motion(motion)
+
+    small = deploy(bundle, motion, tmp_path / "small-rollout", steps=2)
+    assert small["steps"] == 2
+    assert small["contacts"]["physics_substeps"] == 32
+
+    requested = 300_000
+    empty = np.empty
+
+    def record_arrays(shape, *args, **kwargs):
+        if isinstance(shape, tuple) and shape and shape[0] >= requested:
+            pytest.fail("An over-budget rollout reached recording allocation")
+        return empty(shape, *args, **kwargs)
+
+    monkeypatch.setattr(runtime.np, "empty", record_arrays)
+    output = tmp_path / "large-rollout"
+    with pytest.raises(ValueError, match="512 MiB recording budget"):
+        deploy(bundle, motion, output, steps=requested)
+    assert not output.exists()

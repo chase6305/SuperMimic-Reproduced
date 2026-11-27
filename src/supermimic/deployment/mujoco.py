@@ -15,6 +15,7 @@ from supermimic.data.schema import validate_motion
 from supermimic.deployment.core import MotionReference, PolicyRunner, gravity, rotation
 from supermimic.deployment.trajectory import PHYSICAL_CONTACT_COLUMNS
 from supermimic.deployment.validation import validate_model_contract
+from supermimic.interfaces import ACT_DIM
 from supermimic.runtime import source_manifest
 
 
@@ -104,12 +105,21 @@ def _deploy(
     motion_goal_dim = future_frames * reference.features.shape[1]
     goal_rows = goal[:motion_goal_dim].reshape(future_frames, -1)
     decimation = c["decimation"]
-    output.mkdir(parents=True, exist_ok=False)
     requested = steps if steps is not None else reference.frames - 1
     if requested < 1 or requested > 10_000_000:
         raise ValueError("Deployment step budget must be within [1, 10000000]")
-    if requested * (model.nq + model.nv + 29 + 4 * 13) * 8 > 512 * 1024**2:
+    state_width = model.nq + model.nv
+    contact_width = len(PHYSICAL_CONTACT_COLUMNS)
+    float64_bytes = np.dtype(np.float64).itemsize
+    per_step_bytes = (
+        (state_width + decimation * contact_width) * float64_bytes
+        + ACT_DIM * np.dtype(np.float32).itemsize
+        + np.dtype(np.int64).itemsize
+    )
+    initial_state_bytes = state_width * float64_bytes
+    if initial_state_bytes + requested * per_step_bytes > 512 * 1024**2:
         raise ValueError("Trajectory exceeds the 512 MiB recording budget")
+    output.mkdir(parents=True, exist_ok=False)
     record = {
         "status": "running",
         "backend": "mujoco_cpu",
@@ -130,10 +140,10 @@ def _deploy(
         "implementation_package_sha256": source_manifest(),
     }
     write_json(output / "result.json", record)
-    states = np.empty((requested + 1, model.nq + model.nv), dtype=np.float64)
-    actions = np.empty((requested, 29), dtype=np.float32)
+    states = np.empty((requested + 1, state_width), dtype=np.float64)
+    actions = np.empty((requested, ACT_DIM), dtype=np.float32)
     frames = np.empty(requested, dtype=np.int64)
-    contacts = np.empty((requested * decimation, 13), dtype=np.float64)
+    contacts = np.empty((requested * decimation, contact_width), dtype=np.float64)
     contact_steps = 0
     floors = {i for i in range(model.ngeom) if model.geom_type[i] == mujoco.mjtGeom.mjGEOM_PLANE}
     side_by_body = {
