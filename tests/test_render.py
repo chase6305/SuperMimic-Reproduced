@@ -1,7 +1,10 @@
 """Regression coverage for bounded CPU animation output."""
 
+import json
+import re
 import sys
 from contextlib import contextmanager
+from pathlib import Path
 
 import pytest
 
@@ -106,3 +109,27 @@ def test_frame_writer_preserves_matroska_video_output(tmp_path):
     with render._frame_writer(path, 64, 48, 25, lossless=False) as stream:
         stream.write(bytes(64 * 48 * 3))
     assert path.read_bytes().startswith(bytes.fromhex("1a45dfa3"))
+
+
+def test_readme_demos_match_published_animation_manifest():
+    from PIL import Image
+
+    from supermimic.artifacts import sha256
+
+    root = Path(__file__).resolve().parents[1]
+    demos = root / "docs/demos"
+    manifest = json.loads((demos / "manifest.json").read_text())["demos"]
+    readme = (root / "README.md").read_text()
+    embedded = set(re.findall(r"!\[[^\]]+\]\(docs/demos/([^()]+\.gif)\)", readme))
+    assert embedded == manifest.keys()
+    for name, entry in manifest.items():
+        path = demos / name
+        assert path.stat().st_size == entry["size_bytes"]
+        assert sha256(path) == entry["gif_sha256"]
+        with Image.open(path) as image:
+            assert image.size == (entry["width"], entry["height"])
+            assert image.info["loop"] == 0
+            assert image.n_frames == entry["frames"]
+            for frame in range(image.n_frames):
+                image.seek(frame)
+                assert image.info["duration"] == 1000 // entry["fps"]
