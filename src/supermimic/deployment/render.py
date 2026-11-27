@@ -2,11 +2,14 @@
 
 from __future__ import annotations
 
+import fcntl
 import math
 import os
+import subprocess
 import time
+from contextlib import contextmanager
 from pathlib import Path
-from tempfile import TemporaryDirectory
+from tempfile import TemporaryDirectory, TemporaryFile
 
 from supermimic.artifacts import sha256, snapshot_file, write_json
 
@@ -57,23 +60,7 @@ def _load_render_model(bundle: Path, contract: dict, output: Path, loader):
         return loader(str(pinned_model))
 
 
-def render_rollout(
-    bundle: Path,
-    trajectory: Path,
-    output: Path,
-    seconds: float = 10.0,
-    fps: int = 25,
-    *,
-    start_seconds: float = 0.0,
-) -> dict:
-    if not 0 < seconds <= 60 or fps not in (10, 25, 50):
-        raise ValueError("Render duration must be within (0, 60] seconds; fps must be 10, 25 or 50")
-    if not math.isfinite(start_seconds) or start_seconds < 0:
-        raise ValueError("Render start must be nonnegative and finite")
-    if output.exists():
-        raise FileExistsError(output)
-    contract, recorded, evidence = _render_inputs(bundle, trajectory)
-    states, dt = recorded.states, recorded.control_dt
+def _software_device() -> int:
     vendor = Path("/usr/share/glvnd/egl_vendor.d/50_mesa.json")
     if not vendor.is_file():
         raise RuntimeError("CPU rendering requires the Mesa EGL vendor library")
@@ -83,18 +70,10 @@ def render_rollout(
         __EGL_VENDOR_LIBRARY_FILENAMES=str(vendor),
         LP_NUM_THREADS="2",
     )
-    # Import after selecting Mesa: mujoco/OpenGL choose their GL backend on import.
-    # Select Mesa's software device before creating any display/context. The
-    # default MuJoCo search tries hardware devices first, despite the software
-    # environment flag, which can touch their VRAM or emit driver errors.
+    # Select Mesa's software device before creating any display/context.
     import ctypes
 
-    import imageio_ffmpeg
-    import mujoco
-    import numpy as np
     from mujoco.egl import egl_ext as EGL
-    from OpenGL.GL import GL_RENDERER, glGetString
-    from PIL import Image, ImageDraw
 
     address = EGL.eglGetProcAddress("eglQueryDeviceStringEXT")
     if not address:
@@ -112,55 +91,259 @@ def render_rollout(
     if software_device is None:
         raise RuntimeError("No Mesa software EGL device is available")
     os.environ["MUJOCO_EGL_DEVICE_ID"] = str(software_device)
+    return software_device
 
-    model = _load_render_model(bundle, contract, output, mujoco.MjModel.from_binary_path)
+
+def _frame_indices(state_count: int, dt: float, start: float, seconds: float, fps: int) -> range:
+    if not math.isfinite(start) or not 0 <= start < state_count * dt:
+        raise ValueError("Render start is outside the saved physical trajectory")
+    first = round(start / dt)
+    if first >= state_count:
+        raise ValueError("Render start is outside the saved physical trajectory")
+    count = max(1, round(seconds / dt))
+    return range(first, min(state_count, first + count), 50 // fps)
+
+
+def _ffmpeg_command() -> list[str]:
+    from imageio_ffmpeg import get_ffmpeg_exe
+
+    return [
+        get_ffmpeg_exe(),
+        "-nostdin",
+        "-loglevel", "error",
+        "-filter_threads", "1",
+        "-filter_complex_threads", "1",
+        "-threads", "1",
+    ]
+
+
+@contextmanager
+def _frame_writer(path: Path, width: int, height: int, fps: int, *, lossless: bool):
+    codec = (
+        ["-c:v", "libx264rgb", "-preset", "ultrafast", "-crf", "0"]
+        if lossless
+        else ["-c:v", "libx264", "-preset", "fast", "-crf", "24", "-pix_fmt", "yuv420p"]
+    )
+    command = [
+        *_ffmpeg_command(),
+        "-f", "rawvideo",
+        "-pixel_format", "rgb24",
+        "-video_size", f"{width}x{height}",
+        "-framerate", str(fps),
+        "-i", "pipe:0",
+        *codec,
+        "-threads", "1",
+        "-movflags", "+faststart",
+        str(path),
+    ]
+    with TemporaryFile() as errors, subprocess.Popen(
+        command, stdin=subprocess.PIPE, stderr=errors
+    ) as encoder:
+        broken_pipe = False
+        try:
+            with encoder.stdin:
+                yield encoder.stdin
+        except BrokenPipeError:
+            broken_pipe = True
+        except BaseException:
+            encoder.kill()
+            raise
+        try:
+            code = encoder.wait(timeout=60)
+        except subprocess.TimeoutExpired as error:
+            encoder.kill()
+            raise RuntimeError("FFmpeg timed out finalizing rendered frames") from error
+        if code or broken_pipe:
+            size = errors.seek(0, os.SEEK_END)
+            errors.seek(max(0, size - 4096))
+            detail = errors.read().decode(errors="replace").strip()
+            raise RuntimeError(f"FFmpeg failed to encode rendered frames (exit {code}): {detail}")
+
+
+def _encode_gif(source: Path, target: Path, fps: int) -> None:
+    """Build one palette on disk so full RGB clips never accumulate in memory."""
+    palette = source.with_name("palette.png")
+    commands = (
+        [
+            "-i", str(source),
+            "-vf", "palettegen=max_colors=128",
+            "-frames:v", "1",
+            "-threads", "1",
+            str(palette),
+        ],
+        [
+            "-i", str(source),
+            "-threads", "1",
+            "-i", str(palette),
+            "-lavfi", "paletteuse=dither=bayer:bayer_scale=4:diff_mode=rectangle",
+            "-loop", "0",
+            "-final_delay", str(100 // fps),
+            "-threads", "1",
+            str(target),
+        ],
+    )
+    for arguments in commands:
+        try:
+            subprocess.run(
+                [*_ffmpeg_command(), *arguments], check=True, capture_output=True, timeout=180
+            )
+        except subprocess.CalledProcessError as error:
+            detail = error.stderr.decode(errors="replace").strip()
+            raise RuntimeError(f"FFmpeg failed to encode GIF: {detail}") from error
+        except subprocess.TimeoutExpired as error:
+            raise RuntimeError("FFmpeg timed out encoding GIF") from error
+
+
+@contextmanager
+def _reserve_render_output(output: Path, poster: Path, metadata: Path):
+    """Keep concurrent attempts from replacing even the resource report."""
+    output.parent.mkdir(parents=True, exist_ok=True)
+    lock_path = metadata.with_name(f".{metadata.name}.render.lock")
+    with lock_path.open("a") as lock:
+        try:
+            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError:
+            raise FileExistsError(f"Render already in progress for {output}") from None
+        # A previous writer may have removed this inode between open and flock.
+        if not os.path.samestat(lock_path.stat(), os.fstat(lock.fileno())):
+            raise FileExistsError(f"Render destination changed for {output}")
+        try:
+            for path in (output, poster, metadata):
+                if path.exists() or path.is_symlink():
+                    raise FileExistsError(path)
+            yield
+        finally:
+            lock_path.unlink()
+
+
+def _publish_render(files: tuple[tuple[Path, Path], ...]) -> None:
+    """Publish completed sidecars first, with the animation as the final file."""
+    published = []
+    try:
+        for source, target in files:
+            target.hardlink_to(source)
+            published.append(target)
+    except BaseException:
+        for target in published:
+            target.unlink()
+        raise
+
+
+def render_rollout(
+    bundle: Path,
+    trajectory: Path,
+    output: Path,
+    seconds: float = 10.0,
+    fps: int | None = None,
+    *,
+    start_seconds: float = 0.0,
+    width: int | None = None,
+) -> dict:
+    format_name = output.suffix.lower()
+    if format_name not in (".mp4", ".gif"):
+        raise ValueError("Render output must end in .mp4 or .gif")
+    gif = format_name == ".gif"
+    if fps is None:
+        fps = 10 if gif else 25
+    if width is None:
+        width = 480 if gif else 640
+    if not 0 < seconds <= 60 or fps not in (10, 25, 50):
+        raise ValueError("Render duration must be within (0, 60] seconds; fps must be 10, 25 or 50")
+    if width not in (320, 384, 480, 640):
+        raise ValueError("Render width must be 320, 384, 480 or 640")
+    sidecar_base = output if gif else output.with_suffix("")
+    poster = sidecar_base.with_name(f"{sidecar_base.name}.png")
+    metadata = sidecar_base.with_name(f"{sidecar_base.name}.json")
+    from supermimic.cpu_resources import cpu_guard
+    from supermimic.resources import ResourceLimits
+
+    with (
+        _reserve_render_output(output, poster, metadata),
+        TemporaryDirectory(prefix=".supermimic-render-", dir=output.parent) as directory,
+    ):
+        staged = Path(directory) / f"render{format_name}"
+        staged_poster, staged_metadata = staged.with_suffix(".png"), staged.with_suffix(".json")
+        with cpu_guard(output, limits=ResourceLimits(max_rss_gib=2)):
+            result = _render_animation(
+                bundle, trajectory, staged, staged_poster, seconds, fps, start_seconds, width
+            )
+            write_json(staged_metadata, result)
+        _publish_render(((staged_poster, poster), (staged_metadata, metadata), (staged, output)))
+    return result
+
+
+def _render_animation(
+    bundle: Path,
+    trajectory: Path,
+    staged: Path,
+    poster: Path,
+    seconds: float,
+    fps: int,
+    start_seconds: float,
+    width: int,
+) -> dict:
+    gif = staged.suffix == ".gif"
+    height = width * 3 // 4
+    contract, recorded, evidence = _render_inputs(bundle, trajectory)
+    states, dt = recorded.states, recorded.control_dt
+    indices = _frame_indices(len(states), dt, start_seconds, seconds, fps)
+    software_device = _software_device()
+
+    # MuJoCo chooses its GL backend on import.
+    import mujoco
+    from OpenGL.GL import GL_RENDERER, glGetString
+    from PIL import Image, ImageDraw
+
+    model = _load_render_model(bundle, contract, staged, mujoco.MjModel.from_binary_path)
     if states.shape[1] != model.nq + model.nv:
         raise ValueError("Trajectory state dimension differs from model")
     data = mujoco.MjData(model)
     camera = mujoco.MjvCamera()
     camera.distance, camera.azimuth, camera.elevation = 2.8, 130, -15
     root = contract["root_qpos_index"]
-    frame_step = 50 // fps
-    first_frame = round(start_seconds / dt)
-    if first_frame >= len(states):
-        raise ValueError("Render start is outside the saved physical trajectory")
-    indices = range(first_frame, min(len(states), first_frame + round(seconds / dt)), frame_step)
-    output.parent.mkdir(parents=True, exist_ok=True)
+    if type(root) is not int or not 0 <= root <= model.nq - 3:
+        raise ValueError("Root position index is outside the saved state layout")
+    if gif:
+        camera.distance, camera.elevation = 2.4, -27
+        # A plain floor keeps most pixels unchanged while the tracking camera moves.
+        floor = model.geom_type == mujoco.mjtGeom.mjGEOM_PLANE
+        model.geom_matid[floor] = -1
+        model.geom_rgba[floor] = (0.16, 0.23, 0.30, 1)
     started = time.monotonic()
-    frames = 0
-    with mujoco.Renderer(model, 480, 640) as renderer:
+
+    intermediate = staged.with_name("frames.mp4") if gif else staged
+    with (
+        mujoco.Renderer(model, height, width) as renderer,
+        _frame_writer(intermediate, width, height, fps, lossless=gif) as stream,
+    ):
         backend = glGetString(GL_RENDERER).decode()
         if "llvmpipe" not in backend.lower() and "softpipe" not in backend.lower():
             raise RuntimeError(f"Expected software GL renderer, got {backend}")
-        writer = imageio_ffmpeg.write_frames(
-            str(output),
-            (640, 480),
-            fps=fps,
-            codec="libx264",
-            output_params=["-crf", "24", "-preset", "fast", "-threads", "2"],
-        )
-        try:
-            writer.send(None)
-            for index in indices:
-                data.qpos[:] = states[index, : model.nq]
-                data.qvel[:] = states[index, model.nq :]
-                mujoco.mj_forward(model, data)
-                camera.lookat[:] = data.qpos[root : root + 3]
-                renderer.update_scene(data, camera)
-                picture = Image.fromarray(renderer.render())
-                overlay = ImageDraw.Draw(picture)
-                overlay.rectangle((0, 0, 640, 31), fill=(8, 18, 29))
-                overlay.text(
-                    (12, 10),
-                    f"G1  |  iteration {contract['checkpoint_iteration']}  |  t = {index * dt:.2f} s  |  saved trajectory",
-                    fill="white",
-                )
-                if frames == 0:
-                    picture.save(output.with_suffix(".png"))
-                writer.send(np.asarray(picture))
-                frames += 1
-        finally:
-            writer.close()
+        for index in indices:
+            data.qpos[:] = states[index, : model.nq]
+            data.qvel[:] = states[index, model.nq :]
+            mujoco.mj_forward(model, data)
+            camera.lookat[:] = data.qpos[root : root + 3]
+            if gif:
+                camera.lookat[2] = 0.8
+            renderer.update_scene(data, camera)
+            if gif:
+                renderer.scene.flags[mujoco.mjtRndFlag.mjRND_REFLECTION] = False
+            picture = Image.fromarray(renderer.render())
+            overlay = ImageDraw.Draw(picture)
+            overlay.rectangle((0, 0, width, 31), fill=(8, 18, 29))
+            label = (
+                f"G1  |  MuJoCo  |  t = {index * dt:.2f} s"
+                if gif or width < 480
+                else f"G1  |  iteration {contract['checkpoint_iteration']}  |  "
+                f"t = {index * dt:.2f} s  |  saved trajectory"
+            )
+            overlay.text((12, 10), label, fill="white")
+            if index == indices.start:
+                picture.save(poster)
+            stream.write(picture.tobytes())
+    if gif:
+        _encode_gif(intermediate, staged, fps)
     result = {
         "status": "complete",
         "renderer": backend,
@@ -170,13 +353,16 @@ def render_rollout(
         "checkpoint_sha256": contract["checkpoint_sha256"],
         "trajectory_sha256": recorded.sha256,
         **evidence,
-        "video_sha256": sha256(output),
-        "frames": frames,
+        "video_sha256": sha256(staged),
+        "format": "gif" if gif else "mp4",
+        "width": width,
+        "height": height,
+        "frames": len(indices),
         "fps": fps,
-        "first_source_frame": first_frame,
-        "source_start_seconds": first_frame * dt,
-        "duration_s": frames / fps,
+        "first_source_frame": indices.start,
+        "source_start_seconds": indices.start * dt,
+        "source_end_seconds": indices[-1] * dt,
+        "duration_s": len(indices) / fps,
         "elapsed_s": time.monotonic() - started,
     }
-    write_json(output.with_suffix(".json"), result)
     return result
