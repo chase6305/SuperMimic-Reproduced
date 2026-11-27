@@ -13,6 +13,8 @@ from tempfile import TemporaryDirectory, TemporaryFile
 
 from supermimic.artifacts import sha256, snapshot_file, write_json
 
+_GIF_MAX_SHADOW_SIZE = 2048
+
 
 def _render_inputs(bundle: Path, trajectory: Path):
     """Read saved states without requiring controls, contact evidence or a result."""
@@ -308,6 +310,11 @@ def _render_animation(
         raise ValueError("Root position index is outside the saved state layout")
     if gif:
         camera.distance, camera.elevation = 2.4, -27
+        # Mesa allocates these buffers at the model's resolution even for a small preview.
+        visual = model.vis
+        visual.global_.offwidth = min(visual.global_.offwidth, width)
+        visual.global_.offheight = min(visual.global_.offheight, height)
+        visual.quality.shadowsize = min(visual.quality.shadowsize, _GIF_MAX_SHADOW_SIZE)
         # A plain floor keeps most pixels unchanged while the tracking camera moves.
         floor = model.geom_type == mujoco.mjtGeom.mjGEOM_PLANE
         model.geom_matid[floor] = -1

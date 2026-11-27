@@ -3221,8 +3221,8 @@
       "gif_manifest_entry": {
         "bundle": "runs/opt-7h/walk-final/mixed-compact-tempo-child-075/bundle",
         "trajectory": "runs/opt-7h/walk-final/mixed-compact-tempo-child-075/deploy/trajectory.npz",
-        "gif_sha256": "24c0b78758fa1a948e36ab88df9e6578573776e1e4038411caec081511a10557",
-        "size_bytes": 629858,
+        "gif_sha256": "65141c97038acf4eafb91c5a55cf508c8b9e2e3a02a40d015b71389cce773e32",
+        "size_bytes": 629863,
         "first_source_frame": 12250,
         "source_start_seconds": 245.0,
         "source_end_seconds": 249.9,
@@ -3731,7 +3731,7 @@
         }
       }
     },
-    "gif_repeat_sha256": "24c0b78758fa1a948e36ab88df9e6578573776e1e4038411caec081511a10557",
+    "gif_repeat_sha256": "65141c97038acf4eafb91c5a55cf508c8b9e2e3a02a40d015b71389cce773e32",
     "compound_cases": {
       "1": {
         "tempo": 0.978,
