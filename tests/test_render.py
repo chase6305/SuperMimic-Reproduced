@@ -99,3 +99,10 @@ def test_resource_stop_at_end_leaves_render_unpublished(tmp_path, monkeypatch):
     with pytest.raises(RuntimeError, match="resource guard stopped"):
         render.render_rollout(tmp_path / "bundle", tmp_path / "traj.npz", tmp_path / "out.gif")
     assert list(tmp_path.iterdir()) == []
+
+
+def test_frame_writer_preserves_matroska_video_output(tmp_path):
+    path = tmp_path / "preview.mkv"
+    with render._frame_writer(path, 64, 48, 25, lossless=False) as stream:
+        stream.write(bytes(64 * 48 * 3))
+    assert path.read_bytes().startswith(bytes.fromhex("1a45dfa3"))

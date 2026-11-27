@@ -124,6 +124,9 @@ def _frame_writer(path: Path, width: int, height: int, fps: int, *, lossless: bo
         if lossless
         else ["-c:v", "libx264", "-preset", "fast", "-crf", "24", "-pix_fmt", "yuv420p"]
     )
+    fast_start = (
+        ["-movflags", "+faststart"] if not lossless and path.suffix in (".mp4", ".mov") else []
+    )
     command = [
         *_ffmpeg_command(),
         "-f", "rawvideo",
@@ -133,7 +136,7 @@ def _frame_writer(path: Path, width: int, height: int, fps: int, *, lossless: bo
         "-i", "pipe:0",
         *codec,
         "-threads", "1",
-        "-movflags", "+faststart",
+        *fast_start,
         str(path),
     ]
     with TemporaryFile() as errors, subprocess.Popen(
@@ -240,8 +243,8 @@ def render_rollout(
     width: int | None = None,
 ) -> dict:
     format_name = output.suffix.lower()
-    if format_name not in (".mp4", ".gif"):
-        raise ValueError("Render output must end in .mp4 or .gif")
+    if not format_name or format_name in (".png", ".json"):
+        raise ValueError("Render output needs a video or GIF extension")
     gif = format_name == ".gif"
     if fps is None:
         fps = 10 if gif else 25
@@ -356,7 +359,7 @@ def _render_animation(
         "trajectory_sha256": recorded.sha256,
         **evidence,
         "video_sha256": sha256(staged),
-        "format": "gif" if gif else "mp4",
+        "format": staged.suffix[1:],
         "width": width,
         "height": height,
         "frames": len(indices),
