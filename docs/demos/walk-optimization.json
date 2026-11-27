@@ -987,7 +987,7 @@
       }
     }
   },
-  "comparison_sha256": "c3ae67eaad7791ffe4041f455e4d52a8fddb1924814d2b7736957c056c8164a3",
+  "comparison_sha256": "aa2c5cfec850eb199045bbb64215c4db4ef2f342a1073c7d1649f57bacf8f1b4",
   "reference_placement_checks": {
     "translated": {
       "yaw_degrees": 0,
@@ -4039,6 +4039,60 @@
           }
         }
       }
+    },
+    "comparison": {
+      "motion_sha256": "4598698aa035c52ba160986e05796cb525df557d1879266e933c40a65994c041",
+      "source": "recorded actual physical states",
+      "runs": [
+        {
+          "label": "Anchor baseline",
+          "run": "runs/demo-pr/walk-reference-replay",
+          "trajectory_sha256": "a4755a03b3b47c2990649480c02f113e569fbf2ca7eca3a70db405c55b929ac5",
+          "checkpoint_sha256": "bc95a21eb9b55ba56aafd6b5bd4dc9ba663f19f7f087d674348318243ec633c4",
+          "completed_motion": true,
+          "simulated_seconds": 261.3,
+          "root_xy_rmse_m": 0.49539102135848867,
+          "root_yaw_rmse_rad": 0.10374099472812524,
+          "joint_rmse_rad": 0.29632877691223003,
+          "full_clip_return": 0.8215163963944164
+        },
+        {
+          "label": "First optimized",
+          "run": "runs/demo-pr/fresh-optimized-export/deploy",
+          "trajectory_sha256": "288708959867f0c4ffa39923afbd380501daab00f49adf83451adb3b4726bbb8",
+          "checkpoint_sha256": "2eff6581d5de691b6c56a6fb9421d9fd31622c3692c7083216c727b1f94e0cfd",
+          "completed_motion": true,
+          "simulated_seconds": 261.3,
+          "root_xy_rmse_m": 0.24929969045531006,
+          "root_yaw_rmse_rad": 0.08928539041678646,
+          "joint_rmse_rad": 0.30855638550027864,
+          "full_clip_return": 0.8249176155320995
+        },
+        {
+          "label": "Full-width",
+          "run": "runs/opt-7h/walk-final/mixed-prior-pose12-050/deploy",
+          "trajectory_sha256": "ac323ae0680b4c04ea45d50bfb619f5f0046bf981e9d03d6ef62abb0d7178af9",
+          "checkpoint_sha256": "4b7e5ecff963955d3af3da1741c9d799c4df583172a400954ebcaa217e892b05",
+          "completed_motion": true,
+          "simulated_seconds": 261.3,
+          "root_xy_rmse_m": 0.21111305680401635,
+          "root_yaw_rmse_rad": 0.08933662669847031,
+          "joint_rmse_rad": 0.2910994884788131,
+          "full_clip_return": 0.8282842399788414
+        },
+        {
+          "label": "Compact",
+          "run": "runs/opt-7h/walk-final/mixed-compact-tempo-child-075/deploy",
+          "trajectory_sha256": "03c8f3b484c37a7907b7eba075955041fcc06a6715cd73521c873ebb25394848",
+          "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+          "completed_motion": true,
+          "simulated_seconds": 261.3,
+          "root_xy_rmse_m": 0.1960743078511736,
+          "root_yaw_rmse_rad": 0.08821988229159015,
+          "joint_rmse_rad": 0.2910618598986255,
+          "full_clip_return": 0.8299966699722121
+        }
+      ]
     }
   }
 }
