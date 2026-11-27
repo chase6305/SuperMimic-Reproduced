@@ -75,7 +75,10 @@ class WorldModelTrainer:
                 key = prefix + k
                 agg[key] = agg.get(key, 0.0) + v
                 counts[key] = counts.get(key, 0) + 1
-        # Single host sync per update (keeps the CPU queuing GPU work across minibatches).
+        # Transfer CUDA diagnostics together after the minibatches finish.
+        if agg and buffer.device.type == "cuda":
+            values = torch.stack(tuple(agg.values())).tolist()
+            return {key: value / counts[key] for key, value in zip(agg, values, strict=True)}
         return {k: float(v) / counts[k] for k, v in agg.items()}
 
     @torch.no_grad()

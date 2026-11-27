@@ -111,7 +111,8 @@ class ReplayBuffer:
             ok &= torch.roll(ok, shifts=-extra, dims=1)
             span += extra
         # Cut windows across the write pointer even inside a single episode.
-        dist_to_ptr = (self.ptr[:, None] - self._time_indices - 1) % self.T
+        dist_to_ptr = (self.ptr[:, None] - 1) - self._time_indices
+        dist_to_ptr.remainder_(self.T)
         ok &= dist_to_ptr >= k
         return ok
 
