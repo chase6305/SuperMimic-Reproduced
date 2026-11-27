@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-import json
 from pathlib import Path
 
 import numpy as np
 import torch
 
 from supermimic.artifacts import sha256
+from supermimic.deployment.evidence import read_json_evidence
 from supermimic.deployment.reference import MotionReference as MotionReference
 from supermimic.deployment.reference import gravity as gravity
 from supermimic.deployment.reference import heading_error as heading_error
@@ -47,7 +47,7 @@ class ObservationHistory:
 
 class PolicyRunner:
     def __init__(self, bundle: Path):
-        self.contract = json.loads((bundle / "contract.json").read_text())
+        self.contract, self.contract_sha256 = read_json_evidence(bundle / "contract.json")
         c = self.contract
         validate_contract(c)
         for name in ("policy.ts", "model.mjb"):

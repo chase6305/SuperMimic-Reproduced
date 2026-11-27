@@ -36,6 +36,9 @@ def test_export_reload_and_physical_rollout(tmp_path, monkeypatch):
     )
     bundle = tmp_path / "export"
     contract = export_policy(checkpoint, bundle)
+    contract_path = bundle / "contract.json"
+    original_contract = contract_path.read_bytes()
+    original_contract_hash = sha256(contract_path)
     assert contract["export_parity_max_abs_error"] < 1e-6
     assert (bundle / "Unitree-BSD-3-Clause.txt").is_file()
     assert contract["hardware_validated"] is False
@@ -56,6 +59,8 @@ def test_export_reload_and_physical_rollout(tmp_path, monkeypatch):
             value = data[name]
             arrays[name] = value[:7].copy() if value.ndim and value.shape[0] == 20 else value.copy()
     np.savez(replacement, **arrays)
+    replacement_contract = tmp_path / "replacement-contract.json"
+    replacement_contract.write_text(json.dumps({**contract, "revision": "after load"}))
     original_snapshot = runtime.snapshot_file
     original_reference = runtime.MotionReference
     scoring = importlib.import_module("supermimic.deployment.tracking_metrics")
@@ -67,6 +72,7 @@ def test_export_reload_and_physical_rollout(tmp_path, monkeypatch):
         assert Path(source) == motion
         snapshots.append(Path(destination))
         replacement.replace(motion)
+        replacement_contract.replace(contract_path)
         return digest
 
     def read_pinned_reference(path, default_q):
@@ -93,6 +99,7 @@ def test_export_reload_and_physical_rollout(tmp_path, monkeypatch):
     assert result["status"] == "complete" and result["hardware_deployed"] is False
     assert result["steps"] == 4 and result["contacts"]["physics_substeps"] == 16
     assert result["motion_sha256"] == original_motion_hash != sha256(motion)
+    assert result["contract_sha256"] == original_contract_hash != sha256(contract_path)
     with np.load(motion, allow_pickle=False) as data:
         assert data["joint_pos"].shape == (7, 29)
     assert len(snapshots) == 1 and references == tracked == snapshots
@@ -117,6 +124,7 @@ def test_export_reload_and_physical_rollout(tmp_path, monkeypatch):
         assert np.isfinite(data["physical_contacts"]).all()
     from supermimic.deployment.assessment import open_assessment_inputs
 
+    contract_path.write_bytes(original_contract)
     with open_assessment_inputs(
         bundle, original_motion, tmp_path / "rollout", tmp_path / "assessment.json"
     ) as inputs:
@@ -155,10 +163,10 @@ def test_public_deploy_removes_private_motion_when_consumer_fails(tmp_path, monk
     snapshots = []
 
     def fail_after_snapshot(
-        actual_runner, actual_model, actual_bundle, pinned_motion, actual_output, steps, viewer
+        actual_runner, actual_model, pinned_motion, motion_sha256, actual_output, steps, viewer
     ):
         assert actual_runner is runner and actual_model is model
-        assert actual_bundle == tmp_path / "bundle"
+        assert motion_sha256 == sha256(motion)
         assert actual_output == output and steps == 4 and viewer is False
         snapshots.append(Path(pinned_motion))
         assert Path(pinned_motion) != motion

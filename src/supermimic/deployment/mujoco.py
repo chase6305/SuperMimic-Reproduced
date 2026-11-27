@@ -63,15 +63,15 @@ def deploy(
         existing = existing.parent
     with TemporaryDirectory(prefix=".supermimic-deploy-", dir=existing) as temporary:
         pinned_motion = Path(temporary) / motion.name
-        snapshot_file(motion, pinned_motion)
-        return _deploy(runner, model, bundle, pinned_motion, output, steps, viewer)
+        motion_sha256 = snapshot_file(motion, pinned_motion)
+        return _deploy(runner, model, pinned_motion, motion_sha256, output, steps, viewer)
 
 
 def _deploy(
     runner: PolicyRunner,
     model: mujoco.MjModel,
-    bundle: Path,
     motion: Path,
+    motion_sha256: str,
     output: Path,
     steps: int | None,
     viewer: bool,
@@ -126,8 +126,8 @@ def _deploy(
         "backend": "mujoco_cpu",
         "hardware_deployed": False,
         "checkpoint_sha256": c["checkpoint_sha256"],
-        "motion_sha256": sha256(motion),
-        "contract_sha256": sha256(bundle / "contract.json"),
+        "motion_sha256": motion_sha256,
+        "contract_sha256": runner.contract_sha256,
         "requested_steps": requested,
         "control_dt": c["control_dt"],
         "requested_duration_s": requested * c["control_dt"],
