@@ -55,14 +55,20 @@ def read_checkpoint(
     return CheckpointRead(loaded.data, loaded.sha256)
 
 
-def write_checkpoint(path: Path | str, data: dict[str, Any], *, overwrite: bool = False) -> None:
-    """Publish a complete checkpoint, cleaning up partial serialization on failure.
+def write_checkpoint(
+    path: Path | str,
+    data: dict[str, Any],
+    *,
+    overwrite: bool = False,
+    alias: Path | str | None = None,
+) -> None:
+    """Publish a complete checkpoint, optionally with a second name for the same state.
 
     Migrated checkpoints use exclusive publication. Only the training writer
     explicitly replaces its latest or numbered publication. Neither mode mutates
     an inode that a reader may still have mapped.
     """
-    write_torch_archive(path, data, overwrite=overwrite)
+    write_torch_archive(path, data, overwrite=overwrite, alias=alias)
 
 
 def policy_config_from_checkpoint(checkpoint: Mapping[str, Any]) -> PolicyCfg:

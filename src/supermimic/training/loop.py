@@ -175,7 +175,7 @@ class Trainer:
 
     # ------------------------------------------------------------------ checkpoints
 
-    def save(self, name: str = "ckpt_latest.pt") -> None:
+    def save(self, name: str = "ckpt_latest.pt", *, numbered: str | None = None) -> None:
         if not self.is_main:
             return
         destination = self.log_dir / name
@@ -203,6 +203,7 @@ class Trainer:
                 "transfer_provenance": self.transfer_provenance,
             },
             overwrite=True,
+            alias=self.log_dir / numbered if numbered is not None else None,
         )
         # Keep a bounded history as well as the atomic latest file.
         for old in sorted(self.log_dir.glob("ckpt_[0-9]*.pt"))[:-3]:
@@ -466,8 +467,7 @@ class Trainer:
                 finished_returns, finished_lens = [], []
                 timers = {k: 0.0 for k in timers}
             if self.iteration % sch.checkpoint_interval == 0:
-                self.save("ckpt_latest.pt")
-                self.save(f"ckpt_{self.iteration:07d}.pt")
+                self.save(numbered=f"ckpt_{self.iteration:07d}.pt")
             if sch.max_hours is not None and self.iteration % sch.log_interval == 0:
                 stop = float((time.time() - t_start) / 3600 > sch.max_hours)
                 if self.world > 1:
