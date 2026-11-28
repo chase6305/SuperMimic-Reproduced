@@ -6078,6 +6078,70 @@
             }
           }
         }
+      },
+      "low_pose_height_training": {
+        "height_multiplier": "1 + 8 * clip((0.68 - target_height_m) / 0.18, 0, 1)",
+        "training_inputs": {
+          "walk1_subject1": {
+            "full_source_sha256": "4598698aa035c52ba160986e05796cb525df557d1879266e933c40a65994c041",
+            "frames": 13066
+          },
+          "walk1_subject5": {
+            "full_source_sha256": "8b641897602604b1e7e4cfb52e0ccbef5809bd1f39e72c263650e7aa22872bab",
+            "frames": 13066
+          },
+          "walk2_subject1_low_183_197": {
+            "full_source_sha256": "7374cc0bc40d68f2ca6be3536932b3547e9c896479b56b9f01b42252f240914d",
+            "clip_sha256": "c86869dbee6087c35042020003016bd0bd5297339440b4a85ad9abe0bc57262a",
+            "frames": 701,
+            "source_seconds": [
+              183,
+              197
+            ]
+          },
+          "walk3_subject2_low_217_231": {
+            "full_source_sha256": "aa02ceb22d06d5bd2707341a9bddcdc9fd734b24f8767c743b4e506987b31e04",
+            "clip_sha256": "a2a37903d798c1e0a26acffe3ed9fb87854f900dd667c63afe7057aaac7d4dd5",
+            "frames": 701,
+            "source_seconds": [
+              217,
+              231
+            ]
+          }
+        },
+        "heldout_motion_sha256": "3066377ecef404353290adc7f0d8e423e30d4de9d262ca096c4a583de59cfbc7",
+        "heldout_source_interval_s": [
+          164,
+          184
+        ],
+        "requested_heldout_controls": 1000,
+        "experimental_tracking_source_sha256": "0dedd71314cfb065ef5019d2d0eb9d90dc7ac987d2683703ae95c7e06bd13df4",
+        "candidates": [
+          {
+            "checkpoint_sha256": "7a60cbdfb17aed3d5d49a5a0c9f758dee0513fc0519033cff1c49184be586038",
+            "nominal_planar_rmse_m": 0.305387931465617,
+            "nominal_steps": 13065,
+            "heldout_steps": 468,
+            "heldout_failure": "root_height",
+            "heldout_trajectory_sha256": "2f0b6d7fe07493d85652f07ff2b277b020fcfc02c9d613db250a99868f1c2aab"
+          },
+          {
+            "checkpoint_sha256": "be45e65ddc6b98deea4fbda36c5899015c6da1beb0426ef56d6dd13902d492df",
+            "nominal_planar_rmse_m": 0.2924296975830535,
+            "nominal_steps": 13065,
+            "heldout_steps": 464,
+            "heldout_failure": "root_height",
+            "heldout_trajectory_sha256": "b79cb12dc46647f73e91c5af60f5a60f526ac71d08edb67dd6f4f70521c5b043"
+          },
+          {
+            "checkpoint_sha256": "ebff58c231ebc2af79a5e3d05de3bc5cd1fbe82899a12f2d2d1ba41698f2b948",
+            "nominal_planar_rmse_m": 0.2549614345447212,
+            "nominal_steps": 13065,
+            "heldout_steps": 467,
+            "heldout_failure": "root_height",
+            "heldout_trajectory_sha256": "def1cde2cdf1a3e0aa9d6caa6cdfe8a50b5b3c9887c4178b339735ec8a4e4e19"
+          }
+        ]
       }
     }
   }

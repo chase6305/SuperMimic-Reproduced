@@ -149,6 +149,56 @@
       "sampled_peak_process_tree_rss_bytes": 457949184,
       "decoded_delay_ms": 20,
       "exact_to_prior_render": true
+    },
+    "final_skill_recheck": {
+      "jump120": {
+        "passed": true,
+        "checks": 23,
+        "failed": [],
+        "trajectory_sha256": "b09328ee7b9e49b4b503276fbeeed873ddb773fa4eaef56a71d8677b8fd1cee1",
+        "assessment_sha256": "2679153f5f035dabf64a23192a1e9d4ef1344294ec874120f158bb690b386c37",
+        "flight_precision": 0.8467976710334789,
+        "all_scores_exact": true
+      },
+      "full_jump_best_flight": {
+        "passed": false,
+        "checks": 23,
+        "failed": [
+          "worst_1s_effector_rmse_m",
+          "jump_time_precision"
+        ],
+        "trajectory_sha256": "00739d96e64a43cedf6b6a5f8aeb6744919d24896ebf7326afa788a06407cfef",
+        "assessment_sha256": "68364e3f84ce32c7b7a48048e08c11b1a65ee336e64e4241b7e2bb9d7335600f",
+        "flight_precision": 0.7292719167904903,
+        "all_scores_exact": true
+      },
+      "dance": {
+        "passed": false,
+        "checks": 23,
+        "failed": [
+          "worst_1s_effector_rmse_m",
+          "inverted_joint_rmse_rad"
+        ],
+        "trajectory_sha256": "ebc34d7952dfe36a76817f1541ad09f05bb993637cf72503b60633b9c9daec72",
+        "assessment_sha256": "b0b3385d2a20ceddaa38a36c04be64970fd49c3b512273f8f024c583e172177d",
+        "flight_precision": 0.5210526315789473,
+        "all_scores_exact": true
+      },
+      "fight": {
+        "passed": false,
+        "checks": 19,
+        "failed": [
+          "full_clip_return",
+          "worst_1s_joint_rmse_rad",
+          "worst_1s_root_orientation_rmse_rad",
+          "worst_1s_root_height_rmse_m",
+          "worst_1s_effector_rmse_m"
+        ],
+        "trajectory_sha256": "90bbd0e012fda9154edb7ef7d4e626559315db34dc4b23c2dd143b81d7617beb",
+        "assessment_sha256": "d02de1daaa2be7059746d69195475ae0dad125183f7eb06424481042dddebc96",
+        "flight_precision": 0.20823798627002288,
+        "all_scores_exact": true
+      }
     }
   }
 }
