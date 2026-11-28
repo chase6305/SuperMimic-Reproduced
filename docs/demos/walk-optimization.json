@@ -4495,6 +4495,1331 @@
           }
         }
       }
+    },
+    "further_experiments": {
+      "evaluation_scope": "CPU MuJoCo; full nominal reference and declared transformed or distinct reference checks",
+      "selected_readme_strategy": "mixed-compact-tempo-child-075",
+      "decoder_interpolation_weight_50_percent": {
+        "nominal": {
+          "steps": 13065,
+          "completed_motion": true,
+          "failure": null,
+          "xy_rmse_m": 0.2145297942155635,
+          "xy_peak_m": 0.6992167913551476,
+          "joint_rmse_rad": 0.2790088438470912,
+          "return": 0.8286080341251518,
+          "nonfoot_ground_force_substeps": 0,
+          "trajectory_sha256": "27171dc18d3b0785f540dc4a8130ff0b891740811d0a3cb2a4828aa1780a5ae4",
+          "checkpoint_sha256": "600dd114f5d2b9be1062959eff4b64730ed703f889c4e97d32500b85dbb0210f",
+          "result_sha256": "f5e932651e659e0c889faca8c9d5f70c2a1f60e9fa319aa9339c2b373b2c0882"
+        },
+        "same_motion_variants": {
+          "reference": {
+            "summary": {
+              "tempo": {
+                "cases": 8,
+                "current_completions": 8,
+                "candidate_completions": 8,
+                "current_xy_median": 0.24328254005266964,
+                "candidate_xy_median": 0.2408252181723169,
+                "failure_cases": []
+              },
+              "placement": {
+                "cases": 7,
+                "current_completions": 7,
+                "candidate_completions": 7,
+                "current_xy_median": 0.21286912855642962,
+                "candidate_xy_median": 0.22637775670629015,
+                "failure_cases": [
+                  "yaw-minus-37-translated",
+                  "extra-yaw--154"
+                ]
+              },
+              "clips": {
+                "cases": 6,
+                "current_completions": 6,
+                "candidate_completions": 6,
+                "current_xy_median": 0.16960512579988396,
+                "candidate_xy_median": 0.16887396801931165,
+                "failure_cases": [
+                  "238-258"
+                ]
+              }
+            },
+            "gate_failures": {
+              "yaw-minus-37-translated": {
+                "motion_sha256": "3f896e8b88eea1472ce32b79b5f59c7a27a4ea398aecd98b647ad712d500ffbb",
+                "baseline_xy_rmse_m": 0.21286912855642962,
+                "candidate_xy_rmse_m": 0.22900680065160825,
+                "baseline_xy_peak_m": 0.6057485419340797,
+                "candidate_xy_peak_m": 0.9023452997303255,
+                "failed_checks": [
+                  "peak"
+                ]
+              },
+              "extra-yaw--154": {
+                "motion_sha256": "ab79bddf423d2e4b2600bf6582d77e333d0ecf6813e3147411d389b877a9cf32",
+                "baseline_xy_rmse_m": 0.21341178535390573,
+                "candidate_xy_rmse_m": 0.2315896717659278,
+                "baseline_xy_peak_m": 0.6437441820815021,
+                "candidate_xy_peak_m": 0.7844875548856335,
+                "failed_checks": [
+                  "peak"
+                ]
+              },
+              "238-258": {
+                "motion_sha256": "4447040d229505b34e474eb077989378c2a8c2a30acb76860752893be06e479a",
+                "baseline_xy_rmse_m": 0.27253915533226425,
+                "candidate_xy_rmse_m": 0.4673683117402304,
+                "baseline_xy_peak_m": 0.4783734379763613,
+                "candidate_xy_peak_m": 0.7819365354675675,
+                "failed_checks": [
+                  "xy",
+                  "peak"
+                ]
+              }
+            }
+          },
+          "compound": {
+            "summary": {
+              "compound": {
+                "cases": 12,
+                "current_completions": 12,
+                "candidate_completions": 12,
+                "current_xy_median": 0.15455655670912252,
+                "candidate_xy_median": 0.15350407255574453,
+                "failure_cases": []
+              }
+            },
+            "gate_failures": {}
+          }
+        },
+        "independent": {
+          "walk1_subject2": {
+            "motion_sha256": "1cb02237c8fd9ac761368a34710455df89d2811181375897db7badf72dd1b76f",
+            "requested_steps": 13065,
+            "previous": {
+              "steps": 13065,
+              "completed_motion": true,
+              "failure": null,
+              "xy_rmse_m": 1.2107639965927641,
+              "xy_peak_m": 4.3607735707373285,
+              "joint_rmse_rad": 0.25620325959713414,
+              "return": 0.6315561661170992,
+              "nonfoot_ground_force_substeps": 0,
+              "trajectory_sha256": "092bd3f8b47526191bab0d635a77cec1a71106509690399c255b48ab5beb8a08",
+              "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+              "result_sha256": "9a527c7e3d4a0998d6c75ef490b2da26791df0db3e61f2654f4a48eeb0e30852"
+            },
+            "candidate": {
+              "steps": 13065,
+              "completed_motion": true,
+              "failure": null,
+              "xy_rmse_m": 1.2155583275471884,
+              "xy_peak_m": 4.00075205587756,
+              "joint_rmse_rad": 0.25371314555266883,
+              "return": 0.6331180641580896,
+              "nonfoot_ground_force_substeps": 0,
+              "trajectory_sha256": "32bbb0f2cd73334681cdb998d2390a0fd0249dae0b1d684eb37c7141b8c1a791",
+              "checkpoint_sha256": "600dd114f5d2b9be1062959eff4b64730ed703f889c4e97d32500b85dbb0210f",
+              "result_sha256": "2866b1557d59581265144c3b9e57c2f61494ce6949344f359b249756b979121a"
+            }
+          },
+          "walk2_subject3": {
+            "motion_sha256": "9c577faed339db0f942356570374f77aa9c5a2bb953c2276c6895f4934879e88",
+            "requested_steps": 11908,
+            "previous": {
+              "steps": 2431,
+              "completed_motion": false,
+              "failure": "root_height",
+              "xy_rmse_m": 0.3907527689459909,
+              "xy_peak_m": 0.746062607768833,
+              "joint_rmse_rad": 0.2796148490791737,
+              "return": 0.1531908645860533,
+              "nonfoot_ground_force_substeps": 1,
+              "trajectory_sha256": "26c34a782e65ff67054fadd6931d097bfd8d30f7df68945c4e8be1adb02057f9",
+              "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+              "result_sha256": "0c7034259b8a01833ec5b97864d30e18d0d4d43df2b903f0fedf9b69c7cbd491"
+            },
+            "candidate": {
+              "steps": 2446,
+              "completed_motion": false,
+              "failure": "root_height",
+              "xy_rmse_m": 0.39941208406062034,
+              "xy_peak_m": 0.7803010522047065,
+              "joint_rmse_rad": 0.2796212501688051,
+              "return": 0.15407859480717379,
+              "nonfoot_ground_force_substeps": 0,
+              "trajectory_sha256": "720f31ec763220eb15167cec752c8b47ed3c5901c81bf884bdac011e4cad8144",
+              "checkpoint_sha256": "600dd114f5d2b9be1062959eff4b64730ed703f889c4e97d32500b85dbb0210f",
+              "result_sha256": "b25592ce6b40a41cee891e11a2c21bdf39f0ad5b78bb301853c38b0e8c2ff2a5"
+            }
+          },
+          "walk3_subject4": {
+            "motion_sha256": "66869901e9b5a0515ad3637401c9fbc98ae99b6f7667ddbe178a2b2c8f6432dc",
+            "requested_steps": 12330,
+            "previous": {
+              "steps": 4915,
+              "completed_motion": false,
+              "failure": "root_tilt",
+              "xy_rmse_m": 0.6207787934483149,
+              "xy_peak_m": 2.7557159170456376,
+              "joint_rmse_rad": 0.24044243886844474,
+              "return": 0.2837027274585795,
+              "nonfoot_ground_force_substeps": 11,
+              "trajectory_sha256": "51d0aac181e1259b05179f128aa1d3a2b3182640916e9b4027c3be69eb261230",
+              "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+              "result_sha256": "3bccd32df838fd3fdfa50b2734bb9a4ddcd4a0721e2cf334413f093be6b71c13"
+            },
+            "candidate": {
+              "steps": 9742,
+              "completed_motion": false,
+              "failure": "root_height",
+              "xy_rmse_m": 0.9133458092689475,
+              "xy_peak_m": 4.798892911550929,
+              "joint_rmse_rad": 0.2589478184006721,
+              "return": 0.5531535539217142,
+              "nonfoot_ground_force_substeps": 0,
+              "trajectory_sha256": "41c2def32aa6aa0139b41edae256d5b6008d4cf730beebdc6d4b3673c0829adf",
+              "checkpoint_sha256": "600dd114f5d2b9be1062959eff4b64730ed703f889c4e97d32500b85dbb0210f",
+              "result_sha256": "0bfb40c1662c81eab083bb06e7f0b78fd5c9883375c66b4cbf2d96458611da82"
+            }
+          }
+        },
+        "shared_prefix_and_terminations": {
+          "walk1_subject2": {
+            "common_steps": 13065,
+            "motion_sha256": "1cb02237c8fd9ac761368a34710455df89d2811181375897db7badf72dd1b76f",
+            "actors": {
+              "current": {
+                "steps": 13065,
+                "completed": true,
+                "failure": null,
+                "clip_return": 0.6315561661170992,
+                "common_prefix_xy_rmse_m": 1.210763996592764,
+                "common_prefix_joint_rmse_rad": 0.2562032595971342,
+                "nonfoot_ground_force_substeps": 0
+              },
+              "decoder_blend": {
+                "steps": 13065,
+                "completed": true,
+                "failure": null,
+                "clip_return": 0.6331180641580896,
+                "common_prefix_xy_rmse_m": 1.2155583275471882,
+                "common_prefix_joint_rmse_rad": 0.25371314555266883,
+                "nonfoot_ground_force_substeps": 0
+              }
+            }
+          },
+          "walk2_subject3": {
+            "common_steps": 2431,
+            "motion_sha256": "9c577faed339db0f942356570374f77aa9c5a2bb953c2276c6895f4934879e88",
+            "actors": {
+              "current": {
+                "steps": 2431,
+                "completed": false,
+                "failure": "root_height",
+                "clip_return": 0.1531908645860533,
+                "common_prefix_xy_rmse_m": 0.3907527689459909,
+                "common_prefix_joint_rmse_rad": 0.2796148490791737,
+                "nonfoot_ground_force_substeps": 1,
+                "last_reached": {
+                  "t_s": 48.620000000000005,
+                  "reference_root_height_m": 0.6636540293693542,
+                  "actual_root_height_m": 0.3852411243152986,
+                  "reference_gravity_z": -0.9234530875137873,
+                  "actual_gravity_z": -0.6717443174793081
+                }
+              },
+              "decoder_blend": {
+                "steps": 2446,
+                "completed": false,
+                "failure": "root_height",
+                "clip_return": 0.15407859480717379,
+                "common_prefix_xy_rmse_m": 0.3998879501160622,
+                "common_prefix_joint_rmse_rad": 0.27701156311159975,
+                "nonfoot_ground_force_substeps": 0,
+                "last_reached": {
+                  "t_s": 48.92,
+                  "reference_root_height_m": 0.6867728233337402,
+                  "actual_root_height_m": 0.41219939295804037,
+                  "reference_gravity_z": -0.9168716570823159,
+                  "actual_gravity_z": -0.7219497430870725
+                }
+              }
+            }
+          },
+          "walk3_subject4": {
+            "common_steps": 4915,
+            "motion_sha256": "66869901e9b5a0515ad3637401c9fbc98ae99b6f7667ddbe178a2b2c8f6432dc",
+            "actors": {
+              "current": {
+                "steps": 4915,
+                "completed": false,
+                "failure": "root_tilt",
+                "clip_return": 0.2837027274585795,
+                "common_prefix_xy_rmse_m": 0.6207787934483148,
+                "common_prefix_joint_rmse_rad": 0.2404424388684447,
+                "nonfoot_ground_force_substeps": 11,
+                "last_reached": {
+                  "t_s": 98.3,
+                  "reference_root_height_m": 0.6856799721717834,
+                  "actual_root_height_m": 0.5584230513660366,
+                  "reference_gravity_z": -0.9108839028114188,
+                  "actual_gravity_z": 0.04686212749524088
+                }
+              },
+              "decoder_blend": {
+                "steps": 9742,
+                "completed": false,
+                "failure": "root_height",
+                "clip_return": 0.5531535539217142,
+                "common_prefix_xy_rmse_m": 0.6068479050670265,
+                "common_prefix_joint_rmse_rad": 0.2357693710379126,
+                "nonfoot_ground_force_substeps": 0,
+                "last_reached": {
+                  "t_s": 194.84,
+                  "reference_root_height_m": 0.4946509897708893,
+                  "actual_root_height_m": 0.7554447373426385,
+                  "reference_gravity_z": -0.9759585810032654,
+                  "actual_gravity_z": -0.9758438416748132
+                }
+              }
+            }
+          }
+        }
+      },
+      "encoder_latent_distillation_ratio_0_8": {
+        "parameters": 3683645,
+        "weights_on_disk": 14749460,
+        "nominal": {
+          "steps": 13065,
+          "completed_motion": true,
+          "failure": null,
+          "xy_rmse_m": 0.19469361004600086,
+          "xy_peak_m": 0.6198031612796621,
+          "joint_rmse_rad": 0.29127706540674353,
+          "return": 0.8304341702547011,
+          "nonfoot_ground_force_substeps": 0,
+          "trajectory_sha256": "ca586edd17d1caf87484ecaf50392e8466430fe209538c8586c706ddb1b6996f",
+          "checkpoint_sha256": "7ef5f5e0891ea3fc1f48bcffdfd60f6bfc09c47e063f965ad17a877f821b682e",
+          "result_sha256": "c95890f23c587e03dee779dd06b9a7e1fdde5a335646d6b314eec60b7a11490f"
+        },
+        "same_motion_variants": {
+          "reference": {
+            "summary": {
+              "placement": {
+                "cases": 7,
+                "current_completions": 7,
+                "candidate_completions": 7,
+                "current_xy_median": 0.21286912855642962,
+                "candidate_xy_median": 0.22409516523466505,
+                "failure_cases": [
+                  "translated",
+                  "yaw-90-translated",
+                  "yaw-minus-37-translated",
+                  "yaw-+137",
+                  "extra-yaw--154"
+                ]
+              },
+              "tempo": {
+                "cases": 8,
+                "current_completions": 8,
+                "candidate_completions": 8,
+                "current_xy_median": 0.24328254005266964,
+                "candidate_xy_median": 0.22984665434507037,
+                "failure_cases": []
+              },
+              "clips": {
+                "cases": 6,
+                "current_completions": 6,
+                "candidate_completions": 6,
+                "current_xy_median": 0.16960512579988396,
+                "candidate_xy_median": 0.17534574809692027,
+                "failure_cases": [
+                  "238-258"
+                ]
+              }
+            },
+            "gate_failures": {
+              "translated": {
+                "motion_sha256": "59b7b9dfa587c9045f2c14062c421efde312e8325c40de433c3a32af2a358420",
+                "baseline_xy_rmse_m": 0.19278439322972934,
+                "candidate_xy_rmse_m": 0.22409516523466505,
+                "baseline_xy_peak_m": 0.5822957348580879,
+                "candidate_xy_peak_m": 0.6780283421348465,
+                "failed_checks": [
+                  "xy"
+                ]
+              },
+              "yaw-90-translated": {
+                "motion_sha256": "29ec31e3d2fa8a8c20761d277ce682ff4590972c391d7dc84e9758774aeb2abe",
+                "baseline_xy_rmse_m": 0.21017527011992262,
+                "candidate_xy_rmse_m": 0.24056736404508924,
+                "baseline_xy_peak_m": 0.6159817548510251,
+                "candidate_xy_peak_m": 0.7679221858818251,
+                "failed_checks": [
+                  "xy",
+                  "peak"
+                ]
+              },
+              "yaw-minus-37-translated": {
+                "motion_sha256": "3f896e8b88eea1472ce32b79b5f59c7a27a4ea398aecd98b647ad712d500ffbb",
+                "baseline_xy_rmse_m": 0.21286912855642962,
+                "candidate_xy_rmse_m": 0.2323360984117612,
+                "baseline_xy_peak_m": 0.6057485419340797,
+                "candidate_xy_peak_m": 0.7684672955311734,
+                "failed_checks": [
+                  "peak"
+                ]
+              },
+              "yaw-+137": {
+                "motion_sha256": "33413d086b0bee22d5dd0a5b062c9e449e070fc21962b3443d49e5c222d7d95d",
+                "baseline_xy_rmse_m": 0.22397652417645061,
+                "candidate_xy_rmse_m": 0.22911261127956153,
+                "baseline_xy_peak_m": 0.6206751005893051,
+                "candidate_xy_peak_m": 0.8878122384571996,
+                "failed_checks": [
+                  "peak"
+                ]
+              },
+              "extra-yaw--154": {
+                "motion_sha256": "ab79bddf423d2e4b2600bf6582d77e333d0ecf6813e3147411d389b877a9cf32",
+                "baseline_xy_rmse_m": 0.21341178535390573,
+                "candidate_xy_rmse_m": 0.2234062695602944,
+                "baseline_xy_peak_m": 0.6437441820815021,
+                "candidate_xy_peak_m": 0.8995134725510796,
+                "failed_checks": [
+                  "peak"
+                ]
+              },
+              "238-258": {
+                "motion_sha256": "4447040d229505b34e474eb077989378c2a8c2a30acb76860752893be06e479a",
+                "baseline_xy_rmse_m": 0.27253915533226425,
+                "candidate_xy_rmse_m": 0.3767486639162381,
+                "baseline_xy_peak_m": 0.4783734379763613,
+                "candidate_xy_peak_m": 0.7480436545767062,
+                "failed_checks": [
+                  "peak"
+                ]
+              }
+            }
+          },
+          "compound": {
+            "summary": {
+              "compound": {
+                "cases": 12,
+                "current_completions": 12,
+                "candidate_completions": 12,
+                "current_xy_median": 0.15455655670912252,
+                "candidate_xy_median": 0.15032652633115096,
+                "failure_cases": []
+              }
+            },
+            "gate_failures": {}
+          }
+        },
+        "independent": {
+          "walk1_subject2": {
+            "motion_sha256": "1cb02237c8fd9ac761368a34710455df89d2811181375897db7badf72dd1b76f",
+            "requested_steps": 13065,
+            "previous": {
+              "steps": 13065,
+              "completed_motion": true,
+              "failure": null,
+              "xy_rmse_m": 1.2107639965927641,
+              "xy_peak_m": 4.3607735707373285,
+              "joint_rmse_rad": 0.25620325959713414,
+              "return": 0.6315561661170992,
+              "nonfoot_ground_force_substeps": 0,
+              "trajectory_sha256": "092bd3f8b47526191bab0d635a77cec1a71106509690399c255b48ab5beb8a08",
+              "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+              "result_sha256": "9a527c7e3d4a0998d6c75ef490b2da26791df0db3e61f2654f4a48eeb0e30852"
+            },
+            "candidate": {
+              "steps": 13065,
+              "completed_motion": true,
+              "failure": null,
+              "xy_rmse_m": 1.1664468682232292,
+              "xy_peak_m": 4.008565381622088,
+              "joint_rmse_rad": 0.2560122507044009,
+              "return": 0.6372458500694234,
+              "nonfoot_ground_force_substeps": 0,
+              "trajectory_sha256": "d1fa07dbbc5f8521979d5f6b6a4ac0b3622c4ec552e712e5163754feabb88cf5",
+              "checkpoint_sha256": "7ef5f5e0891ea3fc1f48bcffdfd60f6bfc09c47e063f965ad17a877f821b682e",
+              "result_sha256": "158922ccf41cad5f1edd14762984a5a37d827bd96efb9e8293f472976f2796a8"
+            }
+          },
+          "walk2_subject3": {
+            "motion_sha256": "9c577faed339db0f942356570374f77aa9c5a2bb953c2276c6895f4934879e88",
+            "requested_steps": 11908,
+            "previous": {
+              "steps": 2431,
+              "completed_motion": false,
+              "failure": "root_height",
+              "xy_rmse_m": 0.3907527689459909,
+              "xy_peak_m": 0.746062607768833,
+              "joint_rmse_rad": 0.2796148490791737,
+              "return": 0.1531908645860533,
+              "nonfoot_ground_force_substeps": 1,
+              "trajectory_sha256": "26c34a782e65ff67054fadd6931d097bfd8d30f7df68945c4e8be1adb02057f9",
+              "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+              "result_sha256": "0c7034259b8a01833ec5b97864d30e18d0d4d43df2b903f0fedf9b69c7cbd491"
+            },
+            "candidate": {
+              "steps": 2431,
+              "completed_motion": false,
+              "failure": "root_height",
+              "xy_rmse_m": 0.4138041314660879,
+              "xy_peak_m": 0.7518093006173514,
+              "joint_rmse_rad": 0.2790357897625292,
+              "return": 0.15195704763833412,
+              "nonfoot_ground_force_substeps": 0,
+              "trajectory_sha256": "c57a590b1342e029fb94255c29ac347b75d8b0bcfbfb049db8c216b3f952ecaf",
+              "checkpoint_sha256": "7ef5f5e0891ea3fc1f48bcffdfd60f6bfc09c47e063f965ad17a877f821b682e",
+              "result_sha256": "91ffed9f90b10862f8ab8e9f1585bbd60c9bc49ff1debb03093bfd1bb2fa579a"
+            }
+          },
+          "walk3_subject4": {
+            "motion_sha256": "66869901e9b5a0515ad3637401c9fbc98ae99b6f7667ddbe178a2b2c8f6432dc",
+            "requested_steps": 12330,
+            "previous": {
+              "steps": 4915,
+              "completed_motion": false,
+              "failure": "root_tilt",
+              "xy_rmse_m": 0.6207787934483149,
+              "xy_peak_m": 2.7557159170456376,
+              "joint_rmse_rad": 0.24044243886844474,
+              "return": 0.2837027274585795,
+              "nonfoot_ground_force_substeps": 11,
+              "trajectory_sha256": "51d0aac181e1259b05179f128aa1d3a2b3182640916e9b4027c3be69eb261230",
+              "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+              "result_sha256": "3bccd32df838fd3fdfa50b2734bb9a4ddcd4a0721e2cf334413f093be6b71c13"
+            },
+            "candidate": {
+              "steps": 4937,
+              "completed_motion": false,
+              "failure": "root_tilt",
+              "xy_rmse_m": 0.6408823750748106,
+              "xy_peak_m": 3.0722090322514366,
+              "joint_rmse_rad": 0.24351528546393628,
+              "return": 0.28271611744276604,
+              "nonfoot_ground_force_substeps": 0,
+              "trajectory_sha256": "5d3bd5f43a2b6eeaf7bcaf8c2337762dc45566b862763991a5f41125005140a9",
+              "checkpoint_sha256": "7ef5f5e0891ea3fc1f48bcffdfd60f6bfc09c47e063f965ad17a877f821b682e",
+              "result_sha256": "623e7096811345a9cf76f1687e96c04298aa0abbefa714e85289274e562dc2d9"
+            }
+          }
+        },
+        "paired_runtime": {
+          "logical_cpu": 16,
+          "samples_s": {
+            "current": [
+              7.877492827014066,
+              7.760042293986771,
+              7.998106828017626
+            ],
+            "narrow": [
+              7.211084946000483,
+              7.1627129160333425,
+              7.210349939996377
+            ]
+          },
+          "median_s": {
+            "current": 7.877492827014066,
+            "narrow": 7.210349939996377
+          },
+          "trajectory_and_scores_exact_within_actor": true,
+          "actor_bytes": {
+            "current": 17038100,
+            "narrow": 14749460
+          }
+        },
+        "mirrored_evaluation": {
+          "steps_requested": 13065,
+          "motion_sha256": "9f5a64f7525baadc5ab00028dcc7d3c937ad1b17d36b615382ff1618ea8c6f85",
+          "metrics": {
+            "steps": 11210,
+            "completed_motion": false,
+            "failure": "root_height",
+            "xy_rmse_m": 0.5750375386058257,
+            "xy_peak_m": 1.640836927783568,
+            "joint_rmse_rad": 0.23351894285123592,
+            "return": 0.6518965641566268,
+            "nonfoot_ground_force_substeps": 0,
+            "joint_groups_rad": {
+              "legs": 0.18957930665612638,
+              "waist": 0.11379385585316304,
+              "arms": 0.28173834319960306
+            },
+            "trajectory_sha256": "1be84b6e53269a370ce2b341abb2f705b0312937538d7ce122d649735ce1bd65",
+            "checkpoint_sha256": "7ef5f5e0891ea3fc1f48bcffdfd60f6bfc09c47e063f965ad17a877f821b682e",
+            "result_sha256": "50a4dfdb34a1d3830802b7a01e1b258190f12acbe7613bfaebc085b67f8de34b",
+            "deployment_seconds": 5.893288511026185
+          }
+        }
+      },
+      "sagittal_reflection": {
+        "input": {
+          "source_sha256": "4598698aa035c52ba160986e05796cb525df557d1879266e933c40a65994c041",
+          "reflection_axis": "Y",
+          "origin": [
+            0.0004799999878741801,
+            -2.300000051036477e-05,
+            0.7965530157089233
+          ],
+          "joints": {
+            "left_hip_pitch_joint": 1,
+            "left_hip_roll_joint": -1,
+            "left_hip_yaw_joint": -1,
+            "left_knee_joint": 1,
+            "left_ankle_pitch_joint": 1,
+            "left_ankle_roll_joint": -1,
+            "right_hip_pitch_joint": 1,
+            "right_hip_roll_joint": -1,
+            "right_hip_yaw_joint": -1,
+            "right_knee_joint": 1,
+            "right_ankle_pitch_joint": 1,
+            "right_ankle_roll_joint": -1,
+            "waist_yaw_joint": -1,
+            "waist_roll_joint": -1,
+            "waist_pitch_joint": 1,
+            "left_shoulder_pitch_joint": 1,
+            "left_shoulder_roll_joint": -1,
+            "left_shoulder_yaw_joint": -1,
+            "left_elbow_joint": 1,
+            "left_wrist_roll_joint": -1,
+            "left_wrist_pitch_joint": 1,
+            "left_wrist_yaw_joint": -1,
+            "right_shoulder_pitch_joint": 1,
+            "right_shoulder_roll_joint": -1,
+            "right_shoulder_yaw_joint": -1,
+            "right_elbow_joint": 1,
+            "right_wrist_roll_joint": -1,
+            "right_wrist_pitch_joint": 1,
+            "right_wrist_yaw_joint": -1
+          },
+          "kinematics": {
+            "body_pos_w": 1.0252231241736354e-05,
+            "body_quat_w": 0.0,
+            "body_lin_vel_w": 3.614151116115849e-05,
+            "body_ang_vel_w": 0.0,
+            "original_joint_limits": {
+              "values_outside_limits": 0,
+              "joint_values": 378914
+            },
+            "mirrored_joint_limits": {
+              "values_outside_limits": 0,
+              "joint_values": 378914
+            }
+          },
+          "mirror_sha256": "9f5a64f7525baadc5ab00028dcc7d3c937ad1b17d36b615382ff1618ea8c6f85",
+          "controls": 13065
+        },
+        "actors": {
+          "compact": {
+            "steps": 5299,
+            "completed_motion": false,
+            "failure": "root_tilt",
+            "xy_rmse_m": 0.34401497905327016,
+            "xy_peak_m": 0.7582003226352148,
+            "joint_rmse_rad": 0.19793941543142368,
+            "return": 0.3216415344414198,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "dd108202fb5fa25673f65980544b4180d968200c0ac7bacaca94e99f0247b853",
+            "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+            "result_sha256": "4a5be76489380e3102bbc1a511afa0d8a8268864b7388a61de182ff78b12b212"
+          },
+          "full_width": {
+            "steps": 13065,
+            "completed_motion": true,
+            "failure": null,
+            "xy_rmse_m": 0.7727259012030271,
+            "xy_peak_m": 3.1253950321218444,
+            "joint_rmse_rad": 0.31385949488594167,
+            "return": 0.7220532171944298,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "80f38b42a1361d8b8aa5fb4e01e20fae79f3bf8c60d331e554fcdb9500b2bcb9",
+            "checkpoint_sha256": "4b7e5ecff963955d3af3da1741c9d799c4df583172a400954ebcaa217e892b05",
+            "result_sha256": "7fbd7b21415d995ece2fe72cd3db2f067bb658d8ec4a5fa29e4e9acec9ca1b18"
+          },
+          "decoder_blend": {
+            "steps": 5362,
+            "completed_motion": false,
+            "failure": "root_height",
+            "xy_rmse_m": 0.36535888327599214,
+            "xy_peak_m": 2.2995132972514116,
+            "joint_rmse_rad": 0.20105783612935782,
+            "return": 0.3204782750932275,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "b84ab6b7ed82cbff90df5c911ab76b6e2845ba4b60f081ecbd16a6459f58d791",
+            "checkpoint_sha256": "600dd114f5d2b9be1062959eff4b64730ed703f889c4e97d32500b85dbb0210f",
+            "result_sha256": "505a0d5cf8db347e47e95bea797b30083cc509727cebb48bf4bc02a4a32be3cf"
+          }
+        },
+        "compact-mirror-head": [
+          {
+            "checkpoint_sha256": "89fd68696bffde8e7f6d420520ae70147241a482f2b939b60e75b63fdb7f893e",
+            "nominal": {
+              "steps": 13065,
+              "xy_rmse_m": 0.2541781404576691,
+              "xy_peak_m": 0.7633138660416551,
+              "joint_rmse_rad": 0.28931192923822446,
+              "failure": null,
+              "trajectory_sha256": "1c7c8554027e7a9fb1fde33ba3c9bdb78c6f154c17408b73a40e9d28a9764f05"
+            },
+            "mirrored": {
+              "steps": 8373,
+              "xy_rmse_m": 0.5405106670025241,
+              "xy_peak_m": 1.6189717922721287,
+              "joint_rmse_rad": 0.21340236100997834,
+              "failure": "root_height",
+              "trajectory_sha256": "89fa6a80d393896d1f3a632a327d0d9e0da5e16f1d1789ab448d82a05888224e"
+            }
+          },
+          {
+            "checkpoint_sha256": "0a531222cd255388c7096b31667a5373c526e2e78d5ef8aa637a78a2494152cf",
+            "nominal": {
+              "steps": 13065,
+              "xy_rmse_m": 0.2321233622359078,
+              "xy_peak_m": 0.7561418073372839,
+              "joint_rmse_rad": 0.288154512383737,
+              "failure": null,
+              "trajectory_sha256": "be5bb2f387b8131d0873bb3d7e5e20255dfe09ff60bf2fd449b91b76adf5648e"
+            },
+            "mirrored": {
+              "steps": 5303,
+              "xy_rmse_m": 0.3197359243008955,
+              "xy_peak_m": 0.7363385219546111,
+              "joint_rmse_rad": 0.1961679162111319,
+              "failure": "root_tilt",
+              "trajectory_sha256": "202dec5a3c108cfa91a4398cb97c9e91f5d3be6876accec756f5bdc393a14ad7"
+            }
+          },
+          {
+            "checkpoint_sha256": "38b3507bb16b065c0b8da113125c217d13c836d65e976e666fd15a344849f151",
+            "nominal": {
+              "steps": 13065,
+              "xy_rmse_m": 0.2712777370002465,
+              "xy_peak_m": 1.0931524759069804,
+              "joint_rmse_rad": 0.2865512165106746,
+              "failure": null,
+              "trajectory_sha256": "608b49b4dd33114a43d9351079b9b78a432c3410f9f5960e1b9327508cdcc833"
+            },
+            "mirrored": {
+              "steps": 5301,
+              "xy_rmse_m": 0.31048130275177155,
+              "xy_peak_m": 0.7515083782463279,
+              "joint_rmse_rad": 0.19584785181585973,
+              "failure": "root_tilt",
+              "trajectory_sha256": "be4e99418627af722af004543deb68a3b09e5b5517f922718d12b549ed036799"
+            }
+          }
+        ],
+        "compact-mirror-decoder": [
+          {
+            "checkpoint_sha256": "c5124d21bbad86e00d477e68f13e2186805c1a3988587835aac42f369b2fba2e",
+            "nominal": {
+              "steps": 13065,
+              "xy_rmse_m": 0.26712052968472805,
+              "xy_peak_m": 0.8032767361587736,
+              "joint_rmse_rad": 0.2826064103507591,
+              "failure": null,
+              "trajectory_sha256": "d30355d7b3d8be503aa207c2fca79f8fe39168f30ee146afe5a673e80d21aee5"
+            },
+            "mirrored": {
+              "steps": 8429,
+              "xy_rmse_m": 0.522504282745612,
+              "xy_peak_m": 1.7183620584136639,
+              "joint_rmse_rad": 0.21140729719094062,
+              "failure": "root_height",
+              "trajectory_sha256": "5a1b90027bb6ecc89c2f87168a1817cc654475494aa5294d489c5b5c2c61be7a"
+            }
+          },
+          {
+            "checkpoint_sha256": "3aa9bf04026288ab22cf6c06a1cfe0df27e2b61a6a95a9e8d13baef9f56a7dfc",
+            "nominal": {
+              "steps": 13065,
+              "xy_rmse_m": 0.2576324240382,
+              "xy_peak_m": 1.0584027004116219,
+              "joint_rmse_rad": 0.2784678544104964,
+              "failure": null,
+              "trajectory_sha256": "b462e96ea59f38af37799955f8d05e09669bf0958f242ba6d4c29afd2298ea03"
+            },
+            "mirrored": {
+              "steps": 5291,
+              "xy_rmse_m": 0.3233243176762151,
+              "xy_peak_m": 0.7387655163824107,
+              "joint_rmse_rad": 0.1926545582587954,
+              "failure": "root_tilt",
+              "trajectory_sha256": "926dad100989bd1f348689269f98ad5536b509e91e1d2e95a3bdf04e37fb98c3"
+            }
+          },
+          {
+            "checkpoint_sha256": "b20191c332875c48b081cd29b97e84aad384456feea98fa7bb343b7e4b47b401",
+            "nominal": {
+              "steps": 13065,
+              "xy_rmse_m": 0.2339790920047228,
+              "xy_peak_m": 0.8044302110646806,
+              "joint_rmse_rad": 0.27627480166127405,
+              "failure": null,
+              "trajectory_sha256": "b9d9fb28fddf06eaec293f0c3cdc64db7676ef8558f9936a1a62dde782ae3d68"
+            },
+            "mirrored": {
+              "steps": 13065,
+              "xy_rmse_m": 0.8517380445366239,
+              "xy_peak_m": 2.9734500516572124,
+              "joint_rmse_rad": 0.3049484547962279,
+              "failure": null,
+              "trajectory_sha256": "32d64898a928e2209f092f0d9c063ef33a637146780ac17ea807dfea12a7aea9"
+            }
+          }
+        ],
+        "supervised": [
+          {
+            "checkpoint_sha256": "57a5e18e4e01df635df3727fbabc594524f2ba0773826ef77fa3b4aebedffd53",
+            "nominal": {
+              "steps": 13065,
+              "xy_rmse_m": 0.26221033849722475,
+              "xy_peak_m": 0.8620752297558028,
+              "joint_rmse_rad": 0.28830115130320755,
+              "failure": null,
+              "trajectory_sha256": "d7f5cbfb0311957645e62188743fbe69681c457cdd7b0fe0c7631e3583467cb4"
+            },
+            "mirrored": {
+              "steps": 13065,
+              "xy_rmse_m": 0.6993016231376273,
+              "xy_peak_m": 2.652661242874078,
+              "joint_rmse_rad": 0.31480272170300394,
+              "failure": null,
+              "trajectory_sha256": "e53e71e5ec0aab7b6b041512934154c422dc3e098cdb98c4ff74f4f2a3ad9b77"
+            }
+          },
+          {
+            "checkpoint_sha256": "04368a817a8dbcc140972a50e1f3770392e641006301ac423aa7bd533f8d6ac0",
+            "nominal": {
+              "steps": 13065,
+              "xy_rmse_m": 0.20305431738349436,
+              "xy_peak_m": 0.7752918283622348,
+              "joint_rmse_rad": 0.29093152655705773,
+              "failure": null,
+              "trajectory_sha256": "5574881e53e52ce292a337193f89dab1ca25afbe6d6a571da1bd5f63d3a4af8b"
+            },
+            "mirrored": {
+              "steps": 11289,
+              "xy_rmse_m": 0.5893010806774756,
+              "xy_peak_m": 1.7871550602601476,
+              "joint_rmse_rad": 0.23753585133142996,
+              "failure": "root_height",
+              "trajectory_sha256": "282a563a43ccdcba68034c0114f036a0614e5dcd2f21529f62b749aac9d2192b"
+            }
+          }
+        ],
+        "directed-supervised": [
+          {
+            "checkpoint_sha256": "2cf0602ef1c550f116d634d89b885cd4ad11fa87e7f59939c834549ab92523e9",
+            "nominal": {
+              "steps": 13065,
+              "xy_rmse_m": 0.23708045116764864,
+              "xy_peak_m": 0.8406306374349489,
+              "joint_rmse_rad": 0.28903037211125165,
+              "failure": null,
+              "trajectory_sha256": "e0738df482e2dbf407552c420cec665494b1070abd20ee3c05c074fea54523d8"
+            },
+            "mirrored": {
+              "steps": 760,
+              "xy_rmse_m": 0.1770732454181259,
+              "xy_peak_m": 0.8897381641822476,
+              "joint_rmse_rad": 0.24855202097588205,
+              "failure": "root_height",
+              "trajectory_sha256": "c69227de28f8f1e37c947134d5f130704bb6c2a3f6dabe4f015ee644f5120cd6"
+            }
+          }
+        ],
+        "supervised_interpolation": {
+          "mixed-compact-mirror-supervised-035": {
+            "checkpoint_sha256": "6e5f6f915622508de0bc98ad168e757c8976badb649b9839450b8a5223d45643",
+            "nominal": {
+              "steps": 13065,
+              "completed_motion": true,
+              "failure": null,
+              "xy_rmse_m": 0.2407500108801032,
+              "xy_peak_m": 0.8818494220438158,
+              "joint_rmse_rad": 0.2891754407166308,
+              "return": 0.824641711767542,
+              "nonfoot_ground_force_substeps": 0,
+              "trajectory_sha256": "a01d71c29e4c3233ff111c7c8ac7364ebb15e4aa5dd2dace44a79f177dcf3e2f",
+              "checkpoint_sha256": "6e5f6f915622508de0bc98ad168e757c8976badb649b9839450b8a5223d45643",
+              "result_sha256": "0335b28ff0d049367764e28bb8cc219f45c0258b4c400c0287d6cb42a58199a4"
+            },
+            "mirrored": {
+              "steps": 8377,
+              "completed_motion": false,
+              "failure": "root_height",
+              "xy_rmse_m": 0.5246209747057399,
+              "xy_peak_m": 1.722719991525045,
+              "joint_rmse_rad": 0.21544800683070153,
+              "return": 0.4948394956417208,
+              "nonfoot_ground_force_substeps": 0,
+              "trajectory_sha256": "67a71a7b7a052d4b7e0b3c2ba2bf222df08568277157679ed468b073017a6131",
+              "checkpoint_sha256": "6e5f6f915622508de0bc98ad168e757c8976badb649b9839450b8a5223d45643",
+              "result_sha256": "31f1a4985489582b715973549e1425accd4be1895f350004e6115237e945f1b1"
+            }
+          },
+          "mixed-compact-mirror-supervised-060": {
+            "checkpoint_sha256": "2e3da1b18ae69ff9652c3e5cc237d858d343deb43d354c7dd1c041e8d1b69987",
+            "nominal": {
+              "steps": 13065,
+              "completed_motion": true,
+              "failure": null,
+              "xy_rmse_m": 0.22896195853283183,
+              "xy_peak_m": 0.8973585729013521,
+              "joint_rmse_rad": 0.28919365960587695,
+              "return": 0.8256040750405728,
+              "nonfoot_ground_force_substeps": 0,
+              "trajectory_sha256": "d7c7494f03b0166919fcd343cfd2428dcd2e2a8d6cf8a51438bd1ba17e1bff66",
+              "checkpoint_sha256": "2e3da1b18ae69ff9652c3e5cc237d858d343deb43d354c7dd1c041e8d1b69987",
+              "result_sha256": "c3a504daeee54e91731982229ef6a7a6e346da7b42c70d6e169aa7cc4bc1a03f"
+            },
+            "mirrored": {
+              "steps": 13065,
+              "completed_motion": true,
+              "failure": null,
+              "xy_rmse_m": 0.8737299109763959,
+              "xy_peak_m": 3.21067229270452,
+              "joint_rmse_rad": 0.3146468067935094,
+              "return": 0.7204091455851576,
+              "nonfoot_ground_force_substeps": 0,
+              "trajectory_sha256": "ba0408e04861ac285a947fc569ee3199d4507820bea947d774322d4267a91f4d",
+              "checkpoint_sha256": "2e3da1b18ae69ff9652c3e5cc237d858d343deb43d354c7dd1c041e8d1b69987",
+              "result_sha256": "746bd7838ad2d55e059ccee1d7ece5bbe3fd62b50a1cf71bcaa729f9911dfebd"
+            }
+          },
+          "mixed-compact-mirror-supervised-085": {
+            "checkpoint_sha256": "4670db34689d5e38995a538d5f2cf733d11f8aa2bc07698965f67da1426ee57d",
+            "nominal": {
+              "steps": 13065,
+              "completed_motion": true,
+              "failure": null,
+              "xy_rmse_m": 0.22483623141560125,
+              "xy_peak_m": 0.6687097079179037,
+              "joint_rmse_rad": 0.29174566464570256,
+              "return": 0.8224902709598885,
+              "nonfoot_ground_force_substeps": 0,
+              "trajectory_sha256": "94e498536d994d0d42eb91d4a3f67f9824cd6b7ac164175b64585b8f38559835",
+              "checkpoint_sha256": "4670db34689d5e38995a538d5f2cf733d11f8aa2bc07698965f67da1426ee57d",
+              "result_sha256": "b116d2d5278a2dfe82a7ba3c5f5e7eee5f57e9e540d695392f3335c726b51f86"
+            },
+            "mirrored": {
+              "steps": 13065,
+              "completed_motion": true,
+              "failure": null,
+              "xy_rmse_m": 0.7237364483991694,
+              "xy_peak_m": 2.921149729910257,
+              "joint_rmse_rad": 0.31509127761459876,
+              "return": 0.7236867398993064,
+              "nonfoot_ground_force_substeps": 0,
+              "trajectory_sha256": "4b219cd74d5c373c22fd38a9f1905a1e0d7bfa993387a0dd95ea3112daf96800",
+              "checkpoint_sha256": "4670db34689d5e38995a538d5f2cf733d11f8aa2bc07698965f67da1426ee57d",
+              "result_sha256": "c35012ed5f5409e65c64c3792f9da0798e237a24d1668fa6b0bf059c79aeb8b4"
+            }
+          }
+        },
+        "explicit_policy_input_transform": {
+          "scope": "the reflected policy is explicitly selected for a known mirrored reference",
+          "build": {
+            "reflection": {
+              "mode": "reflection",
+              "sagittal_plane_world_axes": "XZ",
+              "source_contract_sha256": "741a803136973fd26c86af0def0dbdf4cf6e8febb46afb6bb4679c183f2539e5",
+              "source_policy_sha256": "1f24b2acca64b39fea2ace38bf27c5e98c4a1e70cffe47fcc7551a6c13eae391",
+              "source_checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+              "with_float32_involution_check": true,
+              "bundle_sha256": "ddf3c0a9ca9a026bf7cada4badd75d029aa40216dd7bfb83da25a2d14e305ea3",
+              "exported_policy_sha256": "8015ce81ec5e4b45a36e1d2885ebdf24be7f410726d4b2b0423d16f4acd546be",
+              "policy_bytes": 17041706
+            },
+            "equal_ensemble": {
+              "mode": "equal_ensemble",
+              "sagittal_plane_world_axes": "XZ",
+              "source_contract_sha256": "741a803136973fd26c86af0def0dbdf4cf6e8febb46afb6bb4679c183f2539e5",
+              "source_policy_sha256": "1f24b2acca64b39fea2ace38bf27c5e98c4a1e70cffe47fcc7551a6c13eae391",
+              "source_checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+              "with_float32_involution_check": true,
+              "bundle_sha256": "5005323933c24d1b815a5512734fdd04579a01bf2fefa97933128baceb5b5842",
+              "exported_policy_sha256": "2ee43c2522050a81c59eb4b7d0491ed7474bb2a12ddbb6cc54ab4f3fc92eacda",
+              "policy_bytes": 17042411
+            }
+          },
+          "tests": {
+            "reflection": {
+              "original": {
+                "requested_steps": 13065,
+                "motion_sha256": "4598698aa035c52ba160986e05796cb525df557d1879266e933c40a65994c041",
+                "metrics": {
+                  "steps": 11279,
+                  "completed_motion": false,
+                  "failure": "root_height",
+                  "xy_rmse_m": 0.6347079651912714,
+                  "xy_peak_m": 4.418954788406639,
+                  "joint_rmse_rad": 0.23804034483851863,
+                  "return": 0.6511837545136496,
+                  "nonfoot_ground_force_substeps": 0,
+                  "trajectory_sha256": "5987336a3a11ca5ff13d4e2ee751e6e898f170026d0701985ada6de533cbe5ba",
+                  "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+                  "result_sha256": "ab1e41cc58e4f0ab22c504d630963327ca72ae0d9fd585719ac69224a43ea5b5"
+                }
+              },
+              "mirror": {
+                "requested_steps": 13065,
+                "motion_sha256": "9f5a64f7525baadc5ab00028dcc7d3c937ad1b17d36b615382ff1618ea8c6f85",
+                "metrics": {
+                  "steps": 13065,
+                  "completed_motion": true,
+                  "failure": null,
+                  "xy_rmse_m": 0.22401077781022122,
+                  "xy_peak_m": 0.6832644726245449,
+                  "joint_rmse_rad": 0.2916805550181111,
+                  "return": 0.8241900600239184,
+                  "nonfoot_ground_force_substeps": 0,
+                  "trajectory_sha256": "1f795742081cce1b56b39e270dea58d664d856fc81d1c392f768855400720cce",
+                  "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+                  "result_sha256": "3e295b110548d59eb65b0fdfc03c36625552ad74a17ffa9300b6542131c54273"
+                }
+              }
+            },
+            "equal_ensemble": {
+              "original": {
+                "requested_steps": 13065,
+                "motion_sha256": "4598698aa035c52ba160986e05796cb525df557d1879266e933c40a65994c041",
+                "metrics": {
+                  "steps": 13065,
+                  "completed_motion": true,
+                  "failure": null,
+                  "xy_rmse_m": 0.7310749444455128,
+                  "xy_peak_m": 2.174431892594852,
+                  "joint_rmse_rad": 0.271117256399899,
+                  "return": 0.770950276642707,
+                  "nonfoot_ground_force_substeps": 0,
+                  "trajectory_sha256": "40f59b037328d1ee6b97c1f7979e9385d128a3ccad9e954c8efcc972a27f508f",
+                  "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+                  "result_sha256": "b65e2936987cf87165e587d3cfdad9bf5ad4d81d3e49523a1cdfd554a0e3ec73"
+                }
+              },
+              "mirror": {
+                "requested_steps": 13065,
+                "motion_sha256": "9f5a64f7525baadc5ab00028dcc7d3c937ad1b17d36b615382ff1618ea8c6f85",
+                "metrics": {
+                  "steps": 13065,
+                  "completed_motion": true,
+                  "failure": null,
+                  "xy_rmse_m": 0.7189511226574565,
+                  "xy_peak_m": 2.119775703758537,
+                  "joint_rmse_rad": 0.2708391108733554,
+                  "return": 0.7713637194595162,
+                  "nonfoot_ground_force_substeps": 0,
+                  "trajectory_sha256": "7b96383ee52b44b68cd9679c2fb822bf87d0a7f72325f193982b3279e0699671",
+                  "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+                  "result_sha256": "cce622bca4fa4b6548422d1c946f7449e2d0d6a0c52cf9511e77b213d94a0e6b"
+                }
+              }
+            }
+          },
+          "mirrored_variants": {
+            "tempo-0.97": {
+              "required_steps": 13469,
+              "original_motion_sha256": "120ce84fef1d4601157b26560270f0e10619815489827ac49db4a89570d4f526",
+              "mirror_motion_sha256": "0087ea944910cd710d1c1392a75b2c6bde23b66d73d507f63cb4f9470b4eebc1",
+              "frames": 13470,
+              "fk_mirror_position_max_abs_error_m": 1.0252960171541758e-05,
+              "original": {
+                "steps": 13469,
+                "completed_motion": true,
+                "failure": null,
+                "xy_rmse_m": 0.2494881693597631,
+                "xy_peak_m": 0.7989772953517993,
+                "joint_rmse_rad": 0.2912704303690956,
+                "return": 0.8186660257052433,
+                "nonfoot_ground_force_substeps": 0,
+                "trajectory_sha256": "39848714de906d639127c59c9bee94223f07bc9d84fb7c871571a874c2be0686",
+                "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+                "result_sha256": "7ff51c54a711c7dc0bfcbc2510f2741c1bde6c875f8a1d84cf471196e2093404"
+              },
+              "mirrored": {
+                "steps": 13469,
+                "completed_motion": true,
+                "failure": null,
+                "xy_rmse_m": 0.2717661877668767,
+                "xy_peak_m": 0.8301066341510167,
+                "joint_rmse_rad": 0.29182167337906945,
+                "return": 0.816628459709083,
+                "nonfoot_ground_force_substeps": 0,
+                "trajectory_sha256": "a4379a8f8b4e6cbcc403c59835d92e3ed62e2dca2463cca4e9e52a2dd6ca35b5",
+                "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+                "result_sha256": "cdc0422fa845238a5f95e2d673463a40ca3555077c0bfd1bc3b52d4938c8e700"
+              }
+            },
+            "tempo-1.03": {
+              "required_steps": 12684,
+              "original_motion_sha256": "33b8fbd0878b3a71a13d6f0a70a38b938f43aa43e15670aacffc62072b024b35",
+              "mirror_motion_sha256": "d53f326764bd3de7616fafdf2518ebba3bb59e92869775b308ef51be54836cad",
+              "frames": 12685,
+              "fk_mirror_position_max_abs_error_m": 1.0251729980481628e-05,
+              "original": {
+                "steps": 12684,
+                "completed_motion": true,
+                "failure": null,
+                "xy_rmse_m": 0.24069161195926106,
+                "xy_peak_m": 0.9773895787969724,
+                "joint_rmse_rad": 0.29019042859428157,
+                "return": 0.8258506008613301,
+                "nonfoot_ground_force_substeps": 0,
+                "trajectory_sha256": "466bcf4d83503ef6b9a4b4cfa10a534dc3055d629cadf1ea86e29cd491a6037b",
+                "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+                "result_sha256": "b41a867f8eb379882c38de31b3c1000dd723be81ef97247e04a0d6c43ee4f117"
+              },
+              "mirrored": {
+                "steps": 12684,
+                "completed_motion": true,
+                "failure": null,
+                "xy_rmse_m": 0.24248735657997145,
+                "xy_peak_m": 0.6832912799962338,
+                "joint_rmse_rad": 0.29199443388758295,
+                "return": 0.8229887572909258,
+                "nonfoot_ground_force_substeps": 0,
+                "trajectory_sha256": "6a0614aa2ad2db2f967e40cc7a9b523f64b446ea4db36bba46463ec929d898a9",
+                "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+                "result_sha256": "16cd68dee4d5c1818ab9235bd3f727b7a46353e8b2e26dfd87f59ae79f265cea"
+              }
+            },
+            "extra-yaw-+51": {
+              "required_steps": 13065,
+              "original_motion_sha256": "2168005cc660f912ca5e9df3df125255590f2247201927b18aa05218af8aa944",
+              "mirror_motion_sha256": "5f50d1128543e9a6b1fb333910f1abd93f202889936ab26389cc2dfa75724a8e",
+              "frames": 13066,
+              "fk_mirror_position_max_abs_error_m": 1.0237318814665386e-05,
+              "original": {
+                "steps": 13065,
+                "completed_motion": true,
+                "failure": null,
+                "xy_rmse_m": 0.19711608905032638,
+                "xy_peak_m": 0.6466726195549334,
+                "joint_rmse_rad": 0.29082965989025533,
+                "return": 0.8305759450461369,
+                "nonfoot_ground_force_substeps": 0,
+                "trajectory_sha256": "0d017debc47965da141fbc1cc0dbd6d3fb949f523444db1e5190f2845f914b3e",
+                "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+                "result_sha256": "8f566b5db7fca72e133bce2cca1e13687758f8c552e5be2da770dd08d510e3d3"
+              },
+              "mirrored": {
+                "steps": 13065,
+                "completed_motion": true,
+                "failure": null,
+                "xy_rmse_m": 0.235224992644367,
+                "xy_peak_m": 0.6832639408957989,
+                "joint_rmse_rad": 0.2910777719673638,
+                "return": 0.8223000315473858,
+                "nonfoot_ground_force_substeps": 0,
+                "trajectory_sha256": "95a2965ac20d2ba0739e16d62a36dd81a1c18fc3b6a0094ce7103bbcf9d10317",
+                "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+                "result_sha256": "17816d72a869b98333251208c6a8529956399245af6435a24c884fb15c25640c"
+              }
+            },
+            "extra-yaw--154": {
+              "required_steps": 13065,
+              "original_motion_sha256": "ab79bddf423d2e4b2600bf6582d77e333d0ecf6813e3147411d389b877a9cf32",
+              "mirror_motion_sha256": "9eeb2c47decc048237cb3da1e0def5b5b8f27bd1057ef48edb6071fed33c3d45",
+              "frames": 13066,
+              "fk_mirror_position_max_abs_error_m": 1.0237155338543857e-05,
+              "original": {
+                "steps": 13065,
+                "completed_motion": true,
+                "failure": null,
+                "xy_rmse_m": 0.21341178535390573,
+                "xy_peak_m": 0.6437441820815021,
+                "joint_rmse_rad": 0.29087149420220776,
+                "return": 0.8269242525465681,
+                "nonfoot_ground_force_substeps": 0,
+                "trajectory_sha256": "621c8cbddda020eef35e99c77f0f184079b2cb8f46ede3adee84965538cbbb54",
+                "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+                "result_sha256": "61b0a4df445c093a5d98d5d3127235a1cc74d7f0b1510fa08a45d3882f843a12"
+              },
+              "mirrored": {
+                "steps": 13065,
+                "completed_motion": true,
+                "failure": null,
+                "xy_rmse_m": 0.22327505393004948,
+                "xy_peak_m": 0.6832624141244994,
+                "joint_rmse_rad": 0.291018548160667,
+                "return": 0.8247985475327017,
+                "nonfoot_ground_force_substeps": 0,
+                "trajectory_sha256": "8e8d6d53a62fb7e59050c9c8d3c2adbcaa9005d91efb3c5bbe628cd968b878aa",
+                "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+                "result_sha256": "735cf0c0c838cb235629e2f59d9de5e822659686342f74238fdfb7d47a83023b"
+              }
+            },
+            "walk1_subject2": {
+              "required_steps": 13065,
+              "original_motion_sha256": "1cb02237c8fd9ac761368a34710455df89d2811181375897db7badf72dd1b76f",
+              "mirror_motion_sha256": "30c089dcdbbe4e405bb30000f99851dae510e4a736d3e1bbaed14c34797af0f2",
+              "frames": 13066,
+              "fk_mirror_position_max_abs_error_m": 1.0105437111551652e-05,
+              "original": {
+                "steps": 13065,
+                "completed_motion": true,
+                "failure": null,
+                "xy_rmse_m": 1.2107639965927641,
+                "xy_peak_m": 4.3607735707373285,
+                "joint_rmse_rad": 0.25620325959713414,
+                "return": 0.6315561661170992,
+                "nonfoot_ground_force_substeps": 0,
+                "trajectory_sha256": "092bd3f8b47526191bab0d635a77cec1a71106509690399c255b48ab5beb8a08",
+                "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+                "result_sha256": "9a527c7e3d4a0998d6c75ef490b2da26791df0db3e61f2654f4a48eeb0e30852"
+              },
+              "mirrored": {
+                "steps": 13065,
+                "completed_motion": true,
+                "failure": null,
+                "xy_rmse_m": 1.1744259067573122,
+                "xy_peak_m": 4.319602727273749,
+                "joint_rmse_rad": 0.2562519684959013,
+                "return": 0.6304920341062491,
+                "nonfoot_ground_force_substeps": 0,
+                "trajectory_sha256": "28fbd95c0fe5d3ba11f876574227533046cfb75cac98e5664787dfd641453c53",
+                "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+                "result_sha256": "0a9de57e3ec09bb632d8ea967b5923cd4e8e064c34bbf44d0aaef6d2c6011667"
+              }
+            }
+          }
+        }
+      },
+      "robot_only_reset_offsets": {
+        "summary": {
+          "current": {
+            "completions": 4,
+            "xy_median_m": 0.16727781560547086
+          },
+          "decoder_blend": {
+            "completions": 4,
+            "xy_median_m": 0.16390912159341187
+          },
+          "aligned_encoder80": {
+            "completions": 4,
+            "xy_median_m": 0.16930741818268286
+          }
+        },
+        "rows": {
+          "start-27.6-47.6": {
+            "xy_offset_m": [
+              0.04,
+              -0.02
+            ],
+            "yaw_degrees": 7,
+            "actors": {
+              "current": {
+                "steps": 1000,
+                "rmse_full_m": 0.13777336536942578,
+                "no_nonfoot": true,
+                "trajectory_sha256": "c594a70b94763a3919f145480913e45c73e908be0965b97b50a5e274dbe43dca"
+              },
+              "decoder_blend": {
+                "steps": 1000,
+                "rmse_full_m": 0.13839164570779997,
+                "no_nonfoot": true,
+                "trajectory_sha256": "6eb326a4dc00bb310c08173a94a2f8f10c96f8edddfaf19ddcca2a2a6e227eca"
+              },
+              "aligned_encoder80": {
+                "steps": 1000,
+                "rmse_full_m": 0.14445964207238127,
+                "no_nonfoot": true,
+                "trajectory_sha256": "bbe2291d95158a0678a54b01fbca59671dae6762e5b56971bfd20f0d1eae693c"
+              }
+            }
+          },
+          "start-106.2-126.2": {
+            "xy_offset_m": [
+              -0.04,
+              0.03
+            ],
+            "yaw_degrees": -7,
+            "actors": {
+              "current": {
+                "steps": 1000,
+                "rmse_full_m": 0.15428304295279366,
+                "no_nonfoot": true,
+                "trajectory_sha256": "c53e24ec1e561ca169dff14dba10618372c6986857373577238ef331f14cc4e3"
+              },
+              "decoder_blend": {
+                "steps": 1000,
+                "rmse_full_m": 0.15953442932523462,
+                "no_nonfoot": true,
+                "trajectory_sha256": "75bf0a9e10b888bc25f0e2557b3e71ea78fbfa251c90b5867ff60b6dadd51d9b"
+              },
+              "aligned_encoder80": {
+                "steps": 1000,
+                "rmse_full_m": 0.14192407838071266,
+                "no_nonfoot": true,
+                "trajectory_sha256": "0902e92b91ea43d3b8f6fab0ea5182e8b521b1ff62a0914eb67f1b478af2bd53"
+              }
+            }
+          },
+          "137-157": {
+            "xy_offset_m": [
+              0.1,
+              0.05
+            ],
+            "yaw_degrees": 12,
+            "actors": {
+              "current": {
+                "steps": 1000,
+                "rmse_full_m": 0.18027258825814807,
+                "no_nonfoot": true,
+                "trajectory_sha256": "42e1de802dad1e0d3ff740399252b2d2b59101d5ecbaa3ad74420ce9265f3b78"
+              },
+              "decoder_blend": {
+                "steps": 1000,
+                "rmse_full_m": 0.16828381386158908,
+                "no_nonfoot": true,
+                "trajectory_sha256": "f4e6f90dbc5d8a60c0a46540ed661c68dc946679e35a7d3b8b4584024bb5c958"
+              },
+              "aligned_encoder80": {
+                "steps": 1000,
+                "rmse_full_m": 0.19415519429298445,
+                "no_nonfoot": true,
+                "trajectory_sha256": "499854a4b03a4d919a12eeff57792786d28fb76f52e119877d3ed992588aaa61"
+              }
+            }
+          },
+          "start-228.4-248.4": {
+            "xy_offset_m": [
+              -0.09,
+              -0.05
+            ],
+            "yaw_degrees": -12,
+            "actors": {
+              "current": {
+                "steps": 1000,
+                "rmse_full_m": 0.4960183799427989,
+                "no_nonfoot": true,
+                "trajectory_sha256": "c77673ca182ce662d77f405f428b4169369605308e5d1bbd22fceb6f2fa11020"
+              },
+              "decoder_blend": {
+                "steps": 1000,
+                "rmse_full_m": 0.44251518489061753,
+                "no_nonfoot": true,
+                "trajectory_sha256": "5b0edcce259be42138614a41b62d48c70ea34f536917e93ac4957611e40cdc7e"
+              },
+              "aligned_encoder80": {
+                "steps": 1000,
+                "rmse_full_m": 0.5861625904757498,
+                "no_nonfoot": true,
+                "trajectory_sha256": "4dba1fe5dbb21fd63243d797c78050e860fd1a314a0bb81f71839ab81bf923ed"
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

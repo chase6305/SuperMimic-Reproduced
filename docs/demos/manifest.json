@@ -110,6 +110,27 @@
       "renderer": "llvmpipe (LLVM 15.0.7, 256 bits)",
       "cuda_used": false,
       "sampled_process_tree_peak_rss_bytes": 768401408
+    },
+    "installed_wheel_walk_reproduction": {
+      "revision": "58732b2c5b780feece0830c107821141e7dc3b1f",
+      "wheel": "supermimic-0.1.0-py3-none-any.whl",
+      "wheel_sha256": "308988c65e5437e5decdebaaf2733113e85335fb87746936350041d2492471b3",
+      "trajectory_sha256": "03c8f3b484c37a7907b7eba075955041fcc06a6715cd73521c873ebb25394848",
+      "quality_code_sha256": "221becb39dc50f05b5df8be30a6b71ca2c2abd10dd1bddb0f57b5493e0cad58c",
+      "gif_sha256": "65141c97038acf4eafb91c5a55cf508c8b9e2e3a02a40d015b71389cce773e32",
+      "steps": 13065,
+      "exact_fields": [
+        "steps",
+        "completed_motion",
+        "failure",
+        "motion_sha256",
+        "contract_sha256",
+        "checkpoint_sha256",
+        "trajectory_sha256",
+        "tracking",
+        "contacts"
+      ],
+      "gif_byte_identical": true
     }
   }
 }

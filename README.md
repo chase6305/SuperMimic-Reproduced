@@ -152,7 +152,7 @@ uv lock --check --offline
 uv build
 ```
 
-此轮 CPU CI 为 **625 项通过、24 项跳过**，另有 12 个 subtests 通过。CI 同时验证了分发包构建及安装后的 CLI 入口。[CPU CI 记录](https://github.com/chase6305/SuperMimic-Reproduced/actions/runs/46083449787)
+此轮 CPU CI 为 **625 项通过、24 项跳过**，另有 12 个 subtests 通过。CI 同时验证了分发包构建及安装后的 CLI 入口。[CPU CI 记录](https://github.com/chase6305/SuperMimic-Reproduced/actions/runs/46085049017)
 
 CPU 测试覆盖 G1 FK、状态表示、训练／部署历史和目标特征一致性、PD／执行器映射、动作数据检查及资源监督。依赖真实 CUDA 和动作数据的上游集成测试会在条件不足时跳过。CPU CI 使用同一锁文件和上述测试入口，不需要本机数据或训练权重。CUDA 集成与编译测试须在具备相应数据和 GPU 的环境另行运行；CPU CI 通过不代表技能验收通过。
 
