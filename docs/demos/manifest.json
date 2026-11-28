@@ -199,6 +199,14 @@
         "flight_precision": 0.20823798627002288,
         "all_scores_exact": true
       }
+    },
+    "render_publication_recheck": {
+      "concurrent_request_rejected": true,
+      "published_outputs_immutable": true,
+      "invalid_start_rejected": true,
+      "mismatched_source_digest_rejected": true,
+      "unpublished_failed_outputs": true,
+      "temporary_files_removed": true
     }
   }
 }
