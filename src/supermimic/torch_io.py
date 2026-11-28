@@ -6,8 +6,10 @@ storage requires immutable, atomically published inputs while tensors are in use
 
 from __future__ import annotations
 
+import errno
 import hashlib
 import os
+import shutil
 import tempfile
 from dataclasses import dataclass
 from pathlib import Path
@@ -69,9 +71,9 @@ def read_torch_archive(
 
 
 def write_torch_archive(
-    path: Path | str, data: Any, *, overwrite: bool = False
+    path: Path | str, data: Any, *, overwrite: bool = False, alias: Path | str | None = None
 ) -> None:
-    """Flush a complete archive before exclusive or replacing publication."""
+    """Flush a complete archive before publishing it at one or two immutable paths."""
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = None
@@ -83,10 +85,25 @@ def write_torch_archive(
             torch.save(data, stream)
             stream.flush()
             os.fsync(stream.fileno())
-        if overwrite:
-            os.replace(temporary, path)
+        publish = os.replace if overwrite else os.link
+        if alias is None:
+            publish(temporary, path)
         else:
-            os.link(temporary, path)
+            alias = Path(alias)
+            alias.parent.mkdir(parents=True, exist_ok=True)
+            with tempfile.TemporaryDirectory(prefix=".torch-alias-", dir=alias.parent) as staging:
+                staged_alias = Path(staging) / "archive"
+                try:
+                    os.link(temporary, staged_alias)
+                except OSError as error:
+                    if error.errno not in (errno.EXDEV, errno.EPERM, errno.EOPNOTSUPP, errno.ENOSYS, errno.EMLINK):
+                        raise
+                    staged_alias.touch(mode=0o600)
+                    shutil.copyfile(temporary, staged_alias)
+                    with staged_alias.open("rb+") as duplicate:
+                        os.fsync(duplicate.fileno())
+                publish(temporary, path)
+                publish(staged_alias, alias)
     finally:
         if temporary is not None:
             temporary.unlink(missing_ok=True)

@@ -97,8 +97,13 @@ def tracking_reward_terms(
     joint_pos: torch.Tensor,
     soft_limits: torch.Tensor,  # (29, 2) or (N, 29, 2)
     cfg: TrackingRewardCfg,
+    body_position_error_out: torch.Tensor | None = None,
 ) -> dict[str, torch.Tensor]:
-    """Per-term weighted, dt-scaled rewards (N,) plus 'total'."""
+    """Per-term weighted, dt-scaled rewards (N,) plus 'total'.
+
+    When provided, body_position_error_out receives the squared position error
+    for each tracked body before the reduction over bodies.
+    """
     ra_pos = robot_body_pos_w[..., anchor_index, :]
     ra_quat = robot_body_quat_w[..., anchor_index, :]
     ma_pos = ref_body_pos_w[..., anchor_index, :]
@@ -109,7 +114,10 @@ def tracking_reward_terms(
 
     e_root_pos = ((ma_pos - ra_pos) ** 2).sum(-1)
     e_root_ori = _sq_quat_err(ma_quat, ra_quat)
-    e_body_pos = ((rel_pos - robot_body_pos_w) ** 2).sum(-1).mean(-1)
+    body_position_error = ((rel_pos - robot_body_pos_w) ** 2).sum(-1)
+    if body_position_error_out is not None:
+        body_position_error_out.copy_(body_position_error)
+    e_body_pos = body_position_error.mean(-1)
     e_body_ori = _sq_quat_err(rel_quat, robot_body_quat_w).mean(-1)
     e_body_lin = ((ref_body_lin_vel_w - robot_body_lin_vel_w) ** 2).sum(-1).mean(-1)
     e_body_ang = ((ref_body_ang_vel_w - robot_body_ang_vel_w) ** 2).sum(-1).mean(-1)

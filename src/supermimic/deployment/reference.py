@@ -15,8 +15,7 @@ def rotation(q_wxyz: np.ndarray) -> Rotation:
 
 
 def gravity(q_wxyz: np.ndarray) -> np.ndarray:
-    q = np.asarray(q_wxyz)
-    return rotation(q).inv().apply(np.broadcast_to([0.0, 0.0, -1.0], q.shape[:-1] + (3,)))
+    return rotation(q_wxyz).apply((0.0, 0.0, -1.0), inverse=True)
 
 
 def heading_error(actual_wxyz: np.ndarray, reference_wxyz: np.ndarray) -> np.ndarray:
@@ -54,11 +53,13 @@ class MotionReference:
         heading = Rotation.from_quat(
             np.stack([zeros, zeros, np.sin(yaw / 2), np.cos(yaw / 2)], axis=-1)
         )
+        root_gravity = gravity(self.root_quat)
+        self.root_gravity_z = root_gravity[:, 2].copy()
         self.features = np.concatenate(
             [
                 self.q - default_q,
                 self.qd,
-                gravity(self.root_quat),
+                root_gravity,
                 r.inv().apply(self.root_ang),
                 heading.inv().apply(self.root_lin),
                 self.root_pos[:, 2:3],

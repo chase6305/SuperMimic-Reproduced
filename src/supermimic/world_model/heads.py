@@ -107,6 +107,8 @@ class AnalyticHeads:
         prev_action: torch.Tensor,
         ref: ReferenceFrame,
         bodies=None,
+        *,
+        body_position_error_out: torch.Tensor | None = None,
     ):
         """Reward r_{t+1} of reaching s_next (= s_{t+1}) under target frame g_t. Returns dict with 'total'."""
         b = bodies if bodies is not None else self.robot_bodies(s_next)
@@ -125,6 +127,7 @@ class AnalyticHeads:
             joint_pos=s_next[..., 7:36],
             soft_limits=self.soft_limits,
             cfg=self.reward_cfg,
+            body_position_error_out=body_position_error_out,
         )
 
     @staticmethod

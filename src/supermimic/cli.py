@@ -205,10 +205,13 @@ def parser() -> argparse.ArgumentParser:
     render = sub.add_parser("render", help="Render saved MuJoCo states on CPU")
     render.add_argument("--bundle", required=True, type=Path)
     render.add_argument("--trajectory", required=True, type=Path)
-    render.add_argument("--output", required=True, type=Path)
+    render.add_argument("--output", required=True, type=Path, help="New video or .gif file")
     render.add_argument("--seconds", type=positive_float, default=10.0)
     render.add_argument("--start-seconds", type=nonnegative_float, default=0.0)
-    render.add_argument("--fps", type=int, choices=(10, 25, 50), default=25)
+    render.add_argument("--fps", type=int, choices=(10, 25, 50), help="Default: video 25, GIF 10")
+    render.add_argument(
+        "--width", type=int, choices=(320, 384, 480, 640), help="Default: video 640, GIF 480"
+    )
     worker = sub.add_parser("_worker", help=argparse.SUPPRESS)
     worker.add_argument("config", type=Path)
     return p
@@ -273,19 +276,17 @@ def main(argv: list[str] | None = None) -> int:
                 result = deploy(args.bundle, args.motion, args.output, args.steps, args.viewer)
             print(json.dumps(result, indent=2))
         elif args.command == "render":
-            from supermimic.cpu_resources import cpu_guard
+            from supermimic.deployment.render import render_rollout
 
-            with cpu_guard(args.output, limits=ResourceLimits(max_rss_gib=2.0)):
-                from supermimic.deployment.render import render_rollout
-
-                result = render_rollout(
-                    args.bundle,
-                    args.trajectory,
-                    args.output,
-                    args.seconds,
-                    args.fps,
-                    start_seconds=args.start_seconds,
-                )
+            result = render_rollout(
+                args.bundle,
+                args.trajectory,
+                args.output,
+                args.seconds,
+                args.fps,
+                start_seconds=args.start_seconds,
+                width=args.width,
+            )
             print(json.dumps(result, indent=2))
         else:
             if args.command == "train" and args.transfer and args.checkpoint is None:

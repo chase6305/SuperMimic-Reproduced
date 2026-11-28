@@ -1,0 +1,212 @@
+{
+  "demos": {
+    "walk.gif": {
+      "bundle": "runs/opt-7h/walk-final/mixed-compact-tempo-child-075/bundle",
+      "trajectory": "runs/opt-7h/walk-final/mixed-compact-tempo-child-075/deploy/trajectory.npz",
+      "gif_sha256": "65141c97038acf4eafb91c5a55cf508c8b9e2e3a02a40d015b71389cce773e32",
+      "size_bytes": 629863,
+      "first_source_frame": 12250,
+      "source_start_seconds": 245.0,
+      "source_end_seconds": 249.9,
+      "duration_s": 5.0,
+      "width": 384,
+      "height": 288,
+      "fps": 10,
+      "frames": 50,
+      "renderer": "llvmpipe (LLVM 15.0.7, 256 bits)",
+      "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+      "trajectory_sha256": "03c8f3b484c37a7907b7eba075955041fcc06a6715cd73521c873ebb25394848",
+      "contract_sha256": "741a803136973fd26c86af0def0dbdf4cf6e8febb46afb6bb4679c183f2539e5",
+      "result_sha256": "1d34b067dc364dc07507726660d2e5cd452d1f81cdf029db5a76571dc554203a"
+    },
+    "jump.gif": {
+      "bundle": "exports/g1-tasks-20261117b/jump120/bundle",
+      "trajectory": "exports/g1-tasks-20261117b/jump120/evidence/trajectory.npz",
+      "gif_sha256": "af0b07f605602d7d2de277b8760e9d883026dd9a8b8239509d56b0bb510a407a",
+      "size_bytes": 867316,
+      "first_source_frame": 300,
+      "source_start_seconds": 6.0,
+      "source_end_seconds": 10.9,
+      "duration_s": 5.0,
+      "width": 384,
+      "height": 288,
+      "fps": 10,
+      "frames": 50,
+      "renderer": "llvmpipe (LLVM 15.0.7, 256 bits)",
+      "checkpoint_sha256": "a4db166b41d4361cd121fae3941c8ce9327d454df24d6a4154b5e8d79dccc746",
+      "trajectory_sha256": "b09328ee7b9e49b4b503276fbeeed873ddb773fa4eaef56a71d8677b8fd1cee1",
+      "contract_sha256": "ea926ff5720015426a3f8942b236791994e9853c5c66009c3b2802c93ac82185",
+      "result_sha256": "d2c00926114795dbe82671f2331d8f224718df46604b973055072800367707df"
+    },
+    "stand.gif": {
+      "bundle": "exports/g1-tasks-20261117c/stand-hold-600-reset040/bundle",
+      "trajectory": "exports/g1-tasks-20261117c/stand-hold-600-reset040/evidence/trajectory.npz",
+      "gif_sha256": "3700023d9b18afa687493e69400819c1a3d2b159d91d35c78f7ae7c3d53f6c3d",
+      "size_bytes": 23122,
+      "first_source_frame": 29700,
+      "source_start_seconds": 594.0,
+      "source_end_seconds": 598.9,
+      "duration_s": 5.0,
+      "width": 384,
+      "height": 288,
+      "fps": 10,
+      "frames": 50,
+      "renderer": "llvmpipe (LLVM 15.0.7, 256 bits)",
+      "checkpoint_sha256": "0c96f5084c427b9c68a5c5a9d437dcc9bfae2dd905c99a0c695d1a46fab2aba3",
+      "trajectory_sha256": "03247152b74b0a45ca47855d8a69b05400866b6927d9a19d6c16188007d472b7",
+      "contract_sha256": "8d266a6e14b3bcdafcd8990602d1201092b187e0746a349e88a616522f59f522",
+      "result_sha256": "4a7ee9df34103d518fdb47efc7163cca78571f986be7943c3788d447a70f8d75"
+    },
+    "dance.gif": {
+      "bundle": "exports/g1-tasks-20261117/dance-preview/bundle",
+      "trajectory": "exports/g1-tasks-20261117/dance-preview/evidence/trajectory.npz",
+      "gif_sha256": "c79ebcd539908843a836fd01ee9d6beb16159bf8e3953ca33e794677160be475",
+      "size_bytes": 924670,
+      "first_source_frame": 5250,
+      "source_start_seconds": 105.0,
+      "source_end_seconds": 109.9,
+      "duration_s": 5.0,
+      "width": 384,
+      "height": 288,
+      "fps": 10,
+      "frames": 50,
+      "renderer": "llvmpipe (LLVM 15.0.7, 256 bits)",
+      "checkpoint_sha256": "3735896ba6dc398c5bf36b94202b3ee7b77470f77ddad0759455bd15ea1cbf43",
+      "trajectory_sha256": "ebc34d7952dfe36a76817f1541ad09f05bb993637cf72503b60633b9c9daec72",
+      "contract_sha256": "df16120459e6a1a214e580a9beed71575dd82c7bdb0c57e8cb24e199caf39854",
+      "result_sha256": "023cc86586278a76b719307047ec7ccc6766f62ab3efcd47477bd085c9eb4bf7"
+    },
+    "fight.gif": {
+      "bundle": "exports/g1-tasks-20261117/fight-preview/bundle",
+      "trajectory": "exports/g1-tasks-20261117/fight-preview/evidence/trajectory.npz",
+      "gif_sha256": "00206b7a7ead0a4bfc676e335f89ac77421ac7f4afc3f34713c9e0c870a12176",
+      "size_bytes": 851521,
+      "first_source_frame": 1000,
+      "source_start_seconds": 20.0,
+      "source_end_seconds": 24.900000000000002,
+      "duration_s": 5.0,
+      "width": 384,
+      "height": 288,
+      "fps": 10,
+      "frames": 50,
+      "renderer": "llvmpipe (LLVM 15.0.7, 256 bits)",
+      "checkpoint_sha256": "eb9a6a00c768fb145c056cb68ac947a503bb52c8de4af5471c6b87f5ff06c5da",
+      "trajectory_sha256": "90bbd0e012fda9154edb7ef7d4e626559315db34dc4b23c2dd143b81d7617beb",
+      "contract_sha256": "f260042dc10cfefc38a499c17cbc4f24b433e2035cfe35223562cfcda3284c41",
+      "result_sha256": "f3c7fe6dc8c12e864e8bbb1bc1e359e679d214eb0c0d102556046172942fcd81"
+    }
+  },
+  "local_validation": {
+    "all_five_gifs_reencoded_byte_identically": true,
+    "long_jump_gif": {
+      "width": 320,
+      "height": 240,
+      "fps": 25,
+      "frames": 300,
+      "duration_s": 12.0,
+      "source_start_seconds": 108.0,
+      "trajectory_sha256": "b09328ee7b9e49b4b503276fbeeed873ddb773fa4eaef56a71d8677b8fd1cee1",
+      "video_sha256": "c6c468232dc32f1cd42dbc3753155fb14dda6c2995dcccbce07651bfef706ac8",
+      "renderer": "llvmpipe (LLVM 15.0.7, 256 bits)",
+      "cuda_used": false,
+      "sampled_process_tree_peak_rss_bytes": 768401408
+    },
+    "installed_wheel_walk_reproduction": {
+      "mp4_sha256": "072da608bee57136e39996ff2de61689e706f6fc4793872b2fd58a4693928eca",
+      "mp4_byte_identical": true,
+      "revision": "363de712e3e61ff97bb4624d91bb6e6a06a1cd63",
+      "wheel": "supermimic-0.1.0-py3-none-any.whl",
+      "wheel_sha256": "9c6a2416aea86c5e1879617583f1116644750e1c9cb307f2b033beb9f9cda156",
+      "trajectory_sha256": "03c8f3b484c37a7907b7eba075955041fcc06a6715cd73521c873ebb25394848",
+      "quality_code_sha256": "221becb39dc50f05b5df8be30a6b71ca2c2abd10dd1bddb0f57b5493e0cad58c",
+      "gif_sha256": "65141c97038acf4eafb91c5a55cf508c8b9e2e3a02a40d015b71389cce773e32",
+      "steps": 13065,
+      "exact_fields": [
+        "steps",
+        "completed_motion",
+        "failure",
+        "motion_sha256",
+        "contract_sha256",
+        "checkpoint_sha256",
+        "trajectory_sha256",
+        "tracking",
+        "contacts"
+      ],
+      "gif_byte_identical": true
+    },
+    "installed_wheel_maximum_gif": {
+      "video_sha256": "7ffd9243c5399bbc0fb37a7a2a043a2b145430e83b1856a0ef1cc332473fd5a1",
+      "trajectory_sha256": "03c8f3b484c37a7907b7eba075955041fcc06a6715cd73521c873ebb25394848",
+      "frames": 3000,
+      "fps": 50,
+      "width": 640,
+      "height": 480,
+      "duration_s": 60.0,
+      "source_start_seconds": 95.0,
+      "source_end_seconds": 154.98,
+      "first_source_frame": 4750,
+      "elapsed_s": 252.20623187802266,
+      "sampled_peak_process_tree_rss_bytes": 457949184,
+      "decoded_delay_ms": 20,
+      "exact_to_prior_render": true
+    },
+    "final_skill_recheck": {
+      "jump120": {
+        "passed": true,
+        "checks": 23,
+        "failed": [],
+        "trajectory_sha256": "b09328ee7b9e49b4b503276fbeeed873ddb773fa4eaef56a71d8677b8fd1cee1",
+        "assessment_sha256": "2679153f5f035dabf64a23192a1e9d4ef1344294ec874120f158bb690b386c37",
+        "flight_precision": 0.8467976710334789,
+        "all_scores_exact": true
+      },
+      "full_jump_best_flight": {
+        "passed": false,
+        "checks": 23,
+        "failed": [
+          "worst_1s_effector_rmse_m",
+          "jump_time_precision"
+        ],
+        "trajectory_sha256": "00739d96e64a43cedf6b6a5f8aeb6744919d24896ebf7326afa788a06407cfef",
+        "assessment_sha256": "68364e3f84ce32c7b7a48048e08c11b1a65ee336e64e4241b7e2bb9d7335600f",
+        "flight_precision": 0.7292719167904903,
+        "all_scores_exact": true
+      },
+      "dance": {
+        "passed": false,
+        "checks": 23,
+        "failed": [
+          "worst_1s_effector_rmse_m",
+          "inverted_joint_rmse_rad"
+        ],
+        "trajectory_sha256": "ebc34d7952dfe36a76817f1541ad09f05bb993637cf72503b60633b9c9daec72",
+        "assessment_sha256": "b0b3385d2a20ceddaa38a36c04be64970fd49c3b512273f8f024c583e172177d",
+        "flight_precision": 0.5210526315789473,
+        "all_scores_exact": true
+      },
+      "fight": {
+        "passed": false,
+        "checks": 19,
+        "failed": [
+          "full_clip_return",
+          "worst_1s_joint_rmse_rad",
+          "worst_1s_root_orientation_rmse_rad",
+          "worst_1s_root_height_rmse_m",
+          "worst_1s_effector_rmse_m"
+        ],
+        "trajectory_sha256": "90bbd0e012fda9154edb7ef7d4e626559315db34dc4b23c2dd143b81d7617beb",
+        "assessment_sha256": "d02de1daaa2be7059746d69195475ae0dad125183f7eb06424481042dddebc96",
+        "flight_precision": 0.20823798627002288,
+        "all_scores_exact": true
+      }
+    },
+    "render_publication_recheck": {
+      "concurrent_request_rejected": true,
+      "published_outputs_immutable": true,
+      "invalid_start_rejected": true,
+      "mismatched_source_digest_rejected": true,
+      "unpublished_failed_outputs": true,
+      "temporary_files_removed": true
+    }
+  }
+}

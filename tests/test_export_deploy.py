@@ -1,6 +1,7 @@
 """Small synthetic actor: package, reload, physical rollout and failure provenance."""
 
 import importlib
+import json
 from dataclasses import asdict
 from pathlib import Path
 from types import SimpleNamespace
@@ -35,6 +36,9 @@ def test_export_reload_and_physical_rollout(tmp_path, monkeypatch):
     )
     bundle = tmp_path / "export"
     contract = export_policy(checkpoint, bundle)
+    contract_path = bundle / "contract.json"
+    original_contract = contract_path.read_bytes()
+    original_contract_hash = sha256(contract_path)
     assert contract["export_parity_max_abs_error"] < 1e-6
     assert (bundle / "Unitree-BSD-3-Clause.txt").is_file()
     assert contract["hardware_validated"] is False
@@ -55,6 +59,8 @@ def test_export_reload_and_physical_rollout(tmp_path, monkeypatch):
             value = data[name]
             arrays[name] = value[:7].copy() if value.ndim and value.shape[0] == 20 else value.copy()
     np.savez(replacement, **arrays)
+    replacement_contract = tmp_path / "replacement-contract.json"
+    replacement_contract.write_text(json.dumps({**contract, "revision": "after load"}))
     original_snapshot = runtime.snapshot_file
     original_reference = runtime.MotionReference
     scoring = importlib.import_module("supermimic.deployment.tracking_metrics")
@@ -66,6 +72,7 @@ def test_export_reload_and_physical_rollout(tmp_path, monkeypatch):
         assert Path(source) == motion
         snapshots.append(Path(destination))
         replacement.replace(motion)
+        replacement_contract.replace(contract_path)
         return digest
 
     def read_pinned_reference(path, default_q):
@@ -92,6 +99,7 @@ def test_export_reload_and_physical_rollout(tmp_path, monkeypatch):
     assert result["status"] == "complete" and result["hardware_deployed"] is False
     assert result["steps"] == 4 and result["contacts"]["physics_substeps"] == 16
     assert result["motion_sha256"] == original_motion_hash != sha256(motion)
+    assert result["contract_sha256"] == original_contract_hash != sha256(contract_path)
     with np.load(motion, allow_pickle=False) as data:
         assert data["joint_pos"].shape == (7, 29)
     assert len(snapshots) == 1 and references == tracked == snapshots
@@ -116,6 +124,7 @@ def test_export_reload_and_physical_rollout(tmp_path, monkeypatch):
         assert np.isfinite(data["physical_contacts"]).all()
     from supermimic.deployment.assessment import open_assessment_inputs
 
+    contract_path.write_bytes(original_contract)
     with open_assessment_inputs(
         bundle, original_motion, tmp_path / "rollout", tmp_path / "assessment.json"
     ) as inputs:
@@ -154,10 +163,10 @@ def test_public_deploy_removes_private_motion_when_consumer_fails(tmp_path, monk
     snapshots = []
 
     def fail_after_snapshot(
-        actual_runner, actual_model, actual_bundle, pinned_motion, actual_output, steps, viewer
+        actual_runner, actual_model, pinned_motion, motion_sha256, actual_output, steps, viewer
     ):
         assert actual_runner is runner and actual_model is model
-        assert actual_bundle == tmp_path / "bundle"
+        assert motion_sha256 == sha256(motion)
         assert actual_output == output and steps == 4 and viewer is False
         snapshots.append(Path(pinned_motion))
         assert Path(pinned_motion) != motion
@@ -200,3 +209,81 @@ def test_atomic_checkpoint_publication_cannot_change_export_provenance(tmp_path,
     assert contract["checkpoint_sha256"] == expected
     assert contract["checkpoint_sha256"] != sha256(checkpoint)
     assert contract["checkpoint_iteration"] == 12
+
+
+def test_contact_rows_accumulate_in_native_order_and_clear_previous_sample(monkeypatch):
+    frames = np.tile(np.eye(3).reshape(1, 9), (5, 1))
+    frames[1] = np.array([[0.0, -1.0, 0.0], [1.0, 0.0, 0.0], [0.0, 0.0, 1.0]]).ravel()
+    contacts = SimpleNamespace(
+        geom=np.array([[5, 2], [3, 5], [5, -1], [5, 7], [2, 3]]),
+        frame=frames,
+        dist=np.array([0.0, 0.0, -0.02, -0.03, -1.0]),
+    )
+    data = SimpleNamespace(time=0.02, ncon=5, contact=contacts)
+    applied = [(1, 2, 3), (4, 5, 6), (0, 0, 0.002), (0, 0, 0.0005)]
+    calls = []
+
+    def contact_force(model, current, index, out):
+        assert current is data
+        calls.append(index)
+        out[:3] = applied[index]
+        out[3:] = 0
+
+    monkeypatch.setattr(runtime.mujoco, "mj_contactForce", contact_force)
+    row, scratch = np.empty(13), np.empty(6)
+    runtime._record_contact_row(None, data, {5}, {2: 0, 3: 1}, scratch, row)
+
+    assert calls == [0, 1, 2, 3]
+    np.testing.assert_array_equal(
+        row, [0.02, 1, 2, 3, -5, 4, -6, 0, 0, 0.0025, 1, 0.03, 5]
+    )
+
+    data.time = 0.025
+    data.ncon = 0
+    data.contact = SimpleNamespace(geom=np.empty((0, 2)), frame=np.empty((0, 9)), dist=[])
+    runtime._record_contact_row(None, data, {5}, {2: 0, 3: 1}, scratch, row)
+    np.testing.assert_array_equal(row, [0.025, *([0] * 12)])
+
+
+def test_recording_budget_uses_model_decimation_before_allocation(tmp_path, monkeypatch):
+    torch.set_num_threads(1)
+    cfg = PolicyCfg(encoder_hidden=(8,), decoder_hidden=(8,))
+    checkpoint = tmp_path / "actor.pt"
+    torch.save(
+        {
+            "iteration": 0,
+            "policy": Policy(cfg).state_dict(),
+            "config": {"policy": asdict(cfg), "env": {"future_frames": 10, "anchor_obs": False}},
+        },
+        checkpoint,
+    )
+    bundle = tmp_path / "bundle"
+    contract = export_policy(checkpoint, bundle)
+    model_file = bundle / "model.mjb"
+    model = runtime.mujoco.MjModel.from_binary_path(str(model_file))
+    contract["decimation"] = 16
+    contract["physics_dt"] = contract["control_dt"] / contract["decimation"]
+    model.opt.timestep = contract["physics_dt"]
+    runtime.mujoco.mj_saveModel(model, str(model_file), None)
+    contract["files"]["model.mjb"] = sha256(model_file)
+    (bundle / "contract.json").write_text(json.dumps(contract))
+    motion = tmp_path / "motion.npz"
+    make_motion(motion)
+
+    small = deploy(bundle, motion, tmp_path / "small-rollout", steps=2)
+    assert small["steps"] == 2
+    assert small["contacts"]["physics_substeps"] == 32
+
+    requested = 300_000
+    empty = np.empty
+
+    def record_arrays(shape, *args, **kwargs):
+        if isinstance(shape, tuple) and shape and shape[0] >= requested:
+            pytest.fail("An over-budget rollout reached recording allocation")
+        return empty(shape, *args, **kwargs)
+
+    monkeypatch.setattr(runtime.np, "empty", record_arrays)
+    output = tmp_path / "large-rollout"
+    with pytest.raises(ValueError, match="512 MiB recording budget"):
+        deploy(bundle, motion, output, steps=requested)
+    assert not output.exists()

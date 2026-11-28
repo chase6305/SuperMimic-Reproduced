@@ -225,3 +225,39 @@ def test_failed_checkpoint_serialization_removes_partial_file(tmp_path, monkeypa
         write_checkpoint(path, {"iteration": 2}, overwrite=overwrite)
     assert path.read_bytes() == b"previous complete publication"
     assert list(tmp_path.iterdir()) == [path]
+
+
+@pytest.mark.parametrize("hardlinks", [True, False])
+def test_periodic_checkpoint_writes_once_and_preserves_numbered_version(tmp_path, monkeypatch, hardlinks):
+    import errno
+
+    from supermimic import torch_io
+    from supermimic.artifacts import sha256
+
+    latest = tmp_path / "ckpt_latest.pt"
+    numbered = tmp_path / "ckpt_0000100.pt"
+    save = torch.save
+    calls = []
+
+    def count_save(data, stream):
+        calls.append(data["iteration"])
+        return save(data, stream)
+
+    monkeypatch.setattr(torch, "save", count_save)
+    if not hardlinks:
+        def unsupported_link(*_args):
+            raise OSError(errno.EOPNOTSUPP, "filesystem has no hard links")
+
+        monkeypatch.setattr(torch_io.os, "link", unsupported_link)
+    write_checkpoint(latest, {"iteration": 100, "state": torch.arange(4)}, overwrite=True, alias=numbered)
+    original = read_checkpoint(latest, mmap=True)
+    assert calls == [100]
+    assert sha256(latest) == sha256(numbered)
+    assert (latest.stat().st_ino == numbered.stat().st_ino) is hardlinks
+
+    write_checkpoint(latest, {"iteration": 101, "state": torch.arange(4) + 1}, overwrite=True)
+    assert calls == [100, 101]
+    assert read_checkpoint(latest).data["iteration"] == 101
+    assert read_checkpoint(numbered).data["iteration"] == 100
+    torch.testing.assert_close(original.data["state"], torch.arange(4))
+    assert set(tmp_path.iterdir()) == {latest, numbered}
