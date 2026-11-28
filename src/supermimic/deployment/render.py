@@ -296,8 +296,9 @@ def _render_animation(
 
     # MuJoCo chooses its GL backend on import.
     import mujoco
+    import numpy as np
     from OpenGL.GL import GL_RENDERER, glGetString
-    from PIL import Image, ImageDraw
+    from PIL import Image, ImageDraw, ImageFont
 
     model = _load_render_model(bundle, contract, staged, mujoco.MjModel.from_binary_path)
     if states.shape[1] != model.nq + model.nv:
@@ -320,6 +321,8 @@ def _render_animation(
         model.geom_matid[floor] = -1
         model.geom_rgba[floor] = (0.16, 0.23, 0.30, 1)
     started = time.monotonic()
+    rgb = np.empty((height, width, 3), dtype=np.uint8)
+    font = ImageFont.load_default()
 
     intermediate = staged.with_name("frames.mp4") if gif else staged
     with (
@@ -341,7 +344,7 @@ def _render_animation(
             renderer.update_scene(data, camera)
             if gif:
                 renderer.scene.flags[mujoco.mjtRndFlag.mjRND_REFLECTION] = False
-            picture = Image.fromarray(renderer.render())
+            picture = Image.fromarray(renderer.render(out=rgb))
             overlay = ImageDraw.Draw(picture)
             overlay.rectangle((0, 0, width, 31), fill=(8, 18, 29))
             label = (
@@ -350,7 +353,7 @@ def _render_animation(
                 else f"G1  |  iteration {contract['checkpoint_iteration']}  |  "
                 f"t = {index * dt:.2f} s  |  saved trajectory"
             )
-            overlay.text((12, 10), label, fill="white")
+            overlay.text((12, 10), label, fill="white", font=font)
             if index == indices.start:
                 picture.save(poster)
             stream.write(picture.tobytes())
