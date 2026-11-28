@@ -5425,6 +5425,265 @@
             }
           }
         },
+        "single_actor_follow_up": {
+          "final_epoch_parameter_weight": 0.96,
+          "checkpoint_sha256": "1c44e03e7aedd66827a3ed738e18254f3e90c0068d5f7dcb29dc302d6a5ec047",
+          "nominal": {
+            "steps": 13065,
+            "completed_motion": true,
+            "failure": null,
+            "xy_rmse_m": 0.21292735794718431,
+            "xy_peak_m": 0.5933551132319805,
+            "joint_rmse_rad": 0.29167259128260015,
+            "return": 0.8249467400084772,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "6ba56e501411ce3f846452c1d1cd4cf990bad663e10a5a8c3d612a4d20338a89",
+            "checkpoint_sha256": "1c44e03e7aedd66827a3ed738e18254f3e90c0068d5f7dcb29dc302d6a5ec047",
+            "result_sha256": "e683e88342da1b769c2487987d3b45314fe7fc826d16ca4578b2a212f28251be"
+          },
+          "mirrored": {
+            "steps": 13065,
+            "completed_motion": true,
+            "failure": null,
+            "xy_rmse_m": 0.7351589934968044,
+            "xy_peak_m": 2.81838055240789,
+            "joint_rmse_rad": 0.3144083784826027,
+            "return": 0.7227081071358734,
+            "nonfoot_ground_force_substeps": 0,
+            "trajectory_sha256": "2a721a0bf174a03b268b16d5bc748342629fc5f95c32a2c44eb0a174c6f9dafb",
+            "checkpoint_sha256": "1c44e03e7aedd66827a3ed738e18254f3e90c0068d5f7dcb29dc302d6a5ec047",
+            "result_sha256": "806d49bf3eed1dd5f841f7e17d626e515d1d778c7cc899c8a59f4680313de86b"
+          },
+          "same_reference_summary": {
+            "reference": {
+              "placement": {
+                "cases": 7,
+                "current_completions": 7,
+                "candidate_completions": 7,
+                "current_xy_median": 0.21286912855642962,
+                "candidate_xy_median": 0.23181699077200643,
+                "failure_cases": [
+                  "translated",
+                  "yaw-90-translated",
+                  "yaw-minus-37-translated",
+                  "extra-yaw-+51",
+                  "extra-yaw--154"
+                ]
+              },
+              "tempo": {
+                "cases": 8,
+                "current_completions": 8,
+                "candidate_completions": 8,
+                "current_xy_median": 0.24328254005266964,
+                "candidate_xy_median": 0.2391898877454285,
+                "failure_cases": []
+              },
+              "clips": {
+                "cases": 6,
+                "current_completions": 6,
+                "candidate_completions": 6,
+                "current_xy_median": 0.16960512579988396,
+                "candidate_xy_median": 0.17649451413520284,
+                "failure_cases": [
+                  "start-228.4-248.4"
+                ]
+              }
+            },
+            "compound": {
+              "compound": {
+                "cases": 12,
+                "current_completions": 12,
+                "candidate_completions": 12,
+                "current_xy_median": 0.15455655670912252,
+                "candidate_xy_median": 0.17381085452626527,
+                "failure_cases": [
+                  "compound-01",
+                  "compound-06",
+                  "compound-09"
+                ]
+              }
+            }
+          },
+          "independent_on_original_orientation": {
+            "walk1_subject2": {
+              "motion_sha256": "1cb02237c8fd9ac761368a34710455df89d2811181375897db7badf72dd1b76f",
+              "requested_steps": 13065,
+              "previous": {
+                "steps": 13065,
+                "completed_motion": true,
+                "failure": null,
+                "xy_rmse_m": 1.2107639965927641,
+                "xy_peak_m": 4.3607735707373285,
+                "joint_rmse_rad": 0.25620325959713414,
+                "return": 0.6315561661170992,
+                "nonfoot_ground_force_substeps": 0,
+                "trajectory_sha256": "092bd3f8b47526191bab0d635a77cec1a71106509690399c255b48ab5beb8a08",
+                "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+                "result_sha256": "9a527c7e3d4a0998d6c75ef490b2da26791df0db3e61f2654f4a48eeb0e30852"
+              },
+              "candidate": {
+                "steps": 13065,
+                "completed_motion": true,
+                "failure": null,
+                "xy_rmse_m": 1.1987556545942204,
+                "xy_peak_m": 4.398798999237469,
+                "joint_rmse_rad": 0.2568982948200308,
+                "return": 0.6306275226264177,
+                "nonfoot_ground_force_substeps": 0,
+                "trajectory_sha256": "1eb89e59ab97aa72a4b8091680720fb7abee7965be354659ac21ba6d4adc973c",
+                "checkpoint_sha256": "1c44e03e7aedd66827a3ed738e18254f3e90c0068d5f7dcb29dc302d6a5ec047",
+                "result_sha256": "645c434b88ae64ce8588f8e10e1d6b92277b42a25ee183d6c5d9cf6bb7663e50"
+              }
+            },
+            "walk2_subject3": {
+              "motion_sha256": "9c577faed339db0f942356570374f77aa9c5a2bb953c2276c6895f4934879e88",
+              "requested_steps": 11908,
+              "previous": {
+                "steps": 2431,
+                "completed_motion": false,
+                "failure": "root_height",
+                "xy_rmse_m": 0.3907527689459909,
+                "xy_peak_m": 0.746062607768833,
+                "joint_rmse_rad": 0.2796148490791737,
+                "return": 0.1531908645860533,
+                "nonfoot_ground_force_substeps": 1,
+                "trajectory_sha256": "26c34a782e65ff67054fadd6931d097bfd8d30f7df68945c4e8be1adb02057f9",
+                "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+                "result_sha256": "0c7034259b8a01833ec5b97864d30e18d0d4d43df2b903f0fedf9b69c7cbd491"
+              },
+              "candidate": {
+                "steps": 2450,
+                "completed_motion": false,
+                "failure": "root_height",
+                "xy_rmse_m": 0.3866835068029193,
+                "xy_peak_m": 0.7847496548298716,
+                "joint_rmse_rad": 0.2820682207965652,
+                "return": 0.15375749523062254,
+                "nonfoot_ground_force_substeps": 0,
+                "trajectory_sha256": "e7e978cd4d54fb9334caf5ac1c6d9fbd705d85c05672690f864b9aebc58785b1",
+                "checkpoint_sha256": "1c44e03e7aedd66827a3ed738e18254f3e90c0068d5f7dcb29dc302d6a5ec047",
+                "result_sha256": "4dc6c52b4f6c0e24c5c86380c4a014fe405e30e751268fe1d85525d44e29934e"
+              }
+            },
+            "walk3_subject4": {
+              "motion_sha256": "66869901e9b5a0515ad3637401c9fbc98ae99b6f7667ddbe178a2b2c8f6432dc",
+              "requested_steps": 12330,
+              "previous": {
+                "steps": 4915,
+                "completed_motion": false,
+                "failure": "root_tilt",
+                "xy_rmse_m": 0.6207787934483149,
+                "xy_peak_m": 2.7557159170456376,
+                "joint_rmse_rad": 0.24044243886844474,
+                "return": 0.2837027274585795,
+                "nonfoot_ground_force_substeps": 11,
+                "trajectory_sha256": "51d0aac181e1259b05179f128aa1d3a2b3182640916e9b4027c3be69eb261230",
+                "checkpoint_sha256": "75e295eb981d6fd489de614e688ae1c5d726c5c26795195d9e4759f6437ea243",
+                "result_sha256": "3bccd32df838fd3fdfa50b2734bb9a4ddcd4a0721e2cf334413f093be6b71c13"
+              },
+              "candidate": {
+                "steps": 9742,
+                "completed_motion": false,
+                "failure": "root_height",
+                "xy_rmse_m": 0.744507718652976,
+                "xy_peak_m": 2.9340332354550624,
+                "joint_rmse_rad": 0.2591883168263459,
+                "return": 0.5620381406720634,
+                "nonfoot_ground_force_substeps": 0,
+                "trajectory_sha256": "f3f4b1d0f5d087d8be6a9f53e37c2fbf8108d10144dc2f51bf07794faae89029",
+                "checkpoint_sha256": "1c44e03e7aedd66827a3ed738e18254f3e90c0068d5f7dcb29dc302d6a5ec047",
+                "result_sha256": "8bc64c8ced3f78f43b10de38381f13d38e984f04a97f16a4e6d7bc1a86eba413"
+              }
+            }
+          },
+          "mirrored_variants": {
+            "tempo-0.97": {
+              "requested_steps": 13469,
+              "motion_sha256": "0087ea944910cd710d1c1392a75b2c6bde23b66d73d507f63cb4f9470b4eebc1",
+              "metrics": {
+                "steps": 13469,
+                "completed_motion": true,
+                "failure": null,
+                "xy_rmse_m": 0.7625287792457328,
+                "xy_peak_m": 3.0808099589469227,
+                "joint_rmse_rad": 0.31493579048852344,
+                "return": 0.7261755500270631,
+                "nonfoot_ground_force_substeps": 0,
+                "trajectory_sha256": "6ecb6cbe78bf8c1cefb1aed9893f9a87f8d1539049c6484bc0a8e269fb75ac2a",
+                "checkpoint_sha256": "1c44e03e7aedd66827a3ed738e18254f3e90c0068d5f7dcb29dc302d6a5ec047",
+                "result_sha256": "b3f6600cb7fe0dd9e35efc4b4e12a4dbaabecb0d0cc0f9c21790a6ab0d3be58c"
+              }
+            },
+            "tempo-1.03": {
+              "requested_steps": 12684,
+              "motion_sha256": "d53f326764bd3de7616fafdf2518ebba3bb59e92869775b308ef51be54836cad",
+              "metrics": {
+                "steps": 12684,
+                "completed_motion": true,
+                "failure": null,
+                "xy_rmse_m": 0.790708077287581,
+                "xy_peak_m": 3.1817121530676418,
+                "joint_rmse_rad": 0.313343277458858,
+                "return": 0.7188587123307847,
+                "nonfoot_ground_force_substeps": 0,
+                "trajectory_sha256": "3cb6ff9beb56be684bf08fcdf3f16ce1141d25040cc4618e604a4e2fe60661ae",
+                "checkpoint_sha256": "1c44e03e7aedd66827a3ed738e18254f3e90c0068d5f7dcb29dc302d6a5ec047",
+                "result_sha256": "83ed945135fb2980cddcf3d411930a41d43eeda30b61126991eb7928b606b2ae"
+              }
+            },
+            "extra-yaw-+51": {
+              "requested_steps": 13065,
+              "motion_sha256": "5f50d1128543e9a6b1fb333910f1abd93f202889936ab26389cc2dfa75724a8e",
+              "metrics": {
+                "steps": 13065,
+                "completed_motion": true,
+                "failure": null,
+                "xy_rmse_m": 0.7397173221076516,
+                "xy_peak_m": 2.9775534179534975,
+                "joint_rmse_rad": 0.3142484957157244,
+                "return": 0.722718230504621,
+                "nonfoot_ground_force_substeps": 0,
+                "trajectory_sha256": "0adee0d51c46c204aba355bbb269e6c6ea22d29c853119b2ea56174a4c769f8f",
+                "checkpoint_sha256": "1c44e03e7aedd66827a3ed738e18254f3e90c0068d5f7dcb29dc302d6a5ec047",
+                "result_sha256": "17bcb1ee7dac8ce7613ea31654542253bc4ebd885ec66d69e066ea01e0f5e3cf"
+              }
+            },
+            "extra-yaw--154": {
+              "requested_steps": 13065,
+              "motion_sha256": "9eeb2c47decc048237cb3da1e0def5b5b8f27bd1057ef48edb6071fed33c3d45",
+              "metrics": {
+                "steps": 13065,
+                "completed_motion": true,
+                "failure": null,
+                "xy_rmse_m": 0.7117860791212947,
+                "xy_peak_m": 3.0317432881967568,
+                "joint_rmse_rad": 0.3143432169174003,
+                "return": 0.7251250992960004,
+                "nonfoot_ground_force_substeps": 0,
+                "trajectory_sha256": "bd19f58a4a85999ec9923212155a3f92d4495009eb955ae6f90aa48f8556dc07",
+                "checkpoint_sha256": "1c44e03e7aedd66827a3ed738e18254f3e90c0068d5f7dcb29dc302d6a5ec047",
+                "result_sha256": "3c4b1d5f95badb4505552deeaef09b9fd451e1a40d3318cfac94384c64b4e9b0"
+              }
+            },
+            "walk1_subject2": {
+              "requested_steps": 13065,
+              "motion_sha256": "30c089dcdbbe4e405bb30000f99851dae510e4a736d3e1bbaed14c34797af0f2",
+              "metrics": {
+                "steps": 8688,
+                "completed_motion": false,
+                "failure": "root_tilt",
+                "xy_rmse_m": 1.0199436775344433,
+                "xy_peak_m": 3.052016812776064,
+                "joint_rmse_rad": 0.24870176514994863,
+                "return": 0.42135218938921676,
+                "nonfoot_ground_force_substeps": 0,
+                "trajectory_sha256": "c3eeab12fac21e6bca39783ec2d8d4f6202a248f29695d83646028110d4db936",
+                "checkpoint_sha256": "1c44e03e7aedd66827a3ed738e18254f3e90c0068d5f7dcb29dc302d6a5ec047",
+                "result_sha256": "9ddcb98d80f8694203c94b6aa1c570d1a6a6a357291e43e7d59b8137023d2739"
+              }
+            }
+          }
+        },
         "explicit_policy_input_transform": {
           "scope": "the reflected policy is explicitly selected for a known mirrored reference",
           "build": {

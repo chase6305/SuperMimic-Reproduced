@@ -112,9 +112,11 @@
       "sampled_process_tree_peak_rss_bytes": 768401408
     },
     "installed_wheel_walk_reproduction": {
-      "revision": "58732b2c5b780feece0830c107821141e7dc3b1f",
+      "mp4_sha256": "072da608bee57136e39996ff2de61689e706f6fc4793872b2fd58a4693928eca",
+      "mp4_byte_identical": true,
+      "revision": "363de712e3e61ff97bb4624d91bb6e6a06a1cd63",
       "wheel": "supermimic-0.1.0-py3-none-any.whl",
-      "wheel_sha256": "308988c65e5437e5decdebaaf2733113e85335fb87746936350041d2492471b3",
+      "wheel_sha256": "9c6a2416aea86c5e1879617583f1116644750e1c9cb307f2b033beb9f9cda156",
       "trajectory_sha256": "03c8f3b484c37a7907b7eba075955041fcc06a6715cd73521c873ebb25394848",
       "quality_code_sha256": "221becb39dc50f05b5df8be30a6b71ca2c2abd10dd1bddb0f57b5493e0cad58c",
       "gif_sha256": "65141c97038acf4eafb91c5a55cf508c8b9e2e3a02a40d015b71389cce773e32",
@@ -131,6 +133,22 @@
         "contacts"
       ],
       "gif_byte_identical": true
+    },
+    "installed_wheel_maximum_gif": {
+      "video_sha256": "7ffd9243c5399bbc0fb37a7a2a043a2b145430e83b1856a0ef1cc332473fd5a1",
+      "trajectory_sha256": "03c8f3b484c37a7907b7eba075955041fcc06a6715cd73521c873ebb25394848",
+      "frames": 3000,
+      "fps": 50,
+      "width": 640,
+      "height": 480,
+      "duration_s": 60.0,
+      "source_start_seconds": 95.0,
+      "source_end_seconds": 154.98,
+      "first_source_frame": 4750,
+      "elapsed_s": 252.20623187802266,
+      "sampled_peak_process_tree_rss_bytes": 457949184,
+      "decoded_delay_ms": 20,
+      "exact_to_prior_render": true
     }
   }
 }
