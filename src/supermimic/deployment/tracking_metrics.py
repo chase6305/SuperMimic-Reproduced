@@ -9,7 +9,6 @@ import torch
 
 from supermimic.data.motion_convert import load_g1_model
 from supermimic.deployment.reference import heading_error
-from supermimic.envs.mdp.rewards import reanchor_reference
 from supermimic.eval.quality import motion_quality, worst_window_rmse
 from supermimic.interfaces import ANCHOR_BODY, ROOT_BODY, TRACKED_BODIES
 from supermimic.kinematics.g1_fk import G1Kinematics
@@ -69,19 +68,9 @@ def tracking_metrics(
             torch.tensor(reference["body_quat_w"][indices, root_index], dtype=torch.float32),
         )
         bodies = heads.robot_bodies(current)
-        terms = heads.reward(current, action, previous, ref, bodies)
-        ai = heads.anchor_index
-        relative, _ = reanchor_reference(
-            ref.body_pos_w,
-            ref.body_quat_w,
-            ref.body_pos_w[:, ai],
-            ref.body_quat_w[:, ai],
-            bodies["pos"][:, ai],
-            bodies["quat"][:, ai],
-        )
-        per_body = (relative - bodies["pos"]).square().sum(-1)
+        per_body = torch.from_numpy(body_errors[begin:end])
+        terms = heads.reward(current, action, previous, ref, bodies, body_position_error_out=per_body)
         body_sq += float(per_body.sum())
-        body_errors[begin:end] = per_body.numpy()
         for key, values in terms.items():
             totals[key] = totals.get(key, 0.0) + float(values.sum())
         xy = np.linalg.norm(
